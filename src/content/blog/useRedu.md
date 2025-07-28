@@ -1,10 +1,9 @@
 ---
-title: 'Master Class: Context API'
+title: 'Jerp Master Class: Context API'
 description: 'aster Class: Context API en React Native para Datos de Usuario'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
-
 # 🚀 Master Class: Context API en React Native para Datos de Usuario
 
 ## 📁 Estructura de Archivos Recomendada
@@ -111,10 +110,10 @@ export const UserProvider = ({ children }) => {
   const loadUserFromStorage = async () => {
     try {
       dispatch({ type: USER_ACTIONS.SET_LOADING, payload: true });
-    
+  
       const userData = await AsyncStorage.getItem('user');
       const token = await AsyncStorage.getItem('token');
-    
+  
       if (userData && token) {
         const user = JSON.parse(userData);
         dispatch({ type: USER_ACTIONS.SET_USER, payload: user });
@@ -133,10 +132,10 @@ export const UserProvider = ({ children }) => {
       // Guardar en AsyncStorage
       await AsyncStorage.setItem('user', JSON.stringify(userData));
       await AsyncStorage.setItem('token', token);
-    
+  
       // Actualizar estado
       dispatch({ type: USER_ACTIONS.SET_USER, payload: userData });
-    
+  
       return { success: true };
     } catch (error) {
       dispatch({ type: USER_ACTIONS.SET_ERROR, payload: error.message });
@@ -149,10 +148,10 @@ export const UserProvider = ({ children }) => {
     try {
       // Limpiar AsyncStorage
       await AsyncStorage.multiRemove(['user', 'token']);
-    
+  
       // Limpiar estado
       dispatch({ type: USER_ACTIONS.CLEAR_USER });
-    
+  
       return { success: true };
     } catch (error) {
       dispatch({ type: USER_ACTIONS.SET_ERROR, payload: error.message });
@@ -164,13 +163,13 @@ export const UserProvider = ({ children }) => {
   const updateUser = async (updates) => {
     try {
       const updatedUser = { ...state.user, ...updates };
-    
+  
       // Actualizar AsyncStorage
       await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
-    
+  
       // Actualizar estado
       dispatch({ type: USER_ACTIONS.UPDATE_USER, payload: updates });
-    
+  
       return { success: true };
     } catch (error) {
       dispatch({ type: USER_ACTIONS.SET_ERROR, payload: error.message });
@@ -413,11 +412,11 @@ export const LoginScreen = ({ navigation }) => {
     try {
       // Llamar al servicio de autenticación
       const result = await AuthService.login(email, password);
-    
+  
       if (result.success) {
         // Usar el contexto para guardar los datos
         const loginResult = await login(result.user, result.token);
-      
+    
         if (loginResult.success) {
           // La navegación se manejará automáticamente por el cambio de estado
           console.log('Login exitoso');
@@ -442,7 +441,7 @@ export const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Iniciar Sesión</Text>
-    
+  
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -451,7 +450,7 @@ export const LoginScreen = ({ navigation }) => {
         keyboardType="email-address"
         autoCapitalize="none"
       />
-    
+  
       <TextInput
         style={styles.input}
         placeholder="Contraseña"
@@ -459,7 +458,7 @@ export const LoginScreen = ({ navigation }) => {
         onChangeText={setPassword}
         secureTextEntry
       />
-    
+  
       <TouchableOpacity
         style={styles.button}
         onPress={handleLogin}
@@ -546,10 +545,10 @@ export const HomeScreen = ({ navigation }) => {
       <View style={styles.userInfo}>
         <Text style={styles.label}>Email:</Text>
         <Text style={styles.value}>{user?.email}</Text>
-      
+    
         <Text style={styles.label}>ID:</Text>
         <Text style={styles.value}>{user?.id}</Text>
-      
+    
         {user?.employee_id && (
           <>
             <Text style={styles.label}>Employee ID:</Text>
@@ -659,10 +658,10 @@ export const ProfileScreen = () => {
     try {
       const token = await getToken();
       const updates = { name, phone };
-    
+  
       // Llamar al API
       const result = await AuthService.updateProfile(token, updates);
-    
+  
       if (result.success) {
         // Actualizar el contexto
         await updateUser(result.user);
@@ -680,7 +679,7 @@ export const ProfileScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Mi Perfil</Text>
-    
+  
       <View style={styles.form}>
         <Text style={styles.label}>Nombre</Text>
         <TextInput
@@ -689,7 +688,7 @@ export const ProfileScreen = () => {
           onChangeText={setName}
           placeholder="Tu nombre"
         />
-      
+    
         <Text style={styles.label}>Teléfono</Text>
         <TextInput
           style={styles.input}
@@ -698,14 +697,14 @@ export const ProfileScreen = () => {
           placeholder="Tu teléfono"
           keyboardType="phone-pad"
         />
-      
+    
         <Text style={styles.label}>Email</Text>
         <TextInput
           style={[styles.input, styles.disabled]}
           value={user?.email}
           editable={false}
         />
-      
+    
         <TouchableOpacity
           style={styles.button}
           onPress={handleUpdate}
@@ -914,7 +913,7 @@ export class TokenService {
   static async refreshToken() {
     try {
       const refreshToken = await AsyncStorage.getItem('refreshToken');
-    
+  
       const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
         method: 'POST',
         headers: {
@@ -929,7 +928,7 @@ export class TokenService {
         await AsyncStorage.setItem('token', data.token);
         return data.token;
       }
-    
+  
       throw new Error('Token refresh failed');
     } catch (error) {
       await AsyncStorage.multiRemove(['token', 'refreshToken', 'user']);
