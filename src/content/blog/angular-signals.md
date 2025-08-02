@@ -1,6 +1,6 @@
 ---
 title: 'Angular 19 con Signals'
-code:"Angular"
+code: 'angular'
 description: 'Guía Completa de Angular 19 con Signals: Reactividad Moderna'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -1,10 +1,10 @@
 ---
 title: 'Laravel Cache'
+code: 'laravel'
 description: 'Masterclass Laravel Cache - De Básico a Experto en Optimización'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
-
 # 🚀 Masterclass Laravel Cache - De Básico a Experto en Optimización
 
 ## 🎯 **¿Qué es Cache y Por Qué es Crucial?**
@@ -220,10 +220,10 @@ class UserService {
     public function updateProfile($userId, $data) {
         $user = User::find($userId);
         $user->update($data);
-      
+    
         // Invalidar cache
         Cache::forget("user.profile.{$userId}");
-      
+    
         return $user;
     }
 }
@@ -316,7 +316,7 @@ class ProductService {
   
     public function invalidateProductCache($productId) {
         $product = Product::find($productId);
-      
+    
         // Invalidar caches relacionados
         Cache::tags(['products'])->flush();
         Cache::tags(["category.{$product->category_id}"])->flush();
@@ -357,11 +357,11 @@ class ArticleService {
     public function publishArticle($id) {
         $article = Article::find($id);
         $article->publish();
-      
+    
         // Solo invalidar lo necesario
         Cache::tags(["article.{$id}"])->flush();
         Cache::tags(['published'])->flush();
-      
+    
         foreach($article->tags as $tag) {
             Cache::tags(["tag.{$tag->name}"])->flush();
         }
@@ -383,16 +383,16 @@ class MultilevelCacheService {
         if (isset($this->memoryCache[$key])) {
             return $this->memoryCache[$key];
         }
-      
+    
         // L2 Check (Redis)
         $value = Cache::get($key);
-      
+    
         if ($value !== null) {
             // Store in L1 for next access
             $this->memoryCache[$key] = $value;
             return $value;
         }
-      
+    
         return null;
     }
   
@@ -415,11 +415,11 @@ class CacheWarmupService {
         dispatch(new WarmupJob('dashboard.users', function() {
             return User::count();
         }));
-      
+    
         dispatch(new WarmupJob('dashboard.sales', function() {
             return Order::whereDate('created_at', today())->sum('total');
         }));
-      
+    
         dispatch(new WarmupJob('products.featured', function() {
             return Product::featured()->with('images')->get();
         }));
@@ -472,21 +472,21 @@ class CachedUserRepository {
     public function update($id, $data) {
         $user = User::find($id);
         $oldEmail = $user->email;
-      
+    
         $user->update($data);
-      
+    
         // Invalidar caches relacionados
         Cache::forget("user.{$id}");
         Cache::forget('user.email.' . md5($oldEmail));
-      
+    
         if (isset($data['email'])) {
             Cache::forget('user.email.' . md5($data['email']));
         }
-      
+    
         if (isset($data['active'])) {
             Cache::forget('users.active');
         }
-      
+    
         return $user;
     }
 }
@@ -500,18 +500,18 @@ class CachedUserRepository {
 class ReportService {
     public function getSalesReport($filters) {
         $cacheKey = 'sales.report.' . md5(serialize($filters));
-      
+    
         return Cache::remember($cacheKey, 3600, function() use ($filters) {
             $query = Order::query();
-          
+        
             if (isset($filters['date_from'])) {
                 $query->whereDate('created_at', '>=', $filters['date_from']);
             }
-          
+        
             if (isset($filters['date_to'])) {
                 $query->whereDate('created_at', '<=', $filters['date_to']);
             }
-          
+        
             return $query->selectRaw('
                 DATE(created_at) as date,
                 COUNT(*) as order_count,
@@ -536,13 +536,13 @@ class ProductController {
         $page = $request->get('page', 1);
         $perPage = 20;
         $cacheKey = "products.page.{$page}.per.{$perPage}";
-      
+    
         $products = Cache::remember($cacheKey, 1800, function() use ($page, $perPage) {
             return Product::with(['images', 'category'])
                 ->active()
                 ->paginate($perPage, ['*'], 'page', $page);
         });
-      
+    
         return view('products.index', compact('products'));
     }
 }
@@ -605,7 +605,7 @@ class PopularProductsComponent extends Component {
                 ->take(8)
                 ->get();
         });
-      
+    
         return view('components.popular-products', compact('products'));
     }
 }
@@ -670,26 +670,26 @@ php artisan optimize:clear
 class UserServiceTest extends TestCase {
     public function test_user_profile_is_cached() {
         $user = User::factory()->create();
-      
+    
         // Mock cache
         Cache::shouldReceive('remember')
             ->once()
             ->with("user.profile.{$user->id}", 3600, Closure::class)
             ->andReturn($user);
-      
+    
         $service = new UserService();
         $result = $service->getProfile($user->id);
-      
+    
         $this->assertEquals($user->id, $result->id);
     }
   
     public function test_cache_invalidation_on_update() {
         $user = User::factory()->create();
-      
+    
         Cache::shouldReceive('forget')
             ->once()
             ->with("user.profile.{$user->id}");
-      
+    
         $service = new UserService();
         $service->updateProfile($user->id, ['name' => 'New Name']);
     }
@@ -706,19 +706,19 @@ class CacheIntegrationTest extends TestCase {
   
     public function test_expensive_query_is_cached() {
         User::factory()->count(1000)->create();
-      
+    
         // Primera llamada - debe ser lenta
         $start = microtime(true);
         $users = Cache::remember('expensive.users', 3600, function() {
             return User::with('posts', 'comments')->get();
         });
         $firstCallTime = microtime(true) - $start;
-      
+    
         // Segunda llamada - debe ser rápida (desde cache)
         $start = microtime(true);
         $cachedUsers = Cache::get('expensive.users');
         $secondCallTime = microtime(true) - $start;
-      
+    
         $this->assertLessThan($firstCallTime / 10, $secondCallTime);
         $this->assertEquals($users->count(), $cachedUsers->count());
     }
@@ -742,10 +742,10 @@ class CacheMetrics {
             'timestamp' => now(),
             'memory_usage' => memory_get_usage(true),
         ];
-      
+    
         // Log para análisis
         Log::channel('cache')->info('Cache access', $metrics);
-      
+    
         // Métricas en tiempo real
         if ($hit) {
             Redis::incr('cache:hits:' . date('Y-m-d'));
@@ -759,17 +759,17 @@ class CacheMetrics {
 class CacheMetricsMiddleware {
     public function handle($request, Closure $next) {
         $start = microtime(true);
-      
+    
         $response = $next($request);
-      
+    
         $cacheStats = [
             'route' => $request->route()->getName(),
             'cache_time' => (microtime(true) - $start) * 1000,
             'cache_hit_ratio' => $this->getCacheHitRatio(),
         ];
-      
+    
         Log::channel('performance')->info('Request cache stats', $cacheStats);
-      
+    
         return $response;
     }
 }
@@ -785,7 +785,7 @@ class CacheStatusCommand extends Command {
   
     public function handle() {
         $stores = config('cache.stores');
-      
+    
         foreach ($stores as $name => $config) {
             $this->checkStore($name, $config);
         }
@@ -794,19 +794,19 @@ class CacheStatusCommand extends Command {
     private function checkStore($name, $config) {
         try {
             $store = Cache::store($name);
-          
+        
             // Test write
             $testKey = 'health_check_' . time();
             $store->put($testKey, 'test', 60);
-          
+        
             // Test read
             $value = $store->get($testKey);
-          
+        
             // Cleanup
             $store->forget($testKey);
-          
+        
             $this->info("✅ {$name}: OK");
-          
+        
         } catch (Exception $e) {
             $this->error("❌ {$name}: {$e->getMessage()}");
         }
@@ -832,18 +832,18 @@ class UserUpdated {
 class InvalidateUserCache {
     public function handle(UserUpdated $event) {
         $user = $event->user;
-      
+    
         // Invalidar caches específicos
         $keysToInvalidate = [
             "user.{$user->id}",
             "user.profile.{$user->id}",
             "user.permissions.{$user->id}",
         ];
-      
+    
         foreach ($keysToInvalidate as $key) {
             Cache::forget($key);
         }
-      
+    
         // Invalidar por tags si están disponibles
         if (config('cache.default') !== 'file') {
             Cache::tags(["user.{$user->id}"])->flush();
@@ -869,10 +869,10 @@ class CacheCleanupJob implements ShouldQueue {
     public function handle() {
         // Limpiar cache expirado
         $this->cleanExpiredKeys();
-      
+    
         // Limpiar cache de reportes antiguos
         $this->cleanOldReports();
-      
+    
         // Limpiar cache de sessiones inactivas
         $this->cleanInactiveSessions();
     }
@@ -880,7 +880,7 @@ class CacheCleanupJob implements ShouldQueue {
     private function cleanExpiredKeys() {
         $pattern = 'temp:*';
         $keys = Redis::keys($pattern);
-      
+    
         foreach ($keys as $key) {
             $ttl = Redis::ttl($key);
             if ($ttl < 60) { // Si expira en menos de 1 minuto
@@ -915,26 +915,26 @@ class EnterpriseMetricsService {
   
     public function getMetrics($type, $timeframe) {
         $cacheKey = "metrics.{$type}.{$timeframe}";
-      
+    
         // L1: Memory check
         if (isset(self::$memory[$cacheKey])) {
             return self::$memory[$cacheKey];
         }
-      
+    
         // L2: Redis check
         $data = Cache::get($cacheKey);
         if ($data !== null) {
             self::$memory[$cacheKey] = $data;
             return $data;
         }
-      
+    
         // L3: Calculate and store
         $data = $this->calculateMetrics($type, $timeframe);
-      
+    
         // Store in all layers
         self::$memory[$cacheKey] = $data;
         Cache::put($cacheKey, $data, $this->getTTL($type));
-      
+    
         return $data;
     }
   
@@ -962,19 +962,19 @@ class ProductCacheStrategy {
             $this->incrementHotScore($id);
             return $hotProduct;
         }
-      
+    
         // Warm cache: Productos regulares
         $product = Cache::remember("product.{$id}", 7200, function() use ($id) {
             return Product::with(['images', 'variants', 'reviews'])
                 ->find($id);
         });
-      
+    
         // Promote to hot cache if frequently accessed
         $accessCount = Redis::incr("product.access.{$id}");
         if ($accessCount > 100) { // 100 accesos
             Cache::put("hot.product.{$id}", $product, 86400); // 24h
         }
-      
+    
         return $product;
     }
   
@@ -984,7 +984,7 @@ class ProductCacheStrategy {
             'filters' => $filters,
             'page' => request('page', 1)
         ]));
-      
+    
         return Cache::remember($cacheKey, 1800, function() use ($query, $filters) {
             return $this->executeSearch($query, $filters);
         });
@@ -993,7 +993,7 @@ class ProductCacheStrategy {
     // Cache warming job
     public function warmPopularProducts() {
         $popularIds = Redis::zrevrange('popular.products', 0, 99); // Top 100
-      
+    
         foreach ($popularIds as $id) {
             Cache::remember("product.{$id}", 7200, function() use ($id) {
                 return Product::with(['images', 'variants'])->find($id);
@@ -1015,7 +1015,7 @@ class ProductCacheStrategy {
 class CompressedCache {
     public function put($key, $value, $ttl) {
         $serialized = serialize($value);
-      
+    
         // Comprimir si el dato es grande
         if (strlen($serialized) > 1024) { // 1KB threshold
             $compressed = gzcompress($serialized, 6);
@@ -1023,22 +1023,22 @@ class CompressedCache {
         } else {
             $data = ['compressed' => false, 'data' => $serialized];
         }
-      
+    
         return Cache::put($key, $data, $ttl);
     }
   
     public function get($key) {
         $cached = Cache::get($key);
-      
+    
         if (!$cached) {
             return null;
         }
-      
+    
         if ($cached['compressed']) {
             $decompressed = gzuncompress($cached['data']);
             return unserialize($decompressed);
         }
-      
+    
         return unserialize($cached['data']);
     }
 }
@@ -1059,7 +1059,7 @@ class VersionedCache {
   
     public function remember($key, $ttl, $callback) {
         $versionedKey = $this->getVersionedKey($key);
-      
+    
         return Cache::remember($versionedKey, $ttl, $callback);
     }
   
@@ -1070,13 +1070,13 @@ class VersionedCache {
     // Al hacer deploy, cambiar la versión invalida todo automáticamente
     public function bumpVersion() {
         $newVersion = (float)$this->version + 0.1;
-      
+    
         // Actualizar configuración
         file_put_contents(
             config_path('cache_version.php'),
             "<?php\nreturn '{$newVersion}';"
         );
-      
+    
         // Limpiar cache antiguo en background
         dispatch(new CleanOldCacheVersionsJob($this->version));
     }

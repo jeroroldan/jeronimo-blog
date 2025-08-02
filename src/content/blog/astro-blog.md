@@ -1,6 +1,6 @@
 ---
 title: 'Blogs Profesionales'
-code:"Astro"
+code: "Astro"
 description: 'MASTERCLASS: Blogs Profesionales en Astro para Influencers'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

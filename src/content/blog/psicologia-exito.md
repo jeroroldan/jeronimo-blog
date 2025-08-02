@@ -1,6 +1,6 @@
 ---
 title: 'La Psicología del Éxito'
-code:"superacion"
+code: 'superacion'
 description: 'Masterclass: La Psicología del Éxito'
 pubDate: 'jul 25 2025'
 heroImage: '../../assets/blog-placeholder-1.jpg'

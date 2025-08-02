@@ -1,5 +1,6 @@
 ---
 title: 'Interfaces vs Clases Abstractas en Laravel'
+code: 'laravel'
 description: 'Guía Completa: Interfaces vs Clases Abstractas en Laravel'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -118,12 +119,12 @@ abstract class NotificationService
         if (!$this->validateRecipient($recipient)) {
             throw new InvalidArgumentException('Invalid recipient');
         }
-    
+  
         $formattedMessage = $this->formatMessage($message);
         $result = $this->doSend($recipient, $formattedMessage);
-    
+  
         $this->logNotification($recipient, $message, $result);
-    
+  
         return $result;
     }
   
@@ -247,7 +248,7 @@ class PaymentServiceProvider extends ServiceProvider
     {
         $this->app->bind(PaymentGatewayInterface::class, function ($app) {
             $gateway = config('payment.default_gateway');
-        
+      
             return match($gateway) {
                 'stripe' => new StripeGateway(config('payment.stripe')),
                 'paypal' => new PayPalGateway(config('payment.paypal')),
@@ -271,13 +272,13 @@ class CheckoutController extends Controller
             'amount' => 'required|numeric|min:0.01',
             'payment_data' => 'required|array'
         ]);
-    
+  
         try {
             $result = $this->paymentGateway->charge(
                 $validated['amount'],
                 $validated['payment_data']
             );
-        
+      
             return response()->json(['success' => true, 'transaction_id' => $result->getTransactionId()]);
         } catch (PaymentException $e) {
             return response()->json(['error' => $e->getMessage()], 400);
@@ -310,11 +311,11 @@ abstract class BaseReportGenerator
     public function generateReport(): ReportResult 
     {
         $this->validateDateRange();
-    
+  
         $rawData = $this->fetchData();
         $processedData = $this->processData($rawData);
         $formattedData = $this->formatData($processedData);
-    
+  
         return $this->createReport($formattedData);
     }
   
@@ -324,7 +325,7 @@ abstract class BaseReportGenerator
         if ($this->startDate->greaterThan($this->endDate)) {
             throw new InvalidArgumentException('Start date must be before end date');
         }
-    
+  
         if ($this->startDate->diffInDays($this->endDate) > 365) {
             throw new InvalidArgumentException('Date range cannot exceed 365 days');
         }
@@ -497,22 +498,22 @@ class EloquentProductRepository implements ProductRepositoryInterface
     public function search(array $criteria): Collection 
     {
         $query = Product::query();
-    
+  
         if (isset($criteria['category'])) {
             $query->where('category_id', $criteria['category']);
         }
-    
+  
         if (isset($criteria['price_range'])) {
             $query->whereBetween('price', $criteria['price_range']);
         }
-    
+  
         if (isset($criteria['search'])) {
             $query->where(function ($q) use ($criteria) {
                 $q->where('name', 'like', "%{$criteria['search']}%")
                   ->orWhere('description', 'like', "%{$criteria['search']}%");
             });
         }
-    
+  
         return $query->get();
     }
   
@@ -574,7 +575,7 @@ class ProductService
     {
         // Lógica de negocio independiente de la implementación del repository
         $products = $this->productRepository->search($criteria);
-    
+  
         // Aplicar lógica adicional (descuentos, stock, etc.)
         return $products->map(function ($product) {
             $product->calculated_price = $this->calculateFinalPrice($product);
@@ -641,15 +642,15 @@ class VolumePricingStrategy implements PricingStrategyInterface
         if (!$customer) {
             return $product->base_price;
         }
-    
+  
         $recentOrders = $customer->orders()
             ->where('created_at', '>=', now()->subDays(30))
             ->sum('total_items');
-    
+  
         if ($recentOrders >= $this->volumeThreshold) {
             return $product->base_price * (1 - $this->discount);
         }
-    
+  
         return $product->base_price;
     }
   
@@ -676,7 +677,7 @@ class PricingEngine
     public function calculatePrice(Product $product, ?Customer $customer = null): array 
     {
         $strategy = $this->determineStrategy($customer);
-    
+  
         return [
             'final_price' => $strategy->calculatePrice($product, $customer),
             'strategy_used' => $strategy->getStrategyName(),
@@ -690,20 +691,20 @@ class PricingEngine
         if (!$customer) {
             return $this->strategies['regular'];
         }
-    
+  
         if ($customer->is_vip) {
             return $this->strategies['vip'];
         }
-    
+  
         // Verificar si califica para descuento por volumen
         $recentVolume = $customer->orders()
             ->where('created_at', '>=', now()->subDays(30))
             ->sum('total_items');
-        
+      
         if ($recentVolume >= 10) {
             return $this->strategies['volume'];
         }
-    
+  
         return $this->strategies['regular'];
     }
 }
@@ -800,16 +801,16 @@ abstract class DataImporter
     public function import(string $filePath): ImportResult 
     {
         $this->validateFile($filePath);
-    
+  
         $rawData = $this->readFile($filePath);
         $chunks = array_chunk($rawData, $this->batchSize);
-    
+  
         $successCount = 0;
         $errorCount = 0;
-    
+  
         foreach ($chunks as $chunk) {
             $validatedData = $this->validateChunk($chunk);
-        
+      
             try {
                 $this->processChunk($validatedData);
                 $successCount += count($validatedData);
@@ -818,7 +819,7 @@ abstract class DataImporter
                 $errorCount += count($validatedData);
             }
         }
-    
+  
         return new ImportResult($successCount, $errorCount, $this->errors);
     }
   
@@ -828,7 +829,7 @@ abstract class DataImporter
         if (!file_exists($filePath)) {
             throw new FileNotFoundException("File not found: {$filePath}");
         }
-    
+  
         if (!is_readable($filePath)) {
             throw new InvalidArgumentException("File is not readable: {$filePath}");
         }
@@ -848,11 +849,11 @@ class CsvCustomerImporter extends DataImporter
         $data = [];
         $file = fopen($filePath, 'r');
         $headers = fgetcsv($file);
-    
+  
         while (($row = fgetcsv($file)) !== false) {
             $data[] = array_combine($headers, $row);
         }
-    
+  
         fclose($file);
         return $data;
     }
@@ -1044,7 +1045,7 @@ class GmailService implements EmailServiceInterface {
         if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidArgumentException('Invalid email');
         }
-    
+  
         // Lógica específica de Gmail
         return $this->gmailApi->send($to, $subject, $body);
     }
@@ -1056,7 +1057,7 @@ class SendGridService implements EmailServiceInterface {
         if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidArgumentException('Invalid email');
         }
-    
+  
         // Lógica específica de SendGrid
         return $this->sendGridApi->send($to, $subject, $body);
     }
@@ -1071,7 +1072,7 @@ abstract class BaseEmailService implements EmailServiceInterface {
     public function send(string $to, string $subject, string $body): bool {
         $this->validateEmail($to);
         $this->validateSubject($subject);
-    
+  
         return $this->doSend($to, $subject, $body);
     }
   
@@ -1119,10 +1120,10 @@ class OrderServiceTest extends TestCase {
             ->once()
             ->with(100.00, Mockery::any())
             ->andReturn(new PaymentResult(true, 'tx123'));
-    
+  
         $orderService = new OrderService($paymentGateway);
         $result = $orderService->processOrder($this->createOrder(100.00));
-    
+  
         $this->assertTrue($result->isSuccessful());
     }
   
@@ -1131,9 +1132,9 @@ class OrderServiceTest extends TestCase {
         $paymentGateway = Mockery::mock(PaymentGatewayInterface::class);
         $paymentGateway->shouldReceive('charge')
             ->andThrow(new PaymentException('Insufficient funds'));
-    
+  
         $orderService = new OrderService($paymentGateway);
-    
+  
         $this->expectException(PaymentException::class);
         $orderService->processOrder($this->createOrder(100.00));
     }

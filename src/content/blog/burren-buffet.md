@@ -1,6 +1,6 @@
 ---
 title: 'Warren Buffett'
-code:"trading"
+code: 'trading'
 description: 'Warren Buffett: La Guía Definitiva de Consejos y Enseñanzas'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

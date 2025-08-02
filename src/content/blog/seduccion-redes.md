@@ -1,10 +1,10 @@
 ---
 title: 'Conexiones Auténticas'
+code: 'seduccion'
 description: 'Establecer Conexiones Auténticas en el Entorno Digital'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
-
 # Guía para Establecer Conexiones Auténticas en el Entorno Digital
 
 ## Introducción

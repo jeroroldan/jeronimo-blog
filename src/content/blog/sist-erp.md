@@ -1,5 +1,6 @@
 ---
 title: 'Desarrollo ERP'
+code: 'sisteme erp'
 description: 'Guía Completa de Desarrollo ERP: Arquitectura, Frontend, Backend y Despliegue'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

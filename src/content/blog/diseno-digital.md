@@ -1,5 +1,6 @@
 ---
 title: 'Maestra de UX/UI: De Interfaces Confusas a Experiencias Extraordinarias'
+code: 'ux/ui'
 description: 'Guía Maestra de UX/UI: De Interfaces Confusas a Experiencias Extraordinarias'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -123,7 +124,7 @@ const OnboardingStep = ({ step, onNext, onSkip, isLastStep }) => {
             {step.visual}
           </div>
         )}
-    
+  
         <div className="step-text">
           <h1 className="step-title">{step.title}</h1>
           <p className="step-subtitle">{step.subtitle}</p>
@@ -180,7 +181,7 @@ const PerfectHomeScreen = ({ userIntent }) => {
           <h1 className="greeting">{greeting}, María</h1>
           <p className="date">{format(new Date(), 'EEEE, dd MMMM', { locale: es })}</p>
         </div>
-    
+  
         <div className="quick-actions">
           <button className="notification-btn" aria-label="Notificaciones">
             🔔 <span className="badge">3</span>
@@ -298,7 +299,7 @@ const MasterNavigation = () => {
           <img src="/logo.svg" alt="TaskMaster" className="nav-logo" />
           <h2>TaskMaster</h2>
         </div>
-    
+  
         <div className="nav-sections">
           <div className="nav-section">
             <h3 className="section-title">Principal</h3>
@@ -311,7 +312,7 @@ const MasterNavigation = () => {
               />
             ))}
           </div>
-      
+    
           <div className="nav-section">
             <h3 className="section-title">Productividad</h3>
             {navigationItems.slice(3).map(item => (
@@ -372,11 +373,11 @@ const SmartBreadcrumbs = ({ path }) => {
             🏠 <span className="sr-only">Inicio</span>
           </Link>
         </li>
-    
+  
         {pathSegments.map((segment, index) => {
           const isLast = index === pathSegments.length - 1;
           const path = '/' + pathSegments.slice(0, index + 1).join('/');
-      
+    
           return (
             <li key={segment} className="breadcrumb-item">
               <span className="breadcrumb-separator">›</span>
@@ -624,7 +625,7 @@ const DelightfulToggle = ({
             {checked ? '✓' : '○'}
           </span>
         </span>
-    
+  
         {/* Efecto de onda cuando se activa */}
         {isToggling && (
           <span className="toggle-wave" />
@@ -710,7 +711,7 @@ const ConversationalInput = ({
           aria-invalid={validationState === 'invalid'}
           required={required}
         />
-    
+  
         {/* Indicador de estado visual */}
         <div className="input-state-indicator">
           {validationState === 'validating' && <Spinner size="small" />}
@@ -786,7 +787,7 @@ const NaturalSlider = ({
             className="slider-track-active"
             style={{ width: `${percentage}%` }}
           />
-      
+    
           {/* Thumb del slider */}
           <div
             className={`slider-thumb ${isDragging ? 'dragging' : ''}`}
@@ -808,7 +809,7 @@ const NaturalSlider = ({
             )}
           </div>
         </div>
-    
+  
         {/* Marcas de referencia opcionales */}
         <div className="slider-marks">
           {[...Array(5)].map((_, i) => {
@@ -1539,7 +1540,7 @@ const AccessibleButton = ({
               {icon}
             </span>
           )}
-      
+    
           {loading ? (
             <span className="loading-content">
               <Spinner size="small" />
@@ -1549,7 +1550,7 @@ const AccessibleButton = ({
             <span className="button-text">{children}</span>
           )}
         </span>
-    
+  
         {/* Tooltip accesible */}
         {tooltip && showTooltip && (
           <div 
@@ -1653,7 +1654,7 @@ const AccessibleNavigation = ({ items, currentPath }) => {
       if (focusableElements) {
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
-    
+  
         if (event.shiftKey && document.activeElement === firstElement) {
           event.preventDefault();
           lastElement.focus();
@@ -1698,7 +1699,7 @@ const AccessibleNavigation = ({ items, currentPath }) => {
             <span></span>
           </span>
         </button>
-    
+  
         {/* Lista de navegación */}
         <ul 
           id="navigation-menu"

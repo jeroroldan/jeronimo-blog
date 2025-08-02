@@ -1,6 +1,6 @@
 ---
 title: 'Aprendizaje Intensivo del Inglés'
-code:"Ingles"
+code: "Ingles"
 description: 'Guía Maestra para el Aprendizaje Intensivo del Inglés'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

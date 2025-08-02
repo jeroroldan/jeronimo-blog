@@ -1,6 +1,6 @@
 ---
 title: 'Masterclass: La Visión Empresarial'
-code:"bussiness"
+code: 'bussiness'
 description: 'Desarrollando la Habilidad de Ver Negocios Donde Nadie Los Ve'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

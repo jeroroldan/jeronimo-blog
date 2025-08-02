@@ -1,5 +1,6 @@
 ---
 title: 'Docker y DevOps'
+code: 'docker'
 description: 'Guía de Docker y DevOps con Analogías Cotidianas 🐳'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -1050,7 +1051,7 @@ jobs:
     - name: Run tests
       run: |
         docker-compose -f docker-compose.test.yml up --abort-on-container-exit
-    
+  
   build-and-deploy:
     needs: test
     runs-on: ubuntu-latest

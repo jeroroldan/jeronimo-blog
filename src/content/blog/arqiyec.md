@@ -1,6 +1,6 @@
 ---
 title: 'Arquitectura Frontend Escalable'
-code:"frontend"
+code: "frontend"
 description: 'Masterclass: Arquitectura Frontend Escalable'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -814,7 +814,7 @@ function DataTable({ data, onSelectionChange, children }) {
       result.sort((a, b) => {
         const aValue = a[sortConfig.key];
         const bValue = b[sortConfig.key];
-    
+  
         if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
         if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
         return 0;
@@ -963,7 +963,7 @@ function UserTable({ users }) {
             <DataTable.Column dataKey="actions" title="Acciones" />
           </DataTable.Row>
         </DataTable.Head>
-    
+  
         <DataTable.Body>
           <DataTable.Row>
             <DataTable.Cell dataKey="name" />

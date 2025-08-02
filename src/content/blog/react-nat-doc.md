@@ -1,7 +1,6 @@
 ---
 title: 'React Native + TypeScript'
-code:"react"
-code:"React NATIVE"
+code: 'react-native'
 description: 'Guía Práctica: React Native + TypeScript + Clean Architecture'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -1,10 +1,10 @@
 ---
 title: 'Diseño de Sistemas Web'
+code: 'ux/ui'
 description: 'Master Class: Diseño de Sistemas Web - Del Concepto al Diagrama'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
-
 # Master Class: Diseño de Sistemas Web - Del Concepto al Diagrama
 
 ## Introducción

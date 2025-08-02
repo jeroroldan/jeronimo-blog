@@ -1,6 +1,6 @@
 ---
 title: 'Automatización con n8n'
-coede:"IA"
+coede: "IA"
 description: 'Masterclass: Automatización con n8n + IA para SaaS Escalables'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -326,18 +326,18 @@ class WorkflowOrchestrator {
         if (node.conditions && !this.evaluateConditions(node.conditions, currentData, nodeResults)) {
           continue;
         }
-    
+  
         // Ejecutar nodo con rate limiting
         await this.queueManager.enqueue(node.id, async () => {
           const nodeResult = await this.executeNode(node, currentData, context);
           nodeResults[node.id] = nodeResult;
-      
+    
           // Actualizar datos para el siguiente nodo
           if (node.outputMapping) {
             currentData = this.mapNodeOutput(nodeResult, currentData, node.outputMapping);
           }
         });
-    
+  
       } catch (nodeError) {
         if (node.errorHandling === 'continue') {
           console.warn(`Error en nodo ${node.id}, continuando:`, nodeError);
@@ -440,18 +440,18 @@ class AIServiceManager {
       try {
         // Verificar rate limit
         await provider.rateLimiter.checkLimit();
-    
+  
         // Verificar salud del proveedor
         if (!await provider.healthChecker.isHealthy()) {
           throw new Error(`Proveedor ${provider.name} no está saludable`);
         }
-    
+  
         const result = await provider.execute(request);
         return { ...result, attempt, provider: provider.name };
-    
+  
       } catch (error) {
         lastError = error;
-    
+  
         if (attempt < maxRetries) {
           // Backoff exponencial
           const delay = Math.pow(2, attempt) * 1000;
@@ -1076,22 +1076,22 @@ class TenantManager {
       try {
         // Personalizar workflow para el tenant
         const customizedWorkflow = await this.customizeWorkflow(workflowConfig, tenantId);
-    
+  
         // Validar configuración
         const validation = await this.validateWorkflow(customizedWorkflow);
         if (!validation.isValid) {
           throw new Error(`Workflow inválido: ${validation.errors.join(', ')}`);
         }
-    
+  
         // Deployar en n8n
         const deployedWorkflow = await this.n8nManager.deployWorkflow({
           tenantId,
           workflow: customizedWorkflow,
           environment: 'production'
         });
-    
+  
         deployedWorkflows.push(deployedWorkflow);
-    
+  
       } catch (error) {
         console.error(`Error deploying workflow ${workflowConfig.name} for tenant ${tenantId}:`, error);
         throw error;

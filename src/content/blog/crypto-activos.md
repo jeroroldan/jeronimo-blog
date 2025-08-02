@@ -1,5 +1,6 @@
 ---
 title: 'Criptomonedas y Criptoactivos'
+code: 'crypto'
 description: 'Guía Fundamental de Criptomonedas y Criptoactivos'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

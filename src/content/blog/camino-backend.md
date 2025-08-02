@@ -1,10 +1,10 @@
 ---
 title: 'Desarrollo de Backend Escalable'
 description: 'Masterclass: Desarrollo de Backend Escalable, Testeable y Mantenible'
+code: 'backend'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
-
 # Masterclass: Desarrollo de Backend Escalable, Testeable y Mantenible
 
 ## Introducción: La Casa que Construimos
@@ -34,7 +34,7 @@ class UserCreator {
         const validator = new UserValidator();
         const emailService = new EmailService();
         const userRepository = new UserRepository();
-      
+    
         validator.validate(userData);
         const user = userRepository.save(userData);
         emailService.sendWelcome(user);
@@ -226,14 +226,14 @@ describe('User API', () => {
             name: 'Juan Pérez',
             email: 'juan@email.com'
         };
-      
+    
         const response = await request(app)
             .post('/api/users')
             .send(userData)
             .expect(201);
-          
+        
         expect(response.body.name).toBe(userData.name);
-      
+    
         // Verificar que se guardó en BD
         const user = await User.findById(response.body.id);
         expect(user).toBeDefined();
@@ -289,10 +289,10 @@ class UserService:
         cached_user = self.redis.get(f"user:{user_id}")
         if cached_user:
             return json.loads(cached_user)
-      
+    
         # 2. Si no está, buscar en BD
         user = self.db.find_by_id(user_id)
-      
+    
         # 3. Guardar en cache para próxima vez
         if user:
             self.redis.setex(
@@ -300,7 +300,7 @@ class UserService:
                 3600,  # 1 hora
                 json.dumps(user)
             )
-      
+    
         return user
 ```
 
@@ -425,17 +425,17 @@ class TestingConfig(Config):
 public class UserService {
     public User createUser(UserData userData) 
             throws ValidationException, DuplicateEmailException {
-      
+    
         if (!isValidEmail(userData.getEmail())) {
             throw new ValidationException("Email format invalid");
         }
-      
+    
         if (userExists(userData.getEmail())) {
             throw new DuplicateEmailException(
                 "User with email already exists: " + userData.getEmail()
             );
         }
-      
+    
         return userRepository.save(userData);
     }
 }
@@ -464,7 +464,7 @@ logger = logging.getLogger(__name__)
 class UserService:
     def create_user(self, user_data):
         logger.info(f"Creating user with email: {user_data['email']}")
-      
+    
         try:
             user = self.user_repository.save(user_data)
             logger.info(f"User created successfully: {user.id}")
@@ -654,10 +654,10 @@ def health_check():
         # Verificar conexión a BD
         conn = psycopg2.connect(DATABASE_URL)
         conn.close()
-      
+    
         # Verificar servicios externos
         redis_status = check_redis()
-      
+    
         return jsonify({
             'status': 'healthy',
             'timestamp': datetime.utcnow().isoformat(),
@@ -745,20 +745,20 @@ class PurchaseProductUseCase:
         product = self.product_repo.find_by_id(product_id)
         if not product:
             raise ProductNotFoundError()
-      
+    
         # 2. Verificar stock
         if not product.can_be_purchased(quantity):
             raise InsufficientStockError()
-      
+    
         # 3. Procesar pago
         payment_result = self.payment_service.process(payment_info)
         if not payment_result.success:
             raise PaymentFailedError()
-      
+    
         # 4. Actualizar inventario
         new_stock = product.stock - quantity
         self.inventory_service.update_stock(product_id, new_stock)
-      
+    
         return PurchaseResult(
             product_id=product_id,
             quantity=quantity,
@@ -775,15 +775,15 @@ def purchase_product(product_id):
             payment_service=StripePaymentService(),
             inventory_service=InventoryService()
         )
-      
+    
         result = use_case.execute(
             product_id=product_id,
             quantity=request.json['quantity'],
             payment_info=request.json['payment']
         )
-      
+    
         return jsonify(result.__dict__), 200
-      
+    
     except ProductNotFoundError:
         return jsonify({'error': 'Product not found'}), 404
     except InsufficientStockError:

@@ -1,5 +1,6 @@
 ---
 title: 'Conversación Magnética con Mujeres'
+code: 'seduccion'
 description: 'Técnicas de Conversación Magnética con Mujeres 🗣️'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

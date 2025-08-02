@@ -1,6 +1,7 @@
 ---
 title: 'Modelado de Bases de Datos'
 description: 'Guía Definitiva: Modelado de Bases de Datos con Analogías de la Vida Real'
+code: 'base de datos'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---

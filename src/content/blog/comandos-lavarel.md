@@ -1,5 +1,6 @@
 ---
 title: 'Comandos Laravel'
+code: 'laravel'
 description: 'Guía Completa de Comandos Laravel'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -1,6 +1,6 @@
 ---
 title: 'Prompt Engineering para Desarrolladores'
-code:"IA"
+code: 'ia'
 description: 'Guía Maestra: Prompt Engineering para Desarrolladores'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
