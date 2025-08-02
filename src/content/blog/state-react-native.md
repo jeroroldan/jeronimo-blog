@@ -1,5 +1,6 @@
 ---
 title: 'Estado Global en React Native'
+code: 'react-native'
 description: 'Guía Completa: Estado Global en React Native'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

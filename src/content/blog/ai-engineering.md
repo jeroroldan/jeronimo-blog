@@ -1,5 +1,6 @@
 ---
 title: 'AI Engineering para Developers'
+code:"IA"
 description: 'Guía Completa de AI Engineering para Developers'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -94,40 +95,40 @@ class RAGSystem:
         """Agregar documentos al índice de búsqueda"""
         self.documents.extend(docs)
         embeddings = self.model.encode(docs)
-      
+    
         if self.index is None:
             self.index = faiss.IndexFlatIP(embeddings.shape[1])
-      
+    
         self.index.add(embeddings.astype('float32'))
   
     def search(self, query, k=3):
         """Buscar documentos relevantes"""
         query_embedding = self.model.encode([query])
         scores, indices = self.index.search(query_embedding.astype('float32'), k)
-      
+    
         return [self.documents[i] for i in indices[0]]
   
     def generate_answer(self, question):
         """Generar respuesta usando RAG"""
         relevant_docs = self.search(question)
         context = "\n".join(relevant_docs)
-      
+    
         prompt = f"""
         Basándote en el siguiente contexto, responde la pregunta:
-      
+    
         Contexto: {context}
-      
+    
         Pregunta: {question}
-      
+    
         Respuesta:
         """
-      
+    
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=200
         )
-      
+    
         return response.choices[0].message.content
 
 # Uso del sistema RAG
@@ -169,7 +170,7 @@ class CustomDataset(Dataset):
             max_length=self.max_length,
             return_tensors='pt'
         )
-      
+    
         return {
             'input_ids': encoding['input_ids'].flatten(),
             'attention_mask': encoding['attention_mask'].flatten(),
@@ -235,7 +236,7 @@ class EmbeddingManager:
         """Convertir texto a embedding"""
         if text in self.embeddings_cache:
             return self.embeddings_cache[text]
-      
+    
         embedding = self.model.encode(text)
         self.embeddings_cache[text] = embedding
         return embedding
@@ -244,22 +245,22 @@ class EmbeddingManager:
         """Encontrar textos similares"""
         query_embedding = self.encode_text(query)
         candidate_embeddings = [self.encode_text(c) for c in candidates]
-      
+    
         similarities = cosine_similarity(
             [query_embedding], 
             candidate_embeddings
         )[0]
-      
+    
         # Obtener índices ordenados por similitud
         similar_indices = np.argsort(similarities)[::-1][:top_k]
-      
+    
         results = []
         for idx in similar_indices:
             results.append({
                 'text': candidates[idx],
                 'similarity': similarities[idx]
             })
-      
+    
         return results
   
     def save_cache(self, filepath):
@@ -380,20 +381,20 @@ class AIProjectWorkflow:
     def data_exploration(self, data_source):
         """2. Explorar y entender los datos"""
         import pandas as pd
-      
+    
         self.data = pd.read_csv(data_source) if isinstance(data_source, str) else data_source
-      
+    
         exploration_report = {
             'shape': self.data.shape,
             'columns': list(self.data.columns),
             'missing_values': self.data.isnull().sum().to_dict(),
             'data_types': self.data.dtypes.to_dict()
         }
-      
+    
         print(f"Data Exploration Report for {self.project_name}:")
         for key, value in exploration_report.items():
             print(f"{key}: {value}")
-      
+    
         return self
   
     def prototype_solution(self, approach="baseline"):
@@ -404,7 +405,7 @@ class AIProjectWorkflow:
         elif approach == "ai_powered":
             # Implementar con IA
             pass
-      
+    
         self.stages.append(f"Prototype: {approach}")
         return self
   
@@ -440,31 +441,31 @@ class MLOpsManager:
             # Log parameters
             for key, value in params.items():
                 mlflow.log_param(key, value)
-          
+        
             # Log metrics
             for key, value in metrics.items():
                 mlflow.log_metric(key, value)
-          
+        
             # Log model
             mlflow.sklearn.log_model(model, "model")
-          
+        
             # Log artifacts
             if artifacts:
                 for artifact_path in artifacts:
                     mlflow.log_artifact(artifact_path)
-          
+        
             return mlflow.active_run().info.run_id
   
     def deploy_model(self, model_uri, deployment_target="staging"):
         """Desplegar modelo"""
         model_version = mlflow.register_model(model_uri, "SentimentModel")
-      
+    
         self.client.transition_model_version_stage(
             name="SentimentModel",
             version=model_version.version,
             stage=deployment_target
         )
-      
+    
         return model_version
   
     def monitor_model(self, model_name, stage="Production"):
@@ -473,14 +474,14 @@ class MLOpsManager:
             model_name, 
             stages=[stage]
         )[0]
-      
+    
         # Implementar lógica de monitoreo
         monitoring_metrics = {
             'model_version': model_version.version,
             'stage': model_version.current_stage,
             'last_updated': model_version.last_updated_timestamp
         }
-      
+    
         return monitoring_metrics
 
 # Uso del MLOps Manager
@@ -510,7 +511,7 @@ class IntelligentChatbot:
         self.conversation_history = []
         self.knowledge_base = knowledge_base or []
         self.rag_system = RAGSystem()  # Del ejemplo anterior
-      
+    
         if self.knowledge_base:
             self.rag_system.add_documents(self.knowledge_base)
   
@@ -524,36 +525,36 @@ class IntelligentChatbot:
   
     def get_context_aware_response(self, user_message: str) -> str:
         """Generar respuesta con contexto y RAG"""
-      
+    
         # 1. Buscar información relevante en la base de conocimiento
         relevant_info = ""
         if self.knowledge_base:
             relevant_docs = self.rag_system.search(user_message, k=2)
             relevant_info = "\n".join(relevant_docs)
-      
+    
         # 2. Construir prompt con contexto
         system_message = f"""
         Eres un asistente AI inteligente y útil.
-      
+    
         {f"Información relevante: {relevant_info}" if relevant_info else ""}
-      
+    
         Instrucciones:
         - Sé conversacional y amigable
         - Usa la información relevante si es aplicable
         - Si no sabes algo, admítelo
         - Mantén coherencia con la conversación anterior
         """
-      
+    
         # 3. Preparar mensajes para la API
         messages = [{"role": "system", "content": system_message}]
-      
+    
         # Agregar historial reciente (últimos 5 mensajes)
         recent_history = self.conversation_history[-5:] if len(self.conversation_history) > 5 else self.conversation_history
         for msg in recent_history:
             messages.append({"role": msg["role"], "content": msg["content"]})
-      
+    
         messages.append({"role": "user", "content": user_message})
-      
+    
         # 4. Generar respuesta
         try:
             response = self.client.chat.completions.create(
@@ -562,15 +563,15 @@ class IntelligentChatbot:
                 max_tokens=500,
                 temperature=0.7
             )
-          
+        
             assistant_response = response.choices[0].message.content
-          
+        
             # 5. Actualizar historial
             self.add_to_history("user", user_message)
             self.add_to_history("assistant", assistant_response)
-          
+        
             return assistant_response
-          
+        
         except Exception as e:
             return f"Lo siento, ocurrió un error: {str(e)}"
   
@@ -624,10 +625,10 @@ class RealTimeSentimentAnalyzer:
         self.classifier = pipeline("sentiment-analysis", 
                                  model=self.model, 
                                  tokenizer=self.tokenizer)
-      
+    
         self.connected_clients = set()
         self.processed_count = 0
-      
+    
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger(__name__)
   
@@ -636,14 +637,14 @@ class RealTimeSentimentAnalyzer:
         try:
             # Procesar con el modelo
             result = self.classifier(text)
-          
+        
             # Mapear etiquetas a nombres más amigables
             label_mapping = {
                 'LABEL_0': 'Negativo',
                 'LABEL_1': 'Neutral', 
                 'LABEL_2': 'Positivo'
             }
-          
+        
             processed_result = {
                 'text': text,
                 'sentiment': label_mapping.get(result[0]['label'], result[0]['label']),
@@ -651,10 +652,10 @@ class RealTimeSentimentAnalyzer:
                 'timestamp': datetime.now().isoformat(),
                 'processed_id': self.processed_count
             }
-          
+        
             self.processed_count += 1
             return processed_result
-          
+        
         except Exception as e:
             self.logger.error(f"Error analyzing sentiment: {e}")
             return {
@@ -667,28 +668,28 @@ class RealTimeSentimentAnalyzer:
         """Manejar conexión de cliente WebSocket"""
         self.connected_clients.add(websocket)
         self.logger.info(f"Cliente conectado. Total: {len(self.connected_clients)}")
-      
+    
         try:
             async for message in websocket:
                 data = json.loads(message)
-              
+            
                 if data.get('type') == 'analyze':
                     text = data.get('text', '')
-                  
+                
                     if text:
                         # Analizar sentimiento
                         result = self.analyze_sentiment(text)
-                      
+                    
                         # Enviar resultado de vuelta al cliente
                         await websocket.send(json.dumps({
                             'type': 'result',
                             'data': result
                         }))
-                      
+                    
                         # Broadcast a todos los clientes conectados (opcional)
                         if data.get('broadcast', False):
                             await self.broadcast_result(result)
-              
+            
         except websockets.exceptions.ConnectionClosed:
             pass
         finally:
@@ -702,7 +703,7 @@ class RealTimeSentimentAnalyzer:
                 'type': 'broadcast',
                 'data': result
             })
-          
+        
             # Enviar a todos los clientes
             disconnected = []
             for client in self.connected_clients:
@@ -710,7 +711,7 @@ class RealTimeSentimentAnalyzer:
                     await client.send(message)
                 except websockets.exceptions.ConnectionClosed:
                     disconnected.append(client)
-          
+        
             # Limpiar clientes desconectados
             for client in disconnected:
                 self.connected_clients.discard(client)
@@ -718,9 +719,9 @@ class RealTimeSentimentAnalyzer:
     def start_server(self, host="localhost", port=8765):
         """Iniciar servidor WebSocket"""
         self.logger.info(f"Iniciando servidor en ws://{host}:{port}")
-      
+    
         start_server = websockets.serve(self.handle_client, host, port)
-      
+    
         asyncio.get_event_loop().run_until_complete(start_server)
         asyncio.get_event_loop().run_forever()
 
@@ -751,35 +752,35 @@ class SentimentAnalyzerClient {
         return new Promise((resolve, reject) => {
             try {
                 this.socket = new WebSocket(this.serverUrl);
-              
+            
                 this.socket.onopen = () => {
                     this.isConnected = true;
                     console.log('Conectado al servidor de análisis de sentimientos');
                     if (this.callbacks.onConnect) this.callbacks.onConnect();
                     resolve();
                 };
-              
+            
                 this.socket.onmessage = (event) => {
                     const data = JSON.parse(event.data);
-                  
+                
                     if (data.type === 'result' && this.callbacks.onResult) {
                         this.callbacks.onResult(data.data);
                     } else if (data.type === 'broadcast' && this.callbacks.onBroadcast) {
                         this.callbacks.onBroadcast(data.data);
                     }
                 };
-              
+            
                 this.socket.onclose = () => {
                     this.isConnected = false;
                     console.log('Desconectado del servidor');
                     if (this.callbacks.onDisconnect) this.callbacks.onDisconnect();
                 };
-              
+            
                 this.socket.onerror = (error) => {
                     console.error('Error de WebSocket:', error);
                     reject(error);
                 };
-              
+            
             } catch (error) {
                 reject(error);
             }
@@ -790,13 +791,13 @@ class SentimentAnalyzerClient {
         if (!this.isConnected) {
             throw new Error('No conectado al servidor');
         }
-      
+    
         const message = {
             type: 'analyze',
             text: text,
             broadcast: broadcast
         };
-      
+    
         this.socket.send(JSON.stringify(message));
     }
   
@@ -867,9 +868,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             <p><strong>Confianza:</strong> ${(result.confidence * 100).toFixed(2)}%</p>
             <p><strong>Tiempo:</strong> ${new Date(result.timestamp).toLocaleString()}</p>
         `;
-      
+    
         results.insertBefore(resultDiv, results.firstChild);
-      
+    
         // Limitar a 10 resultados
         while (results.children.length > 10) {
             results.removeChild(results.lastChild);
@@ -1016,14 +1017,14 @@ class AIPlatformDeployer:
     def build_and_push_image(self, tag: str = "latest"):
         """Construir y subir imagen Docker"""
         client = docker.from_env()
-      
+    
         print("Construyendo imagen Docker...")
         image = client.images.build(
             path=".",
             tag=f"ai-app:{tag}",
             dockerfile="Dockerfile"
         )
-      
+    
         if self.platform == "aws":
             self._push_to_ecr(image, tag)
         elif self.platform == "gcp":
@@ -1032,27 +1033,27 @@ class AIPlatformDeployer:
     def _push_to_ecr(self, image, tag):
         """Subir imagen a Amazon ECR"""
         ecr_client = boto3.client('ecr', region_name=self.config["aws"]["region"])
-      
+    
         # Obtener token de autenticación
         token = ecr_client.get_authorization_token()
         username, password = token['authorizationData'][0]['authorizationToken'].decode('base64').split(':')
-      
+    
         # Tag y push
         repo_uri = self.config["aws"]["ecr_repo"]
         image.tag(repo_uri, tag)
-      
+    
         docker_client = docker.from_env()
         docker_client.images.push(repo_uri, tag=tag, auth_config={
             'username': username,
             'password': password
         })
-      
+    
         print(f"Imagen subida a ECR: {repo_uri}:{tag}")
   
     def deploy_to_ecs(self, image_tag: str = "latest"):
         """Desplegar a Amazon ECS"""
         ecs_client = boto3.client('ecs', region_name=self.config["aws"]["region"])
-      
+    
         # Actualizar definición de tarea
         task_definition = {
             'family': 'ai-app-task',
@@ -1089,23 +1090,23 @@ class AIPlatformDeployer:
                 }
             ]
         }
-      
+    
         # Registrar nueva revisión de la tarea
         response = ecs_client.register_task_definition(**task_definition)
-      
+    
         # Actualizar servicio
         ecs_client.update_service(
             cluster=self.config["aws"]["ecs_cluster"],
             service=self.config["aws"]["ecs_service"],
             taskDefinition=response['taskDefinition']['taskDefinitionArn']
         )
-      
+    
         print("Deployment a ECS completado")
   
     def setup_monitoring(self):
         """Configurar monitoreo y alertas"""
         cloudwatch = boto3.client('cloudwatch', region_name=self.config["aws"]["region"])
-      
+    
         # Crear alarmas
         alarms = [
             {
@@ -1132,10 +1133,10 @@ class AIPlatformDeployer:
                 ]
             }
         ]
-      
+    
         for alarm in alarms:
             cloudwatch.put_metric_alarm(**alarm)
-      
+    
         print("Monitoreo configurado")
 
 # Uso del deployer
@@ -1168,74 +1169,74 @@ class AICodeAssistant:
         """Generar código basado en descripción"""
         prompt = f"""
         Genera código {language} para: {description}
-      
+    
         Requisitos:
         - Código limpio y bien documentado
         - Manejo de errores
         - Ejemplos de uso
         - Siguiendo mejores prácticas
-      
+    
         Código:
         """
-      
+    
         response = self.client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=1000,
             temperature=0.3
         )
-      
+    
         return response.choices[0].message.content
   
     def explain_code(self, code: str) -> str:
         """Explicar código existente"""
         prompt = f"""
         Explica qué hace este código de manera clara y detallada:
-      
+    
         ```
         {code}
         ```
-      
+    
         Incluye:
         - Propósito general
         - Funcionamiento paso a paso
         - Posibles mejoras
         """
-      
+    
         response = self.client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=800
         )
-      
+    
         return response.choices[0].message.content
   
     def review_code(self, code: str) -> Dict[str, any]:
         """Revisar código y sugerir mejoras"""
         prompt = f"""
         Revisa este código y proporciona feedback constructivo:
-      
+    
         ```
         {code}
         ```
-      
+    
         Analiza:
         1. Legibilidad y estilo
         2. Eficiencia y rendimiento
         3. Seguridad
         4. Manejo de errores
         5. Mejores prácticas
-      
+    
         Formato de respuesta: JSON con campos 'rating', 'issues', 'suggestions'
         """
-      
+    
         response = self.client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=1000,
             temperature=0.2
         )
-      
+    
         try:
             import json
             return json.loads(response.choices[0].message.content)
@@ -1246,24 +1247,24 @@ class AICodeAssistant:
         """Generar tests unitarios para código"""
         prompt = f"""
         Genera tests unitarios completos usando {framework} para este código:
-      
+    
         ```
         {code}
         ```
-      
+    
         Incluye:
         - Tests para casos normales
         - Tests para casos edge
         - Tests para manejo de errores
         - Mocks si es necesario
         """
-      
+    
         response = self.client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=1200
         )
-      
+    
         return response.choices[0].message.content
   
     def refactor_code(self, code: str, style: str = "clean") -> str:
@@ -1274,25 +1275,25 @@ class AICodeAssistant:
             "readable": "Máxima legibilidad y documentación",
             "minimal": "Código minimalista y conciso"
         }
-      
+    
         prompt = f"""
         Refactoriza este código siguiendo el estilo: {styles.get(style, style)}
-      
+    
         Código original:
         ```
         {code}
         ```
-      
+    
         Código refactorizado:
         """
-      
+    
         response = self.client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=1000,
             temperature=0.3
         )
-      
+    
         return response.choices[0].message.content
 
 # Ejemplo de uso
@@ -1334,7 +1335,7 @@ class DocumentAnalyzer:
         """Extraer texto de diferentes tipos de archivos"""
         path = Path(file_path)
         extension = path.suffix.lower()
-      
+    
         if extension == '.pdf':
             return self._extract_from_pdf(file_path)
         elif extension == '.docx':
@@ -1369,21 +1370,21 @@ class DocumentAnalyzer:
     def summarize_document(self, file_path: str, max_length: int = 200) -> Dict[str, Any]:
         """Crear resumen del documento"""
         text = self.extract_text(file_path)
-      
+    
         prompt = f"""
         Crea un resumen conciso del siguiente documento (máximo {max_length} palabras):
-      
+    
         {text[:4000]}  # Limitar texto para no exceder límites de token
-      
+    
         Resumen:
         """
-      
+    
         response = self.client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=300
         )
-      
+    
         return {
             "file_path": file_path,
             "summary": response.choices[0].message.content,
@@ -1394,22 +1395,22 @@ class DocumentAnalyzer:
     def extract_key_points(self, file_path: str) -> List[str]:
         """Extraer puntos clave del documento"""
         text = self.extract_text(file_path)
-      
+    
         prompt = f"""
         Extrae los puntos clave más importantes de este documento.
         Devuelve una lista numerada de máximo 10 puntos:
-      
+    
         {text[:4000]}
-      
+    
         Puntos clave:
         """
-      
+    
         response = self.client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=500
         )
-      
+    
         # Parsear respuesta a lista
         points = response.choices[0].message.content.split('\n')
         return [point.strip() for point in points if point.strip()]
@@ -1421,36 +1422,36 @@ class DocumentAnalyzer:
                 "Técnico", "Legal", "Financiero", "Marketing", 
                 "Recursos Humanos", "Operacional", "Académico"
             ]
-      
+    
         text = self.extract_text(file_path)
         categories_str = ", ".join(categories)
-      
+    
         prompt = f"""
         Clasifica este documento en una de estas categorías: {categories_str}
-      
+    
         También proporciona tu nivel de confianza (0-100%) y una breve justificación.
-      
+    
         Documento:
         {text[:3000]}
-      
+    
         Formato de respuesta:
         Categoría: [categoría]
         Confianza: [porcentaje]%
         Justificación: [breve explicación]
         """
-      
+    
         response = self.client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=200
         )
-      
+    
         result = response.choices[0].message.content
-      
+    
         # Parsear respuesta
         lines = result.split('\n')
         classification = {}
-      
+    
         for line in lines:
             if line.startswith('Categoría:'):
                 classification['category'] = line.split(':', 1)[1].strip()
@@ -1459,43 +1460,43 @@ class DocumentAnalyzer:
                 classification['confidence'] = int(conf_str)
             elif line.startswith('Justificación:'):
                 classification['justification'] = line.split(':', 1)[1].strip()
-      
+    
         return classification
   
     def answer_questions(self, file_path: str, questions: List[str]) -> Dict[str, str]:
         """Responder preguntas sobre el documento"""
         text = self.extract_text(file_path)
         answers = {}
-      
+    
         for question in questions:
             prompt = f"""
             Basándote en el siguiente documento, responde esta pregunta:
-          
+        
             Pregunta: {question}
-          
+        
             Documento:
             {text[:3500]}
-          
+        
             Si la información no está en el documento, indica "Información no disponible en el documento".
-          
+        
             Respuesta:
             """
-          
+        
             response = self.client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=300
             )
-          
+        
             answers[question] = response.choices[0].message.content.strip()
-      
+    
         return answers
   
     def batch_analyze(self, directory_path: str) -> List[Dict[str, Any]]:
         """Analizar múltiples documentos en un directorio"""
         directory = Path(directory_path)
         results = []
-      
+    
         for file_path in directory.glob('*'):
             if file_path.suffix.lower() in self.supported_formats:
                 try:
@@ -1508,10 +1509,10 @@ class DocumentAnalyzer:
                     }
                     results.append(analysis)
                     print(f"Analizado: {file_path.name}")
-                  
+                
                 except Exception as e:
                     print(f"Error analizando {file_path.name}: {e}")
-      
+    
         return results
 
 # Ejemplo de uso
@@ -1560,39 +1561,39 @@ class IntelligentContentGenerator:
         return {
             "blog_post": """
             Título: {title}
-          
+        
             Introducción:
             {introduction}
-          
+        
             Desarrollo:
             {body}
-          
+        
             Conclusión:
             {conclusion}
-          
+        
             Meta descripción: {meta_description}
             Tags: {tags}
             """,
-          
+        
             "social_media": """
             Plataforma: {platform}
             Mensaje: {message}
             Hashtags: {hashtags}
             Call to action: {cta}
             """,
-          
+        
             "email_marketing": """
             Asunto: {subject}
-          
+        
             Saludo personalizado:
             {greeting}
-          
+        
             Cuerpo del email:
             {body}
-          
+        
             Call to action:
             {cta}
-          
+        
             Despedida:
             {closing}
             """
@@ -1600,35 +1601,35 @@ class IntelligentContentGenerator:
   
     def generate_blog_post(self, topic: str, keywords: List[str], target_audience: str, tone: str = "profesional") -> Dict[str, str]:
         """Generar artículo de blog completo"""
-      
+    
         # Generar título
         title_prompt = f"""
         Genera 5 títulos atractivos para un artículo de blog sobre: {topic}
         Audiencia objetivo: {target_audience}
         Palabras clave a incluir: {', '.join(keywords)}
         Tono: {tone}
-      
+    
         Los títulos deben ser:
         - Llamativos y clickeables
         - SEO optimizados
         - Entre 50-60 caracteres
-      
+    
         Títulos:
         """
-      
+    
         titles_response = self.client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": title_prompt}],
             max_tokens=300
         )
-      
+    
         titles = titles_response.choices[0].message.content.split('\n')
         selected_title = titles[0].strip() if titles else f"Todo sobre {topic}"
-      
+    
         # Generar contenido principal
         content_prompt = f"""
         Escribe un artículo de blog completo sobre: {topic}
-      
+    
         Especificaciones:
         - Título: {selected_title}
         - Audiencia: {target_audience}
@@ -1638,25 +1639,25 @@ class IntelligentContentGenerator:
         - Incluir subtítulos (H2, H3)
         - SEO optimizado
         - Incluir ejemplos prácticos
-      
+    
         Estructura:
         1. Introducción engaging (150 palabras)
         2. 3-4 secciones principales con subtítulos
         3. Conclusión con call-to-action
         4. Meta descripción (150-160 caracteres)
         5. 5-8 tags relevantes
-      
+    
         Artículo:
         """
-      
+    
         content_response = self.client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": content_prompt}],
             max_tokens=2000
         )
-      
+    
         content = content_response.choices[0].message.content
-      
+    
         # Parsear el contenido (simplificado)
         return {
             "title": selected_title,
@@ -1670,32 +1671,32 @@ class IntelligentContentGenerator:
   
     def generate_social_media_campaign(self, product: str, campaign_goal: str, platforms: List[str]) -> Dict[str, List[Dict]]:
         """Generar campaña para redes sociales"""
-      
+    
         campaign = {}
-      
+    
         platform_specs = {
             "twitter": {"char_limit": 280, "hashtag_limit": 2},
             "instagram": {"char_limit": 2200, "hashtag_limit": 10},
             "linkedin": {"char_limit": 1300, "hashtag_limit": 5},
             "facebook": {"char_limit": 500, "hashtag_limit": 3}
         }
-      
+    
         for platform in platforms:
             specs = platform_specs.get(platform, {"char_limit": 500, "hashtag_limit": 5})
-          
+        
             prompt = f"""
             Crea 5 posts para {platform} promocionando: {product}
-          
+        
             Objetivo de campaña: {campaign_goal}
             Límite de caracteres: {specs['char_limit']}
             Máximo hashtags: {specs['hashtag_limit']}
-          
+        
             Para cada post incluye:
             - Mensaje principal
             - Hashtags relevantes
             - Call to action
             - Mejor momento para publicar
-          
+        
             Formato JSON:
             [
                 {{
@@ -1706,25 +1707,25 @@ class IntelligentContentGenerator:
                 }}
             ]
             """
-          
+        
             response = self.client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=1000
             )
-          
+        
             try:
                 posts = json.loads(response.choices[0].message.content)
                 campaign[platform] = posts
             except json.JSONDecodeError:
                 # Fallback si no se puede parsear JSON
                 campaign[platform] = [{"message": response.choices[0].message.content}]
-      
+    
         return campaign
   
     def generate_email_sequence(self, product: str, sequence_type: str, num_emails: int = 5) -> List[Dict[str, str]]:
         """Generar secuencia de emails"""
-      
+    
         sequence_types = {
             "welcome": "secuencia de bienvenida para nuevos suscriptores",
             "nurturing": "secuencia de nutrición para leads",
@@ -1732,20 +1733,20 @@ class IntelligentContentGenerator:
             "onboarding": "secuencia de onboarding para nuevos usuarios",
             "re_engagement": "secuencia para reactivar usuarios inactivos"
         }
-      
+    
         sequence_description = sequence_types.get(sequence_type, sequence_type)
-      
+    
         emails = []
-      
+    
         for i in range(num_emails):
             email_number = i + 1
-          
+        
             prompt = f"""
             Crea el email #{email_number} de {num_emails} para una {sequence_description}.
-          
+        
             Producto/Servicio: {product}
             Posición en secuencia: {email_number}/{num_emails}
-          
+        
             Incluye:
             - Asunto atractivo (50 caracteres max)
             - Preheader text (90 caracteres max)
@@ -1753,20 +1754,20 @@ class IntelligentContentGenerator:
             - Cuerpo del email (200-300 palabras)
             - Call to action claro
             - Despedida
-          
+        
             Tono: amigable pero profesional
-          
+        
             Email:
             """
-          
+        
             response = self.client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=800
             )
-          
+        
             email_content = response.choices[0].message.content
-          
+        
             # Parsear contenido del email (simplificado)
             emails.append({
                 "email_number": email_number,
@@ -1774,18 +1775,18 @@ class IntelligentContentGenerator:
                 "content": email_content,
                 "send_delay": f"{email_number * 2} días"  # Ejemplo de delay
             })
-      
+    
         return emails
   
     def optimize_content_for_seo(self, content: str, target_keyword: str) -> Dict[str, Any]:
         """Optimizar contenido para SEO"""
-      
+    
         prompt = f"""
         Analiza y optimiza este contenido para SEO con la palabra clave objetivo: "{target_keyword}"
-      
+    
         Contenido:
         {content[:2000]}
-      
+    
         Proporciona:
         1. Análisis de densidad de palabra clave actual
         2. Sugerencias de mejora para SEO
@@ -1793,7 +1794,7 @@ class IntelligentContentGenerator:
         4. Meta descripción sugerida
         5. Palabras clave relacionadas a incluir
         6. Score SEO estimado (1-100)
-      
+    
         Formato JSON:
         {{
             "current_keyword_density": "X%",
@@ -1804,13 +1805,13 @@ class IntelligentContentGenerator:
             "related_keywords": ["keyword1", "keyword2"]
         }}
         """
-      
+    
         response = self.client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=800
         )
-      
+    
         try:
             return json.loads(response.choices[0].message.content)
         except json.JSONDecodeError:
@@ -1818,17 +1819,17 @@ class IntelligentContentGenerator:
   
     def generate_content_calendar(self, industry: str, months: int = 3) -> List[Dict[str, Any]]:
         """Generar calendario de contenido"""
-      
+    
         prompt = f"""
         Crea un calendario de contenido para {months} meses para una empresa en la industria: {industry}
-      
+    
         Para cada mes incluye:
         - 4 ideas de blog posts
         - 8 ideas para redes sociales
         - 2 ideas para email marketing
         - Eventos/fechas importantes del mes
         - Hashtags trending sugeridos
-      
+    
         Formato JSON por mes:
         {{
             "month": "Enero",
@@ -1839,13 +1840,13 @@ class IntelligentContentGenerator:
             "trending_hashtags": ["#hashtag1", "#hashtag2"]
         }}
         """
-      
+    
         response = self.client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=2000
         )
-      
+    
         try:
             return json.loads(response.choices[0].message.content)
         except json.JSONDecodeError:
@@ -1910,13 +1911,13 @@ class MultiAIProvider:
         }
         """
         self.providers = {}
-      
+    
         if config.get('openai_key'):
             self.providers['openai'] = openai.OpenAI(api_key=config['openai_key'])
-      
+    
         if config.get('anthropic_key'):
             self.providers['anthropic'] = anthropic.Anthropic(api_key=config['anthropic_key'])
-      
+    
         if config.get('google_key'):
             genai.configure(api_key=config['google_key'])
             self.providers['google'] = genai.GenerativeModel('gemini-pro')
@@ -1924,7 +1925,7 @@ class MultiAIProvider:
     def generate_with_fallback(self, prompt: str, preferred_provider: str = 'openai') -> str:
         """Generar respuesta con fallback a otros proveedores"""
         providers_order = [preferred_provider] + [p for p in self.providers.keys() if p != preferred_provider]
-      
+    
         for provider in providers_order:
             try:
                 if provider == 'openai':
@@ -1934,7 +1935,7 @@ class MultiAIProvider:
                         max_tokens=500
                     )
                     return response.choices[0].message.content
-              
+            
                 elif provider == 'anthropic':
                     response = self.providers['anthropic'].messages.create(
                         model="claude-3-sonnet-20241022",
@@ -1942,15 +1943,15 @@ class MultiAIProvider:
                         messages=[{"role": "user", "content": prompt}]
                     )
                     return response.content[0].text
-              
+            
                 elif provider == 'google':
                     response = self.providers['google'].generate_content(prompt)
                     return response.text
-                  
+                
             except Exception as e:
                 print(f"Error con {provider}: {e}")
                 continue
-      
+    
         return "Error: No hay proveedores disponibles"
 
 # Uso
@@ -2110,16 +2111,16 @@ class AISecurityManager:
         # Remover caracteres peligrosos
         dangerous_chars = ['<', '>', '"', "'", '&', '\n', '\r', '\t']
         sanitized = user_input
-      
+    
         for char in dangerous_chars:
             sanitized = sanitized.replace(char, '')
-      
+    
         # Limitar longitud
         max_length = 1000
         if len(sanitized) > max_length:
             sanitized = sanitized[:max_length]
             self.logger.warning(f"Input truncated to {max_length} characters")
-      
+    
         return sanitized.strip()
   
     def encrypt_sensitive_data(self, data: str) -> str:
@@ -2140,14 +2141,14 @@ class AISecurityManager:
         """Validar formato de API key"""
         if not api_key:
             return False
-      
+    
         # Validaciones básicas
         if len(api_key) < 20:
             return False
-      
+    
         if not api_key.startswith(('sk-', 'sk-ant-', 'AIza')):
             return False
-      
+    
         return True
   
     def log_ai_interaction(self, user_hash: str, prompt_hash: str, success: bool):
@@ -2160,22 +2161,22 @@ class AISecurityManager:
         try:
             import redis
             r = redis.Redis(host='localhost', port=6379, db=0)
-          
+        
             user_hash = self.hash_user_id(user_id)
             current_count = r.get(f"rate_limit:{user_hash}")
-          
+        
             if current_count is None:
                 r.setex(f"rate_limit:{user_hash}", window_minutes * 60, 1)
                 return True
-          
+        
             current_count = int(current_count)
             if current_count >= max_requests:
                 self.logger.warning(f"Rate limit exceeded for user: {user_hash}")
                 return False
-          
+        
             r.incr(f"rate_limit:{user_hash}")
             return True
-          
+        
         except Exception as e:
             self.logger.error(f"Rate limit check failed: {e}")
             return True  # Fallar abierto por defecto
@@ -2204,12 +2205,12 @@ def secure_ai_endpoint(user_id: str, user_input: str, api_key: str) -> Dict[str,
     try:
         # 5. Procesar con AI
         # ... lógica de AI aquí ...
-      
+    
         # 6. Log exitoso
         security.log_ai_interaction(user_hash, prompt_hash, True)
-      
+    
         return {"result": "AI response"}
-      
+    
     except Exception as e:
         # 7. Log error
         security.log_ai_interaction(user_hash, prompt_hash, False)
@@ -2251,65 +2252,65 @@ class AIModelTester:
         """Probar calidad de respuesta"""
         response = self.model.generate(input_text)
         results = {}
-      
+    
         # Test de longitud mínima
         if "min_length" in expected_criteria:
             results["length_check"] = len(response) >= expected_criteria["min_length"]
-      
+    
         # Test de palabras clave esperadas
         if "expected_keywords" in expected_criteria:
             keywords_found = sum(1 for keyword in expected_criteria["expected_keywords"] 
                                if keyword.lower() in response.lower())
             results["keywords_check"] = keywords_found >= len(expected_criteria["expected_keywords"]) * 0.5
-      
+    
         # Test de contenido que debe incluir
         if "should_contain" in expected_criteria:
             results["contains_check"] = all(item.lower() in response.lower() 
                                           for item in expected_criteria["should_contain"])
-      
+    
         # Test de contenido que NO debe incluir
         if "should_not_contain" in expected_criteria:
             results["not_contains_check"] = not any(item.lower() in response.lower() 
                                                    for item in expected_criteria["should_not_contain"])
-      
+    
         return results
   
     def test_consistency(self, input_text: str, iterations: int = 5) -> float:
         """Probar consistency de respuestas"""
         responses = []
-      
+    
         for _ in range(iterations):
             response = self.model.generate(input_text)
             responses.append(response)
-      
+    
         # Calcular similarity promedio entre respuestas
         from sentence_transformers import SentenceTransformer
         similarity_model = SentenceTransformer('all-MiniLM-L6-v2')
-      
+    
         embeddings = similarity_model.encode(responses)
         similarities = []
-      
+    
         for i in range(len(embeddings)):
             for j in range(i + 1, len(embeddings)):
                 similarity = cosine_similarity([embeddings[i]], [embeddings[j]])[0][0]
                 similarities.append(similarity)
-      
+    
         avg_similarity = sum(similarities) / len(similarities) if similarities else 0
         return avg_similarity
   
     def test_performance(self, test_inputs: List[str]) -> Dict[str, float]:
         """Probar rendimiento del modelo"""
         import time
-      
+    
         response_times = []
-      
+    
         for input_text in test_inputs:
             start_time = time.time()
             response = self.model.generate(input_text)
             end_time = time.time()
-          
+        
             response_times.append(end_time - start_time)
-      
+    
         return {
             "avg_response_time": sum(response_times) / len(response_times),
             "max_response_time": max(response_times),
@@ -2323,7 +2324,7 @@ class AIModelTester:
             "consistency_scores": [],
             "performance_metrics": {}
         }
-      
+    
         # Tests de calidad
         for test_case in self.test_cases:
             quality_result = self.test_response_quality(
@@ -2335,7 +2336,7 @@ class AIModelTester:
                 "results": quality_result,
                 "passed": all(quality_result.values())
             })
-      
+    
         # Tests de consistencia
         consistency_inputs = [tc["input"] for tc in self.test_cases[:3]]  # Limitar por tiempo
         for input_text in consistency_inputs:
@@ -2344,11 +2345,11 @@ class AIModelTester:
                 "input": input_text,
                 "consistency_score": consistency_score
             })
-      
+    
         # Tests de rendimiento
         performance_inputs = [tc["input"] for tc in self.test_cases]
         results["performance_metrics"] = self.test_performance(performance_inputs)
-      
+    
         return results
 
 # Tests unitarios con pytest
@@ -2359,27 +2360,27 @@ class TestAIFunctions:
             mock_response = mock.Mock()
             mock_response.choices = [mock.Mock()]
             mock_response.choices[0].message.content = "Mock AI response"
-          
+        
             mock_client.return_value.chat.completions.create.return_value = mock_response
             yield mock_client
   
     def test_prompt_sanitization(self):
         """Test sanitización de prompts"""
         from your_ai_module import sanitize_prompt
-      
+    
         dangerous_input = "<script>alert('xss')</script>Hello"
         sanitized = sanitize_prompt(dangerous_input)
-      
+    
         assert "<script>" not in sanitized
         assert "Hello" in sanitized
   
     def test_rate_limiting(self):
         """Test rate limiting"""
         from your_ai_module import AISecurityManager
-      
+    
         security = AISecurityManager()
         user_id = "test_user"
-      
+    
         # Primeras requests deben pasar
         for _ in range(5):
             assert security.rate_limit_check(user_id, window_minutes=1, max_requests=10)
@@ -2387,13 +2388,13 @@ class TestAIFunctions:
     def test_error_handling(self, mock_openai_client):
         """Test manejo de errores"""
         from your_ai_module import AIGenerator
-      
+    
         # Simular error de API
         mock_openai_client.return_value.chat.completions.create.side_effect = Exception("API Error")
-      
+    
         generator = AIGenerator("fake-key")
         result = generator.generate("test prompt")
-      
+    
         assert "error" in result
         assert result["error"] is not None
   
@@ -2404,10 +2405,10 @@ class TestAIFunctions:
     def test_response_length_scaling(self, input_text, expected_length, mock_openai_client):
         """Test que respuestas escalen con longitud de input"""
         from your_ai_module import AIGenerator
-      
+    
         generator = AIGenerator("fake-key")
         result = generator.generate(input_text)
-      
+    
         # Verificar que la respuesta tenga longitud apropiada
         assert len(result) >= expected_length * 0.5  # Al menos 50% de la longitud esperada
 

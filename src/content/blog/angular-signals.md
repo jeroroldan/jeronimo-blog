@@ -1,5 +1,6 @@
 ---
 title: 'Angular 19 con Signals'
+code:"Angular"
 description: 'Guía Completa de Angular 19 con Signals: Reactividad Moderna'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -267,7 +268,7 @@ import { Component, signal, computed, effect } from '@angular/core';
             🚶 Movimiento detectado
           </label>
         </div>
-    
+  
         <div class="sensor-group">
           <label>
             <input 
@@ -277,7 +278,7 @@ import { Component, signal, computed, effect } from '@angular/core';
             🚪 Puerta abierta
           </label>
         </div>
-    
+  
         <div class="sensor-group">
           <label>
             🕐 Hora actual: 
@@ -295,7 +296,7 @@ import { Component, signal, computed, effect } from '@angular/core';
         <div class="alert-level" [class]="alertLevel()">
           {{ getAlertMessage() }}
         </div>
-    
+  
         <div class="actions-taken">
           <h4>🎬 Acciones Automatizadas:</h4>
           <ul>
@@ -751,7 +752,7 @@ interface User {
           placeholder="Buscar empleados..."
           [value]="searchTerm()"
           (input)="updateSearch($event)">
-    
+  
         <select [value]="selectedDepartment()" (change)="updateDepartment($event)">
           <option value="">Todos los departamentos</option>
           <option value="engineering">Ingeniería</option>
@@ -759,7 +760,7 @@ interface User {
           <option value="sales">Ventas</option>
           <option value="hr">Recursos Humanos</option>
         </select>
-    
+  
         <button (click)="refreshData()">🔄 Actualizar</button>
       </div>
   
@@ -772,7 +773,7 @@ interface User {
               <p>🔍 Buscando empleados...</p>
             </div>
           }
-      
+    
           @case ('success') {
             <div class="employees-grid">
               @for (employee of employeesResource.value(); track employee.id) {
@@ -795,7 +796,7 @@ interface User {
               }
             </div>
           }
-      
+    
           @case ('error') {
             <div class="error-state">
               <h3>❌ Error al cargar empleados</h3>
@@ -1296,7 +1297,7 @@ export class ShoppingCartService {
             <h3>🛍️ Tu Carrito</h3>
             <button (click)="cartService.toggleCart()">✕</button>
           </div>
-      
+    
           <div class="cart-content">
             @if (cartService.isEmpty()) {
               <div class="empty-cart">
@@ -1325,7 +1326,7 @@ export class ShoppingCartService {
                   </div>
                 }
               </div>
-          
+        
               <div class="cart-footer">
                 <div class="total-section">
                   <strong>Total: \${{ cartService.totalPrice().toFixed(2) }}</strong>

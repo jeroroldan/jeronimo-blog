@@ -1,5 +1,6 @@
 ---
 title: 'React Native: De Caos a Orden'
+code: 'react'
 description: 'Guía de Estado Interno en React Native: De Caos a Orden'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

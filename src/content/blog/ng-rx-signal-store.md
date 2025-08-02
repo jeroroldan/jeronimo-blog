@@ -1,5 +1,6 @@
 ---
 title: 'NgRx Signal Component Store'
+code: 'angular'
 description: 'Guía Completa de NgRx Signal Component Store: Estado Moderno en Angular 19'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

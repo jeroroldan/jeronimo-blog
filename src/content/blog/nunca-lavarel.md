@@ -1,5 +1,6 @@
 ---
 title: 'Laravel'
+code:"laravel"
 description: 'Laravel: Mejores Prácticas y Errores Críticos a Evitar'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -20,20 +21,20 @@ class UserController extends Controller
         if (!$request->email) {
             return response()->json(['error' => 'Email required'], 400);
         }
-      
+    
         // Lógica de negocio compleja
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-      
+    
         if ($user->age > 18) {
             $user->status = 'adult';
             // Enviar email de bienvenida
             Mail::to($user->email)->send(new WelcomeEmail());
         }
-      
+    
         $user->save();
-      
+    
         // Más lógica...
         return response()->json($user);
     }
@@ -151,12 +152,12 @@ class UserService
     public function createUser(array $data): User
     {
         $user = User::create($data);
-      
+    
         if ($user->isAdult()) {
             $this->sendWelcomeEmail($user);
             $this->assignDefaultRole($user);
         }
-      
+    
         return $user;
     }
   
@@ -356,7 +357,7 @@ public function transferMoney(User $from, User $to, float $amount): void
     DB::transaction(function () use ($from, $to, $amount) {
         $from->decrement('balance', $amount);
         $to->increment('balance', $amount);
-      
+    
         Transaction::create([
             'from_user_id' => $from->id,
             'to_user_id' => $to->id,
@@ -398,7 +399,7 @@ public function up()
         $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
         $table->timestamp('published_at')->nullable();
         $table->timestamps();
-      
+    
         // Índices importantes
         $table->index(['status', 'published_at']);
         $table->index('user_id');
@@ -456,16 +457,16 @@ class PostTest extends TestCase
     public function test_user_can_create_post(): void
     {
         $user = User::factory()->create();
-      
+    
         $response = $this->actingAs($user)
             ->postJson('/api/posts', [
                 'title' => 'Test Post',
                 'content' => 'Test content',
             ]);
-      
+    
         $response->assertStatus(201)
             ->assertJsonStructure(['data' => ['id', 'title', 'content']]);
-      
+    
         $this->assertDatabaseHas('posts', [
             'title' => 'Test Post',
             'user_id' => $user->id,
@@ -666,12 +667,12 @@ public function deleteUser($id)
 {
     try {
         $user = User::findOrFail($id);
-      
+    
         DB::transaction(function () use ($user) {
             $user->posts()->delete();
             $user->delete();
         });
-      
+    
         return response()->json(['message' => 'Usuario eliminado']);
     } catch (ModelNotFoundException $e) {
         return response()->json(['error' => 'Usuario no encontrado'], 404);

@@ -1,5 +1,6 @@
 ---
 title: 'react-native-ble-plx'
+code: 'react-native'
 description: 'Guía Completa de react-native-ble-plx'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

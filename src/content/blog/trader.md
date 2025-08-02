@@ -1,5 +1,6 @@
 ---
 title: 'Trading Profesional 📈'
+code: 'trading'
 description: 'Guía Completa de Trading Profesional 📈'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

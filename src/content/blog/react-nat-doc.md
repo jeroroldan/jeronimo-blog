@@ -1,5 +1,7 @@
 ---
 title: 'React Native + TypeScript'
+code:"react"
+code:"React NATIVE"
 description: 'Guía Práctica: React Native + TypeScript + Clean Architecture'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -828,7 +830,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         createdAt: new Date(),
         isActive: true,
       };
-    
+  
       dispatch({ type: 'LOGIN_SUCCESS', payload: user });
     } catch (error) {
       dispatch({ 
@@ -1441,7 +1443,7 @@ export function useInfiniteScroll<T>({
     setLoading(true);
     try {
       const newItems = await fetchMore(page);
-    
+  
       if (newItems.length < pageSize) {
         setHasMore(false);
       }
@@ -1465,7 +1467,7 @@ export function useInfiniteScroll<T>({
       const newItems = await fetchMore(1);
       setData(newItems);
       setPage(2);
-    
+  
       if (newItems.length < pageSize) {
         setHasMore(false);
       }

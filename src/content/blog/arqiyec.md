@@ -1,10 +1,10 @@
 ---
 title: 'Arquitectura Frontend Escalable'
+code:"frontend"
 description: 'Masterclass: Arquitectura Frontend Escalable'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
-
 # Masterclass: Arquitectura Frontend Escalable
 
 ## React & React Native - De Principiante a Arquitecto Senior
@@ -620,10 +620,10 @@ export function useCreateUser() {
     onSuccess: (newUser) => {
       // Invalidar cache de usuarios
       queryClient.invalidateQueries({ queryKey: ['users'] });
-    
+  
       // Optimistic update: agregar el usuario al cache
       queryClient.setQueryData(['users', newUser.id], newUser);
-    
+  
       // Mostrar notificación
       toast.success('Usuario creado exitosamente');
     },
@@ -641,13 +641,13 @@ export function useUpdateUser() {
     onMutate: async ({ id, data }) => {
       // Cancel outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['users', id] });
-    
+  
       // Snapshot previous value
       const previousUser = queryClient.getQueryData(['users', id]);
-    
+  
       // Optimistically update
       queryClient.setQueryData(['users', id], old => ({ ...old, ...data }));
-    
+  
       return { previousUser };
     },
     onError: (err, variables, context) => {
@@ -725,13 +725,13 @@ class UserService {
   
     try {
       const user = await userRepository.findById(userId);
-    
+  
       // Guardar en cache
       this.cache.set(cacheKey, {
         data: user,
         timestamp: Date.now()
       });
-    
+  
       return user;
     } catch (error) {
       // Si hay error y tenemos cache, devolver cache
@@ -814,7 +814,7 @@ function DataTable({ data, onSelectionChange, children }) {
       result.sort((a, b) => {
         const aValue = a[sortConfig.key];
         const bValue = b[sortConfig.key];
-      
+    
         if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
         if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
         return 0;
@@ -953,7 +953,7 @@ function UserTable({ users }) {
           <FilterSelect field="status" options={['active', 'inactive']} />
         </DataTable.Filters>
       </DataTable.Header>
-    
+  
       <DataTable.Table>
         <DataTable.Head>
           <DataTable.Row>
@@ -963,7 +963,7 @@ function UserTable({ users }) {
             <DataTable.Column dataKey="actions" title="Acciones" />
           </DataTable.Row>
         </DataTable.Head>
-      
+    
         <DataTable.Body>
           <DataTable.Row>
             <DataTable.Cell dataKey="name" />
@@ -1341,7 +1341,7 @@ function useOfflineSync() {
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsOnline(state.isConnected);
-    
+  
       if (state.isConnected) {
         syncPendingActions();
       }
@@ -1365,7 +1365,7 @@ function useOfflineSync() {
       for (const action of pendingActions) {
         await executeAction(action);
       }
-    
+  
       setPendingActions([]);
       await AsyncStorage.removeItem('pendingActions');
     } catch (error) {

@@ -1,5 +1,6 @@
 ---
 title: 'Trading Profesional'
+code: 'trading'
 description: 'Master Class de Trading Profesional: Guía Completa de Inversión en Mercados Financieros'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

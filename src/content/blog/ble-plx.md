@@ -1,5 +1,6 @@
 ---
 title: 'React-Native-ble'
+code:"react"
 description: 'Guía Completa de React-Native-ble-plx'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -196,7 +197,7 @@ const discoverServices = async (device) => {
     for (const service of services) {
       console.log('Servicio:', service.uuid);
       const characteristics = await service.characteristics();
-    
+  
       for (const characteristic of characteristics) {
         console.log('Característica:', characteristic.uuid);
       }
@@ -273,7 +274,7 @@ const startMonitoring = (deviceId, serviceUUID, characteristicUUID) => {
         console.error('Error en monitoreo:', error);
         return;
       }
-    
+  
       if (characteristic) {
         const value = Buffer.from(characteristic.value, 'base64').toString('utf-8');
         console.log('Notificación recibida:', value);
@@ -396,10 +397,10 @@ const BLEConnection = () => {
       const device = await manager.connectToDevice(deviceId);
       await device.discoverAllServicesAndCharacteristics();
       setConnectedDevice(device);
-    
+  
       // Iniciar monitoreo de notificaciones
       startMonitoring(device);
-    
+  
     } catch (error) {
       console.error('Error al conectar:', error);
     }
@@ -470,7 +471,7 @@ const BLEConnection = () => {
             placeholder="Mensaje a enviar"
             style={{ borderWidth: 1, padding: 10, marginBottom: 10 }}
           />
-        
+    
           <TouchableOpacity onPress={sendMessage} style={{ backgroundColor: 'green', padding: 15 }}>
             <Text style={{ color: 'white', textAlign: 'center' }}>Enviar Mensaje</Text>
           </TouchableOpacity>
@@ -610,7 +611,7 @@ class BeaconSimulator {
       // En una app real, necesitarías usar bibliotecas adicionales
       // para transmitir como beacon
       console.log('Simulando iBeacon:', beaconData);
-    
+  
       // Alternativa: crear un servicio personalizado que simule un beacon
       await this.createBeaconService(beaconData);
     } catch (error) {
@@ -666,7 +667,7 @@ const BeaconDetector = () => {
 
     try {
       const buffer = Buffer.from(data, 'base64');
-    
+  
       // Verificar si es un iBeacon (identificador Apple: 0x004C)
       if (buffer.length >= 25 && buffer[0] === 0x4C && buffer[1] === 0x00) {
         return {
@@ -703,7 +704,7 @@ const BeaconDetector = () => {
       <TouchableOpacity onPress={startBeaconScan}>
         <Text>Buscar Beacons</Text>
       </TouchableOpacity>
-    
+  
       {beacons.map((beacon, index) => (
         <View key={index} style={{ padding: 10, borderBottomWidth: 1 }}>
           <Text>Tipo: {beacon.type}</Text>
@@ -858,7 +859,7 @@ const IoTController = () => {
 
     try {
       const encodedCommand = Buffer.from(JSON.stringify(command), 'utf-8').toString('base64');
-    
+  
       await manager.writeCharacteristicWithResponseForDevice(
         connectedDevice.id,
         serviceUUID,
@@ -998,7 +999,7 @@ const BLEStatusMonitor = () => {
     const updateStatus = async () => {
       const state = await manager.state();
       const connectedDevices = await manager.connectedDevices([]);
-    
+  
       setStatus({
         bluetoothState: state,
         connectedDevices: connectedDevices.length,

@@ -1,5 +1,6 @@
 ---
 title: 'React Web'
+code: 'react'
 description: 'Guía Maestra de Rendimiento en React Web: De Dial-Up a Fibra Óptica'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

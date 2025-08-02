@@ -1,5 +1,6 @@
 ---
 title: 'Aprendizaje Acelerado'
+code: 'aprendizaje'
 description: 'Guía Maestra del Aprendizaje Acelerado: Hackea Tu Cerebro para Resultados Extraordinarios'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

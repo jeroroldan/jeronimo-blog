@@ -1,5 +1,6 @@
 ---
 title: 'Astro Framework'
+code: 'astro'
 description: 'Guía Completa de Astro Framework - Desarrollo Profesional'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

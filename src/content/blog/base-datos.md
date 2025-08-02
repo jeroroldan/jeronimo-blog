@@ -1,5 +1,6 @@
 ---
 title: 'Bases de Datos SQL Relacionales'
+code: 'sql'
 description: 'Guía Completa de Bases de Datos SQL Relacionales'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

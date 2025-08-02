@@ -1,5 +1,6 @@
 ---
 title: 'Guía de Supervivencia Empresarial'
+code: 'empresa'
 description: 'Navegando la Transición Argentina al Libre Mercado'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

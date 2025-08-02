@@ -1,5 +1,6 @@
 ---
 title: 'Masterclass: La Timba Financiera'
+code: 'trading'
 description: 'Arbitraje con Activos Gubernamentales - El Arte de la Especulación Inteligente'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

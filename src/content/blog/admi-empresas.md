@@ -1,5 +1,6 @@
 ---
 title: 'Administración Empresarial'
+code: 'empresa'
 description: 'Guía Completa: Administración Empresarial y Optimización de Recursos'
 pubDate: 'Jul 22 2022'
 heroImage: '../../assets/blog-placeholder-1.jpg'
