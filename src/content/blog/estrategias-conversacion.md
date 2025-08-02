@@ -1,10 +1,10 @@
 ---
 title: 'Conversaciones Efectivas'
+code: "seduccion"
 description: 'Guía Maestra para Conversaciones Efectivas: Estableciendo Conexiones Genuinas'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
-
 # Guía Maestra para Conversaciones Efectivas: Estableciendo Conexiones Genuinas
 
 ## Introducción

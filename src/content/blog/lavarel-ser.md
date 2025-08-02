@@ -1,10 +1,10 @@
 ---
 title: 'Service Providers'
+code: "laravarel"
 description: 'Masterclass Service Providers - El Corazón de Laravel'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
-
 # 🏗️ Masterclass Service Providers - El Corazón de Laravel
 
 ## 🎯 **¿Qué es un Service Provider?**
@@ -234,7 +234,7 @@ class PaymentServiceProvider extends ServiceProvider
         // Registrar gateway según configuración
         $this->app->bind(PaymentGatewayInterface::class, function ($app) {
             $gateway = config('payments.default_gateway');
-          
+        
             return match($gateway) {
                 'stripe' => new StripeGateway(config('payments.stripe')),
                 'paypal' => new PayPalGateway(config('payments.paypal')),
@@ -386,7 +386,7 @@ class EventServiceProvider extends ServiceProvider
             SendOrderConfirmation::class,
             UpdateInventory::class,
         ],
-      
+    
         PaymentProcessed::class => [
             LogPayment::class,
         ],
@@ -744,7 +744,7 @@ class PaymentServiceProviderTest extends TestCase
 
         // Assert
         $this->assertTrue($this->app->bound(PaymentGatewayInterface::class));
-      
+    
         $gateway = $this->app->make(PaymentGatewayInterface::class);
         $this->assertInstanceOf(StripeGateway::class, $gateway);
     }
@@ -786,7 +786,7 @@ class EventServiceProviderTest extends TestCase
     {
         // Arrange
         Event::fake();
-      
+    
         // Act
         $order = Order::factory()->create();
         event(new OrderCreated($order));
@@ -803,7 +803,7 @@ class EventServiceProviderTest extends TestCase
         // Act & Assert
         $this->get('/api/payments/status/123')
              ->assertStatus(200);
-           
+         
         $this->post('/api/payments/process')
              ->assertStatus(422); // Validation error expected
     }
@@ -842,7 +842,7 @@ class PaymentIntegrationTest extends TestCase
 
         // Assert
         $this->assertTrue($result->successful);
-      
+    
         Event::assertDispatched(PaymentProcessed::class, function ($event) use ($result) {
             return $event->payment->id === $result->id;
         });
@@ -982,19 +982,19 @@ class NotificationServiceProvider extends ServiceProvider
         // Factory pattern for notifications
         $this->app->singleton(NotificationFactory::class, function ($app) {
             $factory = new NotificationFactory();
-          
+        
             $factory->register('email', function () use ($app) {
                 return new EmailNotification($app->make('mailer'));
             });
-          
+        
             $factory->register('sms', function () use ($app) {
                 return new SMSNotification(config('sms.provider'));
             });
-          
+        
             $factory->register('push', function () use ($app) {
                 return new PushNotification(config('push.service'));
             });
-          
+        
             return $factory;
         });
     }
@@ -1042,13 +1042,13 @@ public function register()
 {
     $this->app->singleton(SecurityCheckChain::class, function ($app) {
         $chain = new SecurityCheckChain();
-      
+    
         $chain->add(new IPWhitelistCheck())
               ->add(new RateLimitCheck())
               ->add(new AuthenticationCheck())
               ->add(new AuthorizationCheck())
               ->add(new AuditCheck());
-      
+    
         return $chain;
     });
 }
@@ -1075,7 +1075,7 @@ class PackageNameServiceProvider extends ServiceProvider
     {
         // Merge package config
         $this->mergeConfigFrom(__DIR__.'/../config/package.php', 'package');
-      
+    
         // Register package services
         $this->app->singleton(PackageService::class, function ($app) {
             return new PackageService(config('package'));
@@ -1139,7 +1139,7 @@ public function boot()
             $this->app->make('package.config'),
             config('package', [])
         );
-      
+    
         config(['package' => $config]);
     });
 }
@@ -1279,7 +1279,7 @@ class ServiceDebugCommand extends Command
     public function handle()
     {
         $service = $this->argument('service');
-      
+    
         if ($service) {
             $this->debugService($service);
         } else {

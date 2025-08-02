@@ -1,5 +1,6 @@
 ---
 title: 'Emprendedor'
+code: "negocios"
 description: 'Guía del Emprendedor: Cómo Detectar Oportunidades de Negocio en Cualquier Situación'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

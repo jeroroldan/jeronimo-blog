@@ -1,5 +1,6 @@
 ---
 title: 'React Native'
+code: "react"
 description: 'Guía Maestra de Rendimiento en React Native: De 0 a Fórmula 1'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -954,7 +955,7 @@ const OptimizedComponentWithCleanup = () => {
         const newData = await fetchMoreData({
           signal: abortControllerRef.current.signal
         });
-    
+  
         setData(prevData => {
           const combined = [...prevData, ...newData];
           return combined.slice(-MAX_ITEMS); // Limitar tamaño

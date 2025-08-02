@@ -1,5 +1,6 @@
 ---
 title: 'DeviceListScreen'
+code: "react"
 description: 'DeviceListScreen - Documentación Técnica'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

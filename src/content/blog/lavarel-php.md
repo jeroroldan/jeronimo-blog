@@ -1,5 +1,6 @@
 ---
 title: 'Arrays y Strings en PHP'
+code: "laravareal"
 description: 'Guía Completa - Arrays y Strings en PHP'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -717,12 +718,12 @@ class TemplateSimple {
   
     public function renderizar() {
         $resultado = $this->plantilla;
-      
+    
         foreach ($this->variables as $clave => $valor) {
             $placeholder = '{{' . $clave . '}}';
             $resultado = str_replace($placeholder, $valor, $resultado);
         }
-      
+    
         return $resultado;
     }
 }
@@ -778,7 +779,7 @@ class ValidadorFormulario {
     public function validar($input) {
         $this->datos = $input;
         $this->errores = [];
-      
+    
         // Validar nombre
         if (empty($input['nombre'])) {
             $this->errores['nombre'] = 'El nombre es requerido';
@@ -787,14 +788,14 @@ class ValidadorFormulario {
         } elseif (!preg_match('/^[a-zA-ZáéíóúñÑ\s]+$/', $input['nombre'])) {
             $this->errores['nombre'] = 'El nombre solo puede contener letras y espacios';
         }
-      
+    
         // Validar email
         if (empty($input['email'])) {
             $this->errores['email'] = 'El email es requerido';
         } elseif (!filter_var($input['email'], FILTER_VALIDATE_EMAIL)) {
             $this->errores['email'] = 'El email no tiene un formato válido';
         }
-      
+    
         // Validar teléfono
         if (!empty($input['telefono'])) {
             $telefono = preg_replace('/[^0-9]/', '', $input['telefono']);
@@ -802,14 +803,14 @@ class ValidadorFormulario {
                 $this->errores['telefono'] = 'El teléfono debe tener al menos 10 dígitos';
             }
         }
-      
+    
         // Validar edad
         if (!empty($input['edad'])) {
             if (!ctype_digit($input['edad']) || $input['edad'] < 18 || $input['edad'] > 120) {
                 $this->errores['edad'] = 'La edad debe ser un número entre 18 y 120';
             }
         }
-      
+    
         return empty($this->errores);
     }
   
@@ -870,16 +871,16 @@ class Paginador {
   
     public function generarEnlaces($urlBase) {
         $enlaces = [];
-      
+    
         // Enlace anterior
         if ($this->paginaActual > 1) {
             $enlaces['anterior'] = $urlBase . '?pagina=' . ($this->paginaActual - 1);
         }
-      
+    
         // Enlaces de páginas
         $inicio = max(1, $this->paginaActual - 2);
         $fin = min($this->totalPaginas, $this->paginaActual + 2);
-      
+    
         for ($i = $inicio; $i <= $fin; $i++) {
             $enlaces['paginas'][$i] = [
                 'numero' => $i,
@@ -887,19 +888,19 @@ class Paginador {
                 'activa' => $i === $this->paginaActual
             ];
         }
-      
+    
         // Enlace siguiente
         if ($this->paginaActual < $this->totalPaginas) {
             $enlaces['siguiente'] = $urlBase . '?pagina=' . ($this->paginaActual + 1);
         }
-      
+    
         return $enlaces;
     }
   
     public function obtenerInfo() {
         $inicio = $this->obtenerOffset() + 1;
         $fin = min($this->totalItems, $inicio + $this->itemsPorPagina - 1);
-      
+    
         return "Mostrando $inicio a $fin de {$this->totalItems} resultados";
     }
 }
@@ -932,11 +933,11 @@ class GeneradorReportes {
   
     public function generarCSV() {
         $csv = [];
-      
+    
         // Encabezados
         $encabezados = array_values($this->columnas);
         $csv[] = implode(',', array_map([$this, 'escaparCSV'], $encabezados));
-      
+    
         // Datos
         foreach ($this->datos as $fila) {
             $valores = [];
@@ -945,20 +946,20 @@ class GeneradorReportes {
             }
             $csv[] = implode(',', $valores);
         }
-      
+    
         return implode("\n", $csv);
     }
   
     public function generarHTML() {
         $html = ['<table class="tabla-reporte">'];
-      
+    
         // Encabezados
         $html[] = '<thead><tr>';
         foreach ($this->columnas as $titulo) {
             $html[] = '<th>' . htmlspecialchars($titulo) . '</th>';
         }
         $html[] = '</tr></thead>';
-      
+    
         // Datos
         $html[] = '<tbody>';
         foreach ($this->datos as $fila) {
@@ -970,7 +971,7 @@ class GeneradorReportes {
             $html[] = '</tr>';
         }
         $html[] = '</tbody></table>';
-      
+    
         return implode('', $html);
     }
   
@@ -999,7 +1000,7 @@ class GeneradorReportes {
             }
             return true;
         });
-      
+    
         return new self($datosFiltrados, $this->columnas);
     }
   
@@ -1009,7 +1010,7 @@ class GeneradorReportes {
             $resultado = $a[$campo] <=> $b[$campo];
             return $direccion === 'DESC' ? -$resultado : $resultado;
         });
-      
+    
         return new self($datosOrdenados, $this->columnas);
     }
 }
@@ -1218,44 +1219,44 @@ function procesarArchiveCSV($archivo) {
         if (!file_exists($archivo)) {
             throw new InvalidArgumentException("El archivo no existe: $archivo");
         }
-      
+    
         if (!is_readable($archivo)) {
             throw new RuntimeException("No se puede leer el archivo: $archivo");
         }
-      
+    
         $contenido = file_get_contents($archivo);
         if ($contenido === false) {
             throw new RuntimeException("Error al leer el archivo: $archivo");
         }
-      
+    
         $lineas = explode("\n", trim($contenido));
         if (empty($lineas)) {
             throw new InvalidArgumentException("El archivo está vacío: $archivo");
         }
-      
+    
         $encabezados = str_getcsv(array_shift($lineas));
         $datos = [];
-      
+    
         foreach ($lineas as $numeroLinea => $linea) {
             if (empty(trim($linea))) {
                 continue; // Saltar líneas vacías
             }
-          
+        
             $campos = str_getcsv($linea);
             if (count($campos) !== count($encabezados)) {
                 error_log("Línea " . ($numeroLinea + 2) . " tiene número incorrecto de campos");
                 continue;
             }
-          
+        
             $datos[] = array_combine($encabezados, $campos);
         }
-      
+    
         return [
             'exito' => true,
             'datos' => $datos,
             'total' => count($datos)
         ];
-      
+    
     } catch (Exception $e) {
         error_log("Error procesando CSV: " . $e->getMessage());
         return [

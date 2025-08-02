@@ -1,5 +1,6 @@
 ---
 title: 'Conceptos Arquitectónicos de Laravel'
+code: "laraverel"
 description: 'Resumen Completo - Conceptos Arquitectónicos de Laravel'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -239,7 +240,7 @@ La View representa la interfaz de usuario (UI) de la aplicación. Es responsable
 
     <section class="comments">
         <h3>Comentarios ({{ $post->comments->count() }})</h3>
-      
+    
         @forelse($post->comments as $comment)
             <div class="comment">
                 <strong>{{ $comment->author->name }}</strong>
@@ -294,7 +295,7 @@ class PostController extends Controller
     public function show(Post $post): View
     {
         $post->load(['author', 'comments.author']);
-      
+    
         return view('posts.show', compact('post'));
     }
 
@@ -319,14 +320,14 @@ class PostController extends Controller
     public function edit(Post $post): View
     {
         $this->authorize('update', $post);
-      
+    
         return view('posts.edit', compact('post'));
     }
 
     public function update(UpdatePostRequest $request, Post $post): RedirectResponse
     {
         $this->authorize('update', $post);
-      
+    
         $post->update($request->validated());
 
         return redirect()
@@ -337,7 +338,7 @@ class PostController extends Controller
     public function destroy(Post $post): RedirectResponse
     {
         $this->authorize('delete', $post);
-      
+    
         $post->delete();
 
         return redirect()
@@ -364,7 +365,7 @@ class PostController extends Controller
     {
         // Interactúa con el MODEL
         $post->load(['author', 'comments']);
-      
+    
         // Pasa datos a la VIEW
         return view('posts.show', compact('post'));
     }
@@ -452,10 +453,10 @@ class OrderController extends Controller
     public function store(StoreOrderRequest $request)
     {
         $order = Order::create($request->validated());
-      
+    
         $this->paymentService->processPayment($order);
         $this->notificationService->sendConfirmation($order);
-      
+    
         return redirect()->route('orders.show', $order);
     }
 }
@@ -523,7 +524,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Solo registrar bindings aquí
         $this->app->bind(PaymentGateway::class, StripePaymentGateway::class);
-      
+    
         $this->app->singleton(PaymentService::class, function ($app) {
             return new PaymentService(
                 $app->make(PaymentGateway::class),
@@ -703,11 +704,11 @@ class PaymentController extends Controller
             $request->amount,
             $request->payment_token
         );
-      
+    
         if ($result->successful()) {
             return response()->json(['success' => true]);
         }
-      
+    
         return response()->json(['error' => $result->message()], 400);
     }
 }
@@ -732,7 +733,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $result = PaymentService::charge($request->amount, $request->token);
-      
+    
         // ...
     }
 }
@@ -825,9 +826,9 @@ class DocumentService
     public function store(UploadedFile $file): string
     {
         $path = 'documents/' . Str::uuid() . '.' . $file->extension();
-      
+    
         $this->filesystem->putFileAs('', $file, $path);
-      
+    
         return $path;
     }
 }
@@ -1210,7 +1211,7 @@ class TerminableMiddleware
     {
         // Se ejecuta después de que la respuesta se envía al navegador
         Log::info('Response enviada al cliente');
-      
+    
         // Tareas pesadas que no afectan la respuesta
         $this->processAnalytics($request, $response);
     }
@@ -1754,15 +1755,15 @@ Blade es el motor de plantillas de Laravel, proporcionando una forma simple y ex
 @foreach ($posts as $post)
     <div>
         Post #{{ $loop->iteration }} de {{ $loop->count }}
-      
+    
         @if ($loop->first)
             Este es el primer post
         @endif
-      
+    
         @if ($loop->last)
             Este es el último post
         @endif
-      
+    
         @if ($loop->remaining > 0)
             Quedan {{ $loop->remaining }} posts
         @endif
@@ -2072,14 +2073,14 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $order = $this->orderRepository->create($request->validated());
-      
+    
         $result = $this->paymentService->processPayment($order);
-      
+    
         if ($result->successful()) {
             $this->notificationService->sendOrderConfirmation($order);
             return redirect()->route('orders.show', $order);
         }
-      
+    
         return back()->withErrors(['payment' => $result->message()]);
     }
 }
@@ -2105,25 +2106,25 @@ class PaymentService
     public function processPayment(Order $order): PaymentResult
     {
         $this->logger->info('Procesando pago', ['order_id' => $order->id]);
-      
+    
         try {
             $result = $this->gateway->charge(
                 $order->total_amount,
                 $order->payment_token
             );
-          
+        
             $this->logger->info('Pago procesado', [
                 'order_id' => $order->id,
                 'charge_id' => $result->chargeId()
             ]);
-          
+        
             return $result;
         } catch (PaymentException $e) {
             $this->logger->error('Error en pago', [
                 'order_id' => $order->id,
                 'error' => $e->getMessage()
             ]);
-          
+        
             throw $e;
         }
     }
@@ -2145,7 +2146,7 @@ class OrderController extends Controller
         OrderStatusService $statusService  // Service injection
     ): RedirectResponse {
         $statusService->updateStatus($order, $request->status);
-      
+    
         return redirect()
             ->route('orders.show', $order)
             ->with('success', 'Estado actualizado correctamente');
@@ -2234,7 +2235,7 @@ public function register(): void
 {
     $this->app->bind(EmailService::class, function ($app) {
         $driver = config('mail.driver');
-      
+    
         return match($driver) {
             'smtp' => new SmtpEmailService(),
             'mailgun' => new MailgunEmailService(config('services.mailgun.secret')),
@@ -2289,12 +2290,12 @@ class ProcessImageUpload implements ShouldQueue
         StorageService $storage    // Inyección automática
     ): void {
         $processedImage = $processor->resize($this->image->path, [800, 600]);
-      
+    
         $thumbnailPath = $processor->createThumbnail($this->image->path, [150, 150]);
-      
+    
         $storage->store($processedImage, 'images/processed/');
         $storage->store($thumbnailPath, 'images/thumbnails/');
-      
+    
         $this->image->update([
             'processed' => true,
             'thumbnail_path' => $thumbnailPath
@@ -2319,7 +2320,7 @@ class SendWelcomeEmail
                 'emails.welcome',
                 ['user' => $event->user]
             );
-          
+        
             $logger->info('Welcome email sent', ['user_id' => $event->user->id]);
         } catch (Exception $e) {
             $logger->error('Failed to send welcome email', [
@@ -2352,21 +2353,21 @@ class PaymentServiceTest extends TestCase
         // Arrange
         $mockGateway = Mockery::mock(PaymentGateway::class);
         $mockLogger = Mockery::mock(Logger::class);
-      
+    
         $order = Order::factory()->make(['total_amount' => 100]);
-      
+    
         $mockGateway->shouldReceive('charge')
             ->once()
             ->with(100, $order->payment_token)
             ->andReturn(new PaymentResult(true, 'charge_123'));
-          
+        
         $mockLogger->shouldReceive('info')->twice();
-      
+    
         $paymentService = new PaymentService($mockGateway, $mockLogger);
-      
+    
         // Act
         $result = $paymentService->processPayment($order);
-      
+    
         // Assert
         $this->assertTrue($result->successful());
         $this->assertEquals('charge_123', $result->chargeId());
@@ -2387,16 +2388,16 @@ class OrderCreationTest extends TestCase
                  ->once()
                  ->andReturn(new PaymentResult(true, 'charge_123'));
         });
-      
+    
         $user = User::factory()->create();
-      
+    
         $response = $this->actingAs($user)
             ->post('/orders', [
                 'product_id' => 1,
                 'quantity' => 2,
                 'payment_token' => 'tok_123'
             ]);
-          
+        
         $response->assertRedirect();
         $this->assertDatabaseHas('orders', ['user_id' => $user->id]);
     }
@@ -2499,11 +2500,11 @@ class UserController extends Controller
     public function show(int $id)
     {
         $user = $this->userRepository->find($id);
-      
+    
         if (!$user) {
             abort(404);
         }
-      
+    
         return view('users.show', compact('user'));
     }
 }
@@ -2538,7 +2539,7 @@ class UserService
         }
 
         DB::beginTransaction();
-      
+    
         try {
             // Crear usuario
             $user = $this->userRepository->create([
@@ -2562,7 +2563,7 @@ class UserService
             ]);
 
             DB::commit();
-          
+        
             return $user;
         } catch (Exception $e) {
             DB::rollBack();
@@ -2627,7 +2628,7 @@ class CreateOrderAction
 
         // Procesar pago
         $paymentResult = $this->paymentService->processPayment($order);
-      
+    
         if (!$paymentResult->successful()) {
             $order->update(['status' => 'failed']);
             throw new PaymentFailedException($paymentResult->message());
@@ -2659,7 +2660,7 @@ class OrderController extends Controller
     {
         try {
             $order = $action->execute(auth()->user(), $request->validated());
-          
+        
             return redirect()
                 ->route('orders.show', $order)
                 ->with('success', 'Orden creada exitosamente');
@@ -2695,10 +2696,10 @@ class UserObserver
     {
         // Limpiar cache relacionado
         $this->cacheService->forget('users.count');
-      
+    
         // Registrar en auditoría
         $this->auditService->log('user.created', $user);
-      
+    
         // Enviar evento
         event(new UserCreated($user));
     }
@@ -2707,7 +2708,7 @@ class UserObserver
     {
         // Limpiar cache del usuario
         $this->cacheService->forget("user.{$user->id}");
-      
+    
         // Registrar cambios
         $this->auditService->log('user.updated', $user, $user->getDirty());
     }
@@ -2716,7 +2717,7 @@ class UserObserver
     {
         // Limpiar todos los caches relacionados
         $this->cacheService->forgetPattern("user.{$user->id}.*");
-      
+    
         // Registrar eliminación
         $this->auditService->log('user.deleted', $user);
     }
@@ -2757,7 +2758,7 @@ class StandardShippingStrategy implements ShippingStrategy
     {
         $baseCost = 5.00;
         $weightCost = $weight * 0.50;
-      
+    
         return $baseCost + $weightCost;
     }
 
@@ -2773,7 +2774,7 @@ class ExpressShippingStrategy implements ShippingStrategy
     {
         $baseCost = 15.00;
         $weightCost = $weight * 1.00;
-      
+    
         return $baseCost + $weightCost;
     }
 
@@ -2792,10 +2793,10 @@ class ShippingService
     public function calculateShipping(Order $order, string $shippingType): array
     {
         $strategy = $this->getStrategy($shippingType);
-      
+    
         $cost = $strategy->calculateCost($order->weight, $order->destination);
         $delivery = $strategy->getEstimatedDelivery($order->destination);
-      
+    
         return [
             'cost' => $cost,
             'estimated_delivery_days' => $delivery
@@ -3034,7 +3035,7 @@ class UserManagementTest extends TestCase
     public function test_admin_can_create_user(): void
     {
         $admin = User::factory()->admin()->create();
-      
+    
         $userData = [
             'name' => 'John Doe',
             'email' => 'john@example.com',
@@ -3056,7 +3057,7 @@ class UserManagementTest extends TestCase
     public function test_regular_user_cannot_create_user(): void
     {
         $user = User::factory()->create();
-      
+    
         $response = $this->actingAs($user)
             ->post('/admin/users', []);
 

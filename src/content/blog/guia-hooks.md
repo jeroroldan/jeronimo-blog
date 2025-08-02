@@ -1,5 +1,6 @@
 ---
 title: 'React Hooks'
+code: "react"
 description: 'Guía Maestra de React Hooks - Dominio Completo para el Desarrollo Diario'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -140,7 +141,7 @@ useEffect(() => {
     try {
       setLoading(true);
       const response = await api.getUser(userId);
-    
+  
       if (!isCancelled) {
         setUser(response.data);
         setError(null);
@@ -260,7 +261,7 @@ const useFetch = (url, options = {}) => {
     try {
       setLoading(true);
       setError(null);
-    
+  
       const response = await fetch(fetchUrl, {
         headers: {
           'Content-Type': 'application/json',
@@ -268,17 +269,17 @@ const useFetch = (url, options = {}) => {
         },
         ...fetchOptions
       });
-    
+  
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-    
+  
       const result = await response.json();
-    
+  
       // Guardar en cache
       cache.current.set(cacheKey, result);
       setData(result);
-    
+  
     } catch (err) {
       setError(err.message);
     } finally {
@@ -648,7 +649,7 @@ const LoginForm = () => {
           <span className="error">{form.errors.email}</span>
         )}
       </div>
-    
+  
       <div>
         <input
           type="password"
@@ -661,7 +662,7 @@ const LoginForm = () => {
           <span className="error">{form.errors.password}</span>
         )}
       </div>
-    
+  
       <button 
         type="submit" 
         disabled={form.isSubmitting || !form.isValid}
@@ -689,7 +690,7 @@ const useShoppingCart = () => {
   const addItem = useCallback((product, quantity = 1) => {
     setItems(prev => {
       const existingItem = prev.find(item => item.id === product.id);
-    
+  
       if (existingItem) {
         return prev.map(item =>
           item.id === product.id
@@ -697,7 +698,7 @@ const useShoppingCart = () => {
             : item
         );
       }
-    
+  
       return [...prev, { ...product, quantity }];
     });
   }, []);
@@ -790,10 +791,10 @@ const createApiHook = (endpoint, options = {}) => {
       try {
         setLoading(true);
         setError(null);
-      
+    
         const response = await fetch(url, options);
         if (!response.ok) throw new Error(response.statusText);
-      
+    
         const result = await response.json();
         setData(result);
       } catch (err) {
@@ -1165,7 +1166,7 @@ const useApi = (url, fetcher = fetch) => {
         setLoading(true);
         const response = await fetcher(url);
         const result = await response.json();
-      
+    
         if (!cancelled) {
           setData(result);
         }
@@ -1601,7 +1602,7 @@ const cartReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_ITEM':
       const existingItem = state.items.find(item => item.id === action.item.id);
-    
+  
       if (existingItem) {
         return {
           ...state,
@@ -1612,7 +1613,7 @@ const cartReducer = (state, action) => {
           )
         };
       }
-    
+  
       return {
         ...state,
         items: [...state.items, { ...action.item, quantity: 1 }]
@@ -1867,7 +1868,7 @@ const useApi = () => {
     try {
       setLoading(true);
       setError(null);
-    
+  
       const response = await fetch(url, {
         headers: {
           'Content-Type': 'application/json',
@@ -1875,11 +1876,11 @@ const useApi = () => {
         },
         ...options
       });
-    
+  
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-    
+  
       const data = await response.json();
       return data;
     } catch (err) {

@@ -1,5 +1,6 @@
 ---
 title: 'Dominar el Inglés'
+code: "ingles"
 description: 'Guía Maestra para Dominar el Inglés - Nivel Intermedio'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

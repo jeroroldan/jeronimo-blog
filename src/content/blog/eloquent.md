@@ -1,5 +1,6 @@
 ---
 title: 'Eloquent'
+code: "laravarel"
 description: 'Masterclass Eloquent - De Principiante a Experto en Consultas Optimizadas'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -988,7 +989,7 @@ class DashboardService {
 class ProductSearchService {
     public function search($filters) {
         $query = Product::query();
-    
+  
         // Búsqueda por texto
         if (!empty($filters['search'])) {
             $query->where(function($q) use ($filters) {
@@ -999,26 +1000,26 @@ class ProductSearchService {
                   });
             });
         }
-    
+  
         // Filtro por categoría
         if (!empty($filters['category'])) {
             $query->where('category_id', $filters['category']);
         }
-    
+  
         // Filtro por rango de precio
         if (!empty($filters['min_price'])) {
             $query->where('price', '>=', $filters['min_price']);
         }
-    
+  
         if (!empty($filters['max_price'])) {
             $query->where('price', '<=', $filters['max_price']);
         }
-    
+  
         // Ordenamiento
         $sortBy = $filters['sort'] ?? 'created_at';
         $sortOrder = $filters['order'] ?? 'desc';
         $query->orderBy($sortBy, $sortOrder);
-    
+  
         return $query->with(['category', 'images'])->paginate(20);
     }
 }

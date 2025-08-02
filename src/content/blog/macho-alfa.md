@@ -1,5 +1,6 @@
 ---
 title: 'Confianza Auténtica y Construir Relaciones'
+code: "seduccion"
 description: 'Guía para Desarrollar Confianza Auténtica y Construir Relaciones Significativas'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -1,5 +1,6 @@
 ---
 title: 'Reprogramación Mental y PNL'
+code: "aprendizaje"
 description: 'Guía Definitiva: Reprogramación Mental y PNL para el Éxito Totals'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

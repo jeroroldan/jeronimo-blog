@@ -1,5 +1,6 @@
 ---
 title: 'Mejores Prácticas en Laravel'
+code: "laravarel"
 description: 'Guía Completa de Mejores Prácticas en Laravel'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -312,16 +313,16 @@ class UserService
                 'email' => $userData->email,
                 'password' => Hash::make($userData->password),
             ]);
-          
+        
             $user->profile()->create([
                 'bio' => $profileData->bio,
                 'avatar' => $profileData->avatar,
             ]);
-          
+        
             $user->assignRole('user');
-          
+        
             event(new UserCreated($user));
-          
+        
             return $user;
         });
     }
@@ -331,7 +332,7 @@ class UserService
         DB::transaction(function () use ($fromUser, $toUser) {
             $fromUser->posts()->update(['user_id' => $toUser->id]);
             $fromUser->update(['is_active' => false]);
-          
+        
             Log::info('Posts transferred', [
                 'from_user' => $fromUser->id,
                 'to_user' => $toUser->id,
@@ -476,11 +477,11 @@ class UniqueSlugRule
     public function __invoke($attribute, $value, $fail): void
     {
         $query = DB::table($this->table)->where('slug', $value);
-      
+    
         if ($this->ignoreId) {
             $query->where('id', '!=', $this->ignoreId);
         }
-      
+    
         if ($query->exists()) {
             $fail('El slug ya está en uso.');
         }
@@ -613,7 +614,7 @@ class Handler extends ExceptionHandler
                 ]);
             }
         });
-      
+    
         $this->renderable(function (ValidationException $e, Request $request) {
             if ($request->expectsJson()) {
                 return response()->json([
@@ -635,39 +636,39 @@ class UserService
     {
         try {
             DB::beginTransaction();
-          
+        
             $user = User::create([
                 'name' => $userData->name,
                 'email' => $userData->email,
                 'password' => Hash::make($userData->password),
             ]);
-          
+        
             $this->emailService->sendWelcomeEmail($user);
-          
+        
             DB::commit();
-          
+        
             Log::info('Usuario creado exitosamente', ['user_id' => $user->id]);
-          
+        
             return $user;
-          
+        
         } catch (QueryException $e) {
             DB::rollBack();
-          
+        
             Log::error('Error de base de datos al crear usuario', [
                 'error' => $e->getMessage(),
                 'data' => $userData->toArray(),
             ]);
-          
+        
             throw new UserCreationException('Error al crear el usuario en la base de datos.');
-          
+        
         } catch (Exception $e) {
             DB::rollBack();
-          
+        
             Log::error('Error inesperado al crear usuario', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ]);
-          
+        
             throw new UserCreationException('Error inesperado al crear el usuario.');
         }
     }
@@ -675,11 +676,11 @@ class UserService
     public function getUserById(int $id): User
     {
         $user = User::find($id);
-      
+    
         if (!$user) {
             throw new UserNotFoundException($id);
         }
-      
+    
         return $user;
     }
   
@@ -688,26 +689,26 @@ class UserService
         if (!filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidEmailException($newEmail);
         }
-      
+    
         if (User::where('email', $newEmail)->where('id', '!=', $user->id)->exists()) {
             throw new DuplicateEmailException($newEmail);
         }
-      
+    
         try {
             $user->update(['email' => $newEmail]);
-          
+        
             Log::info('Email actualizado', [
                 'user_id' => $user->id,
                 'old_email' => $user->getOriginal('email'),
                 'new_email' => $newEmail,
             ]);
-          
+        
         } catch (QueryException $e) {
             Log::error('Error al actualizar email', [
                 'user_id' => $user->id,
                 'error' => $e->getMessage(),
             ]);
-          
+        
             throw new UserUpdateException('Error al actualizar el email del usuario.');
         }
     }
@@ -736,7 +737,7 @@ class UserService
         $user = $this->userRepository->create($data);
         $this->emailService->sendWelcomeEmail($user);
         $this->auditService->logUserCreation($user);
-      
+    
         return $user;
     }
   
@@ -826,15 +827,15 @@ class CreateUserAction
     public function execute(CreateUserData $data): User
     {
         $hashedPassword = $this->hashService->hash($data->password);
-      
+    
         $user = $this->userRepository->create([
             'name' => $data->name,
             'email' => $data->email,
             'password' => $hashedPassword,
         ]);
-      
+    
         $this->emailService->sendWelcomeEmail($user);
-      
+    
         return $user;
     }
 }
@@ -850,7 +851,7 @@ class UpdateUserProfileAction
             'bio' => $data->bio,
             'avatar' => $data->avatar,
         ]);
-      
+    
         return $user->refresh();
     }
 }
@@ -946,7 +947,7 @@ class Email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidArgumentException("Email inválido: {$email}");
         }
-      
+    
         $this->value = strtolower($email);
     }
   
@@ -981,7 +982,7 @@ class Money
         if ($amount < 0) {
             throw new InvalidArgumentException('El monto no puede ser negativo');
         }
-      
+    
         $this->amount = $amount;
         $this->currency = $currency;
     }
@@ -1065,17 +1066,17 @@ class OrderService
     public function createOrder(CreateOrderData $data): Order
     {
         $this->validateOrderData($data);
-      
+    
         return DB::transaction(function () use ($data) {
             $order = $this->orderRepository->create([
                 'user_id' => $data->userId,
                 'status' => 'pending',
                 'total' => $this->calculateTotal($data->items),
             ]);
-          
+        
             $this->attachOrderItems($order, $data->items);
             $this->inventoryService->reserveStock($data->items);
-          
+        
             return $order;
         });
     }
@@ -1087,20 +1088,20 @@ class OrderService
                 $order->total,
                 $paymentData
             );
-          
+        
             if ($paymentResult->isSuccessful()) {
                 $this->orderRepository->update($order, [
                     'status' => 'paid',
                     'payment_id' => $paymentResult->getId(),
                 ]);
-              
+            
                 $this->emailService->sendOrderConfirmation($order);
-              
+            
                 return true;
             }
-          
+        
             return false;
-          
+        
         } catch (PaymentException $e) {
             $this->orderRepository->update($order, ['status' => 'payment_failed']);
             throw $e;
@@ -1112,10 +1113,10 @@ class OrderService
         if (empty($data->items)) {
             throw new InvalidOrderException('El pedido debe tener al menos un item');
         }
-      
+    
         foreach ($data->items as $item) {
             $product = $this->productRepository->find($item->productId);
-          
+        
             if (!$product || !$product->isAvailable()) {
                 throw new ProductNotAvailableException($item->productId);
             }
@@ -1125,13 +1126,13 @@ class OrderService
     private function calculateTotal(array $items): Money
     {
         $total = Money::fromFloat(0);
-      
+    
         foreach ($items as $item) {
             $product = $this->productRepository->find($item->productId);
             $itemTotal = $product->price->multiply($item->quantity);
             $total = $total->add($itemTotal);
         }
-      
+    
         return $total;
     }
 }
@@ -1158,14 +1159,14 @@ class UserManagementTest extends TestCase
             'password' => 'SecurePass123!',
             'password_confirmation' => 'SecurePass123!',
         ];
-      
+    
         $response = $this->postJson('/api/users', $userData);
-      
+    
         $response->assertStatus(201)
                 ->assertJsonStructure([
                     'data' => ['id', 'name', 'email', 'created_at']
                 ]);
-      
+    
         $this->assertDatabaseHas('users', [
             'name' => 'Juan Pérez',
             'email' => 'juan@example.com',
@@ -1175,16 +1176,16 @@ class UserManagementTest extends TestCase
     public function test_cannot_create_user_with_duplicate_email(): void
     {
         User::factory()->create(['email' => 'existing@example.com']);
-      
+    
         $userData = [
             'name' => 'Nuevo Usuario',
             'email' => 'existing@example.com',
             'password' => 'SecurePass123!',
             'password_confirmation' => 'SecurePass123!',
         ];
-      
+    
         $response = $this->postJson('/api/users', $userData);
-      
+    
         $response->assertStatus(422)
                 ->assertJsonValidationErrors('email');
     }
@@ -1205,10 +1206,10 @@ class UserServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-      
+    
         $this->userRepository = Mockery::mock(UserRepository::class);
         $this->emailService = Mockery::mock(EmailService::class);
-      
+    
         $this->userService = new UserService(
             $this->userRepository,
             $this->emailService
@@ -1222,26 +1223,26 @@ class UserServiceTest extends TestCase
             email: 'juan@example.com',
             password: 'password123'
         );
-      
+    
         $expectedUser = new User([
             'id' => 1,
             'name' => 'Juan Pérez',
             'email' => 'juan@example.com',
         ]);
-      
+    
         $this->userRepository
             ->shouldReceive('create')
             ->once()
             ->with($userData)
             ->andReturn($expectedUser);
-          
+        
         $this->emailService
             ->shouldReceive('sendWelcomeEmail')
             ->once()
             ->with($expectedUser);
-      
+    
         $result = $this->userService->createUser($userData);
-      
+    
         $this->assertEquals($expectedUser, $result);
     }
   
@@ -1251,9 +1252,9 @@ class UserServiceTest extends TestCase
             ->shouldReceive('find')
             ->with(999)
             ->andReturn(null);
-      
+    
         $this->expectException(UserNotFoundException::class);
-      
+    
         $this->userService->getUserById(999);
     }
 }
@@ -1320,10 +1321,10 @@ class CachedUserService
     public function updateUser(User $user, array $data): User
     {
         $updatedUser = $this->userRepository->update($user, $data);
-      
+    
         // Invalidar caché
         $this->cache->forget("user.{$user->id}");
-      
+    
         return $updatedUser;
     }
   
@@ -1436,7 +1437,7 @@ class DebugHelper
         $start = microtime(true);
         $result = $callback();
         $end = microtime(true);
-      
+    
         return [
             'result' => $result,
             'execution_time' => ($end - $start) * 1000, // ms

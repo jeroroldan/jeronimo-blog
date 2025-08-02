@@ -1,5 +1,6 @@
 ---
 title: 'React Query'
+code: "react"
 description: 'React Query: Guía Completa y Práctica'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -170,7 +171,7 @@ function ProductList() {
       <button onClick={() => refetch()}>
         {isFetching ? 'Actualizando...' : 'Actualizar'}
       </button>
-    
+  
       {products.map(product => (
         <div key={product.id}>
           <h3>{product.name}</h3>
@@ -220,7 +221,7 @@ export const useCreateProduct = () => {
       queryClient.setQueryData(['products'], (oldProducts) => {
         return [...(oldProducts || []), newProduct];
       });
-    
+  
       // O invalida para refetch automático
       queryClient.invalidateQueries({ queryKey: ['products'] });
     },
@@ -260,7 +261,7 @@ function CreateProductForm() {
         placeholder="Nombre del producto"
         disabled={createProduct.isPending}
       />
-    
+  
       <input
         type="number"
         value={formData.price}
@@ -271,14 +272,14 @@ function CreateProductForm() {
         placeholder="Precio"
         disabled={createProduct.isPending}
       />
-    
+  
       <button 
         type="submit" 
         disabled={createProduct.isPending}
       >
         {createProduct.isPending ? 'Creando...' : 'Crear Producto'}
       </button>
-    
+  
       {createProduct.error && (
         <div style={{ color: 'red' }}>
           Error: {createProduct.error.message}
@@ -311,10 +312,10 @@ export const useUpdateProduct = () => {
     onMutate: async ({ id, updates }) => {
       // Cancela queries en proceso para evitar conflictos
       await queryClient.cancelQueries({ queryKey: ['products'] });
-    
+  
       // Snapshot del estado actual (por si hay que revertir)
       const previousProducts = queryClient.getQueryData(['products']);
-    
+  
       // Actualización optimista
       queryClient.setQueryData(['products'], (oldProducts) => {
         return oldProducts.map(product => 
@@ -323,7 +324,7 @@ export const useUpdateProduct = () => {
             : product
         );
       });
-    
+  
       // Retorna contexto para rollback
       return { previousProducts };
     },
@@ -387,7 +388,7 @@ export const useInfiniteProducts = (filters = {}) => {
         page: pageParam,
         limit: 10
       });
-    
+  
       const response = await fetch(`/api/products?${params}`);
       return response.json();
     },
@@ -438,7 +439,7 @@ function InfiniteProductList() {
             // El último elemento de la última página
             const isLast = pageIndex === data.pages.length - 1 && 
                           productIndex === page.length - 1;
-          
+        
             return (
               <div
                 key={product.id}
@@ -456,9 +457,9 @@ function InfiniteProductList() {
           })}
         </div>
       ))}
-    
+  
       {isFetchingNextPage && <div>Cargando más productos...</div>}
-    
+  
       {!hasNextPage && (
         <div style={{ textAlign: 'center', padding: '20px' }}>
           🎉 ¡Has visto todos los productos!
@@ -494,14 +495,14 @@ export const useRealtimeProducts = () => {
   
     ws.onmessage = (event) => {
       const { type, data } = JSON.parse(event.data);
-    
+  
       switch (type) {
         case 'PRODUCT_CREATED':
           queryClient.setQueryData(['products'], (oldProducts) => {
             return [...(oldProducts || []), data];
           });
           break;
-        
+      
         case 'PRODUCT_UPDATED':
           queryClient.setQueryData(['products'], (oldProducts) => {
             return oldProducts.map(product => 
@@ -509,7 +510,7 @@ export const useRealtimeProducts = () => {
             );
           });
           break;
-        
+      
         case 'PRODUCT_DELETED':
           queryClient.setQueryData(['products'], (oldProducts) => {
             return oldProducts.filter(product => product.id !== data.id);
@@ -542,7 +543,7 @@ export const useSSEProducts = () => {
   
     eventSource.onmessage = (event) => {
       const update = JSON.parse(event.data);
-    
+  
       queryClient.setQueryData(['products'], (oldData) => {
         // Actualiza según el tipo de evento
         return processRealtimeUpdate(oldData, update);
@@ -1053,13 +1054,13 @@ export const useShoppingCart = () => {
   
     onMutate: async ({ productId, quantity }) => {
       await queryClient.cancelQueries({ queryKey: ['cart'] });
-    
+  
       const previousCart = queryClient.getQueryData(['cart']);
-    
+  
       // Actualización optimista
       queryClient.setQueryData(['cart'], (oldCart) => {
         const existingItem = oldCart?.items?.find(item => item.productId === productId);
-      
+    
         if (existingItem) {
           return {
             ...oldCart,
@@ -1084,7 +1085,7 @@ export const useShoppingCart = () => {
           };
         }
       });
-    
+  
       return { previousCart };
     },
   
@@ -1106,9 +1107,9 @@ export const useShoppingCart = () => {
   
     onMutate: async ({ productId, quantity }) => {
       await queryClient.cancelQueries({ queryKey: ['cart'] });
-    
+  
       const previousCart = queryClient.getQueryData(['cart']);
-    
+  
       queryClient.setQueryData(['cart'], (oldCart) => {
         const updatedItems = quantity === 0 
           ? oldCart.items.filter(item => item.productId !== productId)
@@ -1117,19 +1118,19 @@ export const useShoppingCart = () => {
                 ? { ...item, quantity }
                 : item
             );
-      
+    
         const newTotal = updatedItems.reduce(
           (sum, item) => sum + (item.price * item.quantity), 
           0
         );
-      
+    
         return {
           ...oldCart,
           items: updatedItems,
           total: newTotal
         };
       });
-    
+  
       return { previousCart };
     },
   
@@ -1213,9 +1214,9 @@ export const useNotifications = () => {
   
     onMutate: async (notificationId) => {
       await queryClient.cancelQueries({ queryKey: ['notifications'] });
-    
+  
       const previousNotifications = queryClient.getQueryData(['notifications']);
-    
+  
       queryClient.setQueryData(['notifications'], (old) => ({
         ...old,
         items: old.items.map(notification =>
@@ -1225,7 +1226,7 @@ export const useNotifications = () => {
         ),
         unreadCount: Math.max(0, old.unreadCount - 1)
       }));
-    
+  
       return { previousNotifications };
     },
   
@@ -1242,13 +1243,13 @@ export const useNotifications = () => {
   
     ws.onmessage = (event) => {
       const notification = JSON.parse(event.data);
-    
+  
       queryClient.setQueryData(['notifications'], (old) => ({
         ...old,
         items: [notification, ...old.items],
         unreadCount: old.unreadCount + 1
       }));
-    
+  
       // Mostrar notificación del navegador
       if (Notification.permission === 'granted') {
         new Notification(notification.title, {
@@ -1375,7 +1376,7 @@ function Dashboard() {
         value={dateRange} 
         onChange={setDateRange} 
       />
-    
+  
       <div className="metrics-grid">
         <MetricCard 
           title="Ventas Totales"
@@ -1393,7 +1394,7 @@ function Dashboard() {
           change={conversion?.changePercent}
         />
       </div>
-    
+  
       {topProducts && (
         <TopProductsChart products={topProducts} />
       )}
@@ -1461,10 +1462,10 @@ export const useGlobalErrorHandler = () => {
     const unsubscribe = queryClient.getQueryCache().subscribe((event) => {
       if (event.type === 'observerResultsUpdated') {
         const { query } = event;
-      
+    
         if (query.state.error) {
           const error = query.state.error;
-        
+      
           // Manejo específico por tipo de error
           switch (error.status) {
             case 401:
@@ -1472,18 +1473,18 @@ export const useGlobalErrorHandler = () => {
               logout();
               window.location.href = '/login';
               break;
-            
+          
             case 403:
               // Sin permisos, mostrar mensaje
               toast.error('No tienes permisos para realizar esta acción');
               break;
-            
+          
             case 500:
               // Error del servidor, reportar
               reportError(error, query.queryKey);
               toast.error('Error del servidor. Nuestro equipo ha sido notificado');
               break;
-            
+          
             default:
               // Error genérico
               if (error.message) {
@@ -1628,20 +1629,20 @@ function ProductSearch() {
           </div>
         )}
       </div>
-    
+  
       <div className="mt-4">
         {!hasSearched && (
           <div className="text-gray-500">
             Escribe al menos 2 caracteres para buscar
           </div>
         )}
-      
+    
         {noResults && (
           <div className="text-gray-500">
             No se encontraron productos para "{searchTerm}"
           </div>
         )}
-      
+    
         {results.length > 0 && (
           <div>
             <p className="text-sm text-gray-600 mb-2">
@@ -1769,20 +1770,20 @@ export const setupQueryMetrics = (queryClient) => {
       case 'observerAdded':
         metrics.totalQueries++;
         break;
-      
+    
       case 'observerResultsUpdated':
         const { query } = event;
-      
+    
         if (query.state.error) {
           metrics.failedQueries++;
         }
-      
+    
         if (query.state.dataUpdatedAt > query.state.dataUpdateCount) {
           metrics.cacheHits++;
         } else {
           metrics.cacheMisses++;
         }
-      
+    
         // Calcular tiempo de carga
         if (query.state.fetchStatus === 'idle' && query.state.data) {
           const loadTime = Date.now() - query.state.dataUpdatedAt;
@@ -1810,7 +1811,7 @@ export const useQueryMetrics = () => {
     const interval = setInterval(() => {
       const cache = queryClient.getQueryCache();
       const queries = cache.getAll();
-    
+  
       const currentMetrics = {
         totalQueries: queries.length,
         activeQueries: queries.filter(q => q.getObserversCount() > 0).length,
@@ -1820,7 +1821,7 @@ export const useQueryMetrics = () => {
           return size + JSON.stringify(query.state.data || {}).length;
         }, 0)
       };
-    
+  
       setMetrics(currentMetrics);
     }, 5000);
   
@@ -2000,7 +2001,7 @@ export const createNativeQueryClient = () => {
         refetchOnReconnect: true, // Refetch al reconectar
         refetchOnMount: 'always', // Siempre refetch al montar
       },
-    
+  
       mutations: {
         networkMode: 'offlineFirst',
         retry: 1
@@ -2050,7 +2051,7 @@ export const useNetworkStatus = () => {
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsOnline(state.isConnected);
       setConnectionType(state.type);
-    
+  
       // Si volvemos a estar online, refetch queries importantes
       if (state.isConnected) {
         queryClient.refetchQueries({
@@ -2107,10 +2108,10 @@ export const useOfflineMutation = (mutationKey, mutationFn, options = {}) => {
       try {
         // Intenta ejecutar la mutación
         const result = await mutationFn(variables);
-      
+    
         // Si funciona, elimina de pending si estaba ahí
         await removePendingMutation(mutationKey, variables);
-      
+    
         return result;
       } catch (error) {
         // Si falla, guarda para ejecutar después
@@ -2174,10 +2175,10 @@ export const usePendingMutationsProcessor = () => {
     try {
       const pending = await AsyncStorage.getItem(PENDING_MUTATIONS_KEY);
       if (!pending) return;
-    
+  
       const mutations = JSON.parse(pending);
       const successful = [];
-    
+  
       for (const mutation of mutations) {
         try {
           // Aquí necesitarías un registry de mutation functions
@@ -2185,24 +2186,24 @@ export const usePendingMutationsProcessor = () => {
           successful.push(mutation.id);
         } catch (error) {
           console.error('Failed to process pending mutation:', error);
-        
+      
           // Incrementa retry count
           mutation.retryCount = (mutation.retryCount || 0) + 1;
-        
+      
           // Si ha fallado demasiado, elimínalo
           if (mutation.retryCount > 3) {
             successful.push(mutation.id);
           }
         }
       }
-    
+  
       // Elimina las exitosas
       const remaining = mutations.filter(m => !successful.includes(m.id));
       await AsyncStorage.setItem(PENDING_MUTATIONS_KEY, JSON.stringify(remaining));
-    
+  
       // Invalida queries relacionadas
       queryClient.invalidateQueries();
-    
+  
     } catch (error) {
       console.error('Error processing pending mutations:', error);
     }
@@ -2634,7 +2635,7 @@ function OptimisticProductCard({ product }) {
     } catch (error) {
       // Animación de rollback
       setIsRollingBack(true);
-    
+  
       setTimeout(() => {
         setIsRollingBack(false);
       }, 500);
@@ -2651,7 +2652,7 @@ function OptimisticProductCard({ product }) {
     >
       <h3>{product.name}</h3>
       <p>${product.price}</p>
-    
+  
       <button
         onClick={handleToggleFavorite}
         disabled={updateProduct.isPending}
@@ -2663,7 +2664,7 @@ function OptimisticProductCard({ product }) {
       >
         {product.isFavorite ? '❤️' : '🤍'}
       </button>
-    
+  
       {updateProduct.error && isRollingBack && (
         <div className="error-toast">
           No se pudo actualizar. Revertido.
@@ -2730,7 +2731,7 @@ function SmartProductList() {
           Actualizando...
         </div>
       )}
-    
+  
       <ProductGrid products={productsQuery.data} />
     </div>
   );

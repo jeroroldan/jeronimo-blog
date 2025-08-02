@@ -1,5 +1,6 @@
 ---
 title: 'Inglés para IT'
+code: "ingles"
 description: 'Guía Completa de Inglés para IT - Herramientas Prácticas'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

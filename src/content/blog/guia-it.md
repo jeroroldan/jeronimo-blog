@@ -1,5 +1,6 @@
 ---
 title: 'Protocolos de Comunicación IoT'
+code: "react"
 description: 'Guía Completa de Protocolos de Comunicación IoT'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -326,10 +327,10 @@ def handle_received_data(data):
         print(f"Recibido de {received['device_id']}:")
         print(f"  Temperatura: {received['temperature']}°C")
         print(f"  Humedad: {received['humidity']}%")
-      
+    
         # Procesar datos (guardar en DB, activar actuadores, etc.)
         process_sensor_data(received)
-      
+    
     except Exception as e:
         print(f"Error procesando datos: {e}")
 
@@ -972,13 +973,13 @@ void connectMQTT() {
     if (client.connect("ESP32Client", mqttUser, mqttPassword, 
                        statusTopic, 1, true, "offline")) {
       Serial.println(" conectado");
-    
+  
       // Suscribirse a topics
       client.subscribe(commandTopic);
-    
+  
       // Publicar estado online
       publishStatus("online");
-    
+  
     } else {
       Serial.print(" falló, rc=");
       Serial.print(client.state());
@@ -1065,7 +1066,7 @@ void processCommand(String command) {
       publishStatus("restarting");
       delay(1000);
       ESP.restart();
-    
+  
     } else if (action == "config") {
       // Actualizar configuración
       if (doc.containsKey("interval")) {
@@ -1073,7 +1074,7 @@ void processCommand(String command) {
         Serial.println("Nuevo intervalo: " + String(newInterval) + " segundos");
         // Implementar cambio de intervalo
       }
-    
+  
     } else if (action == "calibrate") {
       Serial.println("Calibrando sensores...");
       // Implementar calibración
@@ -1220,7 +1221,7 @@ void callback_led(coapPacket &packet, IPAddress ip, int port) {
     coap.sendResponse(ip, port, packet.messageid, response, 
                       strlen(response), COAP_CONTENT, 
                       COAP_APPLICATION_JSON, packet.token, packet.tokenlen);
-                    
+                  
   } else if (packet.code == COAP_PUT) {
     // Cambiar estado del LED
     String payload = String((char*)packet.payload, packet.payloadlen);
@@ -1508,7 +1509,7 @@ void handlePutLed() {
   
     if (!error && requestDoc.containsKey("state")) {
       String state = requestDoc["state"];
-    
+  
       if (state == "on") {
         deviceState.ledState = true;
         digitalWrite(LED_BUILTIN, HIGH);
@@ -1519,17 +1520,17 @@ void handlePutLed() {
         server.send(400, "application/json", "{\"error\":\"Invalid state. Use 'on' or 'off'\"}");
         return;
       }
-    
+  
       // Respuesta exitosa
       StaticJsonDocument<100> responseDoc;
       responseDoc["led"] = deviceState.ledState ? "on" : "off";
       responseDoc["result"] = "success";
       responseDoc["timestamp"] = millis();
-    
+  
       String response;
       serializeJson(responseDoc, response);
       server.send(200, "application/json", response);
-    
+  
     } else {
       server.send(400, "application/json", "{\"error\":\"Invalid JSON or missing 'state' field\"}");
     }
@@ -1548,21 +1549,21 @@ void handlePostConfig() {
     if (!error) {
       // Procesar configuración
       bool configChanged = false;
-    
+  
       if (configDoc.containsKey("device_id")) {
         deviceState.deviceId = configDoc["device_id"].as<String>();
         configChanged = true;
       }
-    
+  
       if (configDoc.containsKey("sensor_interval")) {
         // Implementar cambio de intervalo de sensores
         configChanged = true;
       }
-    
+  
       if (configChanged) {
         // Guardar configuración en SPIFFS
         saveConfig();
-      
+    
         server.send(200, "application/json", "{\"result\":\"Configuration updated\"}");
       } else {
         server.send(400, "application/json", "{\"error\":\"No valid configuration parameters\"}");
@@ -1871,7 +1872,7 @@ void emberAfOnOffClusterServerAttributeChangedCallback(EndpointId endpoint, Attr
     if (newState != lightState) {
       lightState = newState;
       updatePhysicalLight();
-    
+  
       Serial.printf("Luz %s\n", lightState ? "encendida" : "apagada");
     }
   }
@@ -1887,7 +1888,7 @@ void emberAfLevelControlClusterServerAttributeChangedCallback(EndpointId endpoin
     if (newLevel != lightLevel) {
       lightLevel = newLevel;
       updatePhysicalLight();
-    
+  
       Serial.printf("Nivel de brillo: %d\n", lightLevel);
     }
   }
@@ -2125,10 +2126,10 @@ void connectSecureMQTT() {
   
     if (mqttClient.connect(clientId.c_str())) {
       Serial.println(" conectado");
-    
+  
       // Suscribirse a topics con validación
       mqttClient.subscribe("commands/+/validate");
-    
+  
     } else {
       Serial.print(" falló, rc=");
       Serial.print(mqttClient.state());

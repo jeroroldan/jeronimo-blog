@@ -1,5 +1,6 @@
 ---
 title: 'Manejos de fechas'
+code: "react"
 description: 'Manejos de fechas en javascript'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -1160,7 +1161,7 @@ class LuxonExamples {
       promedio_dias_entre_fechas: intervalos
         .map(i => i.length('days'))
         .reduce((sum, days) => sum + days, 0) / intervalos.length,
-    
+  
       // Distribución por día de semana
       distribucion_dias: fechas.reduce((acc, fecha) => {
         const dia = fecha.toFormat('cccc', { locale: 'es' })
@@ -1194,7 +1195,7 @@ class LuxonExamples {
       validarReunion: (fechaISO: string, zona: string) => {
         const fecha = DateTime.fromISO(fechaISO, { zone: zona })
         const ahora = DateTime.now().setZone(zona)
-    
+  
         const validaciones = {
           fecha_valida: fecha.isValid,
           zona_permitida: politicas.zonas_permitidas.includes(zona),
@@ -1822,7 +1823,7 @@ class ReportsController {
       if (current.weekday <= 5) { // Lunes a viernes
         const dayStart = current.set({ hour: 9, minute: 0 })
         const dayEnd = current.set({ hour: 18, minute: 0 })
-    
+  
         if (dayEnd > start && dayStart < end) {
           const effectiveStart = DateTime.max(dayStart, start)
           const effectiveEnd = DateTime.min(dayEnd, end)
@@ -2000,13 +2001,13 @@ export class DateTimeService {
       if (current.weekday <= 5) { // Día laboral
         const businessStart = current.set({ hour: 9, minute: 0 })
         const businessEnd = current.set({ hour: 18, minute: 0 })
-    
+  
         // Horas de negocio
         if (current < businessEnd && periodEnd > businessStart) {
           const effectiveStart = DateTime.max(current, businessStart)
           const effectiveEnd = DateTime.min(periodEnd, businessEnd)
           const hours = effectiveEnd.diff(effectiveStart, 'hours').hours
-      
+    
           if (hours > 0) {
             businessHours += hours
             breakdown.push({
@@ -2016,13 +2017,13 @@ export class DateTimeService {
             })
           }
         }
-    
+  
         // Horas extra
         const beforeBusiness = current < businessStart ? 
           DateTime.min(periodEnd, businessStart).diff(current, 'hours').hours : 0
         const afterBusiness = periodEnd > businessEnd ? 
           periodEnd.diff(DateTime.max(current, businessEnd), 'hours').hours : 0
-    
+  
         const overtime = beforeBusiness + afterBusiness
         if (overtime > 0) {
           overtimeHours += overtime

@@ -1,5 +1,6 @@
 ---
 title: 'Clases en Laravel con Analogías de la Vida Real'
+code: "laravarel"
 description: 'Guía Definitiva: Tipos de Clases en Laravel con Analogías de la Vida Real'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
@@ -100,7 +101,7 @@ class DoctorController extends Controller
     {
         // El director consulta los registros
         $doctores = Doctor::with('hospital')->get();
-    
+  
         // Y presenta un informe organizado
         return view('doctores.index', compact('doctores'));
     }
@@ -114,10 +115,10 @@ class DoctorController extends Controller
             'especialidad' => 'required|string',
             'hospital_id' => 'required|exists:hospitals,id'
         ]);
-    
+  
         // Aprueba y registra al nuevo doctor
         $doctor = Doctor::create($request->only(['nombre', 'especialidad', 'hospital_id']));
-    
+  
         // Notifica el resultado
         return redirect()->route('doctores.index')
                         ->with('success', 'Doctor registrado exitosamente');
@@ -128,7 +129,7 @@ class DoctorController extends Controller
     {
         // El director busca el expediente completo
         $doctor->load(['pacientes', 'hospital']);
-    
+  
         // Y presenta el informe detallado
         return view('doctores.show', compact('doctor'));
     }
@@ -197,17 +198,17 @@ class VerificarAccesoMedico
     {
         // Como un guardia que verifica credenciales
         $usuario = $request->user();
-    
+  
         // "¿Tienes pase de empleado?"
         if (!$usuario) {
             return redirect('login')->with('error', 'Necesitas identificarte');
         }
-    
+  
         // "¿Tu pase te permite entrar a esta área?"
         if ($tipoAcceso === 'cirujano' && $usuario->tipo !== 'cirujano') {
             abort(403, 'Solo cirujanos pueden acceder al quirófano');
         }
-    
+  
         // "Todo en orden, puedes pasar"
         return $next($request);
     }
@@ -219,14 +220,14 @@ class VerificarHorarioLaboral
     public function handle($request, Closure $next)
     {
         $horaActual = now()->hour;
-    
+  
         // "¿Estás intentando entrar fuera del horario?"
         if ($horaActual < 8 || $horaActual > 18) {
             return response()->json([
                 'message' => 'El hospital solo atiende de 8 AM a 6 PM'
             ], 423);
         }
-    
+  
         return $next($request);
     }
 }
@@ -242,14 +243,14 @@ class RegistrarActividad
             'ruta' => $request->path(),
             'hora' => now()
         ]);
-    
+  
         $response = $next($request);
-    
+  
         // Después de salir: "Anoto qué hizo y cuándo se fue"
         Log::info('Usuario completó acción', [
             'status' => $response->getStatusCode()
         ]);
-    
+  
         return $response;
     }
 }
@@ -360,13 +361,13 @@ class DoctorController extends Controller
     {
         // Aquí ya sabemos que todos los datos están correctos
         $doctor = Doctor::create($request->validated());
-    
+  
         // Guardar foto del título
         if ($request->hasFile('foto_titulo')) {
             $path = $request->file('foto_titulo')->store('titulos', 'public');
             $doctor->update(['foto_titulo' => $path]);
         }
-    
+  
         return redirect()->route('doctores.index')
                         ->with('success', 'Licencia médica aprobada');
     }
@@ -400,13 +401,13 @@ class LimpiezaBaseDatos implements ShouldQueue
         Storage::disk('temp')->delete(
             Storage::disk('temp')->files('older-than-30-days')
         );
-    
+  
         // Como organizar archivos de archivo
         $expedientesViejos = Expediente::where('created_at', '<', now()->subYears(5))->get();
         foreach ($expedientesViejos as $expediente) {
             $expediente->archivar(); // Mover a archivo histórico
         }
-    
+  
         Log::info('Limpieza nocturna completada: ' . now());
     }
   
@@ -414,7 +415,7 @@ class LimpiezaBaseDatos implements ShouldQueue
     public function failed(Throwable $exception)
     {
         Log::error('Falló la limpieza nocturna: ' . $exception->getMessage());
-    
+  
         // Notificar al supervisor de mantenimiento
         Mail::to('mantenimiento@hospital.com')->send(
             new NotificacionFalloLimpieza($exception)
@@ -440,14 +441,14 @@ class EnviarResultadosLaboratorio implements ShouldQueue
         Mail::to($this->paciente->email)->send(
             new ResultadosLaboratorio($this->paciente, $this->resultados)
         );
-    
+  
         // También actualiza el expediente
         $this->paciente->expedientes()->create([
             'tipo' => 'laboratorio',
             'resultados' => $this->resultados,
             'fecha' => now()
         ]);
-    
+  
         // Y notifica al doctor
         $this->paciente->doctor->notify(
             new NuevosResultadosDisponibles($this->paciente)
@@ -474,13 +475,13 @@ class CalcularEstadisticasDiarias implements ShouldQueue
             'ingresos_total' => Factura::whereDate('created_at', $this->fecha)->sum('total'),
             'ocupacion_camas' => Cama::where('ocupada', true)->count()
         ];
-    
+  
         // Guardar el reporte diario
         EstadisticaDiaria::create([
             'fecha' => $this->fecha,
             'datos' => $estadisticas
         ]);
-    
+  
         // Si es fin de mes, calcular estadísticas mensuales
         if (now()->isLastOfMonth()) {
             CalcularEstadisticasMensuales::dispatch(now()->format('Y-m'));
@@ -494,19 +495,19 @@ class ConsultaController extends Controller
     public function store(Request $request)
     {
         $consulta = Consulta::create($request->validated());
-    
+  
         // Después de crear la consulta, programar trabajos de fondo
-    
+  
         // Enviar confirmación por email (inmediato)
         EnviarConfirmacionConsulta::dispatch($consulta);
-    
+  
         // Recordatorio 24 horas antes (programado)
         EnviarRecordatorioConsulta::dispatch($consulta)
                                  ->delay(now()->addDay());
-    
+  
         // Actualizar estadísticas (en cola normal)
         ActualizarEstadisticasConsultas::dispatch();
-    
+  
         return redirect()->route('consultas.index');
     }
 }
@@ -532,25 +533,25 @@ class PacienteResource extends JsonResource
     {
         return [
             'id' => $this->id,
-        
+      
             // Como "traducir jerga médica a lenguaje común"
             'nombre_completo' => $this->nombre . ' ' . $this->apellido,
             'edad' => $this->fecha_nacimiento->age . ' años',
             'sexo' => $this->sexo === 'M' ? 'Masculino' : 'Femenino',
-        
+      
             // Solo mostrar información según el contexto
             'telefono' => $this->when(
                 $request->user()->can('ver-contacto-paciente'), 
                 $this->telefono
             ),
-        
+      
             // Como "resumen ejecutivo" en lugar de datos técnicos
             'estado_salud' => [
                 'condicion_general' => $this->getEstadoGeneral(), // Método personalizado
                 'ultima_consulta' => $this->consultas->last()?->created_at?->diffForHumans(),
                 'proximo_control' => $this->proxima_cita?->format('d/m/Y H:i'),
             ],
-        
+      
             // Relaciones "traducidas" también
             'doctor_asignado' => new DoctorResource($this->whenLoaded('doctor')),
             'consultas_recientes' => ConsultaResource::collection(
@@ -558,11 +559,11 @@ class PacienteResource extends JsonResource
                     return $this->consultas->take(5); // Solo las 5 más recientes
                 })
             ),
-        
+      
             // Campos calculados como "interpretación"
             'nivel_riesgo' => $this->calcularNivelRiesgo(),
             'recomendaciones' => $this->getRecomendacionesPersonalizadas(),
-        
+      
             // Metadata útil
             'enlaces' => [
                 'perfil' => route('pacientes.show', $this->id),
@@ -592,12 +593,12 @@ class DoctorResource extends JsonResource
             'id' => $this->id,
             'nombre_profesional' => 'Dr. ' . $this->nombre,
             'especialidad' => ucfirst($this->especialidad),
-        
+      
             // Como "estadísticas de rendimiento"
             'experiencia' => now()->diffInYears($this->fecha_graduacion) . ' años',
             'pacientes_atendidos' => $this->pacientes_count ?? $this->pacientes()->count(),
             'calificacion_promedio' => round($this->calificaciones_avg_puntuacion ?? 0, 1),
-        
+      
             // Solo para administradores
             'informacion_interna' => $this->when(
                 $request->user()->hasRole('administrador'),
@@ -607,7 +608,7 @@ class DoctorResource extends JsonResource
                     'evaluaciones' => $this->evaluaciones
                 ]
             ),
-        
+      
             // Horarios en formato legible
             'disponibilidad' => $this->formatearHorarios(),
             'proxima_disponibilidad' => $this->getProximaDisponibilidad()
@@ -656,7 +657,7 @@ class PacienteController extends Controller
         $pacientes = Paciente::with(['doctor', 'consultas' => function($query) {
             $query->recent(); // Solo consultas recientes para optimizar
         }])->paginate(20);
-    
+  
         // Como un "boletín de prensa" - información formateada para el público
         return PacienteResource::collection($pacientes);
     }
@@ -664,7 +665,7 @@ class PacienteController extends Controller
     public function show(Paciente $paciente)
     {
         $paciente->load(['doctor', 'consultas', 'tratamientos']);
-    
+  
         // Como un "informe detallado" para una persona específica
         return new PacienteResource($paciente);
     }
@@ -706,20 +707,20 @@ class RecordatorioCita extends Notification implements ShouldQueue
     public function via($notifiable)
     {
         $canales = ['database']; // Siempre guardar en "archivo municipal"
-    
+  
         // Como preguntar "¿Cómo prefieres que te contactemos?"
         if ($notifiable->prefiere_email) {
             $canales[] = 'mail';
         }
-    
+  
         if ($notifiable->telefono && $this->tipoRecordatorio === '2h') {
             $canales[] = 'sms'; // SMS solo para recordatorios urgentes
         }
-    
+  
         if ($notifiable->permite_push) {
             $canales[] = 'broadcast'; // Notificación push
         }
-    
+  
         return $canales;
     }
   
@@ -729,7 +730,7 @@ class RecordatorioCita extends Notification implements ShouldQueue
         $mensaje = $this->tipoRecordatorio === '24h' 
             ? 'Le recordamos que mañana tiene cita médica'
             : 'Su cita médica es en 2 horas';
-        
+      
         return (new MailMessage)
             ->subject('Recordatorio: Cita Médica - Hospital Municipal')
             ->greeting('Estimado/a ' . $notifiable->nombre)
@@ -853,34 +854,34 @@ class CitaController extends Controller
     public function store(Request $request)
     {
         $cita = Cita::create($request->validated());
-    
+  
         // Como "programar mensajeros"
-    
+  
         // Confirmación inmediata
         $cita->paciente->notify(new ConfirmacionCita($cita));
-    
+  
         // Recordatorio 24 horas antes
         $cita->paciente->notify((new RecordatorioCita($cita, '24h'))
                                ->delay(now()->until($cita->fecha_hora->subDay())));
-    
+  
         // Recordatorio 2 horas antes
         $cita->paciente->notify((new RecordatorioCita($cita, '2h'))
                                ->delay(now()->until($cita->fecha_hora->subHours(2))));
-    
+  
         return redirect()->route('citas.index');
     }
   
     public function cancelar(Cita $cita)
     {
         $cita->update(['estado' => 'cancelada']);
-    
+  
         // Notificar a todos los involucrados
         $cita->paciente->notify(new CitaCancelada($cita));
         $cita->doctor->notify(new CitaCancelada($cita));
-    
+  
         // Liberar el slot para otros pacientes
         LiberarSlotCita::dispatch($cita);
-    
+  
         return back()->with('success', 'Cita cancelada correctamente');
     }
 }
@@ -972,7 +973,7 @@ class PrepararHabitacionPaciente
     {
         $paciente = $event->paciente;
         $admision = $event->admision;
-    
+  
         // Como "preparar la habitación"
         $habitacion = $admision->habitacion;
         $habitacion->update([
@@ -980,7 +981,7 @@ class PrepararHabitacionPaciente
             'paciente_id' => $paciente->id,
             'fecha_ocupacion' => now()
         ]);
-    
+  
         // Como "preparar el expediente"
         ExpedienteHospitalario::create([
             'paciente_id' => $paciente->id,
@@ -988,7 +989,7 @@ class PrepararHabitacionPaciente
             'fecha_apertura' => now(),
             'estado' => 'activo'
         ]);
-    
+  
         // Como "avisar al personal de limpieza"
         if ($event->tipoAdmision === 'emergencia') {
             LimpiezaUrgente::dispatch($habitacion);
@@ -1002,12 +1003,12 @@ class NotificarFamiliaresPaciente
     public function handle(PacienteAdmitido $event)
     {
         $paciente = $event->paciente;
-    
+  
         // Como "llamar a los contactos de emergencia"
         foreach ($paciente->contactosEmergencia as $contacto) {
             $contacto->notify(new FamiliarAdmitidoHospital($paciente, $event->admision));
         }
-    
+  
         // Como "actualizar redes sociales del hospital" (si es permitido)
         if ($paciente->permite_publicidad && $event->tipoAdmision !== 'emergencia') {
             ActualizarEstadisticasPublicas::dispatch();
@@ -1021,7 +1022,7 @@ class ActivarProtocoloEmergencia
     public function handle(EmergenciaMedicaDeclarada $event)
     {
         $emergencia = $event->emergencia;
-    
+  
         // Como "activar protocolos según nivel"
         switch ($event->nivelUrgencia) {
             case 'critica':
@@ -1029,27 +1030,27 @@ class ActivarProtocoloEmergencia
                 User::medicos()->get()->each(function($doctor) use ($emergencia) {
                     $doctor->notify(new AlertaEmergenciaCritica($emergencia));
                 });
-            
+          
                 // Preparar quirófano de emergencia
                 QuirofanoEmergencia::activar();
-            
+          
                 // Contactar ambulancias adicionales
                 ServicioAmbulancia::solicitarRefuerzos();
                 break;
-            
+          
             case 'alta':
                 // Alertar personal de turno
                 User::enTurno()->each(function($personal) use ($emergencia) {
                     $personal->notify(new AlertaEmergencia($emergencia));
                 });
                 break;
-            
+          
             case 'media':
                 // Solo notificar al doctor de emergencias
                 $emergencia->doctorAsignado->notify(new NuevaEmergencia($emergencia));
                 break;
         }
-    
+  
         // Como "registrar en bitácora de seguridad"
         BitacoraSeguridad::create([
             'evento' => 'emergencia_declarada',
@@ -1066,14 +1067,14 @@ class GenerarFacturaCirugia
     public function handle(CirugiaCompletada $event)
     {
         $cirugia = $event->cirugia;
-    
+  
         // Como "calcular costos automáticamente"
         $costoBase = $cirugia->procedimiento->costo_base;
         $costoTiempo = ($event->duracion / 60) * $cirugia->procedimiento->costo_por_hora;
         $costoMateriales = $cirugia->materialesUsados()->sum('costo');
-    
+  
         $total = $costoBase + $costoTiempo + $costoMateriales;
-    
+  
         // Como "generar factura automática"
         Factura::create([
             'paciente_id' => $cirugia->paciente_id,
@@ -1084,7 +1085,7 @@ class GenerarFacturaCirugia
             'total' => $total * 1.19,
             'fecha_vencimiento' => now()->addDays(30)
         ]);
-    
+  
         // Como "avisar al paciente sobre la factura"
         $cirugia->paciente->notify(new FacturaGenerada($cirugia));
     }
@@ -1097,9 +1098,9 @@ class ActualizarEstadisticasHospital
     {
         // Como "contador universal" que registra toda actividad
         $tipoEvento = class_basename($event);
-    
+  
         EstadisticaHospital::increment('eventos_' . snake_case($tipoEvento));
-    
+  
         // Estadísticas específicas según el tipo de evento
         match($tipoEvento) {
             'PacienteAdmitido' => EstadisticaHospital::increment('admisiones_totales'),
@@ -1107,7 +1108,7 @@ class ActualizarEstadisticasHospital
             'EmergenciaMedicaDeclarada' => EstadisticaHospital::increment('emergencias_atendidas'),
             default => null
         };
-    
+  
         // Como "reporte en tiempo real"
         broadcast(new EstadisticasActualizadas(EstadisticaHospital::getResumenDiario()));
     }
@@ -1123,13 +1124,13 @@ class EventServiceProvider extends ServiceProvider
             NotificarFamiliaresPaciente::class,
             ActualizarEstadisticasHospital::class,
         ],
-    
+  
         // Cuando suena "Emergencia", estos responden:
         EmergenciaMedicaDeclarada::class => [
             ActivarProtocoloEmergencia::class,
             ActualizarEstadisticasHospital::class,
         ],
-    
+  
         // Cuando suena "Cirugía completada", estos responden:
         CirugiaCompletada::class => [
             GenerarFacturaCirugia::class,
@@ -1146,14 +1147,14 @@ class AdmisionController extends Controller
     public function store(Request $request)
     {
         $admision = Admision::create($request->validated());
-    
+  
         // Como "hacer anuncio por altavoces"
         event(new PacienteAdmitido(
             $admision->paciente, 
             $admision, 
             $request->tipo_admision
         ));
-    
+  
         return redirect()->route('admisiones.index')
                         ->with('success', 'Paciente admitido. Personal notificado automáticamente.');
     }
@@ -1187,7 +1188,7 @@ class ServicioMedicoProvider extends ServiceProvider
                 $app->make('cardiologia.electrocardiograma')
             );
         });
-    
+  
         // Como "establecer servicio de ambulancias"
         $this->app->singleton('servicio.ambulancia', function ($app) {
             $config = config('hospital.ambulancias');
@@ -1197,7 +1198,7 @@ class ServicioMedicoProvider extends ServiceProvider
                 $app->make('gps.tracking')
             );
         });
-    
+  
         // Como "configurar sistema de turnos médicos"
         $this->app->bind('servicio.turnos', function ($app) {
             return new ServicioTurnos(
@@ -1212,33 +1213,33 @@ class ServicioMedicoProvider extends ServiceProvider
     {
         // Como "establecer protocolos de emergencia"
         EmergenciaMedica::observe(EmergenciaObserver::class);
-    
+  
         // Como "configurar horarios de atención"
         $this->configurarHorariosAtencion();
-    
+  
         // Como "establecer políticas del hospital"
         Gate::define('acceder-quirofano', function ($user) {
             return $user->hasRole(['cirujano', 'anestesiologo', 'enfermero-quirofano']);
         });
-    
+  
         Gate::define('ver-expediente-completo', function ($user, $paciente) {
             return $user->doctor_id === $paciente->doctor_id || 
                    $user->hasRole('administrador');
         });
-    
+  
         // Como "configurar sistema de pagos"
         $this->configurarSistemaPagos();
-    
+  
         // Como "establecer macros médicos"
         Blade::directive('expedienteMedico', function ($expression) {
             return "<?php echo app('servicio.expediente')->generar($expression); ?>";
         });
-    
+  
         // Como "configurar validaciones médicas personalizadas"
         Validator::extend('cedula_valida', function ($attribute, $value, $parameters, $validator) {
             return app('validador.cedula')->validar($value);
         });
-    
+  
         Validator::extend('edad_minima_cirugia', function ($attribute, $value, $parameters, $validator) {
             $edadMinima = $parameters[0] ?? 18;
             return Carbon::parse($value)->age >= $edadMinima;
@@ -1283,7 +1284,7 @@ class TecnologiaHospitalProvider extends ServiceProvider
                 $app->make('backup.automatico')
             );
         });
-    
+  
         // Como "configurar sistema de imaging médico"
         $this->app->singleton('imaging.medico', function ($app) {
             return new SistemaImagingMedico([
@@ -1299,12 +1300,12 @@ class TecnologiaHospitalProvider extends ServiceProvider
     {
         // Como "configurar rutas del sistema hospitalario"
         $this->configurarRutasMedicas();
-    
+  
         // Como "establecer middleware médico"
         $router = $this->app['router'];
         $router->aliasMiddleware('hipaa.compliance', HipaaComplianceMiddleware::class);
         $router->aliasMiddleware('auditoria.medica', AuditoriaMedicaMiddleware::class);
-    
+  
         // Como "configurar comandos de mantenimiento"
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -1324,7 +1325,7 @@ class TecnologiaHospitalProvider extends ServiceProvider
                  Route::apiResource('pacientes', PacienteController::class);
                  Route::apiResource('doctores', DoctorController::class);
                  Route::apiResource('citas', CitaController::class);
-             
+           
                  // Rutas especializadas
                  Route::post('emergencia', [EmergenciaController::class, 'declararEmergencia']);
                  Route::get('turnos/disponibles', [TurnoController::class, 'disponibles']);
@@ -1340,10 +1341,10 @@ class SeguridadHospitalProvider extends ServiceProvider
     {
         // Como "establecer políticas de seguridad médica"
         $this->establecerPoliticasSeguridad();
-    
+  
         // Como "configurar auditoría automática"
         $this->configurarAuditoria();
-    
+  
         // Como "establecer encriptación de datos médicos"
         $this->configurarEncriptacion();
     }
@@ -1357,7 +1358,7 @@ class SeguridadHospitalProvider extends ServiceProvider
                    ($user->hasRole('enfermero') && $user->turno_actual) ||
                    $user->hasRole('administrador');
         });
-    
+  
         Gate::define('modificar-historia-clinica', function ($user, $paciente) {
             // Solo profesionales médicos autorizados
             return $user->hasAnyRole(['doctor', 'enfermero']) &&
@@ -1370,7 +1371,7 @@ class SeguridadHospitalProvider extends ServiceProvider
     {
         // Como "sistema de cámaras de seguridad" para datos
         Model::observe(AuditoriaUniversal::class);
-    
+  
         // Eventos específicos que requieren auditoría especial
         Event::listen('*', function ($eventName, array $data) {
             if (str_contains($eventName, 'medico') || str_contains($eventName, 'paciente')) {
@@ -1417,14 +1418,14 @@ class HospitalServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/hospital.php' => config_path('hospital.php'),
         ], 'hospital-config');
-    
+  
         $this->publishes([
             __DIR__.'/../database/migrations/hospital' => database_path('migrations'),
         ], 'hospital-migrations');
-    
+  
         $this->loadViewsFrom(__DIR__.'/../resources/views/hospital', 'hospital');
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang/hospital', 'hospital');
-    
+  
         // Como "establecer el hospital como disponible en toda la aplicación"
         View::composer('*', function ($view) {
             $view->with('hospital', app('hospital'));
@@ -1493,7 +1494,7 @@ class ServicioMedicoManager
     public function examinarPaciente(Paciente $paciente, array $tiposExamen)
     {
         $resultados = collect();
-    
+  
         foreach ($tiposExamen as $tipo) {
             $resultado = match($tipo) {
                 'sangre' => $this->laboratorio->analizarSangre($paciente),
@@ -1502,10 +1503,10 @@ class ServicioMedicoManager
                 'cardiograma' => $this->laboratorio->electrocardiograma($paciente),
                 default => throw new Exception("Tipo de examen no disponible: $tipo")
             };
-        
+      
             $resultados->put($tipo, $resultado);
         }
-    
+  
         return $resultados;
     }
   
@@ -1518,15 +1519,15 @@ class ServicioMedicoManager
             'medicamentos' => [],
             'procedimientos' => []
         ]);
-    
+  
         // Verificar disponibilidad de medicamentos
         foreach ($medicamentos as $medicamento) {
             $disponibilidad = $this->farmacia->verificarStock($medicamento['nombre']);
-        
+      
             if (!$disponibilidad) {
                 $this->farmacia->solicitarMedicamento($medicamento['nombre']);
             }
-        
+      
             $prescripcion->medicamentos[] = [
                 'nombre' => $medicamento['nombre'],
                 'dosis' => $medicamento['dosis'],
@@ -1534,12 +1535,12 @@ class ServicioMedicoManager
                 'disponible' => $disponibilidad
             ];
         }
-    
+  
         // Programar procedimientos
         foreach ($procedimientos as $procedimiento) {
             $this->programarProcedimiento($paciente, $procedimiento);
         }
-    
+  
         $prescripcion->save();
         return $prescripcion;
     }
@@ -1550,21 +1551,21 @@ class ServicioMedicoManager
         $doctoresDisponibles = Doctor::especialistas($especialidad)
                                    ->disponibles()
                                    ->get();
-    
+  
         if ($doctoresDisponibles->isEmpty()) {
             throw new Exception("No hay doctores disponibles para $especialidad");
         }
-    
+  
         $proximaFecha = match($urgencia) {
             'urgente' => now()->addHours(2),
             'alta' => now()->addDays(1),
             'normal' => now()->addDays(7),
             'control' => now()->addDays(30)
         };
-    
+  
         $doctor = $doctoresDisponibles->first();
         $horaDisponible = $doctor->proximaHoraDisponible($proximaFecha);
-    
+  
         return Cita::create([
             'paciente_id' => $paciente->id,
             'doctor_id' => $doctor->id,
@@ -1581,28 +1582,28 @@ class ConsultaController extends Controller
     public function realizarConsultaCompleta(Request $request, Paciente $paciente)
     {
         // Como "ir a la ventanilla y pedir todo lo que necesitas"
-    
+  
         // 1. Examinar al paciente
         $resultadosExamenes = ServicioMedico::examinarPaciente($paciente, [
             'sangre', 'rayos_x', 'cardiograma'
         ]);
-    
+  
         // 2. Prescribir tratamiento basado en resultados
         $tratamiento = ServicioMedico::prescribirTratamiento($paciente, [
             ['nombre' => 'Paracetamol', 'dosis' => '500mg', 'frecuencia' => 'cada 8 horas'],
             ['nombre' => 'Ibuprofeno', 'dosis' => '400mg', 'frecuencia' => 'cada 12 horas']
         ]);
-    
+  
         // 3. Programar cita de control
         $citaControl = ServicioMedico::agendarConsulta($paciente, 'medicina_general', 'control');
-    
+  
         // 4. Generar factura automáticamente
         $factura = PagoHospital::generarFactura($paciente, [
             'consulta' => 50000,
             'examenes' => $resultadosExamenes->count() * 25000,
             'medicamentos' => $tratamiento->costoMedicamentos()
         ]);
-    
+  
         // 5. Actualizar historia clínica
         HistoriaClinica::agregarEntrada($paciente, [
             'tipo' => 'consulta',
@@ -1611,7 +1612,7 @@ class ConsultaController extends Controller
             'proxima_cita' => $citaControl,
             'doctor' => auth()->user()
         ]);
-    
+  
         return view('consultas.resultado', compact(
             'paciente', 'resultadosExamenes', 'tratamiento', 'citaControl', 'factura'
         ));
@@ -1624,12 +1625,12 @@ class ConsultaController extends Controller
         $servicioMedico = app('servicio.medico');
         $servicioHistoria = app('historia.clinica');
         $servicioPago = app('pago.hospital');
-    
+  
         // Y usarlos uno por uno
         $resultados = $servicioMedico->examinarPaciente($paciente, ['sangre']);
         $historia = $servicioHistoria->agregarEntrada($paciente, $resultados);
         $pago = $servicioPago->generarFactura($paciente, ['consulta' => 50000]);
-    
+  
         // Mucho más código y más difícil de leer
     }
 }
@@ -1654,7 +1655,7 @@ class EmergenciaManager
             'gris' => 'Violencia en el hospital',
             'amarillo' => 'Paciente desaparecido'
         ];
-    
+  
         $emergencia = EmergenciaMedica::create([
             'codigo' => $tipo,
             'descripcion' => $codigosEmergencia[$tipo] ?? 'Emergencia general',
@@ -1663,10 +1664,10 @@ class EmergenciaManager
             'estado' => 'activa',
             'hora_inicio' => now()
         ]);
-    
+  
         // Activar protocolos automáticamente
         $this->activarProtocolo($tipo, $emergencia);
-    
+  
         return $emergencia;
     }
   
@@ -1693,7 +1694,7 @@ class EmergenciaController extends Controller
             $request->ubicacion,
             $request->detalles
         );
-    
+  
         return response()->json([
             'mensaje' => 'Código ' . $request->codigo . ' activado',
             'emergencia_id' => $emergencia->id,
@@ -1763,7 +1764,7 @@ class PacienteCollection extends Collection
             $ultimaConsulta = $paciente->consultas->last();
             $diasSinConsulta = $ultimaConsulta ? 
                               $ultimaConsulta->created_at->diffInDays(now()) : 365;
-        
+      
             $necesitaConsulta = match(true) {
                 $paciente->tiene_diabetes && $diasSinConsulta > 90 => 'control_diabetes',
                 $paciente->edad > 65 && $diasSinConsulta > 180 => 'control_geriatrico',
@@ -1771,7 +1772,7 @@ class PacienteCollection extends Collection
                 $diasSinConsulta > 365 => 'chequeo_anual',
                 default => null
             };
-        
+      
             if ($necesitaConsulta) {
                 return [
                     'paciente' => $paciente,
@@ -1780,7 +1781,7 @@ class PacienteCollection extends Collection
                     'especialidad_requerida' => $this->determinarEspecialidad($necesitaConsulta)
                 ];
             }
-        
+      
             return null;
         })->filter(); // Remover nulls
     }
@@ -1789,7 +1790,7 @@ class PacienteCollection extends Collection
     public function reporteSaludPoblacional()
     {
         $totalPacientes = $this->count();
-    
+  
         return [
             'demografia' => [
                 'total' => $totalPacientes,
@@ -1849,7 +1850,7 @@ class InventarioCollection extends Collection
                        $valorTotal = $items->sum(function($item) {
                            return $item->cantidad_actual * $item->precio_unitario;
                        });
-                   
+                 
                        return [
                            'categoria' => $categoria,
                            'total_items' => $items->count(),
@@ -1872,7 +1873,7 @@ class InventarioCollection extends Collection
         })->sortBy('fecha_vencimiento')
           ->map(function ($medicamento) {
               $diasRestantes = $medicamento->fecha_vencimiento->diffInDays(now());
-          
+        
               return [
                   'medicamento' => $medicamento->nombre,
                   'lote' => $medicamento->numero_lote,
@@ -1899,12 +1900,12 @@ class TurnoCollection extends Collection
     {
         $totalHoras = $this->sum('horas_asignadas');
         $doctoresDisponibles = $this->pluck('doctor')->unique();
-    
+  
         return $this->groupBy('especialidad')
                    ->map(function ($turnos, $especialidad) use ($totalHoras) {
                        $horasEspecialidad = $turnos->sum('horas_asignadas');
                        $porcentajeCobertura = ($horasEspecialidad / $totalHoras) * 100;
-                   
+                 
                        return [
                            'especialidad' => $especialidad,
                            'turnos_asignados' => $turnos->count(),
@@ -1921,14 +1922,14 @@ class TurnoCollection extends Collection
     public function detectarConflictos()
     {
         $conflictos = collect();
-    
+  
         $this->groupBy('doctor_id')->each(function ($turnosDoctor, $doctorId) use ($conflictos) {
             $turnosOrdenados = $turnosDoctor->sortBy('hora_inicio');
-        
+      
             for ($i = 0; $i < $turnosOrdenados->count() - 1; $i++) {
                 $turnoActual = $turnosOrdenados->values()[$i];
                 $turnoSiguiente = $turnosOrdenados->values()[$i + 1];
-            
+          
                 if ($turnoActual->hora_fin > $turnoSiguiente->hora_inicio) {
                     $conflictos->push([
                         'doctor' => $turnoActual->doctor->nombre,
@@ -1940,7 +1941,7 @@ class TurnoCollection extends Collection
                 }
             }
         });
-    
+  
         return $conflictos;
     }
 }
@@ -1954,14 +1955,14 @@ class ReporteController extends Controller
         $pacientes = Paciente::with(['doctor', 'consultas'])->get();
         $inventario = Inventario::all();
         $turnos = Turno::with('doctor')->whereDate('fecha', today())->get();
-    
+  
         // Usar las collections como organizadores especializados
         $reportePacientes = $pacientes->reporteSaludPoblacional();
         $citasPendientes = $pacientes->programarCitasAutomaticas();
         $inventarioCritico = $inventario->requiereReabastecimiento();
         $medicamentosVencimiento = $inventario->proximosVencer(30);
         $optimizacionTurnos = $turnos->optimizarDistribucion();
-    
+  
         return view('dashboard.medico', compact(
             'reportePacientes',
             'citasPendientes', 
@@ -1975,7 +1976,7 @@ class ReporteController extends Controller
     {
         // Como "sistema de alertas automático"
         $alertas = collect();
-    
+  
         // Alertas de pacientes
         $pacientesAltoRiesgo = Paciente::all()->altoRiesgo();
         if ($pacientesAltoRiesgo->count() > 0) {
@@ -1986,7 +1987,7 @@ class ReporteController extends Controller
                 'accion' => 'Programar controles inmediatos'
             ]);
         }
-    
+  
         // Alertas de inventario
         $stockCritico = Inventario::all()->requiereReabastecimiento();
         if ($stockCritico->count() > 0) {
@@ -1997,7 +1998,7 @@ class ReporteController extends Controller
                 'accion' => 'Realizar pedidos de reabastecimiento'
             ]);
         }
-    
+  
         // Alertas de turnos
         $conflictosTurnos = Turno::whereDate('fecha', today())->get()->detectarConflictos();
         if ($conflictosTurnos->count() > 0) {
@@ -2008,7 +2009,7 @@ class ReporteController extends Controller
                 'accion' => 'Resolver conflictos de horarios'
             ]);
         }
-    
+  
         return response()->json($alertas);
     }
 }
@@ -2089,11 +2090,11 @@ class LimpiezaNocturnaHospital extends Command
     {
         $this->task('Limpiando archivos temporales', function () use ($dias) {
             $fechaLimite = now()->subDays($dias);
-      
+    
             // Limpiar uploads temporales
             $archivosTemporales = Storage::disk('temp')->allFiles();
             $eliminados = 0;
-      
+    
             foreach ($archivosTemporales as $archivo) {
                 $fechaArchivo = Storage::disk('temp')->lastModified($archivo);
                 if ($fechaArchivo < $fechaLimite->timestamp) {
@@ -2101,7 +2102,7 @@ class LimpiezaNocturnaHospital extends Command
                     $eliminados++;
                 }
             }
-      
+    
             $this->line("   - Eliminados $eliminados archivos temporales");
             return true;
         });
@@ -2113,14 +2114,14 @@ class LimpiezaNocturnaHospital extends Command
             // Mover imágenes a carpetas por año/mes
             $imagenes = ImagenMedica::whereNull('archivada')->get();
             $organizadas = 0;
-      
+    
             $bar = $this->output->createProgressBar($imagenes->count());
             $bar->start();
-      
+    
             foreach ($imagenes as $imagen) {
                 $rutaOrganizada = $imagen->created_at->format('Y/m');
                 $nuevaRuta = "imagenes_medicas/{$rutaOrganizada}/{$imagen->archivo}";
-          
+        
                 if (Storage::move($imagen->ruta_actual, $nuevaRuta)) {
                     $imagen->update([
                         'ruta_actual' => $nuevaRuta,
@@ -2128,10 +2129,10 @@ class LimpiezaNocturnaHospital extends Command
                     ]);
                     $organizadas++;
                 }
-          
+        
                 $bar->advance();
             }
-      
+    
             $bar->finish();
             $this->newLine();
             $this->line("   - Organizadas $organizadas imágenes médicas");
@@ -2275,7 +2276,7 @@ class EnviarRecordatoriosCitas extends Command
                     'email' => $this->enviarRecordatorioEmail($cita),
                     'sms' => $this->enviarRecordatorioSMS($cita)
                 };
-          
+        
                 $cita->update(['recordatorio_enviado' => true]);
                 return true;
             } catch (Exception $e) {
@@ -2367,7 +2368,7 @@ class Kernel extends ConsoleKernel
                  ->hourly()
                  ->between('08:00', '20:00')
                  ->name('recordatorios-24h');
-           
+         
         $schedule->command('hospital:recordatorios-citas --anticipacion=2 --tipo=sms')
                  ->everyFifteenMinutes()
                  ->name('recordatorios-urgentes');
@@ -2461,7 +2462,7 @@ class PacienteObserver
         if ($paciente->isDirty('estado_salud')) {
             $estadoAnterior = $paciente->getOriginal('estado_salud');
             $estadoNuevo = $paciente->estado_salud;
-      
+    
             if ($this->esCambioSignificativo($estadoAnterior, $estadoNuevo)) {
                 event(new CambioEstadoSaludSignificativo($paciente, $estadoAnterior, $estadoNuevo));
             }

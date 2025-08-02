@@ -1,10 +1,10 @@
 ---
 title: 'Backend con Laravel: Colas, Pilas'
+code: "laravarel"
 description: 'Guía Maestra de Backend con Laravel: Colas, Pilas y Estrategias de Ejecución'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
-
 # Guía Maestra de Backend con Laravel: Colas, Pilas y Estrategias de Ejecución
 
 ## Introducción
@@ -146,7 +146,7 @@ public function processOrder(Order $order)
         SendOrderConfirmationEmail::dispatch($order);
         GenerateInvoiceJob::dispatch($order);
         NotifyShippingDepartmentJob::dispatch($order);
-      
+    
         return redirect()->route('orders.success');
     }
   
@@ -550,7 +550,7 @@ class LoanApplicationController extends Controller
     public function process(Request $request)
     {
         $application = LoanApplication::create($request->validated());
-      
+    
         $result = app(Pipeline::class)
             ->send($application)
             ->through([
@@ -564,11 +564,11 @@ class LoanApplicationController extends Controller
                 if ($application->approved) {
                     return redirect()->route('loans.approved', $application);
                 }
-              
+            
                 return redirect()->route('loans.rejected', $application)
                        ->with('reason', $application->rejection_reason);
             });
-      
+    
         return $result;
     }
 }
@@ -579,16 +579,16 @@ class CheckCreditScore
     public function handle($application, $next)
     {
         $creditScore = $this->creditService->getScore($application->applicant);
-      
+    
         $application->credit_score = $creditScore;
-      
+    
         if ($creditScore < 650) {
             $application->approved = false;
             $application->rejection_reason = 'Credit score too low';
-          
+        
             return $application; // No continúa la pipeline
         }
-      
+    
         return $next($application);
     }
 }
