@@ -1,0 +1,37 @@
+---
+// Componente simplificado para Prism.js
+---
+
+<script is:inline>
+  // Script que se ejecuta en el cliente
+  document.addEventListener('DOMContentLoaded', function() {
+    // Esperar a que Prism esté disponible
+    function initializePrism() {
+      if (typeof Prism !== 'undefined') {
+        // Agregar clases de lenguaje a los bloques pre sin clase
+        document.querySelectorAll('pre code').forEach(function(codeBlock) {
+          const pre = codeBlock.parentElement;
+          if (!pre.classList.length || !pre.className.includes('language-')) {
+            pre.classList.add('language-javascript');
+            codeBlock.classList.add('language-javascript');
+          }
+        });
+        
+        // Aplicar highlighting
+        Prism.highlightAll();
+      } else {
+        // Intentar de nuevo en 100ms si Prism no está listo
+        setTimeout(initializePrism, 100);
+      }
+    }
+    
+    initializePrism();
+  });
+
+  // Re-aplicar highlighting cuando cambia el tema
+  document.addEventListener('themeChanged', function() {
+    if (typeof Prism !== 'undefined') {
+      Prism.highlightAll();
+    }
+  });
+</script>

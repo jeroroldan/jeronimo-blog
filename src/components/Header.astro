@@ -13,7 +13,7 @@ import HeaderLink from "./HeaderLink.astro";
     </div>
     <button id="darkModeToggle" title="Cambiar modo oscuro">
       <span class="sun-icon">☀️</span>
-      <span class="moon-icon">�</span>
+      <span class="moon-icon">🌙</span>
     </button>
     <div class="social-links">...existing code...</div>
   </nav>
@@ -41,9 +41,9 @@ import HeaderLink from "./HeaderLink.astro";
     }
   }
 
-  // Inicializar según preferencia o localStorage
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  // Inicializar tema
   const saved = localStorage.getItem("theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const isDark = saved === "dark" || (!saved && prefersDark);
 
   setDarkMode(isDark);
@@ -61,13 +61,19 @@ import HeaderLink from "./HeaderLink.astro";
     transition: background-color 0.3s ease;
   }
 
-  /* Dark mode header */
-  :global(body.dark-mode) header {
-    background: rgb(var(--gray-light));
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 15%);
-  }
-
-  h2 {
+	/* Dark mode header */
+	:global(body.dark-mode) header {
+		background: #1f2937 !important;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 25%);
+	}
+	
+	:global(body.dark-mode) nav a {
+		color: rgb(var(--gray-dark)) !important;
+	}
+	
+	:global(body.dark-mode) h2 a {
+		color: rgb(var(--black)) !important;
+	}  h2 {
     margin: 0;
     font-size: 1em;
   }

@@ -21,29 +21,17 @@
 body.dark-mode {
 	--accent: #6366f1;
 	--accent-dark: #4f46e5;
-	--black: 229, 233, 240;
+	--black: 255, 255, 255;
 	--gray: 156, 163, 175;
-	--gray-light: 55, 65, 81;
-	--gray-dark: 209, 213, 219;
-	--gray-gradient: #1f2937, #111827;
+	--gray-light: 17, 24, 39;
+	--gray-dark: 229, 231, 235;
+	--gray-gradient: #111827, #000000;
 	--box-shadow:
-		0 2px 6px rgba(0, 0, 0, 25%), 0 8px 24px rgba(0, 0, 0, 33%), 0 16px 32px rgba(0, 0, 0, 33%);
+		0 2px 6px rgba(0, 0, 0, 40%), 0 8px 24px rgba(0, 0, 0, 50%), 0 16px 32px rgba(0, 0, 0, 50%);
+	background: #111827 !important;
 }
 
-/* Auto dark mode based on system preference */
-@media (prefers-color-scheme: dark) {
-	:root {
-		--accent: #6366f1;
-		--accent-dark: #4f46e5;
-		--black: 229, 233, 240;
-		--gray: 156, 163, 175;
-		--gray-light: 55, 65, 81;
-		--gray-dark: 209, 213, 219;
-		--gray-gradient: #1f2937, #111827;
-		--box-shadow:
-			0 2px 6px rgba(0, 0, 0, 25%), 0 8px 24px rgba(0, 0, 0, 33%), 0 16px 32px rgba(0, 0, 0, 33%);
-	}
-}
+/* Eliminar auto dark mode para evitar conflictos */
 @font-face {
 	font-family: "Atkinson";
 	src: url("/fonts/atkinson-regular.woff") format("woff");
@@ -144,20 +132,115 @@ code {
 	padding: 2px 5px;
 	background-color: rgb(var(--gray-light));
 	border-radius: 2px;
+	color: rgb(var(--gray-dark));
+	font-family: 'Courier New', Monaco, 'Lucida Console', monospace;
 }
 
-/* Dark mode code styles */
-body.dark-mode code {
+/* Estilos básicos de código */
+code {
+	padding: 2px 5px;
 	background-color: rgb(var(--gray-light));
+	border-radius: 2px;
 	color: rgb(var(--gray-dark));
+	font-family: 'Courier New', Monaco, 'Lucida Console', monospace;
+	font-size: 0.9em;
 }
+
+/* Bloques de código */
 pre {
 	padding: 1.5em;
 	border-radius: 8px;
+	overflow-x: auto;
+	font-family: 'Courier New', Monaco, 'Lucida Console', monospace;
+	line-height: 1.4;
+	margin: 1em 0;
+	border: 1px solid #d0d7de;
+	background: #f8f8f8;
+	color: #24292e;
 }
-pre > code {
-	all: unset;
+
+pre code {
+	background: transparent !important;
+	padding: 0;
+	color: inherit;
+	font-size: inherit;
+	font-family: inherit;
+	border: none;
 }
+
+/* Modo oscuro para código inline */
+body.dark-mode code {
+	background-color: #161b22 !important;
+	color: #c9d1d9 !important;
+	border: 1px solid #30363d;
+}
+
+/* Modo oscuro para bloques de código */
+body.dark-mode pre {
+	background: #0d1117 !important;
+	color: #c9d1d9 !important;
+	border: 1px solid #30363d !important;
+}
+
+/* Estilos básicos que funcionan sin JavaScript */
+pre {
+	/* Asegurar que el texto sea legible */
+	font-weight: normal;
+	white-space: pre;
+	word-wrap: normal;
+	tab-size: 4;
+}
+
+/* Mejorar la legibilidad del código */
+pre code {
+	display: block;
+	overflow-x: auto;
+	background: inherit;
+}
+
+/* Estilo adicional para hacer el código más atractivo */
+pre::-webkit-scrollbar {
+	height: 8px;
+}
+
+pre::-webkit-scrollbar-thumb {
+	background: #c1c1c1;
+	border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 4px;
+}
+
+body.dark-mode pre::-webkit-scrollbar-thumb {
+	background: #555;
+}
+
+body.dark-mode pre::-webkit-scrollbar-track {
+	background: #222;
+}
+
+/* Asegurar que todo el texto sea legible en dark mode */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+	color: rgb(var(--black)) !important;
+}
+
+body.dark-mode p,
+body.dark-mode li,
+body.dark-mode span {
+	color: rgb(var(--gray-dark)) !important;
+}
+
+body.dark-mode a {
+	color: var(--accent) !important;
+}
+
 blockquote {
 	border-left: 4px solid var(--accent);
 	padding: 0 0 0 20px;
@@ -193,4 +276,28 @@ hr {
 	clip-path: inset(50%);
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
+}
+
+/* Estilos específicos para bloques de código en modo claro y oscuro */
+pre {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 1em;
+  overflow-x: auto;
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95em;
+}
+
+/* Estilos para modo oscuro */
+body.dark-mode pre {
+  background-color: #2d2d2d;
+  border-color: #444;
+}
+
+body.dark-mode code {
+  color: #e6e6e6;
 }
