@@ -16,6 +16,34 @@
 		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px
 		rgba(var(--gray), 33%);
 }
+
+/* Dark mode variables */
+body.dark-mode {
+	--accent: #6366f1;
+	--accent-dark: #4f46e5;
+	--black: 229, 233, 240;
+	--gray: 156, 163, 175;
+	--gray-light: 55, 65, 81;
+	--gray-dark: 209, 213, 219;
+	--gray-gradient: #1f2937, #111827;
+	--box-shadow:
+		0 2px 6px rgba(0, 0, 0, 25%), 0 8px 24px rgba(0, 0, 0, 33%), 0 16px 32px rgba(0, 0, 0, 33%);
+}
+
+/* Auto dark mode based on system preference */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--accent: #6366f1;
+		--accent-dark: #4f46e5;
+		--black: 229, 233, 240;
+		--gray: 156, 163, 175;
+		--gray-light: 55, 65, 81;
+		--gray-dark: 209, 213, 219;
+		--gray-gradient: #1f2937, #111827;
+		--box-shadow:
+			0 2px 6px rgba(0, 0, 0, 25%), 0 8px 24px rgba(0, 0, 0, 33%), 0 16px 32px rgba(0, 0, 0, 33%);
+	}
+}
 @font-face {
 	font-family: "Atkinson";
 	src: url("/fonts/atkinson-regular.woff") format("woff");
@@ -42,6 +70,13 @@ body {
 	color: rgb(var(--gray-dark));
 	font-size: 20px;
 	line-height: 1.7;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode body styles */
+body.dark-mode {
+	background: linear-gradient(var(--gray-gradient)) no-repeat;
+	background-size: 100% 600px;
 }
 main {
 	width: 720px;
@@ -109,6 +144,12 @@ code {
 	padding: 2px 5px;
 	background-color: rgb(var(--gray-light));
 	border-radius: 2px;
+}
+
+/* Dark mode code styles */
+body.dark-mode code {
+	background-color: rgb(var(--gray-light));
+	color: rgb(var(--gray-dark));
 }
 pre {
 	padding: 1.5em;

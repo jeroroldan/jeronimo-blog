@@ -1,81 +1,145 @@
 ---
-import { SITE_TITLE } from '../consts';
-import HeaderLink from './HeaderLink.astro';
+import { SITE_TITLE } from "../consts";
+import HeaderLink from "./HeaderLink.astro";
 ---
 
 <header>
   <nav>
-	<h2><a href="/">{SITE_TITLE}</a></h2>
-	<div class="internal-links">
-	  <HeaderLink href="/">Inicio</HeaderLink>
-	  <HeaderLink href="/blog">Blog</HeaderLink>
-	  <HeaderLink href="/about">Acerca de</HeaderLink>
-	</div>
-	<button id="darkModeToggle" title="Cambiar modo oscuro" style="margin-left:1em;padding:0.5em 1em;border-radius:6px;border:none;cursor:pointer;background:var(--gray-gradient);color:rgb(var(--black));font-size:1em;">
-	  🌓
-	</button>
-	<div class="social-links">
-	  ...existing code...
-	</div>
+    <h2><a href="/">{SITE_TITLE}</a></h2>
+    <div class="internal-links">
+      <HeaderLink href="/">Inicio</HeaderLink>
+      <HeaderLink href="/blog">Blog</HeaderLink>
+      <HeaderLink href="/about">Acerca de</HeaderLink>
+    </div>
+    <button id="darkModeToggle" title="Cambiar modo oscuro">
+      <span class="sun-icon">☀️</span>
+      <span class="moon-icon">�</span>
+    </button>
+    <div class="social-links">...existing code...</div>
   </nav>
 </header>
 <script is:inline>
-  const btn = document.getElementById('darkModeToggle');
+  const btn = document.getElementById("darkModeToggle");
+  const sunIcon = document.querySelector(".sun-icon");
+  const moonIcon = document.querySelector(".moon-icon");
+
   function setDarkMode(on) {
-	if (on) {
-	  document.body.classList.add('dark-mode');
-	  localStorage.setItem('theme', 'dark');
-	} else {
-	  document.body.classList.remove('dark-mode');
-	  localStorage.setItem('theme', 'light');
-	}
+    if (on) {
+      document.body.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark");
+      if (sunIcon && moonIcon) {
+        sunIcon.style.display = "none";
+        moonIcon.style.display = "inline";
+      }
+    } else {
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
+      if (sunIcon && moonIcon) {
+        sunIcon.style.display = "inline";
+        moonIcon.style.display = "none";
+      }
+    }
   }
+
   // Inicializar según preferencia o localStorage
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const saved = localStorage.getItem('theme');
-  if (saved === 'dark' || (!saved && prefersDark)) setDarkMode(true);
-  btn?.addEventListener('click', () => {
-	setDarkMode(!document.body.classList.contains('dark-mode'));
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const saved = localStorage.getItem("theme");
+  const isDark = saved === "dark" || (!saved && prefersDark);
+
+  setDarkMode(isDark);
+
+  btn?.addEventListener("click", () => {
+    setDarkMode(!document.body.classList.contains("dark-mode"));
   });
 </script>
 <style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
+  header {
+    margin: 0;
+    padding: 0 1em;
+    background: white;
+    box-shadow: 0 2px 8px rgba(var(--black), 5%);
+    transition: background-color 0.3s ease;
+  }
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
-	}
-	.social-links,
-	.social-links a {
-		display: flex;
-	}
-	@media (max-width: 720px) {
-		.social-links {
-			display: none;
-		}
-	}
+  /* Dark mode header */
+  :global(body.dark-mode) header {
+    background: rgb(var(--gray-light));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 15%);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1em;
+  }
+
+  h2 a,
+  h2 a.active {
+    text-decoration: none;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  nav a {
+    padding: 1em 0.5em;
+    color: var(--black);
+    border-bottom: 4px solid transparent;
+    text-decoration: none;
+  }
+  nav a.active {
+    text-decoration: none;
+    border-bottom-color: var(--accent);
+  }
+  .social-links,
+  .social-links a {
+    display: flex;
+  }
+
+  /* Dark mode toggle button */
+  #darkModeToggle {
+    margin-left: 1em;
+    padding: 0.5em;
+    border: 2px solid rgb(var(--gray-light));
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  #darkModeToggle:hover {
+    background: rgb(var(--gray-light));
+    transform: scale(1.1);
+  }
+
+  .moon-icon {
+    display: none;
+  }
+
+  :global(body.dark-mode) .sun-icon {
+    display: none;
+  }
+
+  :global(body.dark-mode) .moon-icon {
+    display: inline;
+  }
+
+  @media (max-width: 720px) {
+    .social-links {
+      display: none;
+    }
+
+    #darkModeToggle {
+      margin-left: 0.5em;
+      width: 35px;
+      height: 35px;
+      font-size: 1em;
+    }
+  }
 </style>
