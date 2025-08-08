@@ -1,6 +1,6 @@
 ---
 title: 'Laravel Backend'
-code: "lavarel"
+code: "laravarel"
 description: 'Laravel Backend Masterclass - Guía del Experto'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -1,6 +1,6 @@
 ---
 title: 'Conceptos Arquitectónicos de Laravel'
-code: "laraverel"
+code: "laravarel"
 description: 'Resumen Completo - Conceptos Arquitectónicos de Laravel'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
