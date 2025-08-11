@@ -1,7 +1,7 @@
 ---
-title: 'Masterclass Práctica: Automatizaciones'
-code: 'ai'
-description: 'Masterclass Práctica: Automatizaciones n8n para Cualquier Negocio'
+title: 'Relaciones de Base de Datos en Laravel'
+code: 'laravel'
+description: 'De Principiante a Arquitecto de Datos'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
