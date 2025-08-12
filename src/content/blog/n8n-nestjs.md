@@ -1,6 +1,7 @@
 ---
-title: 'Negocio Digital'
-description: 'Guía Definitiva: Cómo Construir un Negocio Digital de Millones de Dólares'
+title: 'asterclass: n8n + NestJS - Backends Escalables y Mantenibles'
+code: "n8n"
+description: 'n8n + NestJS - Backends Escalables y Mantenibles'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
