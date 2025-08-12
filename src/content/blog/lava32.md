@@ -1,12 +1,11 @@
 
 ---
 title: ' Profesionales en PHP con Laravel'
-code: 'Lavarel'
+code: 'Laravel'
 description: 'Masterclass: APIs Profesionales en PHP con Laravel'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
-
 
 # 🚀 Masterclass: APIs Profesionales en PHP con Laravel
 ## De la Planificación al Deployment Completo

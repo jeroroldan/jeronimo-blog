@@ -1,6 +1,6 @@
 ---
 title: 'Principios Fundamentales para el Éxito Profesional y Personal'
-code: "react-native"
+code: "superacion"
 description: 'Masterclass: Principios Fundamentales para el Éxito Profesional y Personal'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
