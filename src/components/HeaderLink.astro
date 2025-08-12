@@ -4,9 +4,24 @@ import type { HTMLAttributes } from 'astro/types';
 type Props = HTMLAttributes<'a'>;
 
 const { href, class: className, ...props } = Astro.props;
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
-const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+
+// Obtener la ruta actual sin el BASE_URL
+const pathname = new URL(Astro.request.url).pathname.replace(import.meta.env.BASE_URL, '');
+
+// Normalizar las rutas para comparación
+const hrefString = typeof href === 'string' ? href : href?.toString() || '';
+const normalizedHref = hrefString === '/' ? '/' : hrefString.replace(/\/$/, '');
+const normalizedPathname = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
+
+// Determinar si el enlace está activo
+let isActive = false;
+if (normalizedHref === '/') {
+	isActive = normalizedPathname === '/';
+} else if (normalizedHref === '/blog') {
+	isActive = normalizedPathname.startsWith('/blog');
+} else {
+	isActive = normalizedPathname === normalizedHref || normalizedPathname.startsWith(normalizedHref + '/');
+}
 ---
 
 <a href={href} class:list={[className, { active: isActive }]} {...props}>
@@ -16,9 +31,16 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 	a {
 		display: inline-block;
 		text-decoration: none;
+		padding: 0.5rem 1rem;
+		border-radius: 5px;
+		transition: background-color 0.2s ease, color 0.2s ease;
+	}
+	a:hover {
+		background-color: rgba(var(--accent), 0.1);
 	}
 	a.active {
 		font-weight: bolder;
-		text-decoration: underline;
+		background-color: var(--accent);
+		color: white;
 	}
 </style>

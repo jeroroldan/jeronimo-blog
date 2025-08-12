@@ -73,29 +73,36 @@ import HeaderLink from "./HeaderLink.astro";
 	
 	:global(body.dark-mode) h2 a {
 		color: rgb(var(--black)) !important;
-	}  h2 {
-    margin: 0;
-    font-size: 1em;
-  }
-
-  h2 a,
-  h2 a.active {
-    text-decoration: none;
-  }
-  nav {
+	}  nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
+  
+  h2 a {
+    padding: 1em 0;
+    color: rgb(var(--black));
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  .internal-links {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
   nav a {
-    padding: 1em 0.5em;
-    color: var(--black);
-    border-bottom: 4px solid transparent;
+    color: rgb(var(--black));
     text-decoration: none;
+    transition: color 0.2s ease;
   }
-  nav a.active {
-    text-decoration: none;
-    border-bottom-color: var(--accent);
+  
+  nav a:hover {
+    color: var(--accent);
   }
   .social-links,
   .social-links a {
