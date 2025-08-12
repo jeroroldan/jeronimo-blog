@@ -22,28 +22,38 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.hero-image {
 				width: 100%;
+				max-width: 440px; /* más chico */
+				margin: 0.5rem auto 0; /* menos margen */
 			}
 			.hero-image img {
 				display: block;
 				margin: 0 auto;
 				border-radius: 12px;
 				box-shadow: var(--box-shadow);
+				height: auto;
 			}
 			.prose {
-				width: 720px;
+				width: 640px; /* acompaña el hero */
 				max-width: calc(100% - 2em);
 				margin: auto;
-				padding: 1em;
+				padding: 0.75em; /* menos padding */
 				color: rgb(var(--gray-dark));
 			}
 			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
+				margin-bottom: 0.5em;
+				padding: 0.5em 0; /* menos padding vertical */
 				text-align: center;
-				line-height: 1;
+				line-height: 1.2;
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
+				font-size: 1.2rem; /* más chico */
+				line-height: 1.2;
+			}
+			@media (max-width: 720px) {
+				.title h1 {
+					font-size: 1.4rem; /* más chico en móviles */
+				}
 			}
 			.date {
 				margin-bottom: 0.5em;
@@ -60,7 +70,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<main>
 			<article>
 				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+					{heroImage && <Image width={640} height={320} src={heroImage} alt="" />}
 				</div>
 				<div class="prose">
 					<div class="title">
