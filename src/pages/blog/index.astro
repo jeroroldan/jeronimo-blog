@@ -5,6 +5,7 @@ import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
+import SearchBox from "../../components/SearchBox.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 
 const posts = (await getCollection("blog")).sort(
@@ -128,6 +129,9 @@ const allCodes = [...new Set(posts.map(post => post.data.code).filter(Boolean))]
 		<Header />
 		<main>
 			<section>
+				<!-- Componente de búsqueda -->
+				<SearchBox />
+				
 				<div class="filters">
 					<span style="font-weight: bold; margin-right: 1rem;">Filtrar por:</span>
 					<button class="filter-btn active" data-filter="all">Todos</button>

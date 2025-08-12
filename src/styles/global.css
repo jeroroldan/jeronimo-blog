@@ -301,3 +301,16 @@ body.dark-mode pre {
 body.dark-mode code {
   color: #e6e6e6;
 }
+
+/* Estilos para resaltado de búsqueda */
+mark {
+  background-color: yellow;
+  color: black;
+  padding: 0.1em 0.2em;
+  border-radius: 3px;
+}
+
+body.dark-mode mark {
+  background-color: #fbbf24;
+  color: #1f2937;
+}

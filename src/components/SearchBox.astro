@@ -1,0 +1,298 @@
+---
+// Componente de búsqueda
+---
+
+<div class="search-container">
+	<div class="search-box">
+		<input 
+			type="text" 
+			id="searchInput" 
+			placeholder="Buscar posts..." 
+			class="search-input"
+		/>
+		<button id="searchButton" class="search-button">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<circle cx="11" cy="11" r="8"></circle>
+				<path d="m21 21-4.35-4.35"></path>
+			</svg>
+		</button>
+	</div>
+	<div id="searchResults" class="search-results hidden"></div>
+</div>
+
+<style>
+	.search-container {
+		position: relative;
+		width: 100%;
+		max-width: 600px;
+		margin: 2rem auto;
+	}
+
+	.search-box {
+		position: relative;
+		display: flex;
+		align-items: center;
+		background: white;
+		border: 2px solid rgb(var(--gray-light));
+		border-radius: 30px;
+		padding: 0.5rem;
+		transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.search-box:focus-within {
+		border-color: var(--accent);
+		box-shadow: 0 0 0 3px rgba(var(--accent), 0.1);
+	}
+
+	.search-input {
+		flex: 1;
+		border: none;
+		outline: none;
+		padding: 0.75rem 1rem;
+		font-size: 1rem;
+		background: transparent;
+		color: rgb(var(--black));
+	}
+
+	.search-input::placeholder {
+		color: rgb(var(--gray));
+	}
+
+	.search-button {
+		background: var(--accent);
+		border: none;
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		color: white;
+		transition: background-color 0.3s ease, transform 0.2s ease;
+	}
+
+	.search-button:hover {
+		background: var(--accent-dark);
+		transform: scale(1.05);
+	}
+
+	.search-results {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		background: white;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 10px;
+		box-shadow: var(--box-shadow);
+		max-height: 400px;
+		overflow-y: auto;
+		z-index: 100;
+		margin-top: 0.5rem;
+	}
+
+	.search-results.hidden {
+		display: none;
+	}
+
+	.search-result-item {
+		padding: 1rem;
+		border-bottom: 1px solid rgb(var(--gray-light));
+		cursor: pointer;
+		transition: background-color 0.2s ease;
+		text-decoration: none;
+		color: inherit;
+		display: block;
+	}
+
+	.search-result-item:hover {
+		background: rgb(var(--gray-light));
+	}
+
+	.search-result-item:last-child {
+		border-bottom: none;
+	}
+
+	.search-result-title {
+		font-weight: bold;
+		margin-bottom: 0.5rem;
+		color: var(--accent);
+	}
+
+	.search-result-description {
+		font-size: 0.9rem;
+		color: rgb(var(--gray));
+		line-height: 1.4;
+	}
+
+	.search-result-date {
+		font-size: 0.8rem;
+		color: rgb(var(--gray));
+		margin-top: 0.5rem;
+	}
+
+	.no-results {
+		padding: 2rem;
+		text-align: center;
+		color: rgb(var(--gray));
+		font-style: italic;
+	}
+
+	/* Dark mode styles */
+	:global(body.dark-mode) .search-box {
+		background: #374151;
+		border-color: #4b5563;
+	}
+
+	:global(body.dark-mode) .search-input {
+		color: rgb(var(--gray-dark));
+	}
+
+	:global(body.dark-mode) .search-results {
+		background: #374151;
+		border-color: #4b5563;
+	}
+
+	:global(body.dark-mode) .search-result-item:hover {
+		background: #4b5563;
+	}
+
+	/* Responsive design */
+	@media (max-width: 768px) {
+		.search-container {
+			margin: 1rem;
+		}
+
+		.search-input {
+			font-size: 0.9rem;
+		}
+	}
+</style>
+
+<script is:inline>
+	// Script para manejar la funcionalidad de búsqueda
+	document.addEventListener('DOMContentLoaded', function() {
+		const searchInput = document.getElementById('searchInput');
+		const searchButton = document.getElementById('searchButton');
+		const searchResults = document.getElementById('searchResults');
+		
+		if (!searchInput || !searchButton || !searchResults) return;
+		
+		let posts = [];
+
+		// Cargar los posts al inicializar
+		async function loadPosts() {
+			try {
+				const response = await fetch('/api/posts.json');
+				if (response.ok) {
+					posts = await response.json();
+				} else {
+					// Fallback: extraer posts del DOM si están disponibles
+					extractPostsFromDOM();
+				}
+			} catch (error) {
+				console.log('No se pudo cargar la API de posts, usando posts del DOM');
+				// Fallback: extraer posts del DOM si están disponibles
+				extractPostsFromDOM();
+			}
+		}
+
+		// Función para extraer posts del DOM como fallback
+		function extractPostsFromDOM() {
+			const postCards = document.querySelectorAll('.post-card, .post-item a');
+			posts = Array.from(postCards).map(function(card) {
+				let title = '';
+				let description = '';
+				let href = '';
+
+				if (card.classList.contains('post-card')) {
+					// Para la página principal
+					const titleEl = card.querySelector('.post-title');
+					const descEl = card.querySelector('.post-description');
+					title = titleEl ? titleEl.textContent || '' : '';
+					description = descEl ? descEl.textContent || '' : '';
+					href = card.getAttribute('href') || '';
+				} else {
+					// Para la página del blog
+					const titleEl = card.querySelector('.title');
+					const descEl = card.querySelector('.date');
+					title = titleEl ? titleEl.textContent || '' : '';
+					description = descEl ? descEl.textContent || '' : '';
+					href = card.getAttribute('href') || '';
+				}
+
+				return { title: title, description: description, href: href };
+			});
+		}
+
+		// Función de búsqueda
+		function performSearch(query) {
+			if (!query.trim()) {
+				hideResults();
+				return;
+			}
+
+			const results = posts.filter(function(post) {
+				const searchText = (post.title + ' ' + post.description).toLowerCase();
+				return searchText.includes(query.toLowerCase());
+			});
+
+			displayResults(results, query);
+		}
+
+		// Mostrar resultados
+		function displayResults(results, query) {
+			if (results.length === 0) {
+				searchResults.innerHTML = 
+					'<div class="no-results">No se encontraron resultados para "' + query + '"</div>';
+			} else {
+				searchResults.innerHTML = results.map(function(post) {
+					return '<a href="' + post.href + '" class="search-result-item">' +
+						'<div class="search-result-title">' + highlightText(post.title, query) + '</div>' +
+						'<div class="search-result-description">' + highlightText(post.description, query) + '</div>' +
+						'</a>';
+				}).join('');
+			}
+			
+			searchResults.classList.remove('hidden');
+		}
+
+		// Resaltar texto de búsqueda
+		function highlightText(text, query) {
+			if (!query.trim()) return text;
+			const regex = new RegExp('(' + query + ')', 'gi');
+			return text.replace(regex, '<mark>$1</mark>');
+		}
+
+		// Ocultar resultados
+		function hideResults() {
+			searchResults.classList.add('hidden');
+		}
+
+		// Event listeners
+		searchInput.addEventListener('input', function(e) {
+			performSearch(e.target.value);
+		});
+
+		searchInput.addEventListener('keypress', function(e) {
+			if (e.key === 'Enter') {
+				performSearch(e.target.value);
+			}
+		});
+
+		searchButton.addEventListener('click', function() {
+			performSearch(searchInput.value);
+		});
+
+		// Ocultar resultados al hacer clic fuera
+		document.addEventListener('click', function(e) {
+			if (e.target && e.target.closest && !e.target.closest('.search-container')) {
+				hideResults();
+			}
+		});
+
+		// Inicializar
+		loadPosts();
+	});
+</script>

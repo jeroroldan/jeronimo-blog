@@ -5,6 +5,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import SearchBox from '../components/SearchBox.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 // Obtener los posts más recientes (máximo 6)
@@ -100,6 +101,9 @@ const posts = (await getCollection('blog'))
 				<p>{SITE_DESCRIPTION}</p>
 				<a href="/blog" class="cta-button">Explorar Blog</a>
 			</section>
+
+			<!-- Componente de búsqueda -->
+			<SearchBox />
 
 			<section class="recent-posts">
 				<h2>Posts Recientes</h2>
