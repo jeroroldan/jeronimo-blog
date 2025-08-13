@@ -2,7 +2,7 @@
 title: 'Principios, Patrones y Ejemplos Reales para Escribir Código Profesional'
 code: 'software'
 description: 'UÍA MASTER DE CÓDIGO LIMPIO'
-pubDate: 'Agos 12 2025'
+pubDate: '2025-08-12'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
