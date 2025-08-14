@@ -1,6 +1,6 @@
 ---
 title: 'AI Engineering para Developers'
-code: 'ia'
+code: 'IA'
 description: 'Guía Completa de AI Engineering para Developers'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -1,6 +1,6 @@
 ---
 title: 'NestJS Masterclass'
-code: 'Nest'
+code: 'nestjs'
 description: 'NestJS Masterclass: Arquitecturas Limpias y Código Mantenible'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -1,6 +1,6 @@
 ---
 title: 'Eloquent'
-code: "laravarel"
+code: "laravel"
 description: 'Masterclass Eloquent - De Principiante a Experto en Consultas Optimizadas'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

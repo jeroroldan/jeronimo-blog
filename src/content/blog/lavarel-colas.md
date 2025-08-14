@@ -1,6 +1,6 @@
 ---
 title: 'Backend con Laravel: Colas, Pilas'
-code: "laravarel"
+code: "laravel"
 description: 'Guía Maestra de Backend con Laravel: Colas, Pilas y Estrategias de Ejecución'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

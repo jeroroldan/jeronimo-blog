@@ -1,6 +1,6 @@
 ---
 title: 'Arrays y Strings en PHP'
-code: "Laravel"
+code: "laravel"
 description: 'Guía Completa - Arrays y Strings en PHP'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

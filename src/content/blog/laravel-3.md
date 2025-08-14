@@ -1,6 +1,6 @@
 ---
 title: 'Clases en Laravel con Analogías de la Vida Real'
-code: "laravarel"
+code: "laravel"
 description: 'Guía Definitiva: Tipos de Clases en Laravel con Analogías de la Vida Real'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

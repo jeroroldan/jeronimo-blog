@@ -1,6 +1,6 @@
 ---
 title: 'ELOQUENT RELATIONSHIPS & WITH()'
-code: 'Laravel'
+code: 'laravel'
 description: 'Guía Completa: Cómo Dominar las Relaciones'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

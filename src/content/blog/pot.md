@@ -1,6 +1,6 @@
 ---
 title: 'Magnetismo Masculino'
-code: "seduccio"
+code: "seduccion"
 description: 'PROTOCOLO MAESTRO: Magnetismo Masculino - El Arte de Atraer Respeto y Oportunidades'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

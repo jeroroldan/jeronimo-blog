@@ -1,6 +1,6 @@
 ---
 title: 'Componentes Avanzados de LLMs'
-code: "Laravel"
+code: "IA"
 description: 'Masterclass Avanzada: Componentes Avanzados de LLMs'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

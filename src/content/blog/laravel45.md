@@ -1,6 +1,6 @@
 ---
 title: 'APIs CON LARAVEL & ELOQUENT'
-code: 'Laravel'
+code: 'laravel'
 description: 'Guía Completa - Desde Cero hasta Experto'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

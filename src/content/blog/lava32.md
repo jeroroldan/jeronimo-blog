@@ -1,7 +1,7 @@
 
 ---
-title: ' Profesionales en PHP con Laravel'
-code: 'Laravel'
+title: "Profesionales en PHP con Laravel"
+code: 'laravel'
 description: 'Masterclass: APIs Profesionales en PHP con Laravel'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
