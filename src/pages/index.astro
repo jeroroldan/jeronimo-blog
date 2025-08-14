@@ -7,6 +7,7 @@ import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import SearchBox from '../components/SearchBox.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import DefaultImage from '../assets/blog-placeholder-1.jpg';
 
 // Obtener los posts más recientes (máximo 6)
 const posts = (await getCollection('blog'))
@@ -110,15 +111,13 @@ const posts = (await getCollection('blog'))
 				<div class="posts-grid">
 					{posts.map((post) => (
 						<a href={`/blog/${post.id}/`} class="post-card">
-							{post.data.heroImage && (
-								<Image
-									src={post.data.heroImage}
-									alt={post.data.title}
-									class="post-image"
-									width={400}
-									height={200}
-								/>
-							)}
+							<Image
+								src={post.data.heroImage && typeof post.data.heroImage === 'object' ? post.data.heroImage : DefaultImage}
+								alt={post.data.title}
+								class="post-image"
+								width={400}
+								height={200}
+							/>
 							<div class="post-content">
 								<h3 class="post-title">{post.data.title}</h3>
 								<p class="post-description">{post.data.description}</p>

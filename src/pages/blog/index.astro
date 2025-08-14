@@ -7,6 +7,7 @@ import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 import SearchBox from "../../components/SearchBox.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import DefaultImage from "../../assets/blog-placeholder-1.jpg";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -147,9 +148,12 @@ const allCodes = [...new Set(posts.map(post => post.data.code).filter(Boolean))]
 						posts.map((post) => (
 							<li class="post-item" data-code={post.data.code || 'sin-codigo'}>
 								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
+									<Image 
+										width={720} 
+										height={360} 
+										src={post.data.heroImage && typeof post.data.heroImage === 'object' ? post.data.heroImage : DefaultImage} 
+										alt={post.data.title} 
+									/>
 									<h4 class="title">{post.data.title}</h4>
 									<p class="date">
 										<FormattedDate date={post.data.pubDate} />
