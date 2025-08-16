@@ -1,6 +1,6 @@
 ---
 title: 'Automatizaciones con n8n'
-code: "automatizaciones"
+code: "n8n"
 description: 'Masterclass: El Negocio de Automatizaciones con n8n'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
