@@ -1,3 +1,12 @@
+---
+title: 'Pintura Nanotecnológic'
+code: 'construccion'
+description: 'Función: Repelencia molecular del agua, autolimpieza'
+pubDate: 'Jun 19 2024'
+heroImage: '../../assets/blog-placeholder-1.jpg'
+---
+
+
 **Pintura Nanotecnológica:**
 ```
 🔬 Función: Repelencia molecular del agua, autolimpieza
