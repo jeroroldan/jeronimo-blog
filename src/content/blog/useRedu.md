@@ -1,5 +1,6 @@
 ---
 title: 'Jerp Master Class: Context API'
+code: 'react'
 description: 'aster Class: Context API en React Native para Datos de Usuario'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

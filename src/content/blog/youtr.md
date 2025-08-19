@@ -1,6 +1,6 @@
 ---
 title: ' MASTERCLASS: DE CERO A EXPERTO EN YOUTUBE CON IA'
-code: 'travel'
+code: 'you-tube'
 description: 'Tu Guía Completa para Monetizar Diariamente sin Aparecer en Cámara'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

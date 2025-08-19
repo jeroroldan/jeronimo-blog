@@ -1,6 +1,6 @@
 ---
 title: 'Masterclass: Carry Trades y Rulos'
-code: 'Carry Trades y Rulos'
+code: 'trading'
 description: 'Masterclass: Carry Trades y Rulos en Argentina'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

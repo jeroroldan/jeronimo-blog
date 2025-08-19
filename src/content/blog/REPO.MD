@@ -1,3 +1,12 @@
+---
+title: 'Illuminate\Validation\Rule y Eloquent ->with() Method'
+code: 'laravel'
+description: 'Masterclass Laravel: Illuminate\Validation\Rule y Eloquent ->with() Method'
+pubDate: 'Jun 19 2024'
+heroImage: '../../assets/blog-placeholder-1.jpg'
+---
+
+
 # Masterclass Laravel: Illuminate\Validation\Rule y Eloquent ->with() Method
 
 ## 🏗️ Introducción: Los Dos Pilares de la Eficiencia en Laravel

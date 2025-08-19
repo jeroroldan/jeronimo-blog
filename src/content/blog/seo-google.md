@@ -1,6 +1,6 @@
 ---
 title: 'SEO Avanzada'
-code: 'ingles'
+code: 'seo'
 description: 'Guía SEO Avanzada - Nivel Google Expert'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

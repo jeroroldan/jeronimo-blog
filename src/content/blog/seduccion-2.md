@@ -1,5 +1,6 @@
 ---
 title: 'El Arte de la Conexión Interpersonal'
+code: 'seduccion'
 description: 'Guía Completa: El Arte de la Conexión Interpersonal'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

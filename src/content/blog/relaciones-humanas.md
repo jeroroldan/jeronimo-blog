@@ -1,5 +1,6 @@
 ---
 title: 'Relaciones Humanas'
+code: 'seduccion'
 description: 'Guía de Relaciones Humanas: Comunicación y Sociabilidad Entre Géneros'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -1,5 +1,6 @@
 ---
 title: 'Atracción Auténtica para Hombres de 40 Años'
+code: 'seduccion'
 description: 'Guía de Atracción Auténtica para Hombres de 40 Años 💫'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

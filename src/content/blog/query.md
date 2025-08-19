@@ -1,5 +1,4 @@
 ---
-
 title: ' Laravel Query Builder'
 code: 'laravel'
 description: 'Guía Completa con Metodologías de Aprendizaje y Ejemplos Reales'
