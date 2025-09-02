@@ -11,8 +11,6 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 
 ## La Guía Definitiva para Manejo de Errores en React y React Native
 
----
-
 ## 📋 Índice
 
 1. [Fundamentos de Error Boundaries](#fundamentos)
@@ -25,8 +23,6 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 8. [Mejores Prácticas y Antipatrones](#mejores-practicas)
 9. [Casos de Uso Reales](#casos-uso)
 10. [Troubleshooting Común](#troubleshooting)
-
----
 
 ## 1. Fundamentos de Error Boundaries {#fundamentos}
 
