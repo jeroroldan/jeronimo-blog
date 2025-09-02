@@ -8,9 +8,8 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 
 
 # Masterclass: HTML Semántico Moderno para SEO
-## *El Arte de Comunicarse con los Motores de Búsqueda*
 
----
+## *El Arte de Comunicarse con los Motores de Búsqueda*
 
 ## 🎯 ¿Por Qué HTML Semántico Revoluciona tu SEO?
 
@@ -19,6 +18,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 **Imagina Google como un bibliotecario súper inteligente** que necesita organizar millones de libros (páginas web). Sin etiquetas semánticas, es como entregarle libros sin títulos, capítulos o índices. Con HTML semántico, le das un sistema de organización perfecto.
 
 **Beneficios SEO Comprobados:**
+
 - **+15-30% mejora en rankings** (estudios de SEMrush 2023)
 - **Rich snippets** automáticos
 - **Mejor CTR** en resultados de búsqueda
@@ -28,6 +28,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ### El Error Fatal del HTML "Div-itis"
 
 **Antes (HTML no semántico):**
+
 ```html
 <div class="header">
   <div class="nav">
@@ -43,6 +44,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ```
 
 **Después (HTML semántico):**
+
 ```html
 <header>
   <nav>
@@ -70,6 +72,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 **Propósito SEO:** Define la cabecera principal o de secciones específicas.
 
 **✅ Uso Correcto:**
+
 ```html
 <!-- Header principal del sitio -->
 <header>
@@ -94,6 +97,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ```
 
 **❌ Errores Comunes:**
+
 ```html
 <!-- MAL: Múltiples headers principales -->
 <header>
@@ -112,6 +116,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 **Propósito SEO:** Identifica el contenido principal único de la página.
 
 **✅ Implementación SEO-Optimizada:**
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -148,6 +153,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 #### `<article>` vs `<section>` - La Diferencia que Cambia Todo
 
 **`<article>` - Contenido Independiente:**
+
 ```html
 <!-- Perfecto para blog posts -->
 <article itemscope itemtype="https://schema.org/BlogPosting">
@@ -173,6 +179,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ```
 
 **`<section>` - Secciones Temáticas:**
+
 ```html
 <!-- Perfecto para dividir contenido relacionado -->
 <main>
@@ -202,6 +209,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 #### `<nav>` - Las Autopistas de tu Sitio
 
 **✅ Navegación Principal SEO-Optimizada:**
+
 ```html
 <nav aria-label="Navegación principal">
   <ul>
@@ -214,6 +222,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ```
 
 **✅ Breadcrumbs Semánticos:**
+
 ```html
 <nav aria-label="Breadcrumb" class="breadcrumb">
   <ol itemscope itemtype="https://schema.org/BreadcrumbList">
@@ -240,6 +249,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 #### `<aside>` - Contenido Relacionado Inteligente
 
 **✅ Sidebar SEO-Friendly:**
+
 ```html
 <aside aria-label="Contenido relacionado">
   <section>
@@ -271,6 +281,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 **Analogía del Libro:** Como un libro bien estructurado tiene capítulos, subcapítulos y secciones, tu HTML debe tener una jerarquía lógica.
 
 **✅ Estructura Ideal:**
+
 ```html
 <main>
   <article>
@@ -309,6 +320,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ```
 
 **❌ Errores que Destruyen SEO:**
+
 ```html
 <!-- MAL: Múltiples H1 -->
 <h1>Título Principal</h1>
@@ -328,6 +340,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 #### `<time>` - Fechas que Google Ama
 
 **✅ Fechas SEO-Optimizadas:**
+
 ```html
 <!-- Para artículos de blog -->
 <article>
@@ -360,6 +373,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 #### `<address>` - Información de Contacto Estructurada
 
 **✅ Contacto SEO-Friendly:**
+
 ```html
 <footer>
   <address itemscope itemtype="https://schema.org/Organization">
@@ -378,6 +392,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 #### `<figure>` y `<figcaption>` - Imágenes que Hablan
 
 **✅ Imágenes SEO-Optimizadas:**
+
 ```html
 <article>
   <h1>Optimización de Imágenes para Web</h1>
@@ -407,6 +422,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 #### BlogPosting Schema - Para Artículos
 
 **✅ Article Schema Completo:**
+
 ```html
 <article itemscope itemtype="https://schema.org/BlogPosting">
   <header>
@@ -456,6 +472,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 #### Organization Schema - Para Empresas
 
 **✅ Información de Empresa Estructurada:**
+
 ```html
 <footer itemscope itemtype="https://schema.org/Organization">
   <h3 itemprop="name">TechSolutions Inc.</h3>
@@ -485,6 +502,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 **Analogía:** JSON-LD es como enviar un CV perfectamente formateado junto con tu página web.
 
 **✅ JSON-LD para Artículo:**
+
 ```html
 <head>
   <script type="application/ld+json">
@@ -519,6 +537,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ```
 
 **✅ JSON-LD para Productos:**
+
 ```html
 <script type="application/ld+json">
 {
@@ -555,6 +574,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 #### Campos de Formulario Optimizados
 
 **✅ Formulario de Contacto SEO-Friendly:**
+
 ```html
 <section>
   <h2>Contactanos</h2>
@@ -619,6 +639,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 #### Listas que Google Entiende
 
 **✅ Lista de Características:**
+
 ```html
 <section>
   <h2>Características de Nuestro Servicio</h2>
@@ -632,6 +653,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ```
 
 **✅ Lista de Pasos (Tutorial):**
+
 ```html
 <section>
   <h2>Cómo Optimizar tu Sitio para SEO</h2>
@@ -655,6 +677,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ### 4.3 Tablas de Datos Semánticas
 
 **✅ Tabla de Precios Optimizada:**
+
 ```html
 <section>
   <h2>Planes de Hosting</h2>
@@ -859,6 +882,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ### 5.2 E-commerce Product Page
 
 **✅ Página de Producto SEO-Optimizada:**
+
 ```html
 <main>
   <nav aria-label="Breadcrumb">
@@ -947,6 +971,7 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ### 6.1 Herramientas Esenciales para Validar HTML Semántico
 
 #### Google Rich Results Test
+
 ```
 URL: https://search.google.com/test/rich-results
 Función: Valida si tu markup genera rich snippets
@@ -954,6 +979,7 @@ Uso: Pega tu URL o código HTML
 ```
 
 #### W3C Markup Validator
+
 ```
 URL: https://validator.w3.org/
 Función: Valida la sintaxis HTML
@@ -961,6 +987,7 @@ Uso: Fundamental para detectar errores estructurales
 ```
 
 #### Schema.org Validator
+
 ```
 URL: https://validator.schema.org/
 Función: Específico para validar microdata
@@ -970,6 +997,7 @@ Uso: Verifica que tu Schema.org esté correcto
 ### 6.2 Chrome DevTools para SEO
 
 **Auditoría de Accessibility:**
+
 ```javascript
 // En DevTools Console
 // Verificar jerarquía de headings
@@ -987,6 +1015,7 @@ console.log(`Images without alt text: ${imagesWithoutAlt.length}`);
 ### 6.3 Lighthouse SEO Audit
 
 **Interpretando Lighthouse:**
+
 ```
 Accessibility Score: 90+ (Excelente)
 SEO Score: 90+ (Óptimo)
@@ -1006,6 +1035,7 @@ Errores Comunes a Buscar:
 ### 7.1 Caso de Estudio: Blog de Tecnología
 
 **Antes de HTML Semántico:**
+
 ```html
 <!-- Estructura NO semántica -->
 <div class="header">
@@ -1020,6 +1050,7 @@ Errores Comunes a Buscar:
 ```
 
 **Después de HTML Semántico:**
+
 ```html
 <!-- Estructura semántica -->
 <header>
@@ -1034,6 +1065,7 @@ Errores Comunes a Buscar:
 ```
 
 **Resultados Medidos (3 meses después):**
+
 - **+45% tráfico orgánico**
 - **+60% apariciones en rich snippets**
 - **+25% tiempo en página**
@@ -1043,12 +1075,14 @@ Errores Comunes a Buscar:
 ### 7.2 Caso E-commerce: Tienda Online
 
 **Implementaciones Clave:**
+
 1. **Product Schema** en todas las páginas
 2. **BreadcrumbList** structure
 3. **Review/Rating Schema**
 4. **Organization Schema** en footer
 
 **Resultados después de 6 meses:**
+
 - **+80% productos apareciendo con rich snippets**
 - **+35% CTR** en páginas de productos
 - **+22% ventas orgánicas**
@@ -1057,6 +1091,7 @@ Errores Comunes a Buscar:
 ### 7.3 Métricas para Medir el Impacto
 
 #### Google Search Console - Métricas Clave
+
 ```
 Métricas a Monitorear:
 📊 CTR (Click Through Rate): Objetivo >3%
@@ -1066,6 +1101,7 @@ Métricas a Monitorear:
 ```
 
 #### Google Analytics - Comportamiento
+
 ```
 Métricas SEO en GA:
 🔍 Organic traffic growth
@@ -1081,6 +1117,7 @@ Métricas SEO en GA:
 ### 8.1 Checklist Pre-Launch
 
 **✅ Estructura del Documento:**
+
 - [ ] Un solo `<h1>` por página
 - [ ] Jerarquía de headings lógica (h1→h2→h3)
 - [ ] `<main>` contiene el contenido principal
@@ -1090,6 +1127,7 @@ Métricas SEO en GA:
 - [ ] `<section>` para agrupar contenido relacionado
 
 **✅ Schema Markup:**
+
 - [ ] JSON-LD implementado correctamente
 - [ ] Schema.org relevante para el tipo de contenido
 - [ ] Microdata en elementos críticos
@@ -1097,6 +1135,7 @@ Métricas SEO en GA:
 - [ ] BreadcrumbList en navegación
 
 **✅ Accesibilidad y SEO:**
+
 - [ ] Alt text descriptivo en todas las imágenes
 - [ ] Labels asociados a form inputs
 - [ ] `aria-label` en elementos interactivos
@@ -1106,6 +1145,7 @@ Métricas SEO en GA:
 ### 8.2 Errores Comunes a Evitar
 
 #### ❌ Error #1: Múltiples H1
+
 ```html
 <!-- MAL -->
 <h1>Bienvenido</h1>
@@ -1117,6 +1157,7 @@ Métricas SEO en GA:
 ```
 
 #### ❌ Error #2: Divs para Todo
+
 ```html
 <!-- MAL -->
 <div class="navigation">
@@ -1130,6 +1171,7 @@ Métricas SEO en GA:
 ```
 
 #### ❌ Error #3: Schema Incompleto
+
 ```html
 <!-- MAL -->
 <div itemtype="BlogPosting">
@@ -1145,7 +1187,8 @@ Métricas SEO en GA:
 
 ### 8.3 Mantenimiento y Monitoreo
 
-#### Revisión Mensual:
+#### Revisión Mensual
+
 ```
 □ Google Search Console - Errores de markup
 □ Rich Results Test - Nuevas páginas
@@ -1154,7 +1197,8 @@ Métricas SEO en GA:
 □ Analytics - Tráfico orgánico trends
 ```
 
-#### Actualizaciones Continuas:
+#### Actualizaciones Continuas
+
 ```
 □ Nuevas features de Schema.org
 □ Cambios en algoritmos de Google
@@ -1170,6 +1214,7 @@ Métricas SEO en GA:
 ### 9.1 Tendencias Emergentes
 
 #### Web Components y SEO
+
 ```html
 <!-- Custom elements semánticos -->
 <blog-post>
@@ -1183,6 +1228,7 @@ Métricas SEO en GA:
 ```
 
 #### AI y Schema Markup
+
 ```html
 <!-- Schema para AI/ChatGPT -->
 <article itemscope itemtype="https://schema.org/QAPage">
@@ -1200,6 +1246,7 @@ Métricas SEO en GA:
 ### 9.2 Preparándote para el Futuro
 
 #### Core Web Vitals Integration
+
 ```html
 <!-- Optimización para LCP -->
 <img src="hero-image.webp" 
@@ -1223,6 +1270,7 @@ Métricas SEO en GA:
 ### El Plan de Acción 30-60-90 Días
 
 #### Primeros 30 Días: Fundamentos
+
 ```
 Semana 1: Auditoría completa de HTML actual
 Semana 2: Implementar estructura semántica básica
@@ -1231,6 +1279,7 @@ Semana 4: Validar y medir primeros resultados
 ```
 
 #### 60 Días: Optimización
+
 ```
 Mes 2: Schema avanzado (JSON-LD)
       Microdata en contenido crítico
@@ -1239,6 +1288,7 @@ Mes 2: Schema avanzado (JSON-LD)
 ```
 
 #### 90 Días: Perfección
+
 ```
 Mes 3: Automatización de markup
       A/B testing de diferentes approaches
@@ -1257,6 +1307,7 @@ Mes 3: Automatización de markup
 ### Tu Próximo Paso
 
 **Ahora mismo:**
+
 1. Abre una de tus páginas más importantes
 2. Corre un Rich Results Test
 3. Identifica 3 mejoras inmediatas
