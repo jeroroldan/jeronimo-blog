@@ -3,9 +3,8 @@ title: 'Master Class: useEffect - Guía Completa para Expertos'
 code: 'react'
 description: 'UseEffect'
 pubDate: 'Jun 19 2024'
-heroImag
-
-
+heroImag: '../../assets/blog-placeholder-1.jpg'
+---
 
 # Master Class: useEffect - Guía Completa para Expertos 🚀
 
