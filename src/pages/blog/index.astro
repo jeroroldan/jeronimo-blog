@@ -10,15 +10,17 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import DefaultImage from "../../assets/blog-placeholder-1.jpg";
 
 const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
 // Obtener todos los códigos únicos para los filtros
-const allCodes = [...new Set(posts.map(post => post.data.code).filter(Boolean))].sort();
+const allCodes = [
+	...new Set(posts.map((post) => post.data.code).filter(Boolean)),
+].sort();
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
@@ -89,7 +91,7 @@ const allCodes = [...new Set(posts.map(post => post.data.code).filter(Boolean))]
 					font-size: 1.563em;
 				}
 			}
-			
+
 			/* Estilos para filtros */
 			.filters {
 				margin-bottom: 2rem;
@@ -98,7 +100,7 @@ const allCodes = [...new Set(posts.map(post => post.data.code).filter(Boolean))]
 				gap: 0.5rem;
 				align-items: center;
 			}
-			
+
 			.filter-btn {
 				padding: 0.5rem 1rem;
 				border: 2px solid rgb(var(--accent));
@@ -110,17 +112,17 @@ const allCodes = [...new Set(posts.map(post => post.data.code).filter(Boolean))]
 				font-size: 0.9rem;
 				font-weight: 500;
 			}
-			
+
 			.filter-btn:hover,
 			.filter-btn.active {
 				background: rgb(var(--accent));
 				color: white;
 			}
-			
+
 			.post-item {
 				transition: opacity 0.3s ease;
 			}
-			
+
 			.post-item.hidden {
 				display: none;
 			}
@@ -129,34 +131,70 @@ const allCodes = [...new Set(posts.map(post => post.data.code).filter(Boolean))]
 	<body>
 		<Header />
 		<main>
+			<h1
+				style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;"
+			>
+				Blog de {SITE_TITLE}
+			</h1>
 			<section>
 				<!-- Componente de búsqueda -->
 				<SearchBox />
-				
-				<div class="filters">
-					<span style="font-weight: bold; margin-right: 1rem;">Filtrar por:</span>
-					<button class="filter-btn active" data-filter="all">Todos</button>
-					{allCodes.map(code => (
-						<button class="filter-btn" data-filter={code}>
-							{code ? code.charAt(0).toUpperCase() + code.slice(1) : 'Sin código'}
-						</button>
-					))}
+
+				<div
+					class="filters"
+					role="group"
+					aria-label="Filtrar publicaciones por categoría"
+				>
+					<span
+						style="font-weight: bold; margin-right: 1rem;"
+						id="filter-label">Filtrar por:</span
+					>
+					<button
+						class="filter-btn active"
+						data-filter="all"
+						aria-pressed="true">Todos</button
+					>
+					{
+						allCodes.map((code) => (
+							<button
+								class="filter-btn"
+								data-filter={code}
+								aria-pressed="false"
+							>
+								{code
+									? code.charAt(0).toUpperCase() +
+										code.slice(1)
+									: "Sin código"}
+							</button>
+						))
+					}
 				</div>
-				
+
 				<ul>
 					{
 						posts.map((post) => (
-							<li class="post-item" data-code={post.data.code || 'sin-codigo'}>
+							<li
+								class="post-item"
+								data-code={post.data.code || "sin-codigo"}
+							>
 								<a href={`/blog/${post.id}/`}>
-									<Image 
-										width={720} 
-										height={360} 
-										src={post.data.heroImage && typeof post.data.heroImage === 'object' ? post.data.heroImage : DefaultImage} 
-										alt={post.data.title} 
+									<Image
+										width={720}
+										height={360}
+										src={
+											post.data.heroImage &&
+											typeof post.data.heroImage ===
+												"object"
+												? post.data.heroImage
+												: DefaultImage
+										}
+										alt={post.data.title}
 									/>
-									<h4 class="title">{post.data.title}</h4>
+									<h2 class="title">{post.data.title}</h2>
 									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
+										<FormattedDate
+											date={post.data.pubDate}
+										/>
 									</p>
 								</a>
 							</li>
@@ -166,32 +204,39 @@ const allCodes = [...new Set(posts.map(post => post.data.code).filter(Boolean))]
 			</section>
 		</main>
 		<Footer />
-		
+
 		<script>
 			// Funcionalidad de filtrado
-			document.addEventListener('DOMContentLoaded', function() {
-				const filterButtons = document.querySelectorAll('.filter-btn');
-				const postItems = document.querySelectorAll('.post-item');
-				
-				filterButtons.forEach(button => {
-					button.addEventListener('click', function(this: HTMLButtonElement) {
-						const filter = this.getAttribute('data-filter');
-						
-						// Actualizar botones activos
-						filterButtons.forEach(btn => btn.classList.remove('active'));
-						this.classList.add('active');
-						
-						// Filtrar posts
-						postItems.forEach(item => {
-							const postCode = item.getAttribute('data-code');
-							
-							if (filter === 'all' || postCode === filter) {
-								item.classList.remove('hidden');
-							} else {
-								item.classList.add('hidden');
-							}
-						});
-					});
+			document.addEventListener("DOMContentLoaded", function () {
+				const filterButtons = document.querySelectorAll(".filter-btn");
+				const postItems = document.querySelectorAll(".post-item");
+
+				filterButtons.forEach((button) => {
+					button.addEventListener(
+						"click",
+						function (this: HTMLButtonElement) {
+							const filter = this.getAttribute("data-filter");
+
+							// Actualizar botones activos
+							filterButtons.forEach((btn) => {
+								btn.classList.remove("active");
+								btn.setAttribute("aria-pressed", "false");
+							});
+							this.classList.add("active");
+							this.setAttribute("aria-pressed", "true");
+
+							// Filtrar posts
+							postItems.forEach((item) => {
+								const postCode = item.getAttribute("data-code");
+
+								if (filter === "all" || postCode === filter) {
+									item.classList.remove("hidden");
+								} else {
+									item.classList.add("hidden");
+								}
+							});
+						},
+					);
 				});
 			});
 		</script>
