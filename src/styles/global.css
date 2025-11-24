@@ -3,28 +3,28 @@
   https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
 :root {
 	--accent: #2337ff;
 	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
+	--black: 51, 51, 51;
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
+	--gray-dark: 51, 51, 51;
 	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
 	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px
-		rgba(var(--gray), 33%);
+		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%);
 }
 
 /* Dark mode variables */
 body.dark-mode {
 	--accent: #6366f1;
 	--accent-dark: #4f46e5;
-	--black: 255, 255, 255;
+	--black: 243, 244, 246;
 	--gray: 156, 163, 175;
 	--gray-light: 17, 24, 39;
-	--gray-dark: 229, 231, 235;
+	--gray-dark: 209, 213, 219;
 	--gray-gradient: #111827, #000000;
 	--box-shadow:
 		0 2px 6px rgba(0, 0, 0, 40%), 0 8px 24px rgba(0, 0, 0, 50%), 0 16px 32px rgba(0, 0, 0, 50%);
@@ -32,46 +32,34 @@ body.dark-mode {
 }
 
 /* Eliminar auto dark mode para evitar conflictos */
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-regular.woff") format("woff");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-bold.woff") format("woff");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
+
 body {
-	font-family: "Atkinson", sans-serif;
+	font-family: "Merriweather", serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
+	background: #F9F7F1;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
 	font-size: 20px;
-	line-height: 1.7;
+	line-height: 1.8;
+	hyphens: auto;
 	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Dark mode body styles */
 body.dark-mode {
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
+	background: #111827;
 }
+
 main {
 	width: 720px;
 	max-width: calc(100% - 2em);
 	margin: auto;
 	padding: 3em 1em;
 }
+
 h1,
 h2,
 h3,
@@ -82,68 +70,73 @@ h6 {
 	color: rgb(var(--black));
 	line-height: 1.2;
 }
+
 h1 {
 	font-size: 3.052em;
 }
+
 h2 {
 	font-size: 2.441em;
 }
+
 h3 {
 	font-size: 1.953em;
 }
+
 h4 {
 	font-size: 1.563em;
 }
+
 h5 {
 	font-size: 1.25em;
 }
+
 strong,
 b {
 	font-weight: 700;
 }
+
 a {
 	color: var(--accent);
 }
+
 a:hover {
 	color: var(--accent);
 }
+
 p {
 	margin-bottom: 1em;
 }
+
 .prose p {
 	margin-bottom: 2em;
 }
+
 textarea {
 	width: 100%;
 	font-size: 16px;
 }
+
 input {
 	font-size: 16px;
 }
+
 table {
 	width: 100%;
 }
+
 img {
 	max-width: 100%;
 	height: auto;
 	border-radius: 8px;
 }
-code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
-	color: rgb(var(--gray-dark));
-	font-family: 'Courier New', Monaco, 'Lucida Console', monospace;
-}
 
-/* Estilos básicos de código */
 code {
 	padding: 2px 5px;
 	background-color: rgb(var(--gray-light));
 	border-radius: 2px;
 	color: rgb(var(--gray-dark));
 	font-family: 'Courier New', Monaco, 'Lucida Console', monospace;
-	font-size: 0.9em;
 }
 
 /* Bloques de código */
@@ -157,29 +150,6 @@ pre {
 	border: 1px solid #d0d7de;
 	background: #f8f8f8;
 	color: #24292e;
-}
-
-pre code {
-	background: transparent !important;
-	padding: 0;
-	color: inherit;
-	font-size: inherit;
-	font-family: inherit;
-	border: none;
-}
-
-/* Modo oscuro para código inline */
-body.dark-mode code {
-	background-color: #161b22 !important;
-	color: #c9d1d9 !important;
-	border: 1px solid #30363d;
-}
-
-/* Modo oscuro para bloques de código */
-body.dark-mode pre {
-	background: #0d1117 !important;
-	color: #c9d1d9 !important;
-	border: 1px solid #30363d !important;
 }
 
 /* Estilos básicos que funcionan sin JavaScript */
@@ -247,14 +217,17 @@ blockquote {
 	margin: 0px;
 	font-size: 1.333em;
 }
+
 hr {
 	border: none;
 	border-top: 1px solid rgb(var(--gray-light));
 }
+
 @media (max-width: 720px) {
 	body {
 		font-size: 18px;
 	}
+
 	main {
 		padding: 1em;
 	}
@@ -278,39 +251,15 @@ hr {
 	white-space: nowrap;
 }
 
-/* Estilos específicos para bloques de código en modo claro y oscuro */
-pre {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 1em;
-  overflow-x: auto;
-}
-
-code {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 0.95em;
-}
-
-/* Estilos para modo oscuro */
-body.dark-mode pre {
-  background-color: #2d2d2d;
-  border-color: #444;
-}
-
-body.dark-mode code {
-  color: #e6e6e6;
-}
-
 /* Estilos para resaltado de búsqueda */
 mark {
-  background-color: yellow;
-  color: black;
-  padding: 0.1em 0.2em;
-  border-radius: 3px;
+	background-color: yellow;
+	color: black;
+	padding: 0.1em 0.2em;
+	border-radius: 3px;
 }
 
 body.dark-mode mark {
-  background-color: #fbbf24;
-  color: #1f2937;
+	background-color: #fbbf24;
+	color: #1f2937;
 }
