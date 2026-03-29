@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
+import { themes } from "../lib/themeMapping";
 ---
 
 <header>
@@ -8,14 +9,26 @@ import HeaderLink from "./HeaderLink.astro";
     <h2><a href="/">{SITE_TITLE}</a></h2>
     <div class="internal-links">
       <HeaderLink href="/">Inicio</HeaderLink>
-      <HeaderLink href="/blog">Blog</HeaderLink>
+      <div class="dropdown">
+        <button class="dropdown-btn" aria-haspopup="true" aria-expanded="false">
+          Blog
+          <span class="dropdown-icon">▼</span>
+        </button>
+        <div class="dropdown-content">
+          <HeaderLink href="/blog/seduccion">Seducción</HeaderLink>
+          <HeaderLink href="/blog/informatica">Informática</HeaderLink>
+          <HeaderLink href="/blog/trading">Trading</HeaderLink>
+          <HeaderLink href="/blog/negocios">Negocios</HeaderLink>
+          <HeaderLink href="/blog/superacion">Superación Personal</HeaderLink>
+          <HeaderLink href="/blog">Todas las publicaciones</HeaderLink>
+        </div>
+      </div>
       <HeaderLink href="/about">Acerca de</HeaderLink>
     </div>
     <button id="darkModeToggle" title="Cambiar modo oscuro">
       <span class="sun-icon">☀️</span>
       <span class="moon-icon">🌙</span>
     </button>
-    <div class="social-links">...existing code...</div>
   </nav>
 </header>
 <script is:inline>
@@ -52,6 +65,35 @@ import HeaderLink from "./HeaderLink.astro";
     setDarkMode(!document.body.classList.contains("dark-mode"));
   });
 </script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dropdownBtn = document.querySelector(".dropdown-btn");
+    const dropdownContent = document.querySelector(".dropdown-content");
+
+    if (dropdownBtn && dropdownContent) {
+      dropdownBtn.addEventListener("click", function () {
+        dropdownContent.classList.toggle("show");
+        const expanded =
+          dropdownBtn.getAttribute("aria-expanded") === "true" || false;
+        dropdownBtn.setAttribute("aria-expanded", !expanded);
+      });
+
+      // Close dropdown when clicking outside
+      window.addEventListener("click", function (event) {
+        if (
+          !event.target.matches(".dropdown-btn") &&
+          !event.target.matches(".dropdown-icon")
+        ) {
+          if (dropdownContent.classList.contains("show")) {
+            dropdownContent.classList.remove("show");
+            dropdownBtn.setAttribute("aria-expanded", "false");
+          }
+        }
+      });
+    }
+  });
+</script>
 <style>
   header {
     margin: 0;
@@ -61,26 +103,28 @@ import HeaderLink from "./HeaderLink.astro";
     transition: background-color 0.3s ease;
   }
 
-	/* Dark mode header */
-	:global(body.dark-mode) header {
-		background: #1f2937 !important;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 25%);
-	}
-	
-	:global(body.dark-mode) nav a {
-		color: rgb(var(--gray-dark)) !important;
-	}
-	
-	:global(body.dark-mode) h2 a {
-		color: rgb(var(--black)) !important;
-	}  nav {
+  /* Dark mode header */
+  :global(body.dark-mode) header {
+    background: #1f2937 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 25%);
+  }
+
+  :global(body.dark-mode) nav a {
+    color: rgb(var(--gray-dark)) !important;
+  }
+
+  :global(body.dark-mode) h2 a {
+    color: rgb(var(--black)) !important;
+  }
+  nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
+    position: relative;
   }
-  
+
   h2 a {
     padding: 1em 0;
     color: rgb(var(--black));
@@ -88,22 +132,105 @@ import HeaderLink from "./HeaderLink.astro";
     font-weight: bold;
     font-size: 1.5rem;
   }
-  
+
   .internal-links {
     display: flex;
     gap: 0.5rem;
     align-items: center;
   }
-  
+
+  /* Dropdown styles */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-btn {
+    background: none;
+    border: none;
+    color: rgb(var(--black));
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: color 0.2s ease;
+  }
+
+  .dropdown-btn:hover {
+    color: var(--accent);
+  }
+
+  .dropdown-icon {
+    transition: transform 0.2s ease;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background: white;
+    min-width: 180px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+    left: 0;
+  }
+
+  :global(body.dark-mode) .dropdown-content {
+    background: #2d3748 !important;
+  }
+
+  .dropdown-content a {
+    color: rgb(var(--black));
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s ease;
+    font-size: 0.9rem;
+  }
+
+  :global(body.dark-mode) .dropdown-content a {
+    color: rgb(var(--gray-light)) !important;
+  }
+
+  .dropdown-content a:hover {
+    background-color: rgb(var(--accent)) !important;
+    color: white !important;
+  }
+
+  :global(body.dark-mode) .dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .dropdown-content.show {
+    display: block;
+  }
+
+  /* Mobile dropdown */
+  @media (max-width: 720px) {
+    .dropdown-content {
+      position: static;
+      box-shadow: none;
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+  }
+
   nav a {
     color: rgb(var(--black));
     text-decoration: none;
     transition: color 0.2s ease;
   }
-  
+
   nav a:hover {
     color: var(--accent);
   }
+
   .social-links,
   .social-links a {
     display: flex;

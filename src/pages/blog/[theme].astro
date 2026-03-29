@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
 import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
@@ -9,41 +9,67 @@ import Header from "../../components/Header.astro";
 import SearchBox from "../../components/SearchBox.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import DefaultImage from "../../assets/blog-placeholder-1.jpg";
-import { getThemeFromCode } from "../../lib/themeMapping";
+import { getThemeFromCode, themes, themeToSlug, slugToTheme } from "../../lib/themeMapping";
 
-export const getStaticPaths = (async ({ paginate }) => {
-  const allPosts = await getCollection("blog");
-  const sortedPosts = allPosts.sort(
+export const getStaticPaths = (async () => {
+  const slugs = ['seduccion', 'informatica', 'trading', 'negocios', 'superacion'];
+  console.log("HARDCODED generating paths for:", slugs);
+  return slugs.map(s => ({ params: { theme: s }, props: {} }));
+}) satisfies GetStaticPaths;
+
+const { theme: themeSlug } = Astro.params;
+const originalTheme = slugToTheme[themeSlug] || "Informática";
+
+// Get all posts for this theme
+const allPosts = await getCollection("blog");
+const posts = allPosts
+  .filter(post => {
+    const postTheme = getThemeFromCode(post.data.code);
+    return postTheme === originalTheme;
+  })
+  .sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   );
 
-  // Get unique themes and codes from all posts for filter buttons
-  const allThemes = [
-    ...new Set(allPosts.map((post) => getThemeFromCode(post.data.code))),
-  ].sort();
-  const allCodes = [
-    ...new Set(
-      allPosts.map((post) => post.data.code).filter((c): c is string => !!c),
-    ),
-  ].sort();
+// Get unique codes for this theme for filtering
+const themeCodes = [
+  ...new Set(
+    posts
+      .map(post => post.data.code)
+      .filter(Boolean)
+  )
+].sort();
 
-  return paginate(sortedPosts, {
-    pageSize: 12,
-    props: { allThemes, allCodes },
-  });
-}) satisfies GetStaticPaths;
+// Get theme description
+const themeDescriptions: Record<string, string> = {
+  seduccion: "Descubre el arte de la seducción, la atracción y las relaciones humanas.",
+  informatica: "Explora el mundo de la tecnología, programación y desarrollo de software.",
+  trading: "Aprende sobre inversiones, trading y gestión financiera profesional.",
+  negocios: "Desarrolla habilidades empresariales, de liderazgo y emprendimiento.",
+  superacion: "Crece personalmente con técnicas de superación, aprendizaje y productividad."
+};
 
-const { page, allThemes = [], allCodes = [] } = Astro.props;
+const themeDescription = themeDescriptions[themeSlug.toLowerCase()] || "Explora nuestro contenido especializado.";
+const themeTitle = originalTheme;
+
 ---
-
 <!doctype html>
 <html lang="es">
   <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <BaseHead 
+      title={`${themeTitle} | ${SITE_TITLE}`} 
+      description={themeDescription} 
+    />
     <style>
+      :root {
+        --theme-primary: var(--accent); /* Will be overridden per theme */
+      }
+      
+      /* Theme-specific colors - these will be set via inline style or JS */
       main {
         width: 960px;
       }
+      
       ul {
         display: flex;
         flex-wrap: wrap;
@@ -52,63 +78,78 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
         margin: 0;
         padding: 0;
       }
+      
       ul li {
         width: calc(50% - 1rem);
       }
+      
       ul li * {
         text-decoration: none;
         transition: 0.2s ease;
       }
+      
       ul li:first-child {
         width: 100%;
         margin-bottom: 1rem;
         text-align: center;
       }
+      
       ul li:first-child img {
         width: 100%;
       }
+      
       ul li:first-child .title {
         font-size: 2.369rem;
       }
+      
       ul li img {
         margin-bottom: 0.5rem;
         border-radius: 12px;
       }
+      
       ul li a {
         display: block;
       }
+      
       .title {
         margin: 0;
         color: rgb(var(--black));
         line-height: 1;
       }
+      
       .date {
         margin: 0;
         color: rgb(var(--gray));
       }
+      
       ul li a:hover h4,
       ul li a:hover .date {
         color: rgb(var(--accent));
       }
+      
       ul a:hover img {
         box-shadow: var(--box-shadow);
       }
+      
       @media (max-width: 720px) {
         ul {
           gap: 0.5em;
         }
+        
         ul li {
           width: 100%;
           text-align: center;
         }
+        
         ul li:first-child {
           margin-bottom: 0;
         }
+        
         ul li:first-child .title {
           font-size: 1.563em;
         }
       }
-
+      
       /* Estilos para filtros */
       .filters {
         margin-bottom: 2rem;
@@ -117,13 +158,7 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
         gap: 0.5rem;
         align-items: center;
       }
-      .filters > div {
-        margin-right: 1rem;
-      }
-      .filters label {
-        font-weight: bold;
-        margin-right: 0.5rem;
-      }
+      
       .filter-btn {
         padding: 0.5rem 1rem;
         border: 2px solid rgb(var(--accent));
@@ -135,17 +170,21 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
         font-size: 0.9rem;
         font-weight: 500;
       }
+      
       .filter-btn:hover,
       .filter-btn.active {
         background: rgb(var(--accent));
         color: white;
       }
+      
       .post-item {
         transition: opacity 0.3s ease;
       }
+      
       .post-item.hidden {
         display: none;
       }
+      
       /* Estilos para paginación */
       .pagination {
         display: flex;
@@ -155,6 +194,7 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
         margin-top: 3rem;
         padding: 2rem 0;
       }
+      
       .pagination a,
       .pagination span {
         padding: 0.5rem 1rem;
@@ -165,19 +205,24 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
         transition: all 0.2s ease;
         font-weight: 500;
       }
+      
       .pagination a:hover {
         background: rgb(var(--accent));
         color: white;
       }
+      
       .pagination .current {
         background: rgb(var(--accent));
         color: white;
       }
+      
       .pagination .disabled {
         opacity: 0.3;
         cursor: not-allowed;
         pointer-events: none;
       }
+      
+      /* Theme-specific styling will be applied via inline style */
     </style>
   </head>
   <body>
@@ -189,71 +234,55 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
         Blog de {SITE_TITLE}
       </h1>
       <section>
+        <div class="theme-header" style="text-align: center; margin-bottom: 2rem;">
+          <h1 style="color: var(--theme-primary); margin-bottom: 0.5rem;">
+            {themeTitle}
+          </h1>
+          <p style="color: rgb(var(--gray)); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+            {themeDescription}
+          </p>
+        </div>
+        
         <!-- Componente de búsqueda -->
         <SearchBox />
-
-        <div class="filters" role="group" aria-label="Filtrar publicaciones">
-          <div>
-            <label for="theme-filter">Tema:</label>
-            <div>
-              <button
-                class="filter-btn active"
-                data-filter-theme="all"
-                data-filter-code="all"
-                aria-pressed="true"
-              >
-                Todos
-              </button>
-              {
-                allThemes.map((theme) => (
-                  <button
-                    class="filter-btn"
-                    data-filter-theme={theme}
-                    data-filter-code="all"
-                    aria-pressed="false"
-                  >
-                    {theme}
-                  </button>
-                ))
-              }
-            </div>
-          </div>
-          <div>
-            <label for="code-filter">Código:</label>
-            <div>
-              {/* Button for posts with no code */}
+        
+        <div
+          class="filters"
+          role="group"
+          aria-label="Filtrar publicaciones por categoría"
+        >
+          <span
+            style="font-weight: bold; margin-right: 1rem;"
+            id="filter-label">Filtrar por:</span
+          >
+          <button
+            class="filter-btn active"
+            data-filter="all"
+            aria-pressed="true"
+          >
+            Todos
+          </button>
+          {
+            themeCodes.map((code) => (
               <button
                 class="filter-btn"
-                data-filter-theme="all"
-                data-filter-code="sin-codigo"
+                data-filter={code}
                 aria-pressed="false"
               >
-                Sin código
+                {code
+                  ? code.charAt(0).toUpperCase() + code.slice(1)
+                  : "Sin código"}
               </button>
-              {/* Buttons for posts with codes */}
-              {
-                allCodes.map((code) => (
-                  <button
-                    class="filter-btn"
-                    data-filter-theme="all"
-                    data-filter-code={code}
-                    aria-pressed="false"
-                  >
-                    {code.charAt(0).toUpperCase() + code.slice(1)}
-                  </button>
-                ))
-              }
-            </div>
-          </div>
+            ))
+          }
         </div>
-
+        
         <ul>
           {
-            page.data.map((post) => (
+            posts.map((post) => (
               <li
                 class="post-item"
                 data-code={post.data.code || "sin-codigo"}
-                data-theme={getThemeFromCode(post.data.code)}
               >
                 <a href={`/blog/${post.id}/`}>
                   <Image
@@ -261,7 +290,8 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
                     height={360}
                     src={
                       post.data.heroImage &&
-                      typeof post.data.heroImage === "object"
+                      typeof post.data.heroImage ===
+                        "object"
                         ? post.data.heroImage
                         : DefaultImage
                     }
@@ -269,87 +299,77 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
                   />
                   <h2 class="title">{post.data.title}</h2>
                   <p class="date">
-                    <FormattedDate date={post.data.pubDate} />
+                    <FormattedDate
+                      date={post.data.pubDate}
+                    />
                   </p>
                 </a>
               </li>
             ))
           }
         </ul>
-
+        
         <!-- Controles de paginación -->
         <nav class="pagination" aria-label="Navegación de páginas">
           {
-            page.url.prev ? (
-              <a href={page.url.prev} aria-label="Página anterior">
-                ← Anterior
-              </a>
-            ) : (
-              <span class="disabled">← Anterior</span>
-            )
-          }
-
-          <span class="current">
-            Página {page.currentPage} de {page.lastPage}
-          </span>
-
-          {
-            page.url.next ? (
-              <a href={page.url.next} aria-label="Página siguiente">
-                Siguiente →
-              </a>
-            ) : (
-              <span class="disabled">Siguiente →</span>
-            )
+            /* Pagination logic would need to be implemented - for now showing placeholder */
+            <span class="current">Página 1 de 1</span>
           }
         </nav>
       </section>
     </main>
     <Footer />
-
-    <script>
+    
+    <script define:vars={{ themeSlug }}>
+      // Set theme-specific CSS variable
       document.addEventListener("DOMContentLoaded", function () {
+        const themeColors = {
+          seduccion: "#E91E63",
+          informatica: "#2196F3",
+          trading: "#4CAF50",
+          negocios: "#FF9800",
+          superacion: "#9C27B0"
+        };
+        
+        const themeLower = themeSlug.toLowerCase();
+        const themeColor = themeColors[themeLower] || "#2196F3";
+        
+        // Set CSS variable for theme primary color
+        document.documentElement.style.setProperty('--theme-primary', themeColor);
+        
+        // Also set accent color for consistency
+        document.documentElement.style.setProperty('--accent', themeColor);
+        
+        // Funcionalidad de filtrado
         const filterButtons = document.querySelectorAll(".filter-btn");
         const postItems = document.querySelectorAll(".post-item");
-
-        let selectedTheme = "all";
-        let selectedCode = "all";
-
+        
         filterButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            const themeFilter =
-              button.getAttribute("data-filter-theme") || "all";
-            const codeFilter = button.getAttribute("data-filter-code") || "all";
-
-            // Update selected filters
-            selectedTheme = themeFilter;
-            selectedCode = codeFilter;
-
-            // Update active buttons
-            filterButtons.forEach((btn) => {
-              btn.classList.remove("active");
-              btn.setAttribute("aria-pressed", "false");
-            });
-            button.classList.add("active");
-            button.setAttribute("aria-pressed", "true");
-
-            // Filter posts
-            postItems.forEach((item) => {
-              const postCode = item.getAttribute("data-code");
-              const postTheme = item.getAttribute("data-theme");
-
-              const themeMatch =
-                selectedTheme === "all" || postTheme === selectedTheme;
-              const codeMatch =
-                selectedCode === "all" || postCode === selectedCode;
-
-              if (themeMatch && codeMatch) {
-                item.classList.remove("hidden");
-              } else {
-                item.classList.add("hidden");
-              }
-            });
-          });
+          button.addEventListener(
+            "click",
+            () => {
+              const filter = button.getAttribute("data-filter");
+              
+              // Actualizar botones activos
+              filterButtons.forEach((btn) => {
+                btn.classList.remove("active");
+                btn.setAttribute("aria-pressed", "false");
+              });
+              button.classList.add("active");
+              button.setAttribute("aria-pressed", "true");
+              
+              // Filtrar posts
+              postItems.forEach((item) => {
+                const postCode = item.getAttribute("data-code");
+                
+                if (filter === "all" || postCode === filter) {
+                  item.classList.remove("hidden");
+                } else {
+                  item.classList.add("hidden");
+                }
+              });
+            },
+          );
         });
       });
     </script>

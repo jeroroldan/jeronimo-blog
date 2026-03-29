@@ -3,7 +3,7 @@
   https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
 
 :root {
 	--accent: #2337ff;
@@ -34,18 +34,18 @@ body.dark-mode {
 /* Eliminar auto dark mode para evitar conflictos */
 
 body {
-	font-family: "Merriweather", serif;
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	background: #F9F7F1;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.8;
-	hyphens: auto;
-	transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background: #F9F7F1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  color: rgb(var(--gray-dark));
+  font-size: 20px;
+  line-height: 1.8;
+  hyphens: auto;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Dark mode body styles */
@@ -66,29 +66,55 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.2;
+  margin: 0 0 0.5rem 0;
+  color: rgb(var(--black));
+  line-height: 1.2;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.5px;
 }
 
 h1 {
-	font-size: 3.052em;
+  font-size: 2.5rem; /* 40px */
 }
 
 h2 {
-	font-size: 2.441em;
+  font-size: 2rem; /* 32px */
 }
 
 h3 {
-	font-size: 1.953em;
+  font-size: 1.75rem; /* 28px */
 }
 
 h4 {
-	font-size: 1.563em;
+  font-size: 1.5rem; /* 24px */
 }
 
 h5 {
-	font-size: 1.25em;
+  font-size: 1.25rem; /* 20px */
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background: #F9F7F1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  color: rgb(var(--gray-dark));
+  font-size: 1rem; /* 16px */
+  line-height: 1.8;
+  hyphens: auto;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Code font */
+code,
+pre,
+kbd,
+samp {
+  font-family: "Roboto Mono", monospace;
 }
 
 strong,
