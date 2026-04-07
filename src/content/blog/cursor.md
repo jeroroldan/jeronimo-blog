@@ -91,7 +91,7 @@ async function handleStripeWebhook(req: Request): Promise<void> {
 
 ---
 
-## 2. Uso Maestro de Símbolos @
+## 2. Uso Maestro de Símbolos 
 
 ### Tabla de decisión
 
