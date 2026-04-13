@@ -1,0 +1,288 @@
+---
+---
+
+<div class="read-aloud-container no-print">
+  <div class="read-aloud-controls" id="readAloudControls">
+    <button id="playPauseBtn" class="control-btn play" title="Leer en voz alta" aria-label="Leer en voz alta">
+      <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+      <svg id="pauseIcon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+      <span class="btn-text">Escuchar post</span>
+    </button>
+    
+    <button id="stopBtn" class="control-btn stop hidden" title="Detener" aria-label="Detener">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12"></rect></svg>
+    </button>
+
+    <div id="readingStatus" class="status-indicator hidden">
+      <div class="pulse-ring"></div>
+      <span>Leyendo...</span>
+    </div>
+
+    <select id="voiceSpeed" class="speed-selector hidden" aria-label="Velocidad de voz">
+      <option value="0.8">0.8x</option>
+      <option value="1" selected>1.0x</option>
+      <option value="1.2">1.2x</option>
+      <option value="1.5">1.5x</option>
+    </select>
+  </div>
+</div>
+
+<style>
+  .read-aloud-container {
+    margin: 1.5rem 0;
+    padding: 0.5rem;
+    border-radius: 12px;
+    background: rgba(var(--accent-light), 0.1);
+    border: 1px solid rgba(var(--accent-light), 0.2);
+    display: inline-block;
+  }
+
+  .read-aloud-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .control-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    background: #2c5530; /* Forest green to match the theme */
+    color: white;
+  }
+
+  .control-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(44, 85, 48, 0.2);
+    background: #1a472a;
+  }
+
+  .control-btn.stop {
+    padding: 0.5rem;
+    background: #e53e3e;
+  }
+
+  .control-btn.stop:hover {
+    background: #c53030;
+  }
+
+  .speed-selector {
+    padding: 0.4rem;
+    border-radius: 6px;
+    border: 1px solid rgba(var(--accent-light), 0.3);
+    background: white;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: #333;
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #2c5530;
+    font-weight: 500;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .pulse-ring {
+    width: 8px;
+    height: 8px;
+    background-color: #2c5530;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.95); opacity: 1; }
+    70% { transform: scale(1.5); opacity: 0; }
+    100% { transform: scale(0.95); opacity: 0; }
+  }
+
+  /* Dark mode adjustments */
+  @media (prefers-color-scheme: dark) {
+    .read-aloud-container {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+    .control-btn {
+      background: #68d391;
+      color: #1a202c;
+    }
+    .control-btn:hover {
+      background: #48bb78;
+    }
+    .speed-selector {
+      background: #2d3748;
+      color: white;
+      border-color: #4a5568;
+    }
+    .status-indicator {
+      color: #68d391;
+    }
+    .pulse-ring {
+      background-color: #68d391;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .btn-text {
+      display: none;
+    }
+    .control-btn {
+      padding: 0.5rem;
+    }
+  }
+</style>
+
+<script>
+  let utterance = null;
+  let isPlaying = false;
+  let isPaused = false;
+
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const playIcon = document.getElementById('playIcon');
+  const pauseIcon = document.getElementById('pauseIcon');
+  const readingStatus = document.getElementById('readingStatus');
+  const voiceSpeed = document.getElementById('voiceSpeed') as HTMLSelectElement;
+  const btnText = playPauseBtn?.querySelector('.btn-text');
+  const container = document.querySelector('.read-aloud-container');
+
+  // Check for browser support
+  if (!('speechSynthesis' in window)) {
+    if (container) container.classList.add('hidden');
+  }
+
+  function getPostText() {
+    const prose = document.querySelector('.prose');
+    if (!prose) return "";
+
+    // Clone to manipulate without affecting DOM
+    const clone = prose.cloneNode(true) as HTMLElement;
+    
+    // Remove non-readable elements
+    const toRemove = clone.querySelectorAll('pre, code, style, script, .no-read, .title, hr');
+    toRemove.forEach(el => el.remove());
+
+    return clone.innerText.trim();
+  }
+
+  function startReading() {
+    const text = getPostText();
+    if (!text) return;
+
+    window.speechSynthesis.cancel(); // Stop any current speech
+
+    utterance = new SpeechSynthesisUtterance(text);
+    
+    // Attempt to find a Spanish voice
+    const voices = window.speechSynthesis.getVoices();
+    // Prioritize Spanish voices, then English, then default
+    const spanishVoice = voices.find(voice => voice.lang.startsWith('es'));
+    if (spanishVoice) {
+      utterance.voice = spanishVoice;
+      utterance.lang = spanishVoice.lang;
+    } else {
+      utterance.lang = 'es-ES'; // Force Spanish if voice not found but lang supported
+    }
+
+    utterance.rate = parseFloat(voiceSpeed.value);
+    
+    utterance.onstart = () => {
+      isPlaying = true;
+      isPaused = false;
+      updateUI();
+    };
+
+    utterance.onend = () => {
+      stopReading();
+    };
+
+    utterance.onerror = (event) => {
+      console.error('SpeechSynthesis error', event);
+      stopReading();
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function pauseReading() {
+    window.speechSynthesis.pause();
+    isPaused = true;
+    updateUI();
+  }
+
+  function resumeReading() {
+    window.speechSynthesis.resume();
+    isPaused = false;
+    updateUI();
+  }
+
+  function stopReading() {
+    window.speechSynthesis.cancel();
+    isPlaying = false;
+    isPaused = false;
+    updateUI();
+  }
+
+  function updateUI() {
+    if (isPlaying && !isPaused) {
+      // Reading state
+      playIcon?.classList.add('hidden');
+      pauseIcon?.classList.remove('hidden');
+      stopBtn?.classList.remove('hidden');
+      readingStatus?.classList.remove('hidden');
+      voiceSpeed?.classList.remove('hidden');
+      if (btnText) btnText.textContent = "Pausar";
+    } else if (isPlaying && isPaused) {
+      // Paused state
+      playIcon?.classList.remove('hidden');
+      pauseIcon?.classList.add('hidden');
+      if (btnText) btnText.textContent = "Reanudar";
+    } else {
+      // Stopped state
+      playIcon?.classList.remove('hidden');
+      pauseIcon?.classList.add('hidden');
+      stopBtn?.classList.add('hidden');
+      readingStatus?.classList.add('hidden');
+      voiceSpeed?.classList.add('hidden');
+      if (btnText) btnText.textContent = "Escuchar post";
+    }
+  }
+
+  playPauseBtn?.addEventListener('click', () => {
+    if (!isPlaying) {
+      startReading();
+    } else if (isPaused) {
+      resumeReading();
+    } else {
+      pauseReading();
+    }
+  });
+
+  stopBtn?.addEventListener('click', stopReading);
+
+  voiceSpeed?.addEventListener('change', () => {
+    if (isPlaying) {
+      const currentPos = window.speechSynthesis.speaking;
+      stopReading();
+      startReading();
+    }
+  });
+
+  // Load voices
+  window.speechSynthesis.onvoiceschanged = () => {
+    // Just trigger a re-check if needed, but the first play will find them
+  };
+</script>
