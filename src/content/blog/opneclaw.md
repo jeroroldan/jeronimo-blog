@@ -1,11 +1,10 @@
 ---
-title: 'Guía Completa: Cómo Usar Claude (Anthropic) como un Experto'
-code: 'IA'
-description: 'Guía Completa: Cómo Usar Claude (Anthropic) como un Experto'
-pubDate: 'Abr 13 2026'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Guía Completa: Cómo Usar Claude (Anthropic) como un Experto"
+code: "IA"
+description: "Guía Completa: Cómo Usar Claude (Anthropic) como un Experto"
+pubDate: "Jun 19 2024"
+heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
-
 
 # 🤖 Guía Completa: Cómo Usar Claude (Anthropic) como un Experto
 
@@ -49,16 +48,16 @@ La familia de modelos Claude incluye variantes como:
 
 ### Diferencias clave con otros modelos
 
-| Característica | Claude | ChatGPT (OpenAI) |
-|---|---|---|
-| Empresa detrás | Anthropic | OpenAI |
-| Enfoque principal | Seguridad + alineación | Capacidad + velocidad de iteración |
-| Ventana de contexto | Hasta 200K tokens | Hasta 128K tokens (GPT-4o) |
-| Estilo de respuesta | Matizado, cauteloso, estructurado | Directo, versátil |
-| Fortaleza destacada | Documentos largos, razonamiento | Integración con herramientas (plugins) |
-| Personalidad | Honesto sobre limitaciones | Más "complaciente" |
+| Característica      | Claude                            | ChatGPT (OpenAI)                       |
+| ------------------- | --------------------------------- | -------------------------------------- |
+| Empresa detrás      | Anthropic                         | OpenAI                                 |
+| Enfoque principal   | Seguridad + alineación            | Capacidad + velocidad de iteración     |
+| Ventana de contexto | Hasta 200K tokens                 | Hasta 128K tokens (GPT-4o)             |
+| Estilo de respuesta | Matizado, cauteloso, estructurado | Directo, versátil                      |
+| Fortaleza destacada | Documentos largos, razonamiento   | Integración con herramientas (plugins) |
+| Personalidad        | Honesto sobre limitaciones        | Más "complaciente"                     |
 
-**La diferencia más importante:** Claude tiende a decir "no sé" o "no estoy seguro" cuando realmente no lo sabe, en lugar de inventar respuestas plausibles (lo que se conoce como *hallucination*). Esta honestidad lo hace más confiable en contextos técnicos críticos.
+**La diferencia más importante:** Claude tiende a decir "no sé" o "no estoy seguro" cuando realmente no lo sabe, en lugar de inventar respuestas plausibles (lo que se conoce como _hallucination_). Esta honestidad lo hace más confiable en contextos técnicos críticos.
 
 ### Casos de uso principales
 
@@ -115,6 +114,7 @@ Ejemplo clásico: si entrenas a una IA para "maximizar los clics en noticias", p
 Anthropic desarrolló **Constitutional AI (CAI)**, un enfoque donde el modelo aprende a autoevaluarse usando un conjunto de principios explícitos (una "constitución"). Esto hace que Claude sea más predecible, transparente y resistente a manipulaciones.
 
 Prácticamente, esto significa que Claude:
+
 - Reconoce cuando no sabe algo en lugar de inventarlo
 - Expresa sus incertidumbres explícitamente
 - Rechaza tareas dañinas incluso si se le pide con argumentos sofisticados
@@ -155,26 +155,31 @@ La interacción con Claude no es magia, es **comunicación estructurada**. Los p
 ### Tipos de prompts básicos
 
 **Pregunta directa:**
+
 ```
 ¿Cuál es la diferencia entre una lista y una tupla en Python?
 ```
 
 **Instrucción de generación:**
+
 ```
 Escribe una función en TypeScript que valide si un string es un email válido.
 ```
 
 **Análisis:**
+
 ```
 Analiza las ventajas y desventajas del siguiente diseño de base de datos: [esquema]
 ```
 
 **Transformación:**
+
 ```
 Convierte este código de JavaScript a TypeScript, añadiendo tipos apropiados.
 ```
 
 **Revisión:**
+
 ```
 Revisa este código y señala posibles problemas de rendimiento, seguridad y legibilidad.
 ```
@@ -182,12 +187,14 @@ Revisa este código y señala posibles problemas de rendimiento, seguridad y leg
 ### Ejemplos simples
 
 **Generación de texto:**
+
 ```
-Escribe un README profesional para una librería de Python que parsea archivos CSV 
+Escribe un README profesional para una librería de Python que parsea archivos CSV
 con soporte para múltiples encodings. Incluye instalación, uso básico y ejemplos.
 ```
 
 **Código:**
+
 ```
 Crea una clase Python llamada `DatabaseConnection` que:
 - Se conecte a PostgreSQL usando psycopg2
@@ -197,8 +204,9 @@ Crea una clase Python llamada `DatabaseConnection` que:
 ```
 
 **Pregunta técnica:**
+
 ```
-Explícame qué es el event loop en Node.js y por qué es importante para 
+Explícame qué es el event loop en Node.js y por qué es importante para
 el rendimiento de aplicaciones I/O-bound. Usa una analogía simple.
 ```
 
@@ -238,14 +246,16 @@ Ejemplo de output esperado: [Y]
 Asignar un rol experto al modelo cambia su "perspectiva" y la profundidad de sus respuestas.
 
 **Sin rol:**
+
 ```
 ¿Cómo mejoro el rendimiento de mi base de datos?
 ```
 
 **Con rol:**
+
 ```
-Actúa como un DBA senior con 15 años de experiencia en PostgreSQL optimizando 
-bases de datos de alto tráfico (millones de queries por día). 
+Actúa como un DBA senior con 15 años de experiencia en PostgreSQL optimizando
+bases de datos de alto tráfico (millones de queries por día).
 
 Tengo una tabla de 50 millones de registros con las siguientes queries lentas:
 [queries aquí]
@@ -260,14 +270,16 @@ El rol no "activa poderes especiales", pero sí calibra el nivel técnico, el vo
 Forzar al modelo a razonar paso a paso antes de dar una respuesta mejora drásticamente la calidad en problemas complejos.
 
 **Sin CoT:**
+
 ```
 ¿Cuál es la mejor arquitectura para mi sistema de e-commerce?
 ```
 
 **Con CoT:**
+
 ```
-Tengo que diseñar la arquitectura para un sistema de e-commerce con estas 
-características: 10,000 usuarios concurrentes, catálogo de 1M productos, 
+Tengo que diseñar la arquitectura para un sistema de e-commerce con estas
+características: 10,000 usuarios concurrentes, catálogo de 1M productos,
 integración con 3 pasarelas de pago, análisis en tiempo real.
 
 Antes de responder:
@@ -318,13 +330,16 @@ Ahora procesa estos bugs:
 ### Prompt malo vs prompt optimizado
 
 **❌ Prompt malo:**
+
 ```
 Ayúdame a mejorar mi código
 ```
-*Problema: Sin contexto, sin código, sin criterio de "mejora", sin formato esperado.*
+
+_Problema: Sin contexto, sin código, sin criterio de "mejora", sin formato esperado._
 
 **✅ Prompt optimizado:**
-```
+
+````
 Actúa como un ingeniero senior de Python enfocado en código limpio y rendimiento.
 
 Revisa el siguiente código que calcula el top 10 de productos más vendidos:
@@ -339,13 +354,15 @@ def get_top_products(orders):
             counts[item['product_id']] += item['quantity']
     sorted_counts = sorted(counts.items(), key=lambda x: x[1], reverse=True)
     return sorted_counts[:10]
-```
+````
 
 Por favor:
+
 1. Identifica problemas de rendimiento (especialmente para datasets grandes)
 2. Identifica problemas de legibilidad o mantenibilidad
 3. Proporciona una versión refactorizada con explicaciones de cada cambio
 4. Añade type hints y docstring apropiados
+
 ```
 
 ---
@@ -364,36 +381,43 @@ Claude puede generar código funcional en prácticamente cualquier lenguaje. La 
 
 **Prompt reutilizable para generación de código:**
 ```
+
 Actúa como un desarrollador [LENGUAJE] senior.
 
 Necesito implementar [DESCRIPCIÓN DE LA FUNCIONALIDAD].
 
 Requisitos:
+
 - [Requisito 1]
 - [Requisito 2]
 - [Requisito 3]
 
 Restricciones técnicas:
+
 - Versión del lenguaje: [X]
 - Dependencias disponibles: [lista]
 - No usar: [librerías o patrones a evitar]
 
 El código debe:
+
 - Incluir manejo de errores apropiado
 - Tener type hints/anotaciones de tipos
 - Incluir docstrings/comentarios explicativos
 - Seguir el estilo [PEP8/Google Style/etc.]
 
 Proporciona también:
+
 - Ejemplo de uso
 - Casos edge considerados
+
 ```
 
 ### Revisión y refactorización
 
 **Prompt reutilizable para code review:**
 ```
-Actúa como un revisor de código senior en una empresa de tecnología con 
+
+Actúa como un revisor de código senior en una empresa de tecnología con
 altos estándares de calidad.
 
 Revisa el siguiente código con estos criterios:
@@ -405,11 +429,13 @@ Revisa el siguiente código con estos criterios:
 5. **Testabilidad:** ¿Es fácil de probar? ¿Tiene acoplamiento problemático?
 
 Para cada problema encontrado:
+
 - Describe el problema claramente
 - Explica por qué es un problema
 - Proporciona el código corregido
 
 [CÓDIGO AQUÍ]
+
 ```
 
 ### Diseño de arquitectura
@@ -418,7 +444,8 @@ Claude es especialmente bueno para diseñar arquitecturas cuando se le da contex
 
 **Prompt reutilizable para diseño de arquitectura:**
 ```
-Actúa como un arquitecto de software con experiencia en sistemas distribuidos 
+
+Actúa como un arquitecto de software con experiencia en sistemas distribuidos
 y escalables.
 
 Necesito diseñar la arquitectura para el siguiente sistema:
@@ -427,39 +454,46 @@ Necesito diseñar la arquitectura para el siguiente sistema:
 [Qué hace el sistema]
 
 **Requisitos funcionales:**
+
 - [RF1]
 - [RF2]
 
 **Requisitos no funcionales:**
+
 - Disponibilidad: [ej: 99.9% uptime]
 - Latencia: [ej: p99 < 200ms]
 - Escala: [ej: 100K usuarios, 1M requests/día]
 - Datos: [ej: 1TB de datos estructurados]
 
 **Restricciones:**
+
 - Presupuesto: [aproximado]
 - Equipo: [tamaño y expertise]
 - Tecnologías preferidas/requeridas: [lista]
 - Timeline: [cuándo debe estar listo]
 
 Por favor diseña:
+
 1. Diagrama de arquitectura (en formato texto/ASCII si es necesario)
 2. Decisiones arquitecturales clave con justificación
 3. Stack tecnológico recomendado
 4. Estrategia de datos (bases de datos, caché, etc.)
 5. Puntos críticos de riesgo y cómo mitigarlos
 6. Roadmap de implementación por fases
+
 ```
 
 ### Debugging asistido
 
 ```
+
 Tengo el siguiente error en producción:
 
 **Error:**
 [Stack trace o mensaje de error completo]
 
 **Contexto:**
+
 - Lenguaje/Framework: [X]
 - Versión: [Y]
 - Cuándo ocurre: [descripción del trigger]
@@ -469,14 +503,17 @@ Tengo el siguiente error en producción:
 [Fragmento de código donde ocurre el error]
 
 **Lo que ya intenté:**
+
 - [Intento 1]
 - [Intento 2]
 
 Por favor:
+
 1. Diagnóstica la causa raíz del problema
 2. Explica por qué ocurre
 3. Proporciona la solución con el código corregido
 4. Sugiere cómo prevenir este tipo de error en el futuro
+
 ```
 
 ### Ejemplo práctico paso a paso
@@ -485,29 +522,37 @@ Supón que tienes que construir un sistema de autenticación JWT. Así es como u
 
 **Paso 1: Diseño**
 ```
+
 Diseña un sistema de autenticación JWT para una API REST en Node.js con Express.
 Incluye: login, refresh tokens, logout y middleware de autenticación.
 Considera seguridad, expiración y revocación de tokens.
+
 ```
 
 **Paso 2: Implementación**
 ```
-Implementa el AuthController con los endpoints: POST /auth/login, 
+
+Implementa el AuthController con los endpoints: POST /auth/login,
 POST /auth/refresh, POST /auth/logout. Usa el diseño anterior como base.
 Stack: Node.js + Express + jsonwebtoken + bcryptjs + Redis para blacklist.
+
 ```
 
 **Paso 3: Tests**
 ```
+
 Genera tests unitarios e de integración para el AuthController implementado.
-Usa Jest. Cubre: login exitoso, credenciales inválidas, token expirado, 
+Usa Jest. Cubre: login exitoso, credenciales inválidas, token expirado,
 refresh token válido e inválido, logout y blacklisting.
+
 ```
 
 **Paso 4: Documentación**
 ```
+
 Genera documentación OpenAPI/Swagger para los endpoints de autenticación
 implementados. Incluye esquemas de request/response y ejemplos.
+
 ```
 
 ---
@@ -527,14 +572,17 @@ Cuando Claude actúa como arquitecto, su rol es **pensar antes de hacer**: anali
 
 **Prompt de arquitecto:**
 ```
-Antes de escribir cualquier línea de código, necesito que actúes como 
+
+Antes de escribir cualquier línea de código, necesito que actúes como
 arquitecto técnico y me ayudes a diseñar [COMPONENTE/SISTEMA].
 
 Analiza:
+
 1. ¿Cuáles son los requisitos reales vs los requisitos percibidos?
 2. ¿Qué puede salir mal en esta arquitectura?
 3. ¿Cuál es la solución más simple que cubre los requisitos actuales?
 4. ¿Cómo escalaría si los requisitos se multiplican por 10x?
+
 ```
 
 ### Claude como Revisor
@@ -548,16 +596,19 @@ El revisor es el rol más inmediatamente valioso para cualquier desarrollador. C
 
 **Flujo de revisión:**
 ```
+
 [Pega el diff o los archivos modificados]
 
 Revisa este código como si fuera un PR crítico que va a producción.
 Soy responsable de este módulo y quiero asegurarme de que:
+
 - No hay bugs o edge cases no manejados
 - La seguridad es adecuada
 - El rendimiento es aceptable para [escala esperada]
 - El código es mantenible para el equipo
 
 Dame un reporte estructurado con severidad: [Critical/High/Medium/Low] para cada issue.
+
 ```
 
 ### Claude como Auditor Técnico
@@ -566,6 +617,7 @@ El auditor analiza sistemas existentes buscando problemas sistémicos: deuda té
 
 **Prompt de auditoría:**
 ```
+
 Actúa como un auditor técnico independiente. Voy a compartirte [código/arquitectura/documentación].
 Tu misión es identificar:
 
@@ -576,22 +628,25 @@ Tu misión es identificar:
 5. Gaps en testing o observabilidad
 
 Para cada hallazgo: severidad, impacto potencial, y esfuerzo de remediación estimado.
+
 ```
 
 ### Integración en el ciclo de desarrollo
 
 ```
+
 Planning → Claude como Arquitecto
-    ↓
+↓
 Implementación → Claude como Pair Programmer
-    ↓
+↓
 Code Review → Claude como Revisor
-    ↓
+↓
 Testing → Claude generando casos de prueba
-    ↓
+↓
 Documentación → Claude como Technical Writer
-    ↓
+↓
 Post-Mortem → Claude como Auditor
+
 ```
 
 ### Ejemplo de workflow completo
@@ -599,6 +654,7 @@ Post-Mortem → Claude como Auditor
 **Escenario:** Construir un servicio de notificaciones
 
 ```
+
 Sesión 1 - Arquitectura:
 "Diseña un servicio de notificaciones que soporte email, SMS y push notifications.
 Debe manejar 100K notificaciones/hora, con reintentos y dead letter queue."
@@ -622,6 +678,7 @@ Incluye unit tests, integration tests con mocks de AWS y tests de carga básicos
 Sesión 6 - Documentación:
 "Genera la documentación técnica completa del servicio: arquitectura, API reference,
 guía de operaciones y runbook para incidentes comunes."
+
 ```
 
 ---
@@ -645,29 +702,37 @@ La ventana de contexto es la memoria de trabajo de Claude: todo lo que puede "ve
 Para documentos únicos o repositorios pequeños, simplemente incluye todo el contenido relevante al inicio de la conversación.
 
 ```
+
 Aquí está el código completo de nuestra aplicación de facturación:
 [código completo]
 
 Con base en este código, responde las siguientes preguntas...
+
 ```
 
 **Estrategia 2: Contexto estratificado**
 Para proyectos grandes, establece el contexto por capas en el orden correcto de abstracción:
 
 ```
+
 # Contexto del Sistema
 
 ## Visión General
+
 [Descripción del sistema y su propósito]
 
 ## Arquitectura
+
 [Diagrama o descripción de la arquitectura]
 
 ## Módulo relevante para esta sesión
+
 [Código o descripción del módulo específico]
 
 ## Mi pregunta/tarea específica
+
 [Lo que necesitas]
+
 ```
 
 **Estrategia 3: Indexación manual**
@@ -678,12 +743,14 @@ Para documentación extensa, crea un índice al inicio y dile a Claude qué secc
 **Compresión jerárquica:** Cuando tienes demasiado texto, pídele a Claude que primero lo summarice en niveles:
 
 ```
+
 Paso 1: Lee este documento extenso y crea un resumen estructurado de máximo 2000 tokens
 que capture: decisiones clave, dependencias, riesgos y próximos pasos.
 
 [Documento de 50,000 palabras]
 
 Paso 2: [En la siguiente sesión] Usando el resumen, analiza...
+
 ```
 
 **Chunking temático:** Divide documentos largos en secciones temáticas y procésalas por separado, luego pide una síntesis.
@@ -693,9 +760,10 @@ Paso 2: [En la siguiente sesión] Usando el resumen, analiza...
 **Escenario:** Tienes que entender un codebase heredado de 10,000 líneas.
 
 ```
+
 Sesión 1 - Comprensión inicial:
-"Aquí están los archivos principales del codebase [archivos]. 
-Crea un mapa mental del sistema: módulos, dependencias entre ellos, 
+"Aquí están los archivos principales del codebase [archivos].
+Crea un mapa mental del sistema: módulos, dependencias entre ellos,
 puntos de entrada y flujos principales de datos."
 
 Sesión 2 - Deep dive en módulo específico:
@@ -707,6 +775,7 @@ Sesión 3 - Planificación de refactoring:
 "[Resumen acumulado]
 Basado en el análisis anterior, crea un plan de refactoring priorizado
 con estimaciones de esfuerzo y riesgo para cada ítem."
+
 ```
 
 ---
@@ -719,6 +788,7 @@ Claude puede analizar contratos, especificaciones técnicas, RFC, papers académ
 
 **Prompt para análisis de documentos:**
 ```
+
 Analiza el siguiente [tipo de documento] con estos objetivos:
 
 1. Resumen ejecutivo (3-5 puntos clave)
@@ -728,18 +798,21 @@ Analiza el siguiente [tipo de documento] con estos objetivos:
 5. Preguntas que debería hacer antes de proceder
 
 [DOCUMENTO]
+
 ```
 
 ### Generación de documentación técnica
 
 **Prompt para documentación:**
 ```
+
 Actúa como un technical writer con experiencia en documentación de software.
 
 Genera documentación completa para el siguiente [código/API/sistema]:
 [CÓDIGO O DESCRIPCIÓN]
 
 Estructura la documentación así:
+
 1. Overview (qué es, para qué sirve, cuándo usarlo)
 2. Instalación/Configuración
 3. Guía de uso rápido (Quick Start)
@@ -749,25 +822,31 @@ Estructura la documentación así:
 7. FAQ
 
 Usa el tono apropiado para desarrolladores: directo, técnico pero accesible.
+
 ```
 
 ### Automatización de tareas cognitivas
 
 **Generación de casos de prueba:**
 ```
+
 Dado el siguiente requisito de negocio:
-"El sistema debe calcular descuentos progresivos: 5% para pedidos > $100, 
+"El sistema debe calcular descuentos progresivos: 5% para pedidos > $100,
 10% para pedidos > $500, 20% para pedidos > $1000"
 
 Genera:
+
 1. Tabla de casos de prueba con inputs, expected outputs y edge cases
 2. Código de tests unitarios en [Jest/pytest/JUnit]
 3. Casos de prueba negativos (inputs inválidos, boundary values)
+
 ```
 
 **Generación de datos de prueba:**
 ```
+
 Necesito datos de prueba realistas para una tabla de usuarios con:
+
 - id (UUID)
 - email (válido y único)
 - nombre completo (hispanohablante)
@@ -776,6 +855,7 @@ Necesito datos de prueba realistas para una tabla de usuarios con:
 - estado (activo/inactivo, 90/10%)
 
 Genera 20 registros en formato SQL INSERT y también en JSON.
+
 ```
 
 ### Creación de agentes simples
@@ -783,10 +863,12 @@ Genera 20 registros en formato SQL INSERT y también en JSON.
 Claude puede actuar como el "cerebro" de un agente cuando se le da un sistema de roles y herramientas claras:
 
 ```
-Eres un agente de análisis de código. Tu misión es analizar el repositorio 
+
+Eres un agente de análisis de código. Tu misión es analizar el repositorio
 que te proporcionaré y generar un reporte de calidad.
 
 Proceso:
+
 1. Primero, analiza la estructura del proyecto y el stack tecnológico
 2. Revisa los archivos de configuración (package.json, requirements.txt, etc.)
 3. Examina el código fuente, empezando por los archivos principales
@@ -797,6 +879,7 @@ Para cada paso, indica explícitamente qué estás analizando antes de hacerlo.
 Cuando necesites información adicional, pregúntame antes de proceder.
 
 ¿Estás listo para comenzar? Aquí está el repositorio: [código]
+
 ```
 
 ---
@@ -815,8 +898,10 @@ Cuando necesites información adicional, pregúntame antes de proceder.
 
 **Valida el entendimiento antes de la ejecución.** Para tareas complejas:
 ```
+
 Antes de implementar, resume tu entendimiento de la tarea y el enfoque que tomarás.
 Confirmaré antes de que procedas.
+
 ```
 
 ### Cómo iterar con el modelo
@@ -824,20 +909,25 @@ Confirmaré antes de que procedas.
 La iteración es un superpoder que pocos explotan. En lugar de frustrarse con una respuesta imperfecta, iterar sistemáticamente:
 
 ```
+
 Primera respuesta recibida:
 → "Esto está bien, pero necesito que [ajuste específico]"
 → "La parte de [X] está perfecta. La parte de [Y] necesita más detalle en [Z]"
 → "Reescribe solo la sección de [X] considerando [nueva información]"
 → "¿Hay algún edge case que no hayas considerado en esta implementación?"
+
 ```
 
 **El meta-prompt de mejora:**
 ```
+
 La respuesta anterior está bien, pero quiero que la mejores considerando:
+
 - [Criterio 1 que faltó]
 - [Criterio 2 que no se cubrió bien]
 - [Nuevo contexto que tengo]
-Mantén lo que estaba bien y ajusta solo lo necesario.
+  Mantén lo que estaba bien y ajusta solo lo necesario.
+
 ```
 
 ### Cómo evitar errores comunes
@@ -848,8 +938,10 @@ Mantén lo que estaba bien y ajusta solo lo necesario.
 
 **Pide explicaciones de decisiones no obvias:**
 ```
+
 ¿Por qué elegiste [este patrón/esta librería/este enfoque]?
 ¿Cuáles eran las alternativas y por qué las descartaste?
+
 ```
 
 **Incluye tu stack y restricciones desde el inicio.** "Estoy usando Python 3.8, no puedo usar librerías externas, el código debe ser compatible con AWS Lambda" es información crítica que cambia completamente la solución.
@@ -883,29 +975,36 @@ Antes de enviar un prompt importante, revisa:
 **La solución:** Trata el código de Claude como el draft de un desarrollador junior inteligente. Revísalo, entiéndelo, pruébalo.
 
 ```
+
 ✅ Protocolo correcto:
+
 1. Claude genera el código
 2. Tú revisas el código entendiendo cada línea
 3. Ejecutas los tests (y si no hay, los escribes)
 4. Haces code review mental: seguridad, rendimiento, mantenibilidad
 5. Adaptas al contexto y estilo de tu proyecto
 6. Solo entonces lo integras
+
 ```
 
 ### Error 2: Prompts ambiguos
 
 **❌ Anti-patrón:**
 ```
+
 "Mejora mi función"
 "Hazlo más eficiente"
 "¿Está bien mi código?"
+
 ```
 
 **✅ Corrección:**
 ```
+
 "Optimiza esta función para reducir su complejidad temporal de O(n²) a O(n) o mejor.
 Actualmente procesa listas de hasta 1M elementos y tarda más de 30 segundos."
-```
+
+````
 
 ### Error 3: Ignorar el contexto de sesión
 
@@ -932,25 +1031,27 @@ Actualmente procesa listas de hasta 1M elementos y tarda más de 30 segundos."
 - ✅ Módulo de productos
 - 🚧 Módulo de pagos (en progreso)
 - ⬜ Módulo de reportes
-```
+````
 
 ### Error 4: Falta de validación técnica
 
 **El problema:** Aceptar las respuestas técnicas de Claude sin verificar contra la documentación oficial, las mejores prácticas del dominio o el comportamiento real.
 
 **Casos críticos:**
+
 - Configuraciones de seguridad (TLS, permisos, autenticación)
 - Queries de base de datos críticas
 - Cálculos financieros o científicos
 - Integraciones con APIs de terceros
 
-**Regla de oro:** *Cuanto más crítico el dominio, más rigurosa debe ser tu validación.*
+**Regla de oro:** _Cuanto más crítico el dominio, más rigurosa debe ser tu validación._
 
 ### Error 5: El prompt de un solo uso
 
 **El problema:** Escribir prompts ad-hoc para cada tarea similar, en lugar de desarrollar prompts reutilizables y refinados.
 
 **Solución:** Crea una librería personal de prompts por categoría:
+
 - `/prompts/code-review.md`
 - `/prompts/architecture-design.md`
 - `/prompts/bug-investigation.md`
@@ -965,46 +1066,49 @@ Refina estos prompts con cada uso y tendrás herramientas cada vez más precisas
 
 ### Claude vs ChatGPT (GPT-4o)
 
-| Aspecto | Claude | ChatGPT (GPT-4o) |
-|---|---|---|
-| **Razonamiento largo** | Excelente, mantiene coherencia | Bueno, puede perder hilo |
-| **Contexto** | 200K tokens | 128K tokens |
-| **Código** | Muy bueno, explicaciones claras | Muy bueno, más integrado con herramientas |
-| **Seguridad/Alineación** | Más cauteloso, más consistente | Variable según configuración |
-| **Honestidad** | Alta: admite limitaciones | Tendencia a ser más complaciente |
-| **Integración de herramientas** | Via API (function calling) | Plugins, web browsing nativo |
-| **Creatividad** | Alta, matizada | Alta, más directa |
-| **Velocidad** | Comparable (Sonnet muy rápido) | Comparable |
-| **Documentos largos** | Excelente | Bueno |
-| **Precio API** | Competitivo | Competitivo |
+| Aspecto                         | Claude                          | ChatGPT (GPT-4o)                          |
+| ------------------------------- | ------------------------------- | ----------------------------------------- |
+| **Razonamiento largo**          | Excelente, mantiene coherencia  | Bueno, puede perder hilo                  |
+| **Contexto**                    | 200K tokens                     | 128K tokens                               |
+| **Código**                      | Muy bueno, explicaciones claras | Muy bueno, más integrado con herramientas |
+| **Seguridad/Alineación**        | Más cauteloso, más consistente  | Variable según configuración              |
+| **Honestidad**                  | Alta: admite limitaciones       | Tendencia a ser más complaciente          |
+| **Integración de herramientas** | Via API (function calling)      | Plugins, web browsing nativo              |
+| **Creatividad**                 | Alta, matizada                  | Alta, más directa                         |
+| **Velocidad**                   | Comparable (Sonnet muy rápido)  | Comparable                                |
+| **Documentos largos**           | Excelente                       | Bueno                                     |
+| **Precio API**                  | Competitivo                     | Competitivo                               |
 
 ### Claude vs Gemini (Google)
 
-| Aspecto | Claude | Gemini 1.5 Pro |
-|---|---|---|
-| **Multimodalidad** | Texto e imágenes | Texto, imágenes, video, audio |
-| **Integración Google** | Sin integración nativa | Nativa con Google Workspace |
-| **Contexto** | 200K tokens | 1M tokens |
-| **Razonamiento** | Excelente | Muy bueno |
-| **Código** | Excelente | Bueno |
-| **Español** | Excelente | Excelente |
-| **Consistencia** | Alta | Variable |
+| Aspecto                | Claude                 | Gemini 1.5 Pro                |
+| ---------------------- | ---------------------- | ----------------------------- |
+| **Multimodalidad**     | Texto e imágenes       | Texto, imágenes, video, audio |
+| **Integración Google** | Sin integración nativa | Nativa con Google Workspace   |
+| **Contexto**           | 200K tokens            | 1M tokens                     |
+| **Razonamiento**       | Excelente              | Muy bueno                     |
+| **Código**             | Excelente              | Bueno                         |
+| **Español**            | Excelente              | Excelente                     |
+| **Consistencia**       | Alta                   | Variable                      |
 
 ### ¿Cuándo usar cada uno?
 
 **Usa Claude cuando:**
+
 - Necesitas analizar documentos largos (contratos, codebases, research papers)
 - Quieres razonamiento técnico profundo y matizado
 - La consistencia y honestidad son prioritarias
 - Estás desarrollando software complejo
 
 **Usa ChatGPT cuando:**
+
 - Necesitas integración con herramientas y plugins
 - Quieres navegación web en tiempo real
 - Usas el ecosistema de Microsoft/Azure
 - Necesitas generación de imágenes con DALL-E integrado
 
 **Usa Gemini cuando:**
+
 - Trabajas intensamente con Google Workspace (Docs, Sheets, Gmail)
 - Necesitas procesar videos o audio
 - Requieres contextos extremadamente largos (>200K tokens)
@@ -1072,6 +1176,7 @@ Integración de Claude via API en tus herramientas: git hooks que llaman a Claud
 ### Estrategias reales de uso diario
 
 **Morning brief técnico:**
+
 ```
 Tengo estas 3 tareas hoy: [lista]
 Para cada una, dame:
@@ -1081,19 +1186,22 @@ Para cada una, dame:
 ```
 
 **El revisor pre-PR:**
+
 ```
 Estoy a punto de abrir un PR con estos cambios: [diff]
 Antes de que lo abra, ¿qué problemas detectas que debería resolver?
 ```
 
 **El explorador de opciones:**
+
 ```
 Tengo que decidir entre [opción A] y [opción B] para [contexto específico].
-Ayúdame a pensar en esto. No me des solo la respuesta: 
+Ayúdame a pensar en esto. No me des solo la respuesta:
 guíame a través del razonamiento para que yo tome la decisión informada.
 ```
 
 **El aprendiz acelerado:**
+
 ```
 Acabo de encontrarme con [concepto/tecnología/patrón] que no conozco bien.
 Dame:
@@ -1143,11 +1251,12 @@ El mensaje final es este: **Claude no es un buscador de respuestas, es un amplif
 
 ---
 
-*Esta guía fue diseñada para evolucionar. Las mejores prácticas del uso de LLMs se refinan con la práctica diaria. Tus mejores prompts, los que descubras que funcionan mejor para tu contexto específico, son el verdadero activo que construyes con el tiempo.*
+_Esta guía fue diseñada para evolucionar. Las mejores prácticas del uso de LLMs se refinan con la práctica diaria. Tus mejores prompts, los que descubras que funcionan mejor para tu contexto específico, son el verdadero activo que construyes con el tiempo._
 
 ---
 
 **Recursos adicionales recomendados:**
+
 - Documentación oficial de Anthropic: [docs.anthropic.com](https://docs.anthropic.com)
 - Anthropic Prompt Library: [anthropic.com/prompt-library](https://anthropic.com/prompt-library)
 - Papers de investigación de Anthropic sobre Constitutional AI y seguridad en IA

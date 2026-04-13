@@ -1,14 +1,14 @@
 ---
-title: 'Masterclass: Arquitectura AI-First'
-code: 'AI'
-description: 'Masterclass: Arquitectura AI-First'
-pubDate: 'Abril 13 2025'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Masterclass: Arquitectura AI-First"
+code: "AI"
+description: "Masterclass: Arquitectura AI-First"
+pubDate: "Jun 19 2024"
+heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
-
 # 🧠 Masterclass: Arquitectura AI-First
-### *Guía Profesional para Desarrolladores que quieren dominar el desarrollo moderno*
+
+### _Guía Profesional para Desarrolladores que quieren dominar el desarrollo moderno_
 
 > **Autor:** Arquitecto de Software Senior | 15+ años de experiencia  
 > **Nivel:** Mid-Level → Senior  
@@ -45,15 +45,15 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 
 ### Diferencia con el enfoque tradicional (Code-First)
 
-| Dimensión | Code-First (Tradicional) | AI-First |
-|-----------|--------------------------|----------|
-| **Punto de inicio** | El desarrollador escribe código directamente | El desarrollador diseña el sistema en lenguaje natural |
-| **Ciclo de iteración** | Horas/días por feature | Minutos por iteración |
-| **Rol del desarrollador** | Ejecutor técnico | Arquitecto y validador |
-| **Conocimiento requerido** | Sintaxis y APIs específicas | Patrones, contratos y arquitectura |
-| **Velocidad de prototipado** | Lenta (semanas) | Ultrarrápida (horas) |
-| **Riesgo principal** | Bugs de implementación | Malas decisiones de diseño |
-| **Dónde se gasta el tiempo** | Escribiendo código | Diseñando, auditando y validando |
+| Dimensión                    | Code-First (Tradicional)                     | AI-First                                               |
+| ---------------------------- | -------------------------------------------- | ------------------------------------------------------ |
+| **Punto de inicio**          | El desarrollador escribe código directamente | El desarrollador diseña el sistema en lenguaje natural |
+| **Ciclo de iteración**       | Horas/días por feature                       | Minutos por iteración                                  |
+| **Rol del desarrollador**    | Ejecutor técnico                             | Arquitecto y validador                                 |
+| **Conocimiento requerido**   | Sintaxis y APIs específicas                  | Patrones, contratos y arquitectura                     |
+| **Velocidad de prototipado** | Lenta (semanas)                              | Ultrarrápida (horas)                                   |
+| **Riesgo principal**         | Bugs de implementación                       | Malas decisiones de diseño                             |
+| **Dónde se gasta el tiempo** | Escribiendo código                           | Diseñando, auditando y validando                       |
 
 ---
 
@@ -75,6 +75,7 @@ El director no es inferior al violinista. Es que opera en una **capa de abstracc
 **Escenario:** Necesitas construir un sistema de autenticación con JWT para una API REST.
 
 **Enfoque Code-First:**
+
 ```
 1. Busco en Google cómo implementar JWT en Node.js
 2. Encuentro un tutorial, lo copio y adapto
@@ -86,6 +87,7 @@ El director no es inferior al violinista. Es que opera en una **capa de abstracc
 ```
 
 **Enfoque AI-First:**
+
 ```
 1. Defino el contrato del sistema:
    - ¿Qué alcance tiene la autenticación? (usuarios, roles, permisos)
@@ -160,6 +162,7 @@ Solo cuando tienes claridad en estos cuatro niveles, estás listo para generar c
 **Escenario:** Construir un sistema de notificaciones para una plataforma de e-commerce.
 
 **Desarrollador Tradicional piensa:**
+
 ```
 "Necesito una tabla notifications en la base de datos,
  un endpoint POST /notifications, y un cron job que
@@ -167,17 +170,18 @@ Solo cuando tienes claridad en estos cuatro niveles, estás listo para generar c
 ```
 
 **Desarrollador AI-First piensa:**
+
 ```
 "¿Cuántos usuarios tendremos? Si escala a 1M usuarios,
  el cron job síncrono va a ser un cuello de botella.
- 
+
  Necesito una arquitectura basada en eventos:
  - Producer: el evento de negocio (order.placed, payment.failed)
  - Queue: sistema de mensajería (RabbitMQ, SQS, o Kafka según escala)
  - Consumer: workers que procesan y envían notificaciones
  - Templates: sistema de plantillas por tipo de notificación
  - Canales: email, SMS, push — desacoplados entre sí
- 
+
  Ahora sí, le pido a la IA que genere este diseño."
 ```
 
@@ -204,7 +208,9 @@ En AI-First, **tú eres el arquitecto**. La IA es el albañil más rápido del m
 ### Las Cinco Áreas Fundamentales
 
 #### 1. HTTP y Protocolos de Comunicación
+
 No es suficiente saber que HTTP existe. Necesitas entender:
+
 - **Métodos HTTP** y su semántica correcta (GET es idempotente, POST no lo es)
 - **Códigos de estado** y cuándo usar cada uno (400 vs 422, 401 vs 403)
 - **Headers críticos**: Authorization, Content-Type, CORS, Cache-Control
@@ -212,6 +218,7 @@ No es suficiente saber que HTTP existe. Necesitas entender:
 - **WebSockets y Server-Sent Events**: para comunicación en tiempo real
 
 #### 2. APIs y Contratos
+
 - Diseño de APIs RESTful siguiendo principios de HATEOAS
 - OpenAPI/Swagger: documentar contratos antes de implementar
 - Versionado de APIs (semver aplicado a APIs)
@@ -219,6 +226,7 @@ No es suficiente saber que HTTP existe. Necesitas entender:
 - Autenticación: OAuth 2.0, JWT, API Keys — diferencias y casos de uso
 
 #### 3. Bases de Datos
+
 - **SQL relacional**: normalización, índices, JOINs, transacciones ACID
 - **NoSQL**: cuándo es mejor, tipos (documento, clave-valor, columnar, grafo)
 - **Modelado de datos**: cómo una mala estructura de datos destruye el rendimiento
@@ -226,17 +234,19 @@ No es suficiente saber que HTTP existe. Necesitas entender:
 - **Índices**: qué son, cuándo crearlos, cuándo evitarlos
 
 #### 4. Patrones SOLID y Arquitectónicos
+
 Los principios SOLID no son solo para OOP clásico. En AI-First son tu brújula para auditar código generado:
 
-| Principio | Qué significa en AI-First |
-|-----------|--------------------------|
-| **S** - Single Responsibility | ¿Cada módulo hace una sola cosa bien? |
-| **O** - Open/Closed | ¿El sistema se puede extender sin modificar lo que ya funciona? |
-| **L** - Liskov Substitution | ¿Las abstracciones son consistentes? |
-| **I** - Interface Segregation | ¿Las interfaces son específicas o demasiado generales? |
-| **D** - Dependency Inversion | ¿El código depende de abstracciones, no de implementaciones? |
+| Principio                     | Qué significa en AI-First                                       |
+| ----------------------------- | --------------------------------------------------------------- |
+| **S** - Single Responsibility | ¿Cada módulo hace una sola cosa bien?                           |
+| **O** - Open/Closed           | ¿El sistema se puede extender sin modificar lo que ya funciona? |
+| **L** - Liskov Substitution   | ¿Las abstracciones son consistentes?                            |
+| **I** - Interface Segregation | ¿Las interfaces son específicas o demasiado generales?          |
+| **D** - Dependency Inversion  | ¿El código depende de abstracciones, no de implementaciones?    |
 
 #### 5. Seguridad Básica
+
 - **OWASP Top 10**: los ataques más comunes en aplicaciones web
 - **Inyección SQL / NoSQL**: cómo detectarla en código generado por IA
 - **XSS y CSRF**: protección en el frontend y backend
@@ -250,12 +260,14 @@ Los principios SOLID no son solo para OOP clásico. En AI-First son tu brújula 
 La IA genera código **estadísticamente probable**, no **arquitectónicamente correcto**. Está entrenada para producir código que se ve bien y que compilará, pero no necesariamente código que sea seguro, escalable o mantenible.
 
 **Sin fundamentos sólidos:**
+
 - No sabes cuándo la IA generó un índice faltante que destruirá tu performance en producción
 - No detectas que el código usa `eval()` o concatenación directa de SQL
 - No ves que el diseño de la API viola REST y creará problemas de integración
 - No identificas que la autenticación tiene un race condition crítico
 
 **Con fundamentos sólidos:**
+
 - Auditas el código generado como un revisor senior
 - Corriges el 20% problemático y aprovechas el 80% correcto
 - Iteras con prompts precisos para guiar a la IA hacia soluciones mejores
@@ -265,6 +277,7 @@ La IA genera código **estadísticamente probable**, no **arquitectónicamente c
 ### Ejemplo: Cómo un Mal Fundamento Rompe un Sistema Generado con IA
 
 **Prompt al modelo:**
+
 > "Genera una función que busque usuarios por nombre en mi base de datos PostgreSQL."
 
 **Código generado (incorrecto por falta de fundamentos del ingeniero):**
@@ -290,19 +303,20 @@ de texto. Usar pg (node-postgres). Incluir manejo de errores."
 ```
 
 **Código generado (correcto):**
+
 ```javascript
 // ✅ CÓDIGO CORRECTO
 async function searchUsers(name) {
   try {
     const query = {
-      text: 'SELECT id, name, email FROM users WHERE name ILIKE $1 LIMIT 50',
-      values: [`%${name}%`]
+      text: "SELECT id, name, email FROM users WHERE name ILIKE $1 LIMIT 50",
+      values: [`%${name}%`],
     };
     const result = await db.query(query);
     return result.rows;
   } catch (error) {
-    logger.error('Error searching users:', error);
-    throw new DatabaseError('Failed to search users');
+    logger.error("Error searching users:", error);
+    throw new DatabaseError("Failed to search users");
   }
 }
 ```
@@ -316,23 +330,27 @@ El fundamento (SQL injection, consultas parametrizadas) hizo toda la diferencia.
 Antes de operar en modo AI-First productivo, deberías poder responder afirmativamente a:
 
 **HTTP y APIs**
+
 - [ ] ¿Puedo explicar la diferencia entre PUT y PATCH?
 - [ ] ¿Sé cuándo usar 401 vs 403 vs 404?
 - [ ] ¿Entiendo cómo funciona CORS y por qué existe?
 - [ ] ¿Puedo diseñar una API REST coherente desde cero?
 
 **Bases de Datos**
+
 - [ ] ¿Puedo escribir un JOIN con múltiples tablas sin ayuda?
 - [ ] ¿Entiendo qué es una transacción y cuándo usarla?
 - [ ] ¿Sé qué índices crear para optimizar una query?
 - [ ] ¿Puedo explicar cuándo usar SQL vs NoSQL?
 
 **Código y Arquitectura**
+
 - [ ] ¿Puedo identificar una violación de SRP en código generado?
 - [ ] ¿Entiendo qué es la inyección de dependencias?
 - [ ] ¿Conozco al menos 3 patrones de diseño y cuándo aplicarlos?
 
 **Seguridad**
+
 - [ ] ¿Puedo identificar SQL injection en código generado?
 - [ ] ¿Sé cómo se implementa correctamente JWT?
 - [ ] ¿Entiendo la diferencia entre autenticación y autorización?
@@ -397,6 +415,7 @@ REGLAS DE NEGOCIO:
 #### Paso 2: Diseñar los Contratos de API con IA
 
 **Prompt para diseño de API:**
+
 ```
 Actúa como un Arquitecto de Software especializado en diseño de APIs REST.
 
@@ -418,6 +437,7 @@ Sigue principios REST estrictos. Usa versionado /api/v1/.
 ```
 
 **Output esperado:**
+
 ```yaml
 # Contrato de API - Tasks Module
 
@@ -463,6 +483,7 @@ POST /api/v1/projects/{projectId}/tasks
 #### Paso 3: Diseñar la Arquitectura del Sistema con IA
 
 **Prompt para arquitectura:**
+
 ```
 Actúa como un Arquitecto de Software Senior.
 
@@ -535,12 +556,12 @@ La IA colapsa el tiempo entre IDEA y PROTOTIPO a horas. Esto es un superpoder, p
 
 ### Tipos de Prototipo en AI-First
 
-| Tipo | Propósito | Tiempo con IA | Cuándo usarlo |
-|------|-----------|---------------|---------------|
-| **Mockup estático** | Validar flujo de usuario/UI | 1-2 horas | Antes de cualquier backend |
-| **API stub** | Validar contrato con frontend | 2-4 horas | Cuando frontend y backend se desarrollan en paralelo |
-| **Spike técnico** | Validar viabilidad técnica | 4-8 horas | Cuando la tecnología es nueva o riesgosa |
-| **MVP funcional** | Validar hipótesis de negocio | 1-3 días | Cuando necesitas datos de usuario reales |
+| Tipo                | Propósito                     | Tiempo con IA | Cuándo usarlo                                        |
+| ------------------- | ----------------------------- | ------------- | ---------------------------------------------------- |
+| **Mockup estático** | Validar flujo de usuario/UI   | 1-2 horas     | Antes de cualquier backend                           |
+| **API stub**        | Validar contrato con frontend | 2-4 horas     | Cuando frontend y backend se desarrollan en paralelo |
+| **Spike técnico**   | Validar viabilidad técnica    | 4-8 horas     | Cuando la tecnología es nueva o riesgosa             |
+| **MVP funcional**   | Validar hipótesis de negocio  | 1-3 días      | Cuando necesitas datos de usuario reales             |
 
 ---
 
@@ -551,6 +572,7 @@ La IA colapsa el tiempo entre IDEA y PROTOTIPO a horas. Esto es un superpoder, p
 **Prototipo malo:** Construir el sistema de pagos completo con Stripe y luego ver si la gente suscribe.
 
 **Prototipo AI-First correcto:**
+
 1. Genera con IA una landing page con dos opciones de precio (suscripción vs por uso)
 2. Agrega un botón de "Quiero esto" que registra cuál opción eligieron
 3. Despliega en 2 horas
@@ -594,7 +616,9 @@ Tu prototipo es la maqueta. La IA lo construye en horas. El edificio real (el si
 ### Las Cuatro Dimensiones de Auditoría
 
 #### 1. Seguridad
+
 Preguntas que debes responder al revisar código generado:
+
 - ¿Hay inputs del usuario que no están sanitizados?
 - ¿Los secrets están hardcoded en el código?
 - ¿La autenticación protege TODOS los endpoints que lo requieren?
@@ -602,6 +626,7 @@ Preguntas que debes responder al revisar código generado:
 - ¿Se validan los permisos (autorización), no solo la autenticación?
 
 #### 2. Escalabilidad
+
 - ¿Hay N+1 queries (queries dentro de loops)?
 - ¿Las queries tienen los índices necesarios?
 - ¿Hay operaciones sincrónicas que deberían ser asincrónicas?
@@ -609,12 +634,14 @@ Preguntas que debes responder al revisar código generado:
 - ¿Hay estado en memoria que no escala horizontalmente?
 
 #### 3. Performance
-- ¿Se cargan más datos de los necesarios (SELECT * cuando no hace falta)?
+
+- ¿Se cargan más datos de los necesarios (SELECT \* cuando no hace falta)?
 - ¿Hay oportunidades de caché que no se están aprovechando?
 - ¿Las operaciones costosas pueden ejecutarse en background?
 - ¿Los timeouts están configurados correctamente?
 
 #### 4. Mantenibilidad
+
 - ¿El código sigue los principios SOLID?
 - ¿Hay lógica de negocio en el lugar equivocado (en controllers en lugar de services)?
 - ¿El naming es claro y consistente?
@@ -630,29 +657,33 @@ Preguntas que debes responder al revisar código generado:
 
 ```javascript
 // ❌ PROBLEMÁTICO: N+1 queries, sin paginación, sin manejo de errores
-router.get('/products', async (req, res) => {
+router.get("/products", async (req, res) => {
   const products = await Product.findAll();
-  
+
   const productsWithDetails = await Promise.all(
     products.map(async (product) => {
       const category = await Category.findById(product.categoryId);
-      const reviews = await Review.findAll({ where: { productId: product.id } });
-      const avgRating = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
-      
+      const reviews = await Review.findAll({
+        where: { productId: product.id },
+      });
+      const avgRating =
+        reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+
       return {
         ...product.toJSON(),
         category: category.name,
         avgRating,
-        reviewCount: reviews.length
+        reviewCount: reviews.length,
       };
-    })
+    }),
   );
-  
+
   res.json(productsWithDetails);
 });
 ```
 
 **Problemas identificados:**
+
 1. `Product.findAll()` sin LIMIT → carga TODOS los productos de la BD
 2. N+1 queries: por cada producto, hace 2 queries adicionales
 3. Con 1000 productos → 2001 queries en una sola request
@@ -664,7 +695,7 @@ router.get('/products', async (req, res) => {
 
 ```javascript
 // ✅ CORRECTO: JOIN en lugar de N+1, paginación, manejo de errores
-router.get('/products', async (req, res) => {
+router.get("/products", async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = Math.min(parseInt(req.query.limit) || 20, 100);
@@ -673,18 +704,21 @@ router.get('/products', async (req, res) => {
     // Una sola query con JOINs y agregación
     const { rows: products, count } = await Product.findAndCountAll({
       attributes: [
-        'id', 'name', 'price', 'stock',
-        [sequelize.fn('AVG', sequelize.col('reviews.rating')), 'avgRating'],
-        [sequelize.fn('COUNT', sequelize.col('reviews.id')), 'reviewCount']
+        "id",
+        "name",
+        "price",
+        "stock",
+        [sequelize.fn("AVG", sequelize.col("reviews.rating")), "avgRating"],
+        [sequelize.fn("COUNT", sequelize.col("reviews.id")), "reviewCount"],
       ],
       include: [
-        { model: Category, attributes: ['id', 'name'], required: true },
-        { model: Review, attributes: [], required: false }
+        { model: Category, attributes: ["id", "name"], required: true },
+        { model: Review, attributes: [], required: false },
       ],
-      group: ['Product.id', 'Category.id'],
+      group: ["Product.id", "Category.id"],
       limit,
       offset,
-      subQuery: false
+      subQuery: false,
     });
 
     res.json({
@@ -693,12 +727,12 @@ router.get('/products', async (req, res) => {
         total: count.length,
         page,
         limit,
-        totalPages: Math.ceil(count.length / limit)
-      }
+        totalPages: Math.ceil(count.length / limit),
+      },
     });
   } catch (error) {
-    logger.error('Error fetching products:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    logger.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 ```
@@ -712,6 +746,7 @@ router.get('/products', async (req, res) => {
 Usa esta lista cada vez que revises código generado por IA:
 
 **🔐 Seguridad**
+
 - [ ] ¿Todos los inputs del usuario están validados?
 - [ ] ¿No hay secrets en el código (contraseñas, API keys)?
 - [ ] ¿Los endpoints sensibles requieren autenticación?
@@ -719,18 +754,21 @@ Usa esta lista cada vez que revises código generado por IA:
 - [ ] ¿Se usan consultas parametrizadas (no concatenación)?
 
 **⚡ Performance**
+
 - [ ] ¿No hay N+1 queries?
 - [ ] ¿Hay paginación en listados?
 - [ ] ¿Se seleccionan solo los campos necesarios?
 - [ ] ¿Los índices necesarios están definidos?
 
 **📐 Arquitectura**
+
 - [ ] ¿Cada función/clase tiene una sola responsabilidad?
 - [ ] ¿La lógica de negocio está en la capa correcta?
 - [ ] ¿Las dependencias fluyen en la dirección correcta?
 - [ ] ¿El código es testeable sin dependencias externas?
 
 **🛡️ Resiliencia**
+
 - [ ] ¿Hay manejo de errores en todas las operaciones asíncronas?
 - [ ] ¿Los recursos se liberan correctamente?
 - [ ] ¿Los timeouts están configurados?
@@ -795,31 +833,34 @@ VALIDACIÓN (auditoría final)
 
 ### Anti-patrones Comunes
 
-| Anti-patrón | Descripción | Por qué es malo |
-|-------------|-------------|-----------------|
-| **El Copiar-Pegar Ciego** | Copias el código generado sin leerlo | El código puede tener bugs, vulnerabilidades o no adaptarse a tu contexto |
-| **El Prompt Vago** | "Hazme un sistema de login" sin contexto | La IA genera algo genérico que no sirve para tu caso |
-| **La Delegación Total** | "Diseña toda la arquitectura" sin restricciones | Sin tus restricciones de negocio, la IA diseña para el caso genérico |
-| **El Purista** | "La IA genera basura, no la uso" | Pierdes 10x en velocidad de desarrollo |
-| **El Refactor Infinito** | Siempre pedirle a la IA que mejore el código generado | Nunca terminas de construir nada |
-| **El Contexto Olvidado** | Cada prompt empieza de cero | La IA no tiene contexto de decisiones previas |
+| Anti-patrón               | Descripción                                           | Por qué es malo                                                           |
+| ------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------- |
+| **El Copiar-Pegar Ciego** | Copias el código generado sin leerlo                  | El código puede tener bugs, vulnerabilidades o no adaptarse a tu contexto |
+| **El Prompt Vago**        | "Hazme un sistema de login" sin contexto              | La IA genera algo genérico que no sirve para tu caso                      |
+| **La Delegación Total**   | "Diseña toda la arquitectura" sin restricciones       | Sin tus restricciones de negocio, la IA diseña para el caso genérico      |
+| **El Purista**            | "La IA genera basura, no la uso"                      | Pierdes 10x en velocidad de desarrollo                                    |
+| **El Refactor Infinito**  | Siempre pedirle a la IA que mejore el código generado | Nunca terminas de construir nada                                          |
+| **El Contexto Olvidado**  | Cada prompt empieza de cero                           | La IA no tiene contexto de decisiones previas                             |
 
 ---
 
 ### Evolución de un Prompt: Malo → Bueno
 
 **Versión 1 (MALO):**
+
 ```
 Crea un sistema de autenticación en Node.js
 ```
 
 **Versión 2 (MEJOR, agrega stack):**
+
 ```
 Crea un sistema de autenticación en Node.js con Express y MongoDB.
 Debe incluir registro y login con JWT.
 ```
 
 **Versión 3 (BUENO, agrega contexto de negocio):**
+
 ```
 Actúa como un desarrollador senior Node.js.
 
@@ -840,6 +881,7 @@ No incluyas tests en esta primera iteración.
 ```
 
 **Versión 4 (EXCELENTE, agrega restricciones de seguridad):**
+
 ```
 [Todo lo anterior +]
 
@@ -925,6 +967,7 @@ La diferencia entre la versión 1 y la versión 4 es la diferencia entre código
 **Contexto:** Sistema de gestión de tareas. Necesitamos agregar comentarios a las tareas.
 
 **Paso 1 - Diseño (15 minutos, con IA):**
+
 ```
 Prompt: "Diseña el módulo de comentarios para el sistema de tareas.
 Incluye: modelo de datos, endpoints REST, reglas de negocio,
@@ -934,6 +977,7 @@ y consideraciones de escala para 100 comentarios por tarea en promedio."
 Output → Revisamos y validamos el diseño.
 
 **Paso 2 - Migración de BD (5 minutos, con IA):**
+
 ```
 Prompt: "Genera la migración SQL para la tabla comments basada en
 este modelo: [pegar el modelo diseñado en paso 1]"
@@ -942,16 +986,19 @@ este modelo: [pegar el modelo diseñado en paso 1]"
 Output → Auditamos: ¿índices correctos? ¿foreign keys? ¿tipos de datos?
 
 **Paso 3 - Implementación por capas (40 minutos, con IA):**
+
 ```
 Repository → Service → Controller → Router
 (en ese orden, una capa a la vez)
 ```
 
 **Paso 4 - Auditoría (20 minutos, manual):**
+
 - Revisar con checklist de seguridad y performance
 - Corregir lo necesario con prompts de refinamiento
 
 **Paso 5 - Tests (20 minutos, con IA):**
+
 ```
 Prompt: "Genera tests unitarios para el CommentsService.
 Mockea el repository. Cubre casos: crear comentario válido,
@@ -977,6 +1024,7 @@ eliminar comentario de otro usuario."
 Equipos remotos pequeños (5-20 personas) pierden entre 2-4 horas semanales en reuniones de sincronización de estado de proyectos porque no tienen visibilidad centralizada.
 
 **Usuarios principales:**
+
 - Project Manager: crea proyectos, asigna tareas, ve el panorama completo
 - Developer/Contributor: recibe tareas, actualiza estado, agrega comentarios
 
@@ -984,6 +1032,7 @@ Equipos remotos pequeños (5-20 personas) pierden entre 2-4 horas semanales en r
 Los equipos pagarán $15/mes si pueden reducir las reuniones de sincronización a la mitad.
 
 **Scope del MVP (decisión estratégica):**
+
 ```
 ✅ INCLUIDO EN MVP:
 - Registro y login
@@ -1073,6 +1122,7 @@ CREATE INDEX idx_comments_task_id ON comments(task_id);
 ```
 
 **Decisión de arquitectura:**
+
 ```
 DECISIÓN: Monolito modular (no microservicios)
 RAZÓN: 2 developers, MVP en 3 semanas, escala esperada < 1000 usuarios en 3 meses
@@ -1085,6 +1135,7 @@ REVISIÓN: Después de 1000 usuarios activos o si el tiempo de deploy supera 20 
 #### Fase 2: Prototipo
 
 En 6 horas, el equipo usó IA para generar:
+
 1. **Mockups HTML** de las 4 pantallas principales (Dashboard, Proyecto, Tarea, Perfil)
 2. **API stub** con datos hardcodeados para que el frontend pueda avanzar en paralelo
 3. **Validación** con 5 potenciales usuarios → cambio: añadir columnas Kanban al dashboard
@@ -1094,6 +1145,7 @@ En 6 horas, el equipo usó IA para generar:
 #### Fase 3: Implementación
 
 **Estructura del proyecto:**
+
 ```
 taskflow-api/
 ├── src/
@@ -1130,6 +1182,7 @@ taskflow-api/
 ```
 
 **Decisiones técnicas documentadas:**
+
 ```
 1. PostgreSQL sobre MongoDB:
    → Datos relacionales (proyectos, tareas, usuarios tienen FK)
@@ -1172,6 +1225,7 @@ Documenta tus mejores prompts para tareas recurrentes (diseño de módulos, gene
 
 **2. Establece un Architectural Decision Record (ADR)**
 Por cada decisión arquitectónica importante, escribe:
+
 - Contexto del problema
 - Opciones consideradas
 - Decisión tomada y por qué
@@ -1202,6 +1256,7 @@ La IA hace tan fácil agregar features que es tentador agrandar continuamente el
 La IA optimiza para el caso feliz (happy path). Los edge cases (usuario sin permisos, red caída, datos corruptos, volúmenes extremos) tienden a quedar sin manejar. Siempre pregunta explícitamente por edge cases.
 
 **Prompt para edge cases:**
+
 ```
 "Dado este código, ¿cuáles son los 5 edge cases más probables que
 podrían causar bugs o errores en producción? Para cada uno, describe
@@ -1219,14 +1274,14 @@ Con IA es muy fácil generar código que funciona pero que es difícil de manten
 
 Los ingenieros que más valor aportan en la era AI-First tienen estas características:
 
-| Característica | Por qué importa |
-|----------------|-----------------|
-| **Pensamiento sistémico** | Diseñan sistemas que escalan, no solo código que funciona |
-| **Dominio del negocio** | Toman mejores decisiones de diseño porque entienden el contexto |
-| **Criterio de auditoría** | Detectan rápidamente los problemas en código generado |
-| **Comunicación técnica** | Escriben prompts precisos y documentación clara |
-| **Curiosidad técnica** | Aprenden continuamente cómo evolucionan las capacidades de la IA |
-| **Pragmatismo** | Saben cuándo la IA ayuda y cuándo es mejor escribir el código a mano |
+| Característica            | Por qué importa                                                      |
+| ------------------------- | -------------------------------------------------------------------- |
+| **Pensamiento sistémico** | Diseñan sistemas que escalan, no solo código que funciona            |
+| **Dominio del negocio**   | Toman mejores decisiones de diseño porque entienden el contexto      |
+| **Criterio de auditoría** | Detectan rápidamente los problemas en código generado                |
+| **Comunicación técnica**  | Escriben prompts precisos y documentación clara                      |
+| **Curiosidad técnica**    | Aprenden continuamente cómo evolucionan las capacidades de la IA     |
+| **Pragmatismo**           | Saben cuándo la IA ayuda y cuándo es mejor escribir el código a mano |
 
 **La ventaja competitiva definitiva:** Un ingeniero que combina fundamentos técnicos sólidos + pensamiento arquitectónico + dominio de AI-First puede producir en 1 semana lo que antes tomaba 1 mes a un equipo. Eso tiene un valor económico enorme.
 
@@ -1252,16 +1307,19 @@ AI-First no es una tecnología — es una **filosofía de ingeniería** que rede
 Estamos en los primeros años de una transformación que se acelerará exponencialmente. Las tendencias que definen el horizonte próximo:
 
 **En el corto plazo (1-2 años):**
+
 - Los modelos de IA generarán sistemas completos a partir de especificaciones de alto nivel
 - La revisión de código asistida por IA será estándar en todos los equipos
 - El testing automatizado con IA eliminará el 70% del trabajo de QA manual
 
 **En el mediano plazo (3-5 años):**
+
 - Los ingenieros operarán principalmente en el nivel de arquitectura y producto
 - Los sistemas de IA podrán mantener y evolucionar bases de código completas
 - Las especificaciones formales (no el código) serán el artefacto principal del ingeniero
 
 **Lo que no cambia:**
+
 - La necesidad de entender los problemas de negocio profundamente
 - La responsabilidad de diseñar sistemas seguros, escalables y mantenibles
 - El pensamiento crítico para evaluar soluciones y sus trade-offs
@@ -1273,7 +1331,7 @@ Estamos en los primeros años de una transformación que se acelerará exponenci
 
 En una conversación que tuve hace años con un CTO brillante, me dijo algo que hoy tiene más sentido que nunca:
 
-> *"Los mejores ingenieros no son los que escriben más código. Son los que logran que el sistema correcto exista, sea cual sea el medio para lograrlo."*
+> _"Los mejores ingenieros no son los que escriben más código. Son los que logran que el sistema correcto exista, sea cual sea el medio para lograrlo."_
 
 En la era AI-First, ese medio es la orquestación inteligente de las capacidades de la IA. Tu valor como ingeniero no está en cuántas líneas puedes escribir por hora. Está en cuán bien puedes pensar un problema, diseñar su solución, y guiar a las herramientas más poderosas de la historia hacia esa solución.
 
@@ -1288,6 +1346,7 @@ Bienvenido a la era AI-First.
 ### Prompts Reutilizables (Colección)
 
 **Prompt de Diseño de Módulo:**
+
 ```
 Actúa como Arquitecto de Software Senior especializado en [stack].
 Sistema: [descripción del sistema]
@@ -1304,6 +1363,7 @@ Diseña este módulo incluyendo:
 ```
 
 **Prompt de Auditoría de Código:**
+
 ```
 Actúa como un revisor de código senior con enfoque en seguridad y performance.
 
@@ -1320,6 +1380,7 @@ Para cada issue: nivel de severidad (crítico/alto/medio/bajo), descripción y c
 ```
 
 **Prompt de Generación de Tests:**
+
 ```
 Genera tests unitarios en [framework] para este módulo.
 
@@ -1338,6 +1399,7 @@ Incluye al menos un test de edge case no obvio.
 ```
 
 **Prompt de Revisión de Arquitectura:**
+
 ```
 Actúa como un CTO revisando la arquitectura de un sistema.
 
@@ -1358,7 +1420,8 @@ Evalúa:
 
 ---
 
-*Esta masterclass fue diseñada para ser un documento vivo. Las mejores prácticas evolucionan tan rápido como la tecnología. Revisita estos principios periódicamente y adapta lo que sea necesario a tu contexto.*
+_Esta masterclass fue diseñada para ser un documento vivo. Las mejores prácticas evolucionan tan rápido como la tecnología. Revisita estos principios periódicamente y adapta lo que sea necesario a tu contexto._
 
 ---
+
 **Fin de la Masterclass** | Versión 1.0 | 2025
