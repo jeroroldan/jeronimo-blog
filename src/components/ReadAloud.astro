@@ -4,8 +4,8 @@
 <div class="read-aloud-container no-print">
   <div class="read-aloud-controls" id="readAloudControls">
     <button id="playPauseBtn" class="control-btn play" title="Leer en voz alta" aria-label="Leer en voz alta">
-      <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-      <svg id="pauseIcon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+      <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+      <svg id="pauseIcon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
       <span class="btn-text">Escuchar post</span>
     </button>
     
@@ -30,11 +30,15 @@
 <style>
   .read-aloud-container {
     margin: 1.5rem 0;
-    padding: 0.5rem;
-    border-radius: 12px;
-    background: rgba(var(--accent-light), 0.1);
-    border: 1px solid rgba(var(--accent-light), 0.2);
+    padding: 0.6rem;
+    border-radius: 16px;
+    background: rgba(var(--accent-light), 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(var(--accent-light), 0.15);
     display: inline-block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
   }
 
   .read-aloud-controls {
@@ -58,8 +62,8 @@
   }
 
   .control-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(44, 85, 48, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(44, 85, 48, 0.25);
     background: #1a472a;
   }
 

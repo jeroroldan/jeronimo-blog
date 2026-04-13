@@ -2,7 +2,7 @@
 title: "riqueza"
 code: "riqueza"
 description: "Guía Completa: Riqueza - Definiciones y Desarrollo de Habilidades"
-pubDate: "Feb 30 2026"
+pubDate: "2026-02-28"
 heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 

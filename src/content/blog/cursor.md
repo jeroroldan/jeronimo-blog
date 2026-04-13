@@ -55,7 +55,7 @@ docs/
 
 Indexar `node_modules`, builds o assets pesados consume cuota y degrada la calidad del retrieval. Configura `.cursorignore`:
 
-```gitignore
+```bash
 # .cursorignore — mismo formato que .gitignore
 node_modules/
 dist/

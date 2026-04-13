@@ -2,7 +2,7 @@
 title: 'Master Class: Variables de Entorno'
 code: 'react-native'
 description: 'Master Class: Variables de Entorno con react-native-dotenv'
-pubDate: 'Sep 16'
+pubDate: '2024-09-16'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
