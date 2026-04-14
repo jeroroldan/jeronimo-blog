@@ -1,6 +1,6 @@
 ---
 title: 'Masterclass: Configuración Profesional de Entornos React Native y React'
-code: 'react-native'
+code: 'react'
 description: 'Profesional de Entornos React Native y React'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

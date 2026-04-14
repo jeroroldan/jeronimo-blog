@@ -1,6 +1,6 @@
 ---
 title: 'Masterclass: Bases de Datos Relacionales y Modelado'
-code: "based de datos"
+code: "base de datos"
 description: 'FUNDAMENTOS: ¿QUÉ ES UNA BASE DE DATOS RELACIONAL?'
 pubDate: 'Sep 03 2025'
 heroImage: '../../assets/blog-placeholder-1.jpg'
