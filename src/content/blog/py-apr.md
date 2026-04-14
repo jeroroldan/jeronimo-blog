@@ -2,7 +2,7 @@
 title: "Python y Librerías para Agentes de IA"
 description: "Guía completa: instalación, snippets y casos de uso reales"
 pubDate: 2026-03-13
-code: "py-apr"
+code: "IA"
 image: "/images/blog/py-apr.jpg"
 ---
 

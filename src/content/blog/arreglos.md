@@ -1,6 +1,6 @@
 ---
 title: ' Reparación y Pintura de Paredes'
-code: "arreglos"
+code: "HOGAR"
 description: 'MASTERCLASS: Reparación y Pintura de Paredes'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
