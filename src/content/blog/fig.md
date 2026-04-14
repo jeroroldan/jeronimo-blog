@@ -2,7 +2,7 @@
 title: "Figma Masterclass"
 description: "Guía completa de UX/UI — De Cero a Profesional"
 pubDate: 2026-03-17
-code: "fig"
+code: "Figma"
 image: "/images/blog/fig.jpg"
 ---
 

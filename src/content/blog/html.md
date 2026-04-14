@@ -1,6 +1,6 @@
 ---
 title: 'Masterclass: HTML Semántico Moderno para SEO'
-code: "html"
+code: "Frontend"
 description: 'El Arte de Comunicarse con los Motores de Búsqueda'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -2,7 +2,7 @@
 title: "Masterclass: De Cero a Experto en Agentes de IA"
 description: "El camino completo: LLMs → Embeddings → Vector DBs → LangChain → Agentes → Monetización"
 pubDate: 2026-03-13
-code: "agent-ia"
+code: "Automatizacion-Agentes"
 image: "/images/blog/agent-ia.jpg"
 ---
 

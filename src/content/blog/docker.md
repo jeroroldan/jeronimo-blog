@@ -1,6 +1,6 @@
 ---
 title: 'Docker y DevOps'
-code: 'docker'
+code: 'Devops'
 description: 'Guía de Docker y DevOps con Analogías Cotidianas 🐳'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

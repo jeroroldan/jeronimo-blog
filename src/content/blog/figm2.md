@@ -1,6 +1,6 @@
 ---
 title: "Capas y Elementos de Figma"
-code: "figm2"
+code: "Figma"
 description: "Resumen Completo - Conceptos Arquitectónicos de Laravel"
 pubDate: "Jun 19 2024"
 heroImage: "../../assets/blog-placeholder-1.jpg"

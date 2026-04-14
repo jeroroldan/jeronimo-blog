@@ -1,6 +1,6 @@
 ---
 title: "Master Class: Auto Layout en Figma"
-code: "fig34"
+code: "Figma"
 description: "Resumen Completo - Auto Layout en Figma"
 pubDate: "Jun 19 2024"
 heroImage: "../../assets/blog-placeholder-1.jpg"

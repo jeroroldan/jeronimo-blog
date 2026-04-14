@@ -1,6 +1,6 @@
 ---
 title: 'Masterclass: Creación e Integración de Chatbots'
-code: "CHATBOTS"
+code: "Automatizacion-Agentes"
 description: 'Guía definitiva para construir chatbots modernos: Integración en Python/Node, RAG, Streaming y todo lo que necesitas saber para no fallar en producción.'
 pubDate: 'Dec 03 2025'
 heroImage: '../../assets/blog-placeholder-1.jpg'

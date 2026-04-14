@@ -1,6 +1,6 @@
 ---
 title: 'Guía Completa de Despliegue en la Nube'
-code: 'n8n'
+code: 'Automatizacion-Agentes'
 description: 'Guía Completa de Despliegue en la Nube'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

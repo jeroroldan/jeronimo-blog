@@ -1,6 +1,6 @@
 ---
 title: "Master Class: Alineación y Centrado en Figma"
-code: "figma alineacion y centrado"
+code: "figma"
 description: "Resumen Completo - Alineación y Centrado en Figma"
 pubDate: "Jun 20 2024"
 heroImage: "../../assets/blog-placeholder-1.jpg"
