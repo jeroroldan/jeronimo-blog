@@ -1,3 +1,11 @@
+---
+title: 'Cómo Conseguir un Trabajo Freelance de Medio Tiempo'
+code: 'freelance'
+description: 'Trabajo Freelance de Medio Tiempo'
+pubDate: 'Jun 19 2024'
+heroImage: '../../assets/blog-placeholder-1.jpg'
+---
+
 # Guía Master Class: Cómo Conseguir un Trabajo Freelance de Medio Tiempo
 
 ## 1. Introducción
