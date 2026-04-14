@@ -1,6 +1,6 @@
 ---
 title: "Guía Completa: Tablas de Valores (Lookup Tables) en Bases de Datos"
-code: "BD"
+code: "Base de datos"
 description: "Aprende qué son las tablas de valores, para qué sirven, cómo diseñarlas y usarlas correctamente en sistemas de datos e IA."
 pubDate: 2025-11-24
 ---
