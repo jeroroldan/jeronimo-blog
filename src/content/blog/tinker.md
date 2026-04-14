@@ -1,6 +1,6 @@
 ---
 title: 'Masterclass: Tinker'
-code: 'tinker'
+code: 'base de datos'
 description: 'Tinker ejemplos'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

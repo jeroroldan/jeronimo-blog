@@ -1,6 +1,6 @@
 ---
 title: 'Masterclass: Arquitectura Next.js con Server Components'
-code: 'nextjs'
+code: 'React'
 description: 'El Arte de Construir Aplicaciones Web Modernas y Escalables*'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

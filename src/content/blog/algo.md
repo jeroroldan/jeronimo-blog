@@ -1,6 +1,6 @@
 ---
 title: 'Relaciones de Base de Datos en Laravel'
-code: 'laravel'
+code: 'backend'
 description: 'De Principiante a Arquitecto de Datos'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

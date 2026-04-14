@@ -1,6 +1,6 @@
 ---
 title: 'Arquitecto Backend'
-code: 'suprabase'
+code: 'base de datos'
 description: 'La Guía Definitiva para Dominar el "Firebase Killer"'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
