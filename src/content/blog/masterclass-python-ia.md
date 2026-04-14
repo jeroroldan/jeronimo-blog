@@ -1,6 +1,6 @@
 ---
 title: 'Masterclass: Python para la Era de la IA'
-code: "PYTHON-IA"
+code: "IA"
 description: 'La hoja de ruta definitiva para dominar Python en el mundo de la Inteligencia Artificial. Desde NumPy hasta PyTorch y LangChain.'
 pubDate: 'Dec 03 2025'
 heroImage: '../../assets/blog-placeholder-1.jpg'

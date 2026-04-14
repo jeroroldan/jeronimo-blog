@@ -1,6 +1,6 @@
 ---
 title: "Masterclass: Inteligencia Artificial para Desarrolladores"
-code: "IAARC"
+code: "IA"
 description: "De Junior a Senior en IA Aplicada al Desarrollo de Software. Una guía definitiva, progresiva y práctica para dominar la IA desde cero."
 pubDate: "Dec 03 2025"
 heroImage: "../../assets/blog-placeholder-1.jpg"
