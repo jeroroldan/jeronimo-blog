@@ -9,11 +9,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
 	site: 'https://example.com',
 	integrations: [
-		expressiveCode({
-			shiki: {
-				bundledLangs: ['gradle', 'bash', 'powershell', 'json', 'typescript', 'javascript', 'markdown', 'redis', 'env', 'caddy', 'dns', 'figma', 'gitignore']
-			}
-		}),
+		expressiveCode(),
 		mdx(),
 		sitemap()
 	]
