@@ -1,8 +1,8 @@
 ---
 title: "Guía Avanzada de Claude Code"
-code: "claude-code-avanzado"
 description: "Personalización, skills, subagentes y arquitectura de memoria para maximizar la productividad con Claude Code."
-pubDate: "Apr 14 2026"
+pubDate: "2026-04-14"
+code: "claude-code-avanzado"
 heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
