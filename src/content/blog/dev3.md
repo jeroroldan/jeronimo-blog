@@ -2,7 +2,7 @@
 title: "DevOps"
 code: "dev3"
 description: "DevOps Masterclass"
-pubDate: "Jun 19 2024"
+pubDate: "2026-06-19"
 heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 

@@ -10,7 +10,9 @@ export default defineConfig({
 	site: 'https://example.com',
 	integrations: [
 		expressiveCode({
-			langs: ['gradle', 'bash', 'powershell', 'json', 'typescript', 'javascript', 'markdown', 'redis', 'env', 'caddy', 'dns', 'figma', 'gitignore']
+			shiki: {
+				bundledLangs: ['gradle', 'bash', 'powershell', 'json', 'typescript', 'javascript', 'markdown', 'redis', 'env', 'caddy', 'dns', 'figma', 'gitignore']
+			}
 		}),
 		mdx(),
 		sitemap()
