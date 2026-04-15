@@ -1,8 +1,8 @@
 ---
 title: "Framework de Estudio Efectivo para Programadores"
-code: "framework-estudio-programacion"
 description: "Ciclo de estudio, aprendizaje por proyectos y gestión disciplinada para avanzar realmente en programación."
-pubDate: "Apr 14 2026"
+pubDate: "2026-04-14"
+code: "framework-estudio-programacion"
 heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 

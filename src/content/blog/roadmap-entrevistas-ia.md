@@ -1,8 +1,8 @@
 ---
 title: "Roadmap para Entrevistas de Ingeniería de Software en la Era de la IA"
-code: "roadmap-entrevistas-ia"
 description: "Cómo prepararse para entrevistas técnicas modernas: habilidades clave, testing, patrones y el nuevo enfoque de las empresas."
-pubDate: "Apr 14 2026"
+pubDate: "2026-04-14"
+code: "roadmap-entrevistas-ia"
 heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
