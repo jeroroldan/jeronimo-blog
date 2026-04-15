@@ -1,5 +1,6 @@
 ---
 title: "Claude for Financial Analysis: La Inteligencia Artificial que Transforma las Finanzas"
+code: "claude-financial"
 description: "Una guía completa sobre la nueva plataforma de Anthropic para profesionales financieros, que integra datos internos con fuentes de mercado para automatizar horas de trabajo manual."
 pubDate: "2026-04-15"
 category: "informatica"

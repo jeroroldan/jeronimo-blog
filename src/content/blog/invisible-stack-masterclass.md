@@ -1,5 +1,6 @@
 ---
 title: "El Stack Invisible: Guía Maestra para Construir Micro SaaS Rentables"
+code: "microsaas"
 description: "Una guía completa para construir Micro SaaS automatizados, rentables y de bajo costo sin equipos grandes ni infraestructura compleja."
 pubDate: "2026-04-15"
 category: "negocios"
