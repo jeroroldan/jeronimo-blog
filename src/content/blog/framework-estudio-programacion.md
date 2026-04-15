@@ -1,17 +1,19 @@
 ---
-name: Framework de Estudio Efectivo para Programadores
-code: 'Aprendizaje'
-description: 'Ciclo de estudio, aprendizaje por proyectos y gestión disciplinada para avanzar realmente en programación.'
-pubDate: 'Apr 14 2026'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Framework de Estudio Efectivo para Programadores"
+code: "framework-estudio-programacion"
+description: "Ciclo de estudio, aprendizaje por proyectos y gestión disciplinada para avanzar realmente en programación."
+pubDate: "Apr 14 2026"
+heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
 # 📚 Framework de Estudio Efectivo para Programadores
 
 ## 🎯 Objetivo
+
 Evitar el estancamiento y el ciclo infinito de tutoriales, aprendiendo programación con intención, disciplina y aplicación real.
 
 ## 📑 Índice
+
 1. [Ciclo de Estudio en 4 Pasos](#ciclo)
 2. [Aprender Mediante Proyectos](#proyectos)
 3. [Gestión y Planificación del Estudio](#gestion)
@@ -21,12 +23,13 @@ Evitar el estancamiento y el ciclo infinito de tutoriales, aprendiendo programac
 
 ## 1. 🔄 Ciclo de Estudio en 4 Pasos {#ciclo}
 
-1. **Estudiar:** Procesa la teoría (libros, cursos, documentación). Ejemplo recomendado: *Piensa en C* de Osvaldo Cairó.
+1. **Estudiar:** Procesa la teoría (libros, cursos, documentación). Ejemplo recomendado: _Piensa en C_ de Osvaldo Cairó.
 2. **Repasar:** Revisa los conceptos al día siguiente para consolidar la memoria.
 3. **Aplicar:** Realiza ejercicios prácticos y resuelve problemas reales.
 4. **Explicar:** Comparte lo aprendido (blog, GitHub, redes sociales) para conectar ideas y detectar lagunas.
 
 **Plantilla de aplicación:**
+
 - ¿Qué aprendí hoy?
 - ¿Puedo explicarlo con mis palabras?
 - ¿Dónde me trabé y por qué?
@@ -40,6 +43,7 @@ Evitar el estancamiento y el ciclo infinito de tutoriales, aprendiendo programac
 - **Apóyate en IA:** Usa herramientas como ChatGPT para generar ideas y estructuras alternativas.
 
 **Ejemplo:**
+
 - Curso: Calculadora básica → Proyecto propio: Conversor de divisas.
 
 ---

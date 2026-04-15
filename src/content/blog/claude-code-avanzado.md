@@ -1,17 +1,19 @@
 ---
-name: Guía Avanzada de Claude Code
-code: 'IA'
-description: 'Personalización, skills, subagentes y arquitectura de memoria para maximizar la productividad con Claude Code.'
-pubDate: 'Apr 14 2026'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Guía Avanzada de Claude Code"
+code: "claude-code-avanzado"
+description: "Personalización, skills, subagentes y arquitectura de memoria para maximizar la productividad con Claude Code."
+pubDate: "Apr 14 2026"
+heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
 # 🧑‍💻 Guía Avanzada: Claude Code para Desarrolladores
 
 ## 🎯 Objetivo
+
 Dominar herramientas, skills y patrones avanzados para personalizar y automatizar tu flujo de trabajo con Claude Code, siguiendo principios de contenido educativo excepcional.
 
 ## 📚 Índice
+
 1. [Eficiencia en la Línea de Comandos](#comandos)
 2. [MCP Servers: Extiende las Capacidades](#mcp)
 3. [Skills Personalizados](#skills)
@@ -29,6 +31,7 @@ Dominar herramientas, skills y patrones avanzados para personalizar y automatiza
 - **/compact**: Gestiona la ventana de contexto para mantener sesiones largas y eficientes.
 
 **Ejemplo:**
+
 ```bash
 /model opus
 /insights
@@ -44,6 +47,7 @@ Dominar herramientas, skills y patrones avanzados para personalizar y automatiza
 - **Playwright**: Automatiza pruebas de navegador desde Claude.
 
 **¿Cuándo usarlo?**
+
 - Cuando necesitas automatizar flujos CI/CD, testing o gestión de código a gran escala.
 
 ---
@@ -55,11 +59,16 @@ Dominar herramientas, skills y patrones avanzados para personalizar y automatiza
 - Define formato de salida, ejemplos y criterios de calidad en cada skill.
 
 **Plantilla básica de skill:**
+
 ```markdown
 # name: Code Review
+
 ## Objetivo
+
 Revisar código siguiendo mejores prácticas y checklist de calidad.
+
 ## Formato de salida
+
 - Resumen de problemas
 - Sugerencias de mejora
 - Ejemplos de código corregido
@@ -81,6 +90,7 @@ Revisar código siguiendo mejores prácticas y checklist de calidad.
 - Mejora la velocidad y calidad al dividir grandes proyectos en partes manejables.
 
 **Ejemplo:**
+
 - Un subagente para pruebas automatizadas y otro para documentación técnica.
 
 ---
@@ -92,6 +102,7 @@ Revisar código siguiendo mejores prácticas y checklist de calidad.
 - Así puedes retomar sesiones y mantener coherencia a largo plazo.
 
 **Checklist de memoria:**
+
 - [ ] Resumen del proyecto
 - [ ] Decisiones técnicas
 - [ ] Skills y comandos usados
