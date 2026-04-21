@@ -1,6 +1,6 @@
 ---
 title: "Design Patterns — De Principiante a Experto"
-description: "Masterclass completa de Design Patterns con ejemplos en Python, analogías del mundo real y hoja de ruta para dominar los 23 patrones GoF."
+description: "Masterclass completa de Design Patterns con ejemplos en TypeScript, analogías del mundo real y hoja de ruta para dominar los 23 patrones GoF."
 pubDate: "2026-04-21"
 code: "arqu"
 category: "arquitectura"
@@ -8,7 +8,8 @@ tags:
   [
     "design-patterns",
     "patrones-de-diseno",
-    "python",
+    "typescript",
+    "javascript",
     "arquitectura-software",
     "solid",
     "refactorizacion",
@@ -1451,78 +1452,81 @@ Un objeto **cambia su comportamiento** según su estado interno. El objeto parec
 
 Un semáforo. El mismo objeto (semáforo) se comporta diferente según su estado (rojo/verde/amarillo). La transición entre estados sigue reglas definidas.
 
-```python
-from abc import ABC, abstractmethod
+```typescript
+interface OrderState {
+  confirm(order: Order): void;
+  ship(order: Order): void;
+  deliver(order: Order): void;
+  cancel(order: Order): void;
+}
 
-class OrderState(ABC):
-    @abstractmethod
-    def confirm(self, order): pass
+class PendingState implements OrderState {
+  confirm(order: Order): void {
+    console.log("✅ Pedido confirmado");
+    order.state = new ConfirmedState();
+  }
+  ship(order: Order): void { console.log("❌ Debes confirmar primero"); }
+  deliver(order: Order): void { console.log("❌ Debes confirmar y enviar primero"); }
+  cancel(order: Order): void {
+    console.log("🚫 Pedido cancelado desde pendiente");
+    order.state = new CancelledState();
+  }
+}
 
-    @abstractmethod
-    def ship(self, order): pass
+class ConfirmedState implements OrderState {
+  confirm(order: Order): void { console.log("⚠️ Ya está confirmado"); }
+  ship(order: Order): void {
+    console.log("📦 Pedido enviado");
+    order.state = new ShippedState();
+  }
+  deliver(order: Order): void { console.log("❌ Debe enviarse primero"); }
+  cancel(order: Order): void {
+    console.log("🚫 Pedido cancelado (confirmado)");
+    order.state = new CancelledState();
+  }
+}
 
-    @abstractmethod
-    def deliver(self, order): pass
+class ShippedState implements OrderState {
+  confirm(order: Order): void { console.log("❌ Ya fue enviado"); }
+  ship(order: Order): void { console.log("⚠️ Ya está enviado"); }
+  deliver(order: Order): void {
+    console.log("🎉 Pedido entregado");
+    order.state = new DeliveredState();
+  }
+  cancel(order: Order): void { console.log("❌ No se puede cancelar en tránsito"); }
+}
 
-    @abstractmethod
-    def cancel(self, order): pass
+class DeliveredState implements OrderState {
+  confirm(order: Order): void { console.log("❌ Ya fue entregado"); }
+  ship(order: Order): void { console.log("❌ Ya fue entregado"); }
+  deliver(order: Order): void { console.log("⚠️ Ya fue entregado"); }
+  cancel(order: Order): void { console.log("❌ No se puede cancelar post-entrega"); }
+}
 
-class PendingState(OrderState):
-    def confirm(self, order):
-        print("✅ Pedido confirmado")
-        order.state = ConfirmedState()
-    def ship(self, order): print("❌ Debes confirmar primero")
-    def deliver(self, order): print("❌ Debes confirmar y enviar primero")
-    def cancel(self, order):
-        print("🚫 Pedido cancelado desde pendiente")
-        order.state = CancelledState()
+class CancelledState implements OrderState {
+  confirm(order: Order): void { console.log("❌ Pedido cancelado, no se puede reactivar"); }
+  ship(order: Order): void { console.log("❌ Pedido cancelado"); }
+  deliver(order: Order): void { console.log("❌ Pedido cancelado"); }
+  cancel(order: Order): void { console.log("⚠️ Ya está cancelado"); }
+}
 
-class ConfirmedState(OrderState):
-    def confirm(self, order): print("⚠️ Ya está confirmado")
-    def ship(self, order):
-        print("📦 Pedido enviado")
-        order.state = ShippedState()
-    def deliver(self, order): print("❌ Debe enviarse primero")
-    def cancel(self, order):
-        print("🚫 Pedido cancelado (confirmado)")
-        order.state = CancelledState()
+class Order {
+  state: OrderState = new PendingState();
 
-class ShippedState(OrderState):
-    def confirm(self, order): print("❌ Ya fue enviado")
-    def ship(self, order): print("⚠️ Ya está enviado")
-    def deliver(self, order):
-        print("🎉 Pedido entregado")
-        order.state = DeliveredState()
-    def cancel(self, order): print("❌ No se puede cancelar en tránsito")
+  constructor(public orderId: string) {}
 
-class DeliveredState(OrderState):
-    def confirm(self, order): print("❌ Ya fue entregado")
-    def ship(self, order): print("❌ Ya fue entregado")
-    def deliver(self, order): print("⚠️ Ya fue entregado")
-    def cancel(self, order): print("❌ No se puede cancelar post-entrega")
+  confirm(): void { this.state.confirm(this); }
+  ship(): void { this.state.ship(this); }
+  deliver(): void { this.state.deliver(this); }
+  cancel(): void { this.state.cancel(this); }
+}
 
-class CancelledState(OrderState):
-    def confirm(self, order): print("❌ Pedido cancelado, no se puede reactivar")
-    def ship(self, order): print("❌ Pedido cancelado")
-    def deliver(self, order): print("❌ Pedido cancelado")
-    def cancel(self, order): print("⚠️ Ya está cancelado")
-
-class Order:
-    def __init__(self, order_id: str):
-        self.order_id = order_id
-        self.state = PendingState()
-
-    def confirm(self): self.state.confirm(self)
-    def ship(self): self.state.ship(self)
-    def deliver(self): self.state.deliver(self)
-    def cancel(self): self.state.cancel(self)
-
-order = Order("ORD-001")
-order.ship()     # ❌ Debes confirmar primero
-order.confirm()  # ✅ Pedido confirmado
-order.ship()     # 📦 Pedido enviado
-order.deliver()  # 🎉 Pedido entregado
-order.cancel()   # ❌ No se puede cancelar post-entrega
+const order = new Order("ORD-001");
+order.ship();
+order.confirm();
+order.ship();
+order.deliver();
+order.cancel();
 ```
 
 ---
@@ -1537,56 +1541,64 @@ Definir una **familia de algoritmos intercambiables**. El cliente elige el algor
 
 GPS con opciones de ruta. El destino es el mismo, pero podés elegir: **ruta más rápida**, **ruta sin autopistas**, **ruta más económica**. Cada estrategia te lleva al mismo lugar de forma diferente.
 
-```python
-from abc import ABC, abstractmethod
-from typing import List
+```typescript
+interface SortStrategy {
+  sort(data: number[]): number[];
+}
 
-class SortStrategy(ABC):
-    @abstractmethod
-    def sort(self, data: List[int]) -> List[int]:
-        pass
+class BubbleSort implements SortStrategy {
+  sort(data: number[]): number[] {
+    const arr = [...data];
+    const n = arr.length;
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n - i - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        }
+      }
+    }
+    console.log("  (usando BubbleSort - O(n²))");
+    return arr;
+  }
+}
 
-class BubbleSort(SortStrategy):
-    def sort(self, data: List[int]) -> List[int]:
-        arr = data.copy()
-        n = len(arr)
-        for i in range(n):
-            for j in range(0, n-i-1):
-                if arr[j] > arr[j+1]:
-                    arr[j], arr[j+1] = arr[j+1], arr[j]
-        print(f"  (usando BubbleSort - O(n²))")
-        return arr
+class QuickSort implements SortStrategy {
+  sort(data: number[]): number[] {
+    if (data.length <= 1) return data;
+    const pivot = data[Math.floor(data.length / 2)];
+    const left = data.filter(x => x < pivot);
+    const middle = data.filter(x => x === pivot);
+    const right = data.filter(x => x > pivot);
+    console.log("  (usando QuickSort - O(n log n))");
+    return [...this.sort(left), ...middle, ...this.sort(right)];
+  }
+}
 
-class QuickSort(SortStrategy):
-    def sort(self, data: List[int]) -> List[int]:
-        if len(data) <= 1:
-            return data
-        pivot = data[len(data) // 2]
-        left = [x for x in data if x < pivot]
-        middle = [x for x in data if x == pivot]
-        right = [x for x in data if x > pivot]
-        print(f"  (usando QuickSort - O(n log n))")
-        return self.sort(left) + middle + self.sort(right)
+class Sorter {
+  private strategy: SortStrategy;
 
-class Sorter:
-    def __init__(self, strategy: SortStrategy = None):
-        self._strategy = strategy or QuickSort()
+  constructor(strategy?: SortStrategy) {
+    this.strategy = strategy || new QuickSort();
+  }
 
-    def set_strategy(self, strategy: SortStrategy):
-        self._strategy = strategy
+  setStrategy(strategy: SortStrategy): void {
+    this.strategy = strategy;
+  }
 
-    def sort(self, data: List[int]) -> List[int]:
-        return self._strategy.sort(data)
+  sort(data: number[]): number[] {
+    return this.strategy.sort(data);
+  }
+}
 
-data = [64, 34, 25, 12, 22, 11, 90]
-sorter = Sorter()
+const data = [64, 34, 25, 12, 22, 11, 90];
+const sorter = new Sorter();
 
-print("Con QuickSort:")
-print(sorter.sort(data))
+console.log("Con QuickSort:");
+console.log(sorter.sort(data));
 
-sorter.set_strategy(BubbleSort())
-print("Con BubbleSort:")
-print(sorter.sort(data))
+sorter.setStrategy(new BubbleSort());
+console.log("Con BubbleSort:");
+console.log(sorter.sort(data));
 ```
 
 ### ⚡ Consejo de Experto #6
@@ -1605,74 +1617,64 @@ Definir el **esqueleto de un algoritmo** en una clase base, dejando que las subc
 
 Una receta de cocina en una franquicia. McDonald's define: (1) calentar plancha, (2) cocinar carne, (3) armar hamburguesa, (4) empaquetar. Cada local implementa "armar hamburguesa" diferente (BigMac vs Quarter Pounder), pero el esqueleto es el mismo.
 
-```python
-from abc import ABC, abstractmethod
+```typescript
+abstract class DataProcessor {
+  process(filename: string): void {
+    let data = this.readData(filename);
+    data = this.validate(data);
+    data = this.transform(data);
+    this.save(data);
+    this.sendReport(data);
+  }
 
-class DataProcessor(ABC):
-    """Template Method pattern"""
+  abstract readData(filename: string): any[];
+  validate(data: any[]): any[] { return data.filter(row => row); }
+  abstract transform(data: any[]): any[];
+  abstract save(data: any[]): void;
+  sendReport?(data: any[]): void {}
+}
 
-    # Template method — define el esqueleto (no se sobreescribe)
-    def process(self, filename: str):
-        data = self._read_data(filename)       # Hook 1
-        data = self._validate(data)            # Hook 2
-        data = self._transform(data)           # Hook 3
-        self._save(data)                       # Hook 4
-        self._send_report(data)                # Hook 5 (opcional)
+class CSVProcessor extends DataProcessor {
+  readData(filename: string): any[] {
+    console.log(`📂 Leyendo CSV: ${filename}`);
+    return [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }];
+  }
 
-    @abstractmethod
-    def _read_data(self, filename: str) -> list:
-        pass
+  transform(data: any[]): any[] {
+    console.log("🔄 Normalizando nombres...");
+    return data.map(row => ({ ...row, name: (row.name as string).toUpperCase() }));
+  }
 
-    def _validate(self, data: list) -> list:
-        # Implementación por defecto
-        return [row for row in data if row]
+  save(data: any[]): void {
+    console.log(`💾 Guardando ${data.length} registros en DB`);
+  }
+}
 
-    @abstractmethod
-    def _transform(self, data: list) -> list:
-        pass
+class JSONProcessor extends DataProcessor {
+  readData(filename: string): any[] {
+    console.log(`📂 Leyendo JSON: ${filename}`);
+    return [{ id: 1, score: 85 }, { id: 2, score: 92 }];
+  }
 
-    @abstractmethod
-    def _save(self, data: list):
-        pass
+  transform(data: any[]): any[] {
+    console.log("🔄 Calculando grades...");
+    return data.map(row => ({ ...row, grade: row.score >= 90 ? "A" : "B" }));
+  }
 
-    def _send_report(self, data: list):
-        # Hook opcional — las subclases pueden sobreescribir
-        pass
+  save(data: any[]): void {
+    console.log(`💾 Exportando ${data.length} registros a JSON`);
+  }
 
-class CSVProcessor(DataProcessor):
-    def _read_data(self, filename: str) -> list:
-        print(f"📂 Leyendo CSV: {filename}")
-        return [{"id": 1, "name": "Alice"}, {"id": 2, "name": "Bob"}]
+  sendReport(data: any[]): void {
+    console.log(`📧 Reporte enviado: ${data.length} registros procesados`);
+  }
+}
 
-    def _transform(self, data: list) -> list:
-        print("🔄 Normalizando nombres...")
-        return [{**row, "name": row["name"].upper()} for row in data]
-
-    def _save(self, data: list):
-        print(f"💾 Guardando {len(data)} registros en DB")
-
-class JSONProcessor(DataProcessor):
-    def _read_data(self, filename: str) -> list:
-        print(f"📂 Leyendo JSON: {filename}")
-        return [{"id": 1, "score": 85}, {"id": 2, "score": 92}]
-
-    def _transform(self, data: list) -> list:
-        print("🔄 Calculando grades...")
-        return [{**row, "grade": "A" if row["score"] >= 90 else "B"} for row in data]
-
-    def _save(self, data: list):
-        print(f"💾 Exportando {len(data)} registros a JSON")
-
-    def _send_report(self, data: list):
-        print(f"📧 Reporte enviado: {len(data)} registros procesados")
-
-csv_proc = CSVProcessor()
-csv_proc.process("usuarios.csv")
-
-print()
-
-json_proc = JSONProcessor()
-json_proc.process("scores.json")
+const csvProc = new CSVProcessor();
+csvProc.process("usuarios.csv");
+console.log();
+const jsonProc = new JSONProcessor();
+jsonProc.process("scores.json");
 ```
 
 ---
@@ -1687,65 +1689,54 @@ Añadir nuevas operaciones a una jerarquía de clases sin modificarlas. Separa e
 
 Un auditor fiscal. Visita diferentes tipos de negocios (restaurante, tienda, banco) y aplica el cálculo de impuestos apropiado para cada tipo. El auditor (visitor) contiene la lógica; los negocios (visited) solo lo reciben.
 
-```python
-from abc import ABC, abstractmethod
+```typescript
+interface ASTNode {
+  accept(visitor: Visitor): any;
+}
 
-class ASTNode(ABC):
-    @abstractmethod
-    def accept(self, visitor: 'Visitor'):
-        pass
+class NumberNode implements ASTNode {
+  constructor(public value: number) {}
+  accept(visitor: Visitor): any { return visitor.visitNumber(this); }
+}
 
-class NumberNode(ASTNode):
-    def __init__(self, value: float):
-        self.value = value
-    def accept(self, visitor): return visitor.visit_number(self)
+class AddNode implements ASTNode {
+  constructor(public left: ASTNode, public right: ASTNode) {}
+  accept(visitor: Visitor): any { return visitor.visitAdd(this); }
+}
 
-class AddNode(ASTNode):
-    def __init__(self, left: ASTNode, right: ASTNode):
-        self.left = left
-        self.right = right
-    def accept(self, visitor): return visitor.visit_add(self)
+class MultiplyNode implements ASTNode {
+  constructor(public left: ASTNode, public right: ASTNode) {}
+  accept(visitor: Visitor): any { return visitor.visitMultiply(this); }
+}
 
-class MultiplyNode(ASTNode):
-    def __init__(self, left: ASTNode, right: ASTNode):
-        self.left = left
-        self.right = right
-    def accept(self, visitor): return visitor.visit_multiply(self)
+interface Visitor {
+  visitNumber(node: NumberNode): any;
+  visitAdd(node: AddNode): any;
+  visitMultiply(node: MultiplyNode): any;
+}
 
-class Visitor(ABC):
-    @abstractmethod
-    def visit_number(self, node: NumberNode): pass
-    @abstractmethod
-    def visit_add(self, node: AddNode): pass
-    @abstractmethod
-    def visit_multiply(self, node: MultiplyNode): pass
+class EvaluatorVisitor implements Visitor {
+  visitNumber(node: NumberNode): number { return node.value; }
+  visitAdd(node: AddNode): number { return node.left.accept(this) as number + node.right.accept(this) as number; }
+  visitMultiply(node: MultiplyNode): number { return node.left.accept(this) as number * node.right.accept(this) as number; }
+}
 
-# Visitor 1: Evaluador
-class EvaluatorVisitor(Visitor):
-    def visit_number(self, node): return node.value
-    def visit_add(self, node): return node.left.accept(self) + node.right.accept(self)
-    def visit_multiply(self, node): return node.left.accept(self) * node.right.accept(self)
+class PrinterVisitor implements Visitor {
+  visitNumber(node: NumberNode): string { return node.value.toString(); }
+  visitAdd(node: AddNode): string { return `(${node.left.accept(this)} + ${node.right.accept(this)})`; }
+  visitMultiply(node: MultiplyNode): string { return `(${node.left.accept(this)} × ${node.right.accept(this)})`; }
+}
 
-# Visitor 2: Printer (sin modificar los nodos)
-class PrinterVisitor(Visitor):
-    def visit_number(self, node): return str(node.value)
-    def visit_add(self, node):
-        return f"({node.left.accept(self)} + {node.right.accept(self)})"
-    def visit_multiply(self, node):
-        return f"({node.left.accept(self)} × {node.right.accept(self)})"
+const tree = new MultiplyNode(
+  new AddNode(new NumberNode(3), new NumberNode(4)),
+  new NumberNode(2)
+);
 
-# AST para: (3 + 4) * 2
-tree = MultiplyNode(
-    AddNode(NumberNode(3), NumberNode(4)),
-    NumberNode(2)
-)
+const evaluator = new EvaluatorVisitor();
+const printer = new PrinterVisitor();
 
-evaluator = EvaluatorVisitor()
-printer = PrinterVisitor()
-
-print(printer.evaluate(tree) if hasattr(printer, 'evaluate') else tree.accept(printer))
-print(tree.accept(printer))      # (3.0 + 4.0) × 2.0)
-print(tree.accept(evaluator))    # 14.0
+console.log(tree.accept(printer));
+console.log(tree.accept(evaluator));
 ```
 
 ---
@@ -1830,4 +1821,4 @@ print(tree.accept(evaluator))    # 14.0
 
 ---
 
-_Masterclass creada con ejemplos en Python. Los conceptos son transferibles a cualquier lenguaje orientado a objetos._
+_Masterclass creada con ejemplos en TypeScript. Los conceptos son transferibles a cualquier lenguaje orientado a objetos._
