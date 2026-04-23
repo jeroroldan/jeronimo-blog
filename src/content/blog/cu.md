@@ -1,11 +1,21 @@
----title: "Cuidar tu Salud Mental, Pensar Mejor y Ser Más Positivo"
+---
+title: "Cuidar tu Salud Mental, Pensar Mejor y Ser Más Positivo"
 description: "Guía práctica basada en evidencia para mejorar tu estado de ánimo, gestionar el estrés y construir una mentalidad más resiliente y optimista."
 pubDate: "2026-04-11"
 code: "cu"
 difficulty: "alto"
 readingTime: 30
-image: "https://images.unsplash.com/photo-1578574577025-2a2a900d8004?auto=format&fit=crop&w=800&q=80"
-tags: ["salud mental", "psicología", "bienestar", "mindfulness", "manejo del estrés", "optimismo", "autoayuda"]
+image: "../../assets/blog-placeholder-1.jpg"
+tags:
+  [
+    "salud mental",
+    "psicología",
+    "bienestar",
+    "mindfulness",
+    "manejo del estrés",
+    "optimismo",
+    "autoayuda",
+  ]
 ---
 
 # Cuidar tu Salud Mental, Pensar Mejor y Ser Más Positivo

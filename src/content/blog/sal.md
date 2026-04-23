@@ -1,4 +1,6 @@
 ---
+title: "Mejores Prácticas de Salud Mental para una Vida Equilibrada"
+description: "Mejores prácticas de salud mental para una vida equilibrada."
 author: "jeronimo aballay"
 pubDate: "2026-04-22"
 readingTime: 10
@@ -11,7 +13,7 @@ tags:
   - mindfulness
   - productividad
 difficulty: "intermedio"
-image: "https://images.unsplash.com/photo-1506973038071-e3234eb55b2a?auto=format&fit=crop&w=1000&q=80"
+image: "../../assets/blog-placeholder-1.jpg"
 category: "bienestar"
 ---
 
