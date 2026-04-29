@@ -37,22 +37,24 @@ Imagina que estás construyendo una casa:
 ---
 
 ## 🛠️ 2. El Ciclo de Vida de un Proyecto en OpenCode
-
+ 
 ### Paso 1: Inicialización (`init`)
 Antes de empezar, OpenCode necesita contexto.
 - **Comando**: `opencode init`
 - **Resultado**: Se crea un archivo `agents.md`. Este es el "manual de instrucciones" donde le explicas a la IA la estructura de tu proyecto y tus preferencias.
-
+- **Nota del video**: Permite inicializar entornos y organizar el trabajo mediante múltiples sesiones (12:17, 14:02).
+ 
 ### Paso 2: El Modo Plan (Diseño)
 Usa el modo **Plan** para definir *qué* vas a hacer.
 - **Acción**: Presiona `Tab` para entrar en Plan.
 - **Prompt**: "Quiero añadir un sistema de login con JWT a mi API".
 - **Resultado**: La IA te dará una lista de pasos y cambios necesarios sin modificar archivos todavía.
-
+ 
 ### Paso 3: El Modo Build (Ejecución)
 Una vez aceptado el plan, presiona `Tab` de nuevo para entrar en **Build**.
 - **Acción**: "Ejecuta el plan propuesto".
 - **Resultado**: La IA escribirá el código, creará archivos y, si se lo permites, ejecutará tests para validar.
+- **Flujo de trabajo**: Desarrolla software paso a paso alternando entre planificación y construcción (20:15).
 
 ---
 
@@ -65,7 +67,9 @@ Una vez aceptado el plan, presiona `Tab` de nuevo para entrar en **Build**.
 | **Modelos Locales**  | Privacidad total, sin conexión a internet.   | Gratis (Llama 3, etc).|
 | **Modelos Gratuitos** | Pruebas rápidas, tareas sencillas.           | Gratis (incluidos). |
 
-> **✨ La ventaja Open Source**: A diferencia de otras herramientas, OpenCode no te ata a una sola empresa. Puedes saltar entre OpenAI, Anthropic o modelos que corren en tu propio hardware en segundos.
+> **✨ La ventaja Open Source**: A diferencia de otras herramientas, OpenCode no te ata a una sola empresa. Puedes saltar entre OpenAI, Anthropic o modelos que corren en tu propio hardware en segundos. ([0:09] en el video)
+
+---
 
 ---
 
@@ -84,6 +88,7 @@ Una vez aceptado el plan, presiona `Tab` de nuevo para entrar en **Build**.
 
 ### Skills (Habilidades)
 Son instrucciones reutilizables. Si siempre usas el mismo estilo de testing (ej: Jest + Testing Library), guárdalo como una **Skill**. OpenCode la invocará automáticamente cuando detecte que vas a escribir un test.
+También puedes crear skills para diseño de interfaces (UI), optimización SEO o despliegues en la nube, mejorando aspectos específicos de tu proyecto ([51:31] en el video).
 
 ### Agentes Personalizados
 Puedes crear un agente que solo se encargue de la documentación o uno que sea un experto en seguridad. Esto evita que el agente principal se sobrecargue con demasiadas instrucciones.
@@ -94,7 +99,7 @@ Esta es una de las funciones más potentes. MCP permite que OpenCode se conecte 
 - **Servicios de Terceros**: Para interactuar con APIs externas directamente desde la terminal.
 
 ### 🧪 Testing Automatizado con TestSprite
-La IA no solo escribe código; puede probarlo. Integrando herramientas como TestSprite, OpenCode puede analizar tu base de código de forma autónoma, detectar vulnerabilidades y generar reportes de calidad sin intervención humana.
+La IA no solo escribe código; puede probarlo. Integrando herramientas como TestSprite, OpenCode puede analizar tu base de código de forma autónoma, detectar vulnerabilidades y generar reportes de calidad sin intervención humana. ([45:16] en el video)
 
 ---
 
