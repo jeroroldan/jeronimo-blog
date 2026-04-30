@@ -3,8 +3,8 @@ title: "El poder de la Mente de Élite"
 code: "lider-mentalidad"
 description: "Descubre cómo piensan y actúan las personas más exitosas del mundo, desde atletas hasta CEOs y líderes políticos, y cómo puedes aplicar sus principios para alcanzar tu máximo potencial."
 author: "Jorge"
-published: 2026-04-28
-photo: "../../assets/blog-placeholder-1.jpg"
+pubDate: 2024-06-19
+heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
 # 🧠 MENTES DE ÉLITE: Cómo Piensan y Actúan los Ganadores
