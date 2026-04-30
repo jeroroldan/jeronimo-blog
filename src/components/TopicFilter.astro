@@ -1,0 +1,292 @@
+---
+import { getThemeFromCode, themes, themeToSlug } from "../lib/themeMapping";
+
+interface Props {
+  allThemes: string[];
+  allCodes: string[];
+  currentTheme?: string;
+}
+
+const { allThemes, allCodes, currentTheme } = Astro.props;
+
+const themesToDisplay = currentTheme ? [currentTheme] : allThemes;
+
+
+// Group codes by theme
+const groupedCodes = allThemes.reduce((acc, theme) => {
+  acc[theme] = allCodes.filter(code => getThemeFromCode(code) === theme);
+  return acc;
+}, {} as Record<string, string[]>);
+
+// Theme colors for visual distinction
+const themeColors: Record<string, string> = {
+  'Seducción': '#E91E63',
+  'Informática': '#2196F3',
+  'Trading': '#4CAF50',
+  'Negocios': '#FF9800',
+  'Superación Personal': '#9C27B0'
+};
+---
+
+<div class="topic-filter-container">
+  <div class="filter-header">
+    <div class="header-left">
+      <h3>Explorar por temas</h3>
+      <button class="code-chip all-btn active" data-filter-code="all">Todos</button>
+    </div>
+    <button id="clear-filters" class="clear-btn">Limpiar</button>
+  </div>
+
+
+  <div class="theme-groups">
+    {themesToDisplay.map((theme) => (
+      <div class="theme-group" data-theme={theme}>
+        <div class="theme-label" style={`--theme-color: ${themeColors[theme] || '#666'}`}>
+          <span class="dot"></span>
+          {theme}
+        </div>
+        <div class="code-chips">
+          {groupedCodes[theme]?.map((code) => (
+            <button 
+              class="code-chip" 
+              data-filter-theme={theme} 
+              data-filter-code={code}
+              title={`Filtrar por ${code}`}
+            >
+              {code.charAt(0).toUpperCase() + code.slice(1).replace(/-/g, ' ')}
+            </button>
+          ))}
+        </div>
+      </div>
+    ))}
+    
+    {/* Handle codes with no specific theme if any */}
+    {allCodes.filter(c => !getThemeFromCode(c)).length > 0 && (
+      <div class="theme-group">
+        <div class="theme-label" style="--theme-color: #999">Otros</div>
+        <div class="code-chips">
+          {allCodes.filter(c => !getThemeFromCode(c)).map((code) => (
+            <button class="code-chip" data-filter-code={code}>
+              {code}
+            </button>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .topic-filter-container {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    backdrop-filter: blur(10px);
+  }
+
+  :global(body:not(.dark-mode)) .topic-filter-container {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  :global(body:not(.dark-mode)) .filter-header {
+    border-bottom-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .filter-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgb(var(--black));
+  }
+
+
+  .all-btn {
+    font-weight: 600;
+    border-color: rgba(var(--accent), 0.5);
+  }
+
+
+  .clear-btn {
+    background: transparent;
+    border: none;
+    font-size: 0.85rem;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .clear-btn:hover {
+    color: var(--accent);
+    background: rgba(var(--accent), 0.1);
+  }
+
+  .theme-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .theme-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .theme-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--theme-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .theme-label .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--theme-color);
+    box-shadow: 0 0 8px var(--theme-color);
+  }
+
+  .code-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .code-chip {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+  }
+
+  :global(body:not(.dark-mode)) .code-chip {
+    background: #f3f4f6;
+    border-color: #e5e7eb;
+    color: #4b5563;
+  }
+
+  .code-chip:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  :global(body:not(.dark-mode)) .code-chip:hover {
+    background: #e5e7eb;
+    color: #111827;
+  }
+
+  .code-chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    box-shadow: 0 0 15px rgba(var(--accent), 0.3);
+  }
+
+  @media (max-width: 720px) {
+    .topic-filter-container {
+      padding: 1rem;
+    }
+    
+    .code-chips {
+      gap: 0.4rem;
+    }
+    
+    .code-chip {
+      padding: 0.3rem 0.7rem;
+      font-size: 0.75rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".code-chip");
+    const clearBtn = document.getElementById("clear-filters");
+    const postItems = document.querySelectorAll(".post-item");
+
+    const allBtn = document.querySelector(".all-btn");
+
+    function updateFilters(selectedCode) {
+      // Update active buttons
+      filterButtons.forEach((btn) => {
+        if (btn.getAttribute("data-filter-code") === selectedCode) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+
+      // Special handling for the "Todos" button
+      if (selectedCode === "all") {
+        allBtn?.classList.add("active");
+      } else {
+        allBtn?.classList.remove("active");
+      }
+
+      // Filter posts
+      postItems.forEach((item) => {
+        const postCode = item.getAttribute("data-code");
+        if (selectedCode === "all" || postCode === selectedCode) {
+          item.classList.remove("hidden");
+          item.style.opacity = "1";
+          item.style.transform = "scale(1)";
+        } else {
+          item.classList.add("hidden");
+          item.style.opacity = "0";
+          item.style.transform = "scale(0.95)";
+        }
+      });
+    }
+
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const code = button.getAttribute("data-filter-code");
+        const isActive = button.classList.contains("active");
+        
+        if (isActive) {
+          updateFilters("all");
+        } else {
+          updateFilters(code);
+        }
+      });
+    });
+
+    clearBtn?.addEventListener("click", () => {
+      updateFilters("all");
+    });
+  });
+</script>

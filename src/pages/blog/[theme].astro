@@ -7,6 +7,7 @@ import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 import SearchBox from "../../components/SearchBox.astro";
+import TopicFilter from "../../components/TopicFilter.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import DefaultImage from "../../assets/blog-placeholder-1.jpg";
 import { getThemeFromCode, themes, themeToSlug, slugToTheme } from "../../lib/themeMapping";
@@ -150,36 +151,10 @@ const themeTitle = originalTheme;
         }
       }
       
-      /* Estilos para filtros */
-      .filters {
-        margin-bottom: 2rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        align-items: center;
-      }
-      
-      .filter-btn {
-        padding: 0.5rem 1rem;
-        border: 2px solid rgb(var(--accent));
-        background: transparent;
-        color: rgb(var(--accent));
-        border-radius: 20px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-size: 0.9rem;
-        font-weight: 500;
-      }
-      
-      .filter-btn:hover,
-      .filter-btn.active {
-        background: rgb(var(--accent));
-        color: white;
-      }
-      
       .post-item {
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
+
       
       .post-item.hidden {
         display: none;
@@ -246,36 +221,7 @@ const themeTitle = originalTheme;
         <!-- Componente de búsqueda -->
         <SearchBox />
         
-        <div
-          class="filters"
-          role="group"
-          aria-label="Filtrar publicaciones por categoría"
-        >
-          <span
-            style="font-weight: bold; margin-right: 1rem;"
-            id="filter-label">Filtrar por:</span
-          >
-          <button
-            class="filter-btn active"
-            data-filter="all"
-            aria-pressed="true"
-          >
-            Todos
-          </button>
-          {
-            themeCodes.map((code) => (
-              <button
-                class="filter-btn"
-                data-filter={code}
-                aria-pressed="false"
-              >
-                {code
-                  ? code.charAt(0).toUpperCase() + code.slice(1)
-                  : "Sin código"}
-              </button>
-            ))
-          }
-        </div>
+        <TopicFilter allThemes={themes} allCodes={themeCodes} currentTheme={originalTheme} />
         
         <ul>
           {
@@ -339,38 +285,6 @@ const themeTitle = originalTheme;
         
         // Also set accent color for consistency
         document.documentElement.style.setProperty('--accent', themeColor);
-        
-        // Funcionalidad de filtrado
-        const filterButtons = document.querySelectorAll(".filter-btn");
-        const postItems = document.querySelectorAll(".post-item");
-        
-        filterButtons.forEach((button) => {
-          button.addEventListener(
-            "click",
-            () => {
-              const filter = button.getAttribute("data-filter");
-              
-              // Actualizar botones activos
-              filterButtons.forEach((btn) => {
-                btn.classList.remove("active");
-                btn.setAttribute("aria-pressed", "false");
-              });
-              button.classList.add("active");
-              button.setAttribute("aria-pressed", "true");
-              
-              // Filtrar posts
-              postItems.forEach((item) => {
-                const postCode = item.getAttribute("data-code");
-                
-                if (filter === "all" || postCode === filter) {
-                  item.classList.remove("hidden");
-                } else {
-                  item.classList.add("hidden");
-                }
-              });
-            },
-          );
-        });
       });
     </script>
   </body>

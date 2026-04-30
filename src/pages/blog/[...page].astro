@@ -109,40 +109,10 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
         }
       }
 
-      /* Estilos para filtros */
-      .filters {
-        margin-bottom: 2rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        align-items: center;
-      }
-      .filters > div {
-        margin-right: 1rem;
-      }
-      .filters label {
-        font-weight: bold;
-        margin-right: 0.5rem;
-      }
-      .filter-btn {
-        padding: 0.5rem 1rem;
-        border: 2px solid rgb(var(--accent));
-        background: transparent;
-        color: rgb(var(--accent));
-        border-radius: 20px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-size: 0.9rem;
-        font-weight: 500;
-      }
-      .filter-btn:hover,
-      .filter-btn.active {
-        background: rgb(var(--accent));
-        color: white;
-      }
       .post-item {
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
+
       .post-item.hidden {
         display: none;
       }
@@ -192,60 +162,7 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
         <!-- Componente de búsqueda -->
         <SearchBox />
 
-        <div class="filters" role="group" aria-label="Filtrar publicaciones">
-          <div>
-            <label for="theme-filter">Tema:</label>
-            <div>
-              <button
-                class="filter-btn active"
-                data-filter-theme="all"
-                data-filter-code="all"
-                aria-pressed="true"
-              >
-                Todos
-              </button>
-              {
-                allThemes.map((theme) => (
-                  <button
-                    class="filter-btn"
-                    data-filter-theme={theme}
-                    data-filter-code="all"
-                    aria-pressed="false"
-                  >
-                    {theme}
-                  </button>
-                ))
-              }
-            </div>
-          </div>
-          <div>
-            <label for="code-filter">Código:</label>
-            <div>
-              {/* Button for posts with no code */}
-              <button
-                class="filter-btn"
-                data-filter-theme="all"
-                data-filter-code="sin-codigo"
-                aria-pressed="false"
-              >
-                Sin código
-              </button>
-              {/* Buttons for posts with codes */}
-              {
-                allCodes.map((code) => (
-                  <button
-                    class="filter-btn"
-                    data-filter-theme="all"
-                    data-filter-code={code}
-                    aria-pressed="false"
-                  >
-                    {code.charAt(0).toUpperCase() + code.slice(1)}
-                  </button>
-                ))
-              }
-            </div>
-          </div>
-        </div>
+        <TopicFilter allThemes={allThemes} allCodes={allCodes} />
 
         <ul>
           {
@@ -307,51 +224,5 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
     </main>
     <Footer />
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const filterButtons = document.querySelectorAll(".filter-btn");
-        const postItems = document.querySelectorAll(".post-item");
-
-        let selectedTheme = "all";
-        let selectedCode = "all";
-
-        filterButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            const themeFilter =
-              button.getAttribute("data-filter-theme") || "all";
-            const codeFilter = button.getAttribute("data-filter-code") || "all";
-
-            // Update selected filters
-            selectedTheme = themeFilter;
-            selectedCode = codeFilter;
-
-            // Update active buttons
-            filterButtons.forEach((btn) => {
-              btn.classList.remove("active");
-              btn.setAttribute("aria-pressed", "false");
-            });
-            button.classList.add("active");
-            button.setAttribute("aria-pressed", "true");
-
-            // Filter posts
-            postItems.forEach((item) => {
-              const postCode = item.getAttribute("data-code");
-              const postTheme = item.getAttribute("data-theme");
-
-              const themeMatch =
-                selectedTheme === "all" || postTheme === selectedTheme;
-              const codeMatch =
-                selectedCode === "all" || postCode === selectedCode;
-
-              if (themeMatch && codeMatch) {
-                item.classList.remove("hidden");
-              } else {
-                item.classList.add("hidden");
-              }
-            });
-          });
-        });
-      });
-    </script>
   </body>
 </html>
