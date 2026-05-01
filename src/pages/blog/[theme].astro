@@ -37,7 +37,7 @@ const themeCodes = [
   ...new Set(
     posts
       .map(post => post.data.code)
-      .filter(Boolean)
+      .filter((c): c is string => !!c)
   )
 ].sort();
 
