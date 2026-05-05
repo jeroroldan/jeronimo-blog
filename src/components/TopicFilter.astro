@@ -313,53 +313,32 @@ const themeColors: Record<string, string> = {
     const postItems = document.querySelectorAll(".post-item");
     const noResultsMsg = document.getElementById("no-results-msg");
 
-    // Category Switching Logic
-    themeTabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        const selectedTheme = tab.getAttribute("data-theme");
-        
-        themeTabs.forEach(t => t.classList.remove("active"));
-        tab.classList.add("active");
+    console.log(`[TopicFilter] Inicializado. Encontrados ${postItems.length} posts y ${filterButtons.length} etiquetas.`);
 
-        chipsGroups.forEach(group => {
-          const groupTheme = group.getAttribute("data-theme-group");
-          if (selectedTheme === "all" || groupTheme === selectedTheme) {
-            group.classList.add("active");
-          } else {
-            group.classList.remove("active");
-          }
-        });
-        
-        // When switching tabs, clear tag search for better experience
-        if (tagSearch.value) {
-          tagSearch.value = "";
-          filterTags("");
-        }
-      });
-    });
+    function getActiveTheme() {
+      return document.querySelector(".theme-tab.active")?.getAttribute("data-theme") || "all";
+    }
 
-    // Tag Search Logic
-    function filterTags(query: string) {
+    function syncChipGroups(query: string) {
+      const activeTheme = getActiveTheme();
       let foundAny = false;
-      
-      filterButtons.forEach(chip => {
-        const text = chip.textContent?.toLowerCase() || "";
-        if (text.includes(query.toLowerCase())) {
-          (chip as HTMLElement).style.display = "inline-block";
-          foundAny = true;
-        } else {
-          (chip as HTMLElement).style.display = "none";
-        }
-      });
 
-      // Handle group visibility during search
       chipsGroups.forEach(group => {
-        const visibleChips = Array.from(group.querySelectorAll(".code-chip")).filter(c => (c as HTMLElement).style.display !== "none");
-        if (visibleChips.length === 0 && query !== "") {
-          (group as HTMLElement).style.display = "none";
-        } else {
-          (group as HTMLElement).style.display = "flex";
-        }
+        const groupTheme = group.getAttribute("data-theme-group");
+        const themeMatches = activeTheme === "all" || groupTheme === activeTheme;
+        
+        // Filter chips inside group based on search query
+        let visibleInGroup = 0;
+        group.querySelectorAll(".code-chip").forEach(chip => {
+          const text = chip.textContent?.toLowerCase() || "";
+          const matchesQuery = text.includes(query.toLowerCase());
+          (chip as HTMLElement).style.display = matchesQuery ? "inline-block" : "none";
+          if (matchesQuery) visibleInGroup++;
+        });
+
+        const shouldShowGroup = themeMatches && (query === "" || visibleInGroup > 0);
+        group.classList.toggle("active", shouldShowGroup);
+        if (shouldShowGroup) foundAny = true;
       });
 
       if (!foundAny && query !== "") {
@@ -369,12 +348,30 @@ const themeColors: Record<string, string> = {
       }
     }
 
+    // Category Switching Logic
+    themeTabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        themeTabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        
+        // Reset current tag filter when switching themes for clarity
+        updatePostDisplay("all");
+        
+        // Sync tags visibility
+        syncChipGroups(tagSearch.value || "");
+      });
+    });
+
+    // Tag Search Logic
     tagSearch?.addEventListener("input", (e) => {
-      filterTags((e.target as HTMLInputElement).value);
+      syncChipGroups((e.target as HTMLInputElement).value);
     });
 
     // Post Filtering Logic
     function updatePostDisplay(selectedCode: string) {
+      console.log(`[TopicFilter] Filtrando por código: "${selectedCode}"`);
+      
+      // Update chip active states
       filterButtons.forEach(btn => {
         if (btn.getAttribute("data-filter-code") === selectedCode) {
           btn.classList.add("active");
@@ -383,39 +380,54 @@ const themeColors: Record<string, string> = {
         }
       });
 
+      let shownCount = 0;
+      let hiddenCount = 0;
+
+      // Filter post items
       postItems.forEach(item => {
         const postCode = item.getAttribute("data-code");
-        if (selectedCode === "all" || postCode === selectedCode) {
-          (item as HTMLElement).classList.remove("hidden");
-          (item as HTMLElement).style.opacity = "1";
-          (item as HTMLElement).style.transform = "scale(1)";
+        const shouldShow = selectedCode === "all" || postCode === selectedCode;
+        
+        const htmlItem = item as HTMLElement;
+        if (shouldShow) {
+          htmlItem.style.setProperty("display", "block", "important");
+          htmlItem.classList.remove("hidden");
+          htmlItem.style.opacity = "1";
+          htmlItem.style.transform = "scale(1)";
+          shownCount++;
         } else {
-          (item as HTMLElement).classList.add("hidden");
-          (item as HTMLElement).style.opacity = "0";
-          (item as HTMLElement).style.transform = "scale(0.95)";
+          htmlItem.style.setProperty("display", "none", "important");
+          htmlItem.classList.add("hidden");
+          htmlItem.style.opacity = "0";
+          htmlItem.style.transform = "scale(0.95)";
+          hiddenCount++;
         }
       });
+
+      console.log(`[TopicFilter] Resultado: ${shownCount} visibles, ${hiddenCount} ocultos.`);
     }
 
     filterButtons.forEach(button => {
       button.addEventListener("click", () => {
         const code = button.getAttribute("data-filter-code") || "all";
-        const isActive = button.classList.contains("active");
-        updatePostDisplay(isActive ? "all" : code);
+        const isAlreadyActive = button.classList.contains("active");
+        
+        // If clicking active, clear. Otherwise set active.
+        updatePostDisplay(isAlreadyActive ? "all" : code);
       });
     });
 
     clearBtn?.addEventListener("click", () => {
       tagSearch.value = "";
-      filterTags("");
       updatePostDisplay("all");
       
-      // Reset tabs
       themeTabs.forEach(t => t.classList.remove("active"));
       document.querySelector('[data-theme="all"]')?.classList.add("active");
-      chipsGroups.forEach(g => (g as HTMLElement).classList.add("active"));
+      syncChipGroups("");
     });
+
+    // Initial sync
+    syncChipGroups("");
   });
 </script>
-
 
