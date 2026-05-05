@@ -6,7 +6,6 @@ import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
-import SearchBox from "../../components/SearchBox.astro";
 import TopicFilter from "../../components/TopicFilter.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import DefaultImage from "../../assets/blog-placeholder-1.jpg";
@@ -14,7 +13,6 @@ import { getThemeFromCode, themes, themeToSlug, slugToTheme } from "../../lib/th
 
 export const getStaticPaths = (async () => {
   const slugs = ['seduccion', 'informatica', 'trading', 'negocios', 'superacion'];
-  console.log("HARDCODED generating paths for:", slugs);
   return slugs.map(s => ({ params: { theme: s }, props: {} }));
 }) satisfies GetStaticPaths;
 
@@ -32,7 +30,7 @@ const posts = allPosts
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   );
 
-// Get unique codes for this theme for filtering
+// Get unique codes for this theme
 const themeCodes = [
   ...new Set(
     posts
@@ -41,7 +39,6 @@ const themeCodes = [
   )
 ].sort();
 
-// Get theme description
 const themeDescriptions: Record<string, string> = {
   seduccion: "Descubre el arte de la seducción, la atracción y las relaciones humanas.",
   informatica: "Explora el mundo de la tecnología, programación y desarrollo de software.",
@@ -52,8 +49,8 @@ const themeDescriptions: Record<string, string> = {
 
 const themeDescription = themeDescriptions[themeSlug.toLowerCase()] || "Explora nuestro contenido especializado.";
 const themeTitle = originalTheme;
-
 ---
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -62,230 +59,167 @@ const themeTitle = originalTheme;
       description={themeDescription} 
     />
     <style>
-      :root {
-        --theme-primary: var(--accent); /* Will be overridden per theme */
-      }
-      
-      /* Theme-specific colors - these will be set via inline style or JS */
-      main {
-        width: 960px;
-      }
-      
-      ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-      
-      ul li {
-        width: calc(50% - 1rem);
-      }
-      
-      ul li * {
-        text-decoration: none;
-        transition: 0.2s ease;
-      }
-      
-      ul li:first-child {
-        width: 100%;
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-      
-      ul li:first-child img {
-        width: 100%;
-      }
-      
-      ul li:first-child .title {
-        font-size: 2.369rem;
-      }
-      
-      ul li img {
-        margin-bottom: 0.5rem;
-        border-radius: 12px;
-      }
-      
-      ul li a {
-        display: block;
-      }
-      
-      .title {
-        margin: 0;
-        color: rgb(var(--black));
-        line-height: 1;
-      }
-      
-      .date {
-        margin: 0;
-        color: rgb(var(--gray));
-      }
-      
-      ul li a:hover h4,
-      ul li a:hover .date {
-        color: rgb(var(--accent));
-      }
-      
-      ul a:hover img {
-        box-shadow: var(--box-shadow);
-      }
-      
-      @media (max-width: 720px) {
-        ul {
-          gap: 0.5em;
-        }
-        
-        ul li {
-          width: 100%;
-          text-align: center;
-        }
-        
-        ul li:first-child {
-          margin-bottom: 0;
-        }
-        
-        ul li:first-child .title {
-          font-size: 1.563em;
-        }
-      }
-      
-      .post-item {
-        transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      .blog-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem;
       }
 
-      
-      .post-item.hidden {
-        display: none;
+      .theme-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding: 3rem;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--border-radius-lg);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--glass-shadow);
       }
-      
-      /* Estilos para paginación */
-      .pagination {
+
+      .theme-title {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .theme-desc {
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .posts-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        list-style-type: none;
+        margin: 4rem 0;
+        padding: 0;
+      }
+
+      .post-card {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        text-decoration: none;
+        height: 100%;
+        background: var(--bg-secondary);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        transition: all var(--transition-normal);
+        box-shadow: var(--glass-shadow);
+      }
+
+      .post-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent);
+        box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+      }
+
+      .image-wrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+      }
+
+      .post-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+
+      .post-card:hover .post-image {
+        transform: scale(1.05);
+      }
+
+      .content-wrapper {
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .title {
+        margin: 0 0 0.75rem 0;
+        font-size: 1.35rem;
+        line-height: 1.3;
+        color: var(--text-primary);
+        font-weight: 700;
+      }
+
+      .meta {
+        margin-top: auto;
+        display: flex;
         align-items: center;
         gap: 1rem;
-        margin-top: 3rem;
-        padding: 2rem 0;
+        font-size: 0.85rem;
+        color: var(--text-muted);
       }
-      
-      .pagination a,
-      .pagination span {
-        padding: 0.5rem 1rem;
-        border: 2px solid rgb(var(--accent));
-        border-radius: 8px;
-        text-decoration: none;
-        color: rgb(var(--accent));
-        transition: all 0.2s ease;
-        font-weight: 500;
+
+      @media (max-width: 1024px) {
+        .posts-list {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .theme-title { font-size: 2.5rem; }
       }
-      
-      .pagination a:hover {
-        background: rgb(var(--accent));
-        color: white;
+
+      @media (max-width: 768px) {
+        .posts-list {
+          grid-template-columns: 1fr;
+        }
+        .theme-header { padding: 2rem; }
       }
-      
-      .pagination .current {
-        background: rgb(var(--accent));
-        color: white;
-      }
-      
-      .pagination .disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
-        pointer-events: none;
-      }
-      
-      /* Theme-specific styling will be applied via inline style */
     </style>
   </head>
   <body>
     <Header />
-    <main>
-      <h1
-        style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;"
-      >
-        Blog de {SITE_TITLE}
-      </h1>
-      <section>
-        <div class="theme-header" style="text-align: center; margin-bottom: 2rem;">
-          <h1 style="color: var(--theme-primary); margin-bottom: 0.5rem;">
-            {themeTitle}
-          </h1>
-          <p style="color: rgb(var(--gray)); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
-            {themeDescription}
-          </p>
+    <main class="blog-container">
+      <section class="animate-fade-in">
+        <div class="theme-header">
+          <h1 class="theme-title">{themeTitle}</h1>
+          <p class="theme-desc">{themeDescription}</p>
         </div>
-        
-        <!-- Componente de búsqueda -->
-        <SearchBox />
         
         <TopicFilter allThemes={themes} allCodes={themeCodes} currentTheme={originalTheme} />
         
-        <ul>
+        <ul class="posts-list">
           {
             posts.map((post) => (
-              <li
-                class="post-item"
-                data-code={post.data.code || "sin-codigo"}
-              >
-                <a href={`/blog/${post.id}/`}>
-                  <Image
-                    width={720}
-                    height={360}
-                    src={
-                      post.data.heroImage &&
-                      typeof post.data.heroImage ===
-                        "object"
-                        ? post.data.heroImage
-                        : DefaultImage
-                    }
-                    alt={post.data.title}
-                  />
-                  <h2 class="title">{post.data.title}</h2>
-                  <p class="date">
-                    <FormattedDate
-                      date={post.data.pubDate}
+              <li class="post-item" data-code={post.data.code || "sin-codigo"}>
+                <a href={`/blog/${post.id}/`} class="post-card">
+                  <div class="image-wrapper">
+                    <Image
+                      width={720}
+                      height={400}
+                      src={
+                        post.data.heroImage && typeof post.data.heroImage === "object"
+                          ? post.data.heroImage
+                          : DefaultImage
+                      }
+                      alt={post.data.title}
+                      class="post-image"
                     />
-                  </p>
+                  </div>
+                  <div class="content-wrapper">
+                    <h2 class="title">{post.data.title}</h2>
+                    <div class="meta">
+                      <FormattedDate date={post.data.pubDate} />
+                      <span>•</span>
+                      <span>{post.data.code}</span>
+                    </div>
+                  </div>
                 </a>
               </li>
             ))
           }
         </ul>
-        
-        <!-- Controles de paginación -->
-        <nav class="pagination" aria-label="Navegación de páginas">
-          {
-            /* Pagination logic would need to be implemented - for now showing placeholder */
-            <span class="current">Página 1 de 1</span>
-          }
-        </nav>
       </section>
     </main>
     <Footer />
-    
-    <script define:vars={{ themeSlug }}>
-      // Set theme-specific CSS variable
-      document.addEventListener("DOMContentLoaded", function () {
-        const themeColors = {
-          seduccion: "#E91E63",
-          informatica: "#2196F3",
-          trading: "#4CAF50",
-          negocios: "#FF9800",
-          superacion: "#9C27B0"
-        };
-        
-        const themeLower = themeSlug.toLowerCase();
-        const themeColor = themeColors[themeLower] || "#2196F3";
-        
-        // Set CSS variable for theme primary color
-        document.documentElement.style.setProperty('--theme-primary', themeColor);
-        
-        // Also set accent color for consistency
-        document.documentElement.style.setProperty('--accent', themeColor);
-      });
-    </script>
   </body>
 </html>
