@@ -305,12 +305,13 @@ const themeColors: Record<string, string> = {
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    const postsList = document.querySelector("main .posts-list");
     const themeTabs = document.querySelectorAll(".theme-tab");
     const chipsGroups = document.querySelectorAll(".theme-chips-group");
     const filterButtons = document.querySelectorAll(".code-chip");
     const tagSearch = document.getElementById("tag-search") as HTMLInputElement;
     const clearBtn = document.getElementById("clear-filters");
-    const postItems = document.querySelectorAll(".post-item");
+    const postItems = postsList?.querySelectorAll(":scope > .post-item") ?? [];
     const noResultsMsg = document.getElementById("no-results-msg");
 
     console.log(`[TopicFilter] Inicializado. Encontrados ${postItems.length} posts y ${filterButtons.length} etiquetas.`);
@@ -430,4 +431,3 @@ const themeColors: Record<string, string> = {
     syncChipGroups("");
   });
 </script>
-
