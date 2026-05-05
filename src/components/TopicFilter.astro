@@ -11,237 +11,371 @@ const { allThemes, allCodes, currentTheme } = Astro.props;
 
 const themesToDisplay = currentTheme ? [currentTheme] : allThemes;
 
-
 // Group codes by theme
 const groupedCodes = allThemes.reduce((acc, theme) => {
   acc[theme] = allCodes.filter(code => getThemeFromCode(code) === theme);
   return acc;
 }, {} as Record<string, string[]>);
 
-// Theme colors for visual distinction
+// Theme colors
 const themeColors: Record<string, string> = {
-  'Seducción': '#E91E63',
-  'Informática': '#2196F3',
-  'Trading': '#4CAF50',
-  'Negocios': '#FF9800',
-  'Superación Personal': '#9C27B0'
+  'Seducción': '#f43f5e',
+  'Informática': '#0ea5e9',
+  'Trading': '#10b981',
+  'Negocios': '#f59e0b',
+  'Superación Personal': '#8b5cf6'
 };
 ---
 
-<div class="topic-filter-container">
+<div class="topic-filter-container glass-card animate-fade-in">
   <div class="filter-header">
-    <div class="header-left">
-      <h3>Explorar por temas</h3>
-      <button class="code-chip all-btn active" data-filter-code="all">Todos</button>
+    <div class="title-section">
+      <h3>Explorar contenido</h3>
+      <p class="subtitle">Filtra por categorías y etiquetas específicas</p>
     </div>
-    <button id="clear-filters" class="clear-btn">Limpiar</button>
+    
+    <div class="search-wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="tag-search" placeholder="Buscar etiqueta (ej: React, Ventas...)" aria-label="Buscar etiqueta" />
+    </div>
   </div>
 
+  <div class="filter-controls">
+    <div class="theme-tabs-wrapper">
+      <div class="theme-tabs" id="theme-tabs">
+        <button class="theme-tab active" data-theme="all">
+          <span class="dot" style="--theme-color: var(--accent)"></span>
+          Todos
+        </button>
+        {themesToDisplay.map((theme) => (
+          <button class="theme-tab" data-theme={theme}>
+            <span class="dot" style={`--theme-color: ${themeColors[theme] || 'var(--text-muted)'}`}></span>
+            {theme}
+          </button>
+        ))}
+      </div>
+    </div>
+    
+    <button id="clear-filters" class="clear-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+      Limpiar filtros
+    </button>
+  </div>
 
-  <div class="theme-groups">
+  <div class="chips-display" id="chips-display">
     {themesToDisplay.map((theme) => (
-      <div class="theme-group" data-theme={theme}>
-        <div class="theme-label" style={`--theme-color: ${themeColors[theme] || '#666'}`}>
-          <span class="dot"></span>
-          {theme}
-        </div>
-        <div class="code-chips">
-          {groupedCodes[theme]?.map((code) => (
-            <button 
-              class="code-chip" 
-              data-filter-theme={theme} 
-              data-filter-code={code}
-              title={`Filtrar por ${code}`}
-            >
-              {code.charAt(0).toUpperCase() + code.slice(1).replace(/-/g, ' ')}
-            </button>
-          ))}
-        </div>
+      <div class="theme-chips-group active" data-theme-group={theme}>
+        {groupedCodes[theme]?.map((code) => (
+          <button 
+            class="code-chip" 
+            data-filter-theme={theme} 
+            data-filter-code={code}
+          >
+            {code.charAt(0).toUpperCase() + code.slice(1).replace(/-/g, ' ')}
+          </button>
+        ))}
       </div>
     ))}
     
-    {/* Handle codes with no specific theme if any */}
-    {allCodes.filter(c => !getThemeFromCode(c)).length > 0 && (
-      <div class="theme-group">
-        <div class="theme-label" style="--theme-color: #999">Otros</div>
-        <div class="code-chips">
-          {allCodes.filter(c => !getThemeFromCode(c)).map((code) => (
-            <button class="code-chip" data-filter-code={code}>
-              {code}
-            </button>
-          ))}
-        </div>
-      </div>
-    )}
+    <div id="no-results-msg" class="no-results hidden">
+      No se encontraron etiquetas que coincidan con tu búsqueda.
+    </div>
   </div>
 </div>
 
 <style>
   .topic-filter-container {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin-bottom: 2.5rem;
-    backdrop-filter: blur(10px);
-  }
-
-  :global(body:not(.dark-mode)) .topic-filter-container {
-    background: rgba(0, 0, 0, 0.02);
-    border-color: rgba(0, 0, 0, 0.05);
+    padding: 2.5rem;
+    margin-bottom: 3rem;
   }
 
   .filter-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 2rem;
+    margin-bottom: 2rem;
   }
 
-  .header-left {
+  .title-section h3 {
+    margin-bottom: 0.25rem;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .search-wrapper {
+    position: relative;
+    flex: 1;
+    max-width: 320px;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+
+  #tag-search {
+    width: 100%;
+    padding: 0.8rem 1rem 0.8rem 2.5rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-md);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: all var(--transition-fast);
+  }
+
+  #tag-search:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+
+  .filter-controls {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 1rem;
   }
 
-  :global(body:not(.dark-mode)) .filter-header {
-    border-bottom-color: rgba(0, 0, 0, 0.05);
+  .theme-tabs-wrapper {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    flex: 1;
   }
 
-  .filter-header h3 {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: rgb(var(--black));
+  .theme-tabs-wrapper::-webkit-scrollbar {
+    display: none;
   }
 
-
-  .all-btn {
-    font-weight: 600;
-    border-color: rgba(var(--accent), 0.5);
-  }
-
-
-  .clear-btn {
-    background: transparent;
-    border: none;
-    font-size: 0.85rem;
-    color: #888;
-    cursor: pointer;
-    transition: color 0.2s;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-  }
-
-  .clear-btn:hover {
-    color: var(--accent);
-    background: rgba(var(--accent), 0.1);
-  }
-
-  .theme-groups {
+  .theme-tabs {
     display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .theme-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .theme-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--theme-color);
-    display: flex;
-    align-items: center;
     gap: 0.5rem;
   }
 
-  .theme-label .dot {
+  .theme-tab {
+    padding: 0.6rem 1.25rem;
+    border-radius: 50px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .theme-tab:hover {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .theme-tab.active {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 4px 12px var(--accent-soft);
+  }
+
+  .theme-tab .dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background-color: var(--theme-color);
-    box-shadow: 0 0 8px var(--theme-color);
   }
 
-  .code-chips {
+  .theme-tab.active .dot {
+    background-color: white;
+  }
+
+  .clear-btn {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     gap: 0.5rem;
-  }
-
-  .code-chip {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ccc;
-    padding: 0.35rem 0.85rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color var(--transition-fast);
     white-space: nowrap;
   }
 
-  :global(body:not(.dark-mode)) .code-chip {
-    background: #f3f4f6;
-    border-color: #e5e7eb;
-    color: #4b5563;
+  .clear-btn:hover {
+    color: var(--accent);
+  }
+
+  .chips-display {
+    min-height: 80px;
+  }
+
+  .theme-chips-group {
+    display: none;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .theme-chips-group.active {
+    display: flex;
+  }
+
+  .code-chip {
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-secondary);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-normal);
   }
 
   .code-chip:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-primary);
     border-color: var(--accent);
-    color: #fff;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  :global(body:not(.dark-mode)) .code-chip:hover {
-    background: #e5e7eb;
-    color: #111827;
+    color: var(--accent);
+    transform: translateY(-2px);
   }
 
   .code-chip.active {
-    background: var(--accent);
+    background: var(--accent-soft);
     border-color: var(--accent);
-    color: white;
-    box-shadow: 0 0 15px rgba(var(--accent), 0.3);
+    color: var(--accent);
+    box-shadow: 0 4px 12px var(--accent-soft);
   }
 
-  @media (max-width: 720px) {
+  .no-results {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .filter-header {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .search-wrapper {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
     .topic-filter-container {
-      padding: 1rem;
+      padding: 1.5rem;
     }
     
-    .code-chips {
-      gap: 0.4rem;
+    .filter-controls {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
     }
     
-    .code-chip {
-      padding: 0.3rem 0.7rem;
-      font-size: 0.75rem;
+    .clear-btn {
+      padding-left: 0.5rem;
     }
   }
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    const themeTabs = document.querySelectorAll(".theme-tab");
+    const chipsGroups = document.querySelectorAll(".theme-chips-group");
     const filterButtons = document.querySelectorAll(".code-chip");
+    const tagSearch = document.getElementById("tag-search") as HTMLInputElement;
     const clearBtn = document.getElementById("clear-filters");
     const postItems = document.querySelectorAll(".post-item");
+    const noResultsMsg = document.getElementById("no-results-msg");
 
-    const allBtn = document.querySelector(".all-btn");
+    // Category Switching Logic
+    themeTabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        const selectedTheme = tab.getAttribute("data-theme");
+        
+        themeTabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
 
-    function updateFilters(selectedCode) {
-      // Update active buttons
-      filterButtons.forEach((btn) => {
+        chipsGroups.forEach(group => {
+          const groupTheme = group.getAttribute("data-theme-group");
+          if (selectedTheme === "all" || groupTheme === selectedTheme) {
+            group.classList.add("active");
+          } else {
+            group.classList.remove("active");
+          }
+        });
+        
+        // When switching tabs, clear tag search for better experience
+        if (tagSearch.value) {
+          tagSearch.value = "";
+          filterTags("");
+        }
+      });
+    });
+
+    // Tag Search Logic
+    function filterTags(query: string) {
+      let foundAny = false;
+      
+      filterButtons.forEach(chip => {
+        const text = chip.textContent?.toLowerCase() || "";
+        if (text.includes(query.toLowerCase())) {
+          (chip as HTMLElement).style.display = "inline-block";
+          foundAny = true;
+        } else {
+          (chip as HTMLElement).style.display = "none";
+        }
+      });
+
+      // Handle group visibility during search
+      chipsGroups.forEach(group => {
+        const visibleChips = Array.from(group.querySelectorAll(".code-chip")).filter(c => (c as HTMLElement).style.display !== "none");
+        if (visibleChips.length === 0 && query !== "") {
+          (group as HTMLElement).style.display = "none";
+        } else {
+          (group as HTMLElement).style.display = "flex";
+        }
+      });
+
+      if (!foundAny && query !== "") {
+        noResultsMsg?.classList.remove("hidden");
+      } else {
+        noResultsMsg?.classList.add("hidden");
+      }
+    }
+
+    tagSearch?.addEventListener("input", (e) => {
+      filterTags((e.target as HTMLInputElement).value);
+    });
+
+    // Post Filtering Logic
+    function updatePostDisplay(selectedCode: string) {
+      filterButtons.forEach(btn => {
         if (btn.getAttribute("data-filter-code") === selectedCode) {
           btn.classList.add("active");
         } else {
@@ -249,44 +383,39 @@ const themeColors: Record<string, string> = {
         }
       });
 
-      // Special handling for the "Todos" button
-      if (selectedCode === "all") {
-        allBtn?.classList.add("active");
-      } else {
-        allBtn?.classList.remove("active");
-      }
-
-      // Filter posts
-      postItems.forEach((item) => {
+      postItems.forEach(item => {
         const postCode = item.getAttribute("data-code");
         if (selectedCode === "all" || postCode === selectedCode) {
-          item.classList.remove("hidden");
-          item.style.opacity = "1";
-          item.style.transform = "scale(1)";
+          (item as HTMLElement).classList.remove("hidden");
+          (item as HTMLElement).style.opacity = "1";
+          (item as HTMLElement).style.transform = "scale(1)";
         } else {
-          item.classList.add("hidden");
-          item.style.opacity = "0";
-          item.style.transform = "scale(0.95)";
+          (item as HTMLElement).classList.add("hidden");
+          (item as HTMLElement).style.opacity = "0";
+          (item as HTMLElement).style.transform = "scale(0.95)";
         }
       });
     }
 
-
-    filterButtons.forEach((button) => {
+    filterButtons.forEach(button => {
       button.addEventListener("click", () => {
-        const code = button.getAttribute("data-filter-code");
+        const code = button.getAttribute("data-filter-code") || "all";
         const isActive = button.classList.contains("active");
-        
-        if (isActive) {
-          updateFilters("all");
-        } else {
-          updateFilters(code);
-        }
+        updatePostDisplay(isActive ? "all" : code);
       });
     });
 
     clearBtn?.addEventListener("click", () => {
-      updateFilters("all");
+      tagSearch.value = "";
+      filterTags("");
+      updatePostDisplay("all");
+      
+      // Reset tabs
+      themeTabs.forEach(t => t.classList.remove("active"));
+      document.querySelector('[data-theme="all"]')?.classList.add("active");
+      chipsGroups.forEach(g => (g as HTMLElement).classList.add("active"));
     });
   });
 </script>
+
+
