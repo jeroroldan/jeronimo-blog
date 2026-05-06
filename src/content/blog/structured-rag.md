@@ -1,9 +1,9 @@
 ---
-title: 'Structured RAG'
-code: 'str"
-description: 'Guía Completa: Administración Empresarial y Optimización de Recursos'
-pubDate: 'Jul 22 2022'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Structured RAG"
+code: "structured-rag"
+description: "Guía Completa: Administración Empresarial y Optimización de Recursos"
+pubDate: "Jul 22 2022"
+heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
 # Guía Avanzada de Structured RAG: Agentes IA para Bases de Datos SQL
