@@ -73,6 +73,28 @@ Con tantas opciones, muchos eligen no elegir. La solución: actuar antes de sent
 
 ---
 
+## 6. PREGUNTAS PARA REFLEXIONAR
+
+### Sobre la comunicación defensiva:
+- ¿Cuándo has estado siendo "demasiado educado" y la situación resultó aburrida?
+- ¿Qué opinarías del tema si el conocimiento de que "muchas veces no le pasa nada" cambiara tu enfoque?
+- ¿Has evitado expresar atracción física por miedo a ofender? ¿Qué costo tuvo esa decisión?
+
+### Sobre el atrevimiento:
+- ¿Qué opinión tuya es lo suficientemente contundente como para hacerte memorable?
+- ¿Cómo reaccionas cuando alguien te dice algo directo sobre su atracción hacia ti?
+- ¿Qué diferencia hay entre "atrevimiento respetuoso" y "insensatez" en tu perspectiva?
+
+### Sobre la confianza irresistible:
+- ¿Qué evidencia concreta tienes de que puedes crear conexiones exitosas?
+- ¿Qué acción mínima podrías dar esta semana para empezar a construir esa evidencia?
+- ¿Qué te detiene de escalar gradualmente la intensidad en tus interacciones actuales?
+
+### Sobre el contexto actual:
+- ¿Cómo has aprovechado (o no) las oportunidades que internet te brinda para conocer gente?
+- ¿Qué decisiones has evitado por "analizar demasiado"?
+- Si mañana no existiera internet, ¿cómo conectarías con alguien nuevo en tu entorno físico?
+
 ## CONCLUSIÓN
 
 La comunicación efectiva para conectar no es sobre seguir reglas de etiqueta, es sobre:
@@ -80,10 +102,5 @@ La comunicación efectiva para conectar no es sobre seguir reglas de etiqueta, e
 - **Crear experiencias memorables**
 - **Construir confianza a través de la acción**
 - **Aprovechar el contexto actual lleno de oportunidades**
-
-## PREGUNTAS
-
-
-
 
 El mejor momento para empezar es ahora, antes de que el análisis prevenga la acción.
