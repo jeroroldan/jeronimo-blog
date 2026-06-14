@@ -279,5 +279,456 @@ def load_ohlcv(path: str | Path) -> pd.DataFrame:
 
 ## PARTE 3: STRATEGY FACTORY — CONVERTIR HIPÓTESIS EN ESTRATEGIAS
 
+### 3.1 Qué es una Strategy Factory
+
+Una Strategy Factory no es una carpeta con scripts sueltos. Es una línea de ensamblaje que transforma una hipótesis en una estrategia parametrizada:
+
+```text
+Hipótesis → Features → Señal → Filtro → Sizing → Backtest → Métricas
+```
+
+La factory debe permitir probar muchas variaciones sin reescribir el sistema. Por ejemplo, una idea de cruce de medias puede variar en:
+
+- ventana corta
+- ventana larga
+- tipo de promedio
+- filtro de volatilidad
+- filtro de volumen
+- stop loss
+- take profit
+- frecuencia de rebalanceo
+
+### 3.2 Arquitectura de una estrategia
+
+| Componente | Función | Ejemplo |
+|------------|---------|---------|
+| **Universe** | Define qué activos se analizan | EURUSD, GBPUSD, XAUUSD |
+| **Features** | Transforma precios en variables | SMA, RSI, ATR, z-score |
+| **Signal** | Decide long, short o flat | Cruce, ruptura, reversión |
+| **Filter** | Evita regímenes malos | Volatilidad, spread, horario |
+| **Sizing** | Define tamaño de posición | Riesgo fijo por trade |
+| **Execution** | Define cómo se opera | Market, limit, trailing |
+| **Risk** | Controla pérdidas y exposición | Max DD, daily loss, kill-switch |
+
+### 3.3 Código de Strategy Factory
+
+```python
+import numpy as np
+import pandas as pd
+from dataclasses import dataclass
+from enum import Enum
+
+
+class Signal(Enum):
+    FLAT = 0
+    LONG = 1
+    SHORT = -1
+
+
+@dataclass
+class StrategyConfig:
+    short_window: int = 10
+    long_window: int = 50
+    atr_window: int = 14
+    volatility_threshold: float = 1.5
+    stop_atr_multiple: float = 2.0
+    take_profit_atr_multiple: float = 3.0
+    risk_per_trade: float = 0.01
+
+
+class StrategyFactory:
+    def __init__(self, config: StrategyConfig):
+        self.config = config
+
+    def features(self, df: pd.DataFrame) -> pd.DataFrame:
+        out = df.copy()
+        out['sma_short'] = out['close'].rolling(self.config.short_window).mean()
+        out['sma_long'] = out['close'].rolling(self.config.long_window).mean()
+        delta = out['close'].diff()
+        up = delta.clip(lower=0)
+        down = -delta.clip(upper=0)
+        roll_up = up.rolling(self.config.atr_window).mean()
+        roll_down = down.rolling(self.config.atr_window).mean()
+        out['rsi'] = 100 - (100 / (1 + roll_up / roll_down.replace(0, np.nan)))
+        true_range = pd.concat([
+            out['high'] - out['low'],
+            (out['high'] - out['close'].shift()).abs(),
+            (out['low'] - out['close'].shift()).abs(),
+        ], axis=1).max(axis=1)
+        out['atr'] = true_range.rolling(self.config.atr_window).mean()
+        out['volatility_regime'] = out['atr'] / out['atr'].rolling(100).mean()
+        return out
+
+    def signal(self, features: pd.DataFrame) -> pd.Series:
+        raw = np.select(
+            [
+                features['sma_short'] > features['sma_long'],
+                features['sma_short'] < features['sma_long'],
+            ],
+            [Signal.LONG.value, Signal.SHORT.value],
+            default=Signal.FLAT.value,
+        )
+        signal = pd.Series(raw, index=features.index)
+        filter_mask = features['volatility_regime'] > self.config.volatility_threshold
+        signal[filter_mask] = Signal.FLAT.value
+        return signal.astype(int)
+
+    def levels(self, features: pd.DataFrame, signal: pd.Series) -> pd.DataFrame:
+        out = features.copy()
+        out['signal'] = signal
+        out['stop_loss'] = np.where(
+            signal == Signal.LONG.value,
+            out['close'] - self.config.stop_atr_multiple * out['atr'],
+            np.where(
+                signal == Signal.SHORT.value,
+                out['close'] + self.config.stop_atr_multiple * out['atr'],
+                np.nan,
+            ),
+        )
+        out['take_profit'] = np.where(
+            signal == Signal.LONG.value,
+            out['close'] + self.config.take_profit_atr_multiple * out['atr'],
+            np.where(
+                signal == Signal.SHORT.value,
+                out['close'] - self.config.take_profit_atr_multiple * out['atr'],
+                np.nan,
+            ),
+        )
+        return out
+```
+
+### 3.4 Tabla de familias de estrategias
+
+| Familia | Edge esperado | Mejor régimen | Riesgo principal |
+|---------|---------------|---------------|------------------|
+| **Trend following** | Persistencia direccional | Tendencias suaves | Whipsaws en rangos |
+| **Mean reversion** | Exceso de desviación | Rangos estables | Rupturas violentas |
+| **Breakout** | Expansión post-consolidación | Volatilidad creciente | Falsas rupturas |
+| **Carry** | Diferencial de tasas o rollover | Mercados calmados | Cambios de régimen |
+| **Stat arb** | Relación histórica entre activos | Alta correlación | Desacople estructural |
+| **Event driven** | Reacción a eventos | Ventanas específicas | Liquidez y slippage |
+
+### 3.5 Prompt para AI Research Agent
+
+```text
+Actúa como investigador cuantitativo senior.
+Objetivo: generar 10 hipótesis de estrategia para el activo {symbol} en timeframe {timeframe}.
+Entradas:
+- Régimen detectado: {regime}
+- Volatilidad anualizada: {volatility}
+- Spread promedio: {spread}
+- Liquidez: {liquidity}
+- Restricciones: sin martingala, sin sobreajuste, costos incluidos.
+Entrega:
+1. Nombre de la hipótesis
+2. Lógica económica
+3. Features necesarias
+4. Filtros de régimen
+5. Riesgos esperados
+6. Métrica de invalidación
+```
+
+6. Métrica de invalidación
+```
+
+## PARTE 4: BACKTESTING ENGINE — PROBAR SIN AUTOENGAÑO
+
+### 4.1 El backtest perfecto no existe
+
+Un backtest es una simulación condicionada por supuestos. Si los supuestos son ingenuos, la simulación será optimista. Si los supuestos son conservadores, la simulación será más útil.
+
+Los errores más comunes son:
+
+- usar el futuro en las señales
+- ignorar comisiones
+- ignorar slippage
+- optimizar sobre toda la muestra
+- no separar entrenamiento y validación
+- medir solo rentabilidad
+- no evaluar drawdown
+- no comparar contra un benchmark
+- no probar robustez por parámetros
+
+### 4.2 Métricas mínimas
+
+| Métrica | Fórmula conceptual | Interpretación |
+|---------|--------------------|----------------|
+| **CAGR** | Crecimiento anual compuesto | Rentabilidad anualizada |
+| **Volatilidad** | Desviación de retornos | Variabilidad del resultado |
+| **Sharpe** | Exceso de retorno / volatilidad | Retorno ajustado a riesgo |
+| **Sortino** | Exceso de retorno / downside deviation | Penaliza solo pérdidas |
+| **Max Drawdown** | Peor caída peak-to-trough | Peor dolor histórico |
+| **Profit Factor** | Ganancias brutas / pérdidas brutas | Calidad del payoff |
+| **Win Rate** | Trades ganadores / total trades | Frecuencia de aciertos |
+| **Expectancy** | Promedio ponderado por resultado | Valor esperado por trade |
+| **Exposure** | Tiempo en mercado | Capital realmente utilizado |
+| **Turnover** | Rotación de posiciones | Costos potenciales |
+
+### 4.3 Backtester vectorizado simple
+
+```python
+import numpy as np
+import pandas as pd
+
+
+class VectorBacktester:
+    def __init__(self, initial_capital=100000.0, commission=0.0005, slippage=0.0002):
+        self.initial_capital = initial_capital
+        self.commission = commission
+        self.slippage = slippage
+
+    def run(self, prices: pd.DataFrame, signals: pd.Series) -> pd.DataFrame:
+        df = prices.copy()
+        df['signal'] = signals.reindex(df.index).fillna(0)
+        df['position'] = df['signal'].shift(1).fillna(0)
+        df['ret'] = np.log(df['close']).diff().fillna(0)
+        df['strategy_ret'] = df['position'] * df['ret']
+
+        turnover = df['position'].diff().abs().fillna(0)
+        costs = turnover * (self.commission + self.slippage)
+        df['strategy_ret'] = df['strategy_ret'] - costs
+
+        df['equity'] = self.initial_capital * np.exp(df['strategy_ret'].cumsum())
+        df['benchmark'] = self.initial_capital * np.exp(df['ret'].cumsum())
+        return df
+
+    def metrics(self, result: pd.DataFrame) -> dict:
+        returns = result['strategy_ret']
+        equity = result['equity']
+        trades = result['position'].diff().abs().fillna(0)
+        trade_count = int(trades.sum())
+
+        gross_profit = returns[returns > 0].sum()
+        gross_loss = abs(returns[returns < 0].sum())
+        profit_factor = gross_profit / gross_loss if gross_loss else np.inf
+
+        dd = equity / equity.cummax() - 1
+        max_dd = dd.min()
+        cagr = (equity.iloc[-1] / self.initial_capital) ** (252 / len(result)) - 1
+        sharpe = np.sqrt(252) * returns.mean() / returns.std() if returns.std() else 0
+
+        return {
+            'cagr': cagr,
+            'sharpe': sharpe,
+            'max_drawdown': max_dd,
+            'profit_factor': profit_factor,
+            'trade_count': trade_count,
+            'final_equity': equity.iloc[-1],
+        }
+```
+
+### 4.4 Walk-forward validation
+
+```mermaid
+flowchart LR
+    A[Full Dataset] --> B[Train Window 1]
+    A --> C[Test Window 1]
+    B --> D[Optimize Parameters]
+    D --> E[Evaluate Out-of-sample]
+    E --> F[Roll Forward]
+    F --> G[Train Window 2]
+    G --> H[Test Window 2]
+    H --> I[Aggregate Results]
+```
+
+| Bloque | Uso | Regla |
+|--------|-----|-------|
+| **In-sample** | Optimizar parámetros | Nunca reporta resultado final |
+| **Out-of-sample** | Validar robustez | Debe sostener métricas |
+| **Burn-in** | Calcular indicadores | No opera durante warm-up |
+| **Paper trading** | Validar ejecución | Compara señales vs fills |
+| **Live monitoring** | Control real | Detecta degradación |
+
+### 4.5 Señales de overfitting
+
+| Señal | Qué sugiere | Acción |
+|-------|-------------|--------|
+| Sharpe altísimo en una muestra corta | Curva demasiado perfecta | Probar más años |
+| Muchos parámetros para pocos trades | Modelo frágil | Reducir complejidad |
+| Resultados excelentes solo en un activo | Edge específico o ruido | Probar universo |
+| Caída fuerte fuera de muestra | Sobreajuste | Reentrenar con walk-forward |
+| Sensibilidad extrema a un parámetro | Inestabilidad | Usar zonas robustas |
+| Win rate alto con payoff pobre | Costos pueden comer edge | Incluir slippage realista |
+
+## PARTE 5: RISK VALIDATION — GESTIÓN DE RIESGO ANTES DE OPTIMIZACIÓN
+
+### 5.1 El riesgo no es una sección final
+
+La optimización sin riesgo produce estrategias peligrosas. Un parámetro puede mejorar Sharpe mientras concentra pérdidas en eventos raros. Por eso, cada estrategia debe pasar una batería de estrés antes de llegar a producción.
+
+### 5.2 Reglas de riesgo por defecto
+
+| Regla | Límite sugerido | Motivo |
+|-------|-----------------|--------|
+| Riesgo por trade | 0.25% a 1.00% del equity | Evita ruina temprana |
+| Drawdown diario | 2% a 4% | Freno operativo |
+| Drawdown de estrategia | 10% a 20% | Revisión obligatoria |
+| Correlación máxima | 0.70 entre estrategias | Diversificación real |
+| Exposición máxima | Por activo, sector y mercado | Control de concentración |
+| Slippage mínimo | Basado en percentil 95 | Conservadurismo |
+| Kill-switch | Activación automática | Protección operacional |
+
+### 5.3 Position sizing por volatilidad
+
+```python
+import numpy as np
+
+
+def position_size_from_atr(account_equity, risk_per_trade, entry_price, stop_price, atr, contract_value=1.0):
+    technical_risk = abs(entry_price - stop_price)
+    if technical_risk <= 0 or atr <= 0:
+        return 0.0
+
+    risk_amount = account_equity * risk_per_trade
+    units_by_risk = risk_amount / technical_risk
+    units_by_volatility = account_equity * risk_per_trade / (atr * contract_value)
+    units = min(units_by_risk, units_by_volatility)
+
+    return max(units, 0.0)
+```
+
+### 5.4 Stress test conceptual
+
+| Escenario | Descripción | Qué debe resistir |
+|-----------|-------------|-------------------|
+| **Vol shock** | Volatilidad 2x o 3x | Stops, sizing, margen |
+| **Liquidity shock** | Spread 3x promedio | Slippage y fills |
+| **Gap adverse** | Salto contra posición | Stop gap y exposición |
+| **Correlation shock** | Activos correlacionan a 1 | Diversificación |
+| **Latency shock** | Ejecución tardía | Estrategias intradía |
+| **Data outage** | Feed interrumpido | Kill-switch |
+| **Broker issue** | Rechazo de órdenes | Reconciliación |
+
+## APPEND2
+
+## PARTE 6: GENETIC OPTIMIZATION
+
+La optimización genética permite explorar espacios grandes de parámetros sin probar cada combinación posible. Se usa para encontrar regiones estables, no para fabricar una curva perfecta.
+
+### 6.1 Flujo de trabajo
+
+```mermaid
+flowchart TD
+    A[Definir Bounds] --> B[Población inicial]
+    B --> C[Evaluar fitness]
+    C --> D[Selección]
+    D --> E[Crossover]
+    E --> F[Mutación]
+    F --> G[Validación walk-forward]
+    G --> H[Candidato robusto]
+```
+
+### 6.2 Fitness function
+
+| Componente | Peso | Motivo |
+|------------|------|--------|
+| Sharpe out-of-sample | 30% | Rentabilidad ajustada a riesgo |
+| Max drawdown | 25% | Penaliza caídas severas |
+| Profit factor | 15% | Calidad del payoff |
+| Trade count | 10% | Evita muestras vacías |
+| Stability | 10% | Penaliza picos aislados |
+| Cost sensitivity | 10% | Mide fragilidad ante costos |
+
+### 6.3 Código base
+
+```python
+import random
+import numpy as np
+
+
+class GeneticOptimizer:
+    def __init__(self, bounds, population_size=40, generations=25):
+        self.bounds = bounds
+        self.population_size = population_size
+        self.generations = generations
+
+    def random_gene(self):
+        return {
+            'short_window': random.randint(*self.bounds['short_window']),
+            'long_window': random.randint(*self.bounds['long_window']),
+            'atr_window': random.randint(*self.bounds['atr_window']),
+            'stop_atr_multiple': random.uniform(*self.bounds['stop_atr_multiple']),
+            'take_profit_atr_multiple': random.uniform(*self.bounds['take_profit_atr_multiple']),
+        }
+
+    def initialize(self):
+        return [self.random_gene() for _ in range(self.population_size)]
+
+    def mutate(self, gene):
+        mutated = gene.copy()
+        for key in mutated:
+            if random.random() < 0.15:
+                low, high = self.bounds[key]
+                mutated[key] = random.randint(low, high) if isinstance(low, int) else random.uniform(low, high)
+        return mutated
+
+    def crossover(self, a, b):
+        keys = list(a.keys())
+        point = random.randint(1, len(keys) - 1)
+        child = {**{k: a[k] for k in keys[:point]}, **{k: b[k] for k in keys[point:]}}
+        return child
+
+    def optimize(self, evaluator):
+        population = self.initialize()
+        history = []
+        for _ in range(self.generations):
+            scored = [(evaluator(gene), gene) for gene in population]
+            scored.sort(reverse=True, key=lambda x: x[0])
+            history.append(scored[0])
+            elites = [gene for _, gene in scored[:5]]
+            next_population = elites.copy()
+            while len(next_population) < self.population_size:
+                p1, p2 = random.sample(scored[:20], 2)
+                child = self.crossover(p1[1], p2[1])
+                next_population.append(self.mutate(child))
+            population = next_population
+        return history
+```
+
+### 6.4 Errores comunes
+
+| Error | Consecuencia | Prevención |
+|-------|--------------|------------|
+| Fitness solo en CAGR | Estrategias extremas | Usar Sharpe y drawdown |
+| Población pequeña | Búsqueda pobre | Aumentar población |
+| Generaciones excesivas | Sobreajuste | Early stopping |
+| Sin out-of-sample | Falsa confianza | Walk-forward |
+| Sin costos | Edge ilusorio | Comisión y slippage |
+| Sin límites lógicos | Parámetros absurdos | Bounds estrictos |
+| Sin robustez | Picos aislados | Heatmaps y perturbaciones |
+
+### 6.5 Heatmap de parámetros
+
+```mermaid
+flowchart LR
+    A[Parámetros Optimizados] --> B[Matriz short_window x long_window]
+    B --> C[Color por Sharpe]
+    C --> D[Zonas Estables]
+    D --> E[Seleccionar Región]
+    E --> F[Validar Out-of-sample]
+```
+
+| Patrón en heatmap | Lectura |
+|-------------------|---------|
+| Isla pequeña con Sharpe alto | Posible sobreajuste |
+| Meseta amplia con Sharpe bueno | Región robusta |
+| Resultados buenos solo con ventanas largas | Lentitud y baja frecuencia |
+| Resultados sensibles a un parámetro | Fragilidad |
+| Mejores resultados con costos altos | Edge fuerte |
+| Mejores resultados solo antes de 2020 | Régimen específico |
+
+## PARTE 7: AUTOMATION COMPARISON
+
+## PARTE 7: AUTOMATION COMPARISON — DÓNDE EJECUTAR LA ESTRATEGIA
+
+
+
+
+
+
+
+
+
+
 
 

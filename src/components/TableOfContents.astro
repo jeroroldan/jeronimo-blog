@@ -7,7 +7,7 @@ const { headings } = Astro.props;
 const filteredHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
 ---
 
-{filteredHeadings.length > 3 && (
+{filteredHeadings.length > 0 && (
   <nav class="toc" aria-label="Tabla de contenidos">
     <div class="toc-header">
       <span class="toc-icon">📑</span>
@@ -97,10 +97,10 @@ const filteredHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
 
   @media (min-width: 769px) and (max-width: 1024px) {
     .toc {
+      display: block !important;
       position: static;
       max-height: none;
       margin-bottom: 1.5rem;
-      display: block;
     }
   }
 
