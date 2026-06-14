@@ -1,4 +1,3 @@
-
 ---
 title: "Profesionales en PHP con Laravel"
 code: 'laravel'

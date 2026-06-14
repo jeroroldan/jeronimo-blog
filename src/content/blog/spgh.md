@@ -1,7 +1,7 @@
 ---
 title: "Masterclass de Ingeniería de Software Moderna: De Programador a Arquitecto de Sistemas Escalables"
 description: "Guía definitiva para transformar tu mentalidad de programación a ingeniería de software, cubriendo código limpio, arquitectura, escalabilidad, mejores prácticas y el futuro del desarrollo de software."
-pubDate: "julio 22 2022"
+pubDate: "2022-07-22"
 heroImage: "../../assets/blog-placeholder-1.jpg"
 
 ---

@@ -2,7 +2,7 @@
 title: 'Guía Master Class: Crea y Vende Productos Digitales Exitosamente en Gumroad'
 code: "Gumroad"
 description: 'Guía Master Class: Crea y Vende Productos Digitales Exitosamente en Gumroad'
-pubDate: 'Abril 7'
+pubDate: '2024-04-07'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
