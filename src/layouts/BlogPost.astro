@@ -37,12 +37,23 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 				display: flex;
 				flex-direction: column;
 			}
+			.toc-mobile {
+				display: none;
+			}
 			@media (max-width: 1024px) {
 				.post-layout {
 					grid-template-columns: 1fr;
 				}
 				.post-sidebar {
-					order: -1;
+					display: none;
+				}
+				.toc-mobile {
+					display: block;
+					margin-bottom: 1.5rem;
+					padding: 0 1.5em;
+					max-width: 720px;
+					margin-left: auto;
+					margin-right: auto;
 				}
 			}
 			.hero-image {
@@ -326,6 +337,9 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 							src={heroImage && typeof heroImage === 'object' ? heroImage : DefaultImage} 
 							alt={title} 
 						/>
+					</div>
+					<div class="toc-mobile">
+						<TableOfContents headings={headings} />
 					</div>
 					<div class="prose">
 						<div class="title">

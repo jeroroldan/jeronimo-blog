@@ -66,6 +66,33 @@ flowchart LR
 | **MT5 Integration** | ¿Cómo se ejecuta en mercado? | Orders, positions y monitoreo |
 | **Monitoring** | ¿La estrategia sigue viva? | Alertas, logs y kill-switch |
 
+```mermaid
+flowchart LR
+    subgraph I_Do["I Do (Instructor)"]
+        direction TB
+        A1[Market Diagnostics: Calculate volatility, trend score, regime] --> A2[Strategy Factory: Walkthrough of mean reversion signal] --> A3[Backtesting: Run vectorized test with conservative costs] --> A4[MT5: Connect to terminal, read symbols, simulate orders]
+    end
+    
+    subgraph We_Do["We Do (Collaborative)"]
+        direction TB
+        B1[Team: Design EURUSD mean reversion strategy] --> B2[Collaborate: Refine strategy parameters together] --> B3[Interpret: Analyze metrics (Sharpe, trade count, drawdown)] --> B4[Review: Examine runbook for incident handling]
+    end
+    
+    subgraph You_Do["You Do (Independent)"]
+        direction TB
+        C1[Build: Create Strategy Factory for 3 families (trend, mean reversion, breakout)] --> C2[Define: Set bounds and fitness for genetic optimization] --> C3[Design: Create monitoring dashboard for production] --> C4[Apply: Use full framework on your own strategy]
+    end
+    
+    %% Styling with quant-appropriate colors
+    classDef I_DoStyle fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
+    classDef We_DoStyle fill:#FFF8E1,stroke:#EF6C00,stroke-width:2px,color:#BF360C;
+    classDef You_DoStyle fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
+    
+    class I_Do I_DoStyle;
+    class We_Do We_DoStyle;
+    class You_Do You_DoStyle;
+```
+
 ---
 
 ## PARTE 1: MARKET DIAGNOSTICS — LEER EL MERCADO ANTES DE OPERARLO
