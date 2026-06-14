@@ -443,6 +443,73 @@ Este filtro me ahorra horas de análisis manual y me ayuda a concentrarme en las
   * Aspectos positivos: Buena ejecución del plan
   * Aspectos a mejorar: Podría haber tomado posición más grande dado el contexto favorable
 
+---
+
+## 🧠 CHECKPOINT DE COMPRENSIÓN — Trading Profesional
+
+### Nivel Básico
+
+**1. ¿Cuál es la diferencia entre trading discrecional y algorítmico?**
+
+Respuesta sugerida: Trading discrecional usa decisiones manuales basadas en experiencia e intuición. Trading algorítmico (algo-trading) usa programas automatizados que ejecutan reglas predefinidas, eliminando la intervención humana en cada decisión.
+
+**2. ¿Qué es el ratio Riesgo/Beneficio y por qué es importante?**
+
+Respuesta sugerida: Es la relación entre lo que estás dispuesto a perder (stop-loss) y lo que esperas ganar (take-profit). Un ratio 1:2 significa que por cada $1 de riesgo, esperas ganar $2. Es fundamental porque determina si una estrategia es rentable a largo plazo.
+
+**3. ¿Qué significa "aceptar la incertidumbre" en trading?**
+
+Respuesta sugerida: Reconocer que no puedes controlar el mercado, solo tu respuesta ante él. Ninguna estrategia gana siempre. El éxito viene de mantener una ventaja estadística aplicada consistentemente, no de predecir cada movimiento.
+
+### Nivel Intermedio
+
+**4. ¿Por qué es importante llevar un journal de trading?**
+
+Respuesta sugerida: El journal registra cada operación con entrada, salida, razón de la decisión y lecciones aprendidas. Permite identificar patrones en tu comportamiento, detectar sesgos y mejorar tu proceso sistemáticamente con datos reales, no con memoria selectiva.
+
+**5. ¿Qué diferencia hay entre análisis técnico y análisis fundamental?**
+
+Respuesta sugerida: El análisis técnico estudia price action, gráficos e indicadores para predecir movimientos. El análisis fundamental estudia variables económicas, financieras y de negocio (ingresos, deuda, sector) para determinar el valor intrínseco de un activo.
+
+**6. ¿Cómo influye el contexto económico argentino en las estrategias de trading?**
+
+Respuesta sugerida: Argentina tiene alta volatilidad por inflación, devaluación y regulaciones cambiarias. Esto requiere estrategias adaptadas como diversificación en Cedears, cobertura cambiaria, y mayor énfasis en gestión de riesgo dada la imprevisibilidad del contexto.
+
+### Nivel Avanzado
+
+**7. ¿Cómo decides el tamaño de posición en una operación?**
+
+Respuesta sugerida: El tamaño debe ser proporcional al riesgo de la operación, no al convicción. Si el stop-loss es 3% del precio y decides arriesgar máximo 1.5% del capital por trade, entonces la posición es 0.5% del capital. Mayor convicción no justifica mayor riesgo.
+
+**8. ¿Qué indicadores usarías para confirmar una ruptura de resistencia?**
+
+Respuesta sugerida: (a) volumen superior al promedio (al menos 40%), (b) cierre por encima de la resistencia con fuerza, (c) pullback que no vuelve a penetrar el nivel, (d) confirmación con indicadores como RSI o MACD, (e) contexto de mercado a favor.
+
+**9. ¿Cuándo considerarías cambiar tu estrategia principal?**
+
+Respuesta sugerida: Cuando los datos del journal muestran deterioro consistente (ej. win rate cae 10%+ durante 50+ trades), cuando el mercado cambia estructuralmente (nuevo contexto regulatorio), o cuando encuentras una estrategia con mejor ratio Sharpe validada con backtesting. No por una racha mala aislada.
+
+### Auto-evaluación Rápida
+
+Responde cada pregunta con ✅ (sí lo entiendo), ⚠️ (parcialmente) o ❌ (no lo tengo claro):
+
+- [ ] Puedo explicar qué es un stop-loss y cómo calcularlo
+- [ ] Entiendo la diferencia entre trading discrecional y algorítmico
+- [ ] Conozco los principales mercados financieros (acciones, forex, futuros)
+- [ ] Puedo leer un gráfico de velas japonesas e identificar patrones básicos
+- [ ] Sé qué es el ratio riesgo/beneficio y cómo usarlo
+- [ ] Entiendo la importancia del journal de trading
+- [ ] Conozco estrategias específicas para el contexto argentino
+- [ ] Puedo diseñar un plan de trading con gestión de riesgo
+
+**Si contestaste 6+ con ✅** — Estás listo para comenzar a operar con cuenta demo.
+
+**Si contestaste 3-5 con ✅** — Enfócate en las secciones 3 (gestión de riesgo) y 5 (psicología).
+
+**Si contestaste menos de 3 con ✅** — Lee toda la guía, especialmente las secciones 1 y 2 sobre fundamentos.
+
+---
+
 ## Reflexión Final: El Verdadero Trading Profesional
 
 El trading profesional no se trata de operaciones espectaculares ni de retornos milagrosos. Se construye sobre una base de consistencia, gestión de riesgo disciplinada y mejora continua.

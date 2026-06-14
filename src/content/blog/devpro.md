@@ -509,7 +509,74 @@ Objetivo: Crear un microservicio API Gateway capaz de mantener 1,000,000 de cone
 
 Pistas de Optimización Senior: Requiere configurar los parámetros del Kernel de Linux en el archivo /etc/sysctl.conf para elevar el número máximo de descriptores de archivos permitidos (fs.file-max y ulimit -n), optimizar el rango de puertos locales efímeros del stack TCP y utilizar un framework de red puramente no bloqueante basado en eventos de bajo nivel (como epoll en Linux, implementado mediante arquitecturas Netty, Rust Tokio, o Go epoll wrappers).
 
-Banco de Preguntas Socráticas para Preparación de Entrevistas Técnicas Senior (Active Recall)
+---
+
+## 🧠 CHECKPOINT DE COMPRENSIÓN — De Junior a Senior
+
+### Nivel Básico
+
+**1. ¿Cuál es la diferencia fundamental entre un proceso y un hilo?**
+
+Respuesta sugerida: Un proceso es un contenedor aislado con su propio espacio de memoria virtual. Un hilo es la unidad mínima de ejecución dentro de un proceso, y todos los hilos de un proceso comparten el mismo Heap pero tienen su propio Stack.
+
+**2. ¿Por qué la locality de caché es crucial para el rendimiento?**
+
+Respuesta sugerida: La CPU accede a memoria caché (L1/L2/L3) en 1-40 ciclos, mientras que la RAM toma ~200 ciclos. Acceder datos de forma contigua (row-major vs column-major) puede significar una diferencia de 10x o más en rendimiento.
+
+**3. ¿Qué miden las notations O(1), O(N), O(N²)?**
+
+Respuesta sugerida: Describen cómo crece el tiempo de ejecución respecto al tamaño de entrada. O(1) es constante, O(N) es lineal, O(N²) es cuadrático (y catastrófico para datos grandes).
+
+### Nivel Intermedio
+
+**4. ¿Por qué un HashSet es más rápido que un Array para buscar elementos?**
+
+Respuesta sugerida: Array hace búsqueda lineal O(N), revisando elemento por elemento. HashSet calcula un hash que apunta directo al bucket de memoria, dando búsqueda O(1) en promedio.
+
+**5. ¿Qué problemas resuelve la Arquitectura Hexagonal?**
+
+Respuesta sugerida: Acoplamiento entre lógica de negocio y detalles técnicos. El Dominio no conoce frameworks ni bases de datos, facilitando testing, reemplazo de tecnologías y mantenibilidad a largo plazo.
+
+**6. ¿Qué es el Teorema CAP y qué significa en la práctica?**
+
+Respuesta sugerida: Ante una partición de red, un sistema distribuido debe elegir entre Consistencia o Disponibilidad. En la práctica, la mayoría opta por Disponibilidad y acepta consistencia eventual (como Cassandra).
+
+### Nivel Avanzado
+
+**7. ¿Cómo decides entre un monolito y microservicios?**
+
+Respuesta sugerida: Microservicios valen la pena cuando: equipos grandes (50+ devs), necesidad de escalar componentes independientes, o tecnologías diversas por dominio. Monolito es mejor para equipos pequeños, startups, o cuando la complejidad organizacional no justifica el overhead.
+
+**8. ¿Qué técnicas usarías para prevenir deadlocks en una aplicación multi-hilo?**
+
+Respuesta sugerida: (a) Evitar múltiples locks cuando no sean necesarios, (b) siempre adquirir locks en el mismo orden, (c) usar lock-free data structures, (d) preferir paso de mensajes sobre memoria compartida, (e) usar timeouts en operaciones de lock.
+
+**9. ¿Cómo implementarías un sistema de caché que sea eventualmente consistente?**
+
+Respuesta sugerida: Usaría write-through o write-behind según el caso de uso. Invalidación por TTL o por evento de actualización. Para consistencia eventual, aceptaría que lecturas inmediatas después de escritura puedan devolver datos antiguos.
+
+### Auto-evaluación Rápida
+
+Responde cada pregunta con ✅ (sí lo entiendo), ⚠️ (parcialmente) o ❌ (no lo tengo claro):
+
+- [ ] Puedo explicar la jerarquía de memoria CPU/RAM/Disco y sus latencias
+- [ ] Entiendo la diferencia entre estado compartido y paso de mensajes
+- [ ] Puedo diseñar un bounded context en DDD
+- [ ] Conozco los principios SOLID y cuándo aplicarlos
+- [ ] Puedo explicar qué es el Teorema CAP y dar ejemplos de bases de datos
+- [ ] Entiendo cuándo usar sharding vs replicación
+- [ ] Puedo distinguir overfitting de diseño limpio en código
+- [ ] Conozco la diferencia entre Circuit Breaker y Bulkhead pattern
+
+**Si contestaste 6+ con ✅** — Tienes las bases para el nivel Semi-Senior.
+
+**Si contestaste 3-5 con ✅** — Enfócate en las Secciones 2 y 3 (CS Fundamentals y Software Engineering).
+
+**Si contestaste menos de 3 con ✅** — Comienza desde la Sección 1 con los fundamentos de memoria y CPU.
+
+---
+
+## Banco de Preguntas Socráticas para Preparación de Entrevistas Técnicas Senior (Active Recall)
 Intenta responder las siguientes preguntas utilizando la Técnica Feynman (explicaciones sencillas, profundas y estructuradas sin usar tecnicismos vacíos):
 
 ¿Por qué el uso excesivo de variables globales y estado mutable compartido destruye por completo la capacidad de un sistema de software para escalar horizontalmente a través de múltiples servidores cloud?

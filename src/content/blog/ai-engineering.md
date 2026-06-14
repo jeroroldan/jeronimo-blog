@@ -2431,6 +2431,71 @@ if __name__ == "__main__":
 
 ---
 
+## 🧠 CHECKPOINT DE COMPRENSIÓN — AI Engineering
+
+### Nivel Básico
+
+**1. ¿Qué es Prompt Engineering y por qué es fundamental en AI Engineering?**
+
+Respuesta sugerida: Es el arte de diseñar instrucciones efectivas para modelos de lenguaje. Es fundamental porque un prompt bien diseñado puede mejorar drásticamente la calidad de las respuestas sin necesidad de modificar el modelo o entrenarlo.
+
+**2. ¿Cuál es la diferencia entre RAG, Fine-tuning y embeddings vectoriales?**
+
+Respuesta sugerida: RAG (Retrieval-Augmented Generation) combina búsqueda de información con generación de texto. Fine-tuning es adaptar un modelo preentrenado a una tarea específica con datos propios. Los embeddings son representaciones numéricas de texto que permiten buscar por similitud semántica.
+
+**3. ¿Qué son los tres pilares de MLOps (Metrics, Logs, Traces)?**
+
+Respuesta sugerida: Metrics son datos numéricos agregados para tendencias y alertas (ej. CPU%, latencia). Logs son eventos textuales discretos para entender contextos específicos. Traces permiten rastrear el ciclo de vida de una petición a través de múltiples servicios.
+
+### Nivel Intermedio
+
+**4. ¿Cuándo usarías RAG vs Fine-tuning?**
+
+Respuesta sugerida: RAG cuando necesitas que el modelo acceda a información actualizada o específica de tu organización (búsqueda en documentos). Fine-tuning cuando quieres cambiar el comportamiento, estilo o formato de respuestas del modelo de forma consistente.
+
+**5. ¿Por qué es importante la consistencia en las respuestas de un AI system?**
+
+Respuesta sugerida: Un sistema AI debe responder de forma consistente ante entradas idénticas o similares. La inconsistencia erode la confianza del usuario y hace difícil confiar en las respuestas para tareas críticas.
+
+**6. ¿Qué consideraciones de seguridad son esenciales en una aplicación AI?**
+
+Respuesta sugerida: Validación y sanitización de inputs, rate limiting, manejo seguro de API keys (nunca hardcodear), encriptación de datos sensibles, logging que no exponga información personal, y protección contra inyecciones de prompts.
+
+### Nivel Avanzado
+
+**7. ¿Cómo diseñarías un sistema que combine múltiples modelos de IA para diferentes tareas?**
+
+Respuesta sugerida: Implementaría un router que clasifique la complejidad de la tarea y el presupuesto disponible, luego seleccione el modelo óptimo. Usaría caché para respuestas reutilizables, fallback para cuando un modelo falle, y agregaría monitoreo de costos por modelo.
+
+**8. ¿Qué trade-offs considerarías al elegir entre CSR, SSR, SSG e ISR para una aplicación AI?**
+
+Respuesta sugerida: SSG ofrece mejor performance pero no sirve contenido dinámico. CSR es interactivo pero tiene mal SEO. SSR da buen SEO y contenido fresco pero carga más servidor. ISR es un balance: genera estático pero revalida en background. La elección depende de si el contenido es público, personalizado, o interactivo.
+
+**9. ¿Cómo evaluarías si un modelo de IA es apropiado para producción?**
+
+Respuesta sugerida: Mediría: (a) calidad de respuestas en casos de prueba realistas, (b) consistencia ante same input, (c) latencia promedio y p99, (d) manejo de errores y edge cases, (e) costos por query, (f) compliance con requisitos de privacidad.
+
+### Auto-evaluación Rápida
+
+Responde cada pregunta con ✅ (sí lo entiendo), ⚠️ (parcialmente) o ❌ (no lo tengo claro):
+
+- [ ] Puedo explicar qué es RAG y cuándo usarlo
+- [ ] Entiendo la diferencia entre fine-tuning y RAG
+- [ ] Puedo implementar un sistema de embeddings básico
+- [ ] Conozco los 3 pilares de MLOps y para qué sirve cada uno
+- [ ] Puedo diseñar prompts efectivos con estructura clara
+- [ ] Entiendo los diferentes rendering strategies (CSR/SSR/SSG/ISR)
+- [ ] Sé cómo sanitizar inputs para prevenir inyecciones
+- [ ] Puedo implementar rate limiting para una API de AI
+
+**Si contestaste 6+ con ✅** — Tienes las bases para construir sistemas AI en producción.
+
+**Si contestaste 3-5 con ✅** — Enfócate en las secciones de RAG, MLOps y prompting.
+
+**Si contestaste menos de 3 con ✅** — Comienza desde el inicio con prompt engineering y RAG básico.
+
+---
+
 ## Tendencias y Futuro
 
 ### **Tecnologías Emergentes**
