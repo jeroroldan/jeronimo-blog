@@ -1,0 +1,130 @@
+---
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { headings } = Astro.props;
+const filteredHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+
+{filteredHeadings.length > 3 && (
+  <nav class="toc" aria-label="Tabla de contenidos">
+    <div class="toc-header">
+      <span class="toc-icon">📑</span>
+      <span>Tabla de Contenidos</span>
+    </div>
+    <ul class="toc-list">
+      {filteredHeadings.map((heading) => (
+        <li class={`toc-item toc-depth-${heading.depth}`}>
+          <a href={`#${heading.slug}`} class="toc-link">
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<style>
+  .toc {
+    position: sticky;
+    top: 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-md);
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    box-shadow: var(--glass-shadow);
+  }
+
+  .toc-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .toc-icon {
+    font-size: 1.1rem;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc-item {
+    margin: 0;
+  }
+
+  .toc-depth-3 {
+    padding-left: 1rem;
+  }
+
+  .toc-link {
+    display: block;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+  }
+
+  .toc-link:hover {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+  }
+
+  .toc-link.active {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+    font-weight: 500;
+  }
+
+  @media (max-width: 1024px) {
+    .toc {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function initTOC() {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = document.querySelectorAll('article h2, article h3');
+
+    if (!tocLinks.length || !headings.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            tocLinks.forEach((link) => link.classList.remove('active'));
+            const id = entry.target.getAttribute('id');
+            const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
+            if (activeLink) activeLink.classList.add('active');
+          }
+        });
+      },
+      { rootMargin: '-20% 0% -80% 0%' }
+    );
+
+    headings.forEach((heading) => observer.observe(heading));
+  }
+
+  document.addEventListener('DOMContentLoaded', initTOC);
+</script>
