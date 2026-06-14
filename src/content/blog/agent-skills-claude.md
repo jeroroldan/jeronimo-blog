@@ -175,4 +175,54 @@ Agent Skills convierten Claude de asistente general en experto personalizado. Co
 Recuerda: Skills no son prompts; son expertise empaquetada, activada automáticamente.
 
 *Guía basada en documentación de Anthropic sobre Agent Skills.*
+
+---
+
+## Preguntas de Verificación 📝
+
+Responde cada pregunta basándote en los conceptos de Agent Skills. Escribe tus respuestas o compártelas para profundizar tu aprendizaje.
+
+### Preguntas sobre Estructura de Skills
+
+1. **Diseña**: Crea un skill para Claude que procese y analice código Python. Define el YAML frontmatter y las instrucciones clave.
+
+2. **Compara**: ¿Cuál sería la diferencia entre usar el skill pre-built de Excel vs crear un custom skill para análisis financiero específico?
+
+3. **Evalúa**: Un skill tiene 10KB de instrucciones. ¿Es problema? ¿Cómo optimizarías la carga de contenido?
+
+### Preguntas sobre Implementación
+
+4. **Propón**: Diseña la estructura de archivos para un skill de análisis de datos que use pandas, visualice gráficos y genere reportes.
+
+5. **Aplica**: Explica cómo implementarías el nivel 3 de recursos (archivos) para un skill que necesite plantillas de informes predefinidas.
+
+6. **Analiza**: Claude Code solo usa custom skills. ¿Qué limitaciones tendrías para integrar skills pre-built en un flujo de trabajo local?
+
+### Preguntas sobre Seguridad
+
+7. **Calcula**: Si ejecutas un skill que tiene acceso a filesystem, ¿qué riesgos de seguridad deberías considerar? Prioriza por severidad.
+
+8. **Propón**: Diseña un sistema de auditoría para skills personalizados. ¿Qué actividades registrarías y cómo las visualizarías?
+
+9. **Evalúa**: Un skill externo parece útil pero no confías en su código. ¿Cómo verificarías su seguridad antes de usarlo?
+
+### Preguntas Integradoras
+
+10. **Conecta**: Explica cómo los tres niveles de carga de un skill (metadata, instrucciones, recursos) permiten optimizar tokens y performance.
+
+11. **Síntesis**: Toma un proceso manual que haces con Excel y crea un skill que automatice todo el flujo. Incluye triggers, herramientas y salidas.
+
+12. **Reflexión final**: Los skills están en constante evolución. ¿Qué habilidades creativas podrías desarrollar con skills especializados que hoy no existen?
+
+---
+
+## Glosario Rápido
+
+| Término | Definición |
+|---------|------------|
+| **Pre-built skills** | Skills oficiales de Anthropic (pptx, xlsx, docx, pdf) |
+| **Custom skills** | Skills creados por usuarios |
+| **Metadata** | Información de nombre y descripción cargada al inicio |
+| **Container** | Entorno aislado donde ejecuta Claude Code |
+| **Zero Data Retention** | No retención de datos (no aplica para skills) |
 ```

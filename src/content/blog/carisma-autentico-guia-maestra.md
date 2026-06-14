@@ -306,6 +306,38 @@ Cuando entiendes esto, el carisma deja de ser un misterio y se convierte en una 
 
 ---
 
+## Preguntas de Verificación 📝
+
+Responde cada pregunta reflexionando sobre los conceptos de esta guía. Escribe tus respuestas o compártelas para profundizar tu aprendizaje.
+
+### Preguntas sobre los 3 Errores que Bloquean el Carisma
+
+1. **Identifica**: ¿Cuál de los 3 errores has comete más frequentemente en tus interacciones sociales? ¿Qué patrones observable tienes que te delaten?
+
+2. **Analiza**: La gente percibe el carisma desde cómo te sientes tú, no desde lo que tú crees que transmites. ¿Cómo puedes validar tu percepción del carisma que emites?
+
+3. **Propón**: Diseña un ejercicio de 7 días para reemplazar el hábito de "demostrar valor" con "descubrir valor en los demás".
+
+### Preguntas sobre las 4 Estrategias (Método CASA)
+
+4. **Aplica**: En una conversación profesional, ¿cómo usarías la estrategia de Comprensión para adaptar tu comunicación a alguien con perfil técnico vs. alguien con perfil creativo?
+
+5. **Practica**: Graba una conversación de 5 minutos donde apliques únicamente Atención (escucha activa y preguntas abiertas) sin compartir nada de ti. ¿Qué notaste?
+
+6. **Evalúa**: ¿Cómo distinguirías entre similitud superficial (intereses comunes) y conexión profunda (valores alineados)? Ejemplo práctico?
+
+### Preguntas Integradoras
+
+7. **Conecta**: Explica cómo el error de "ocultar vulnerabilidades" se relaciona con el "modo espejo" vs "modo linterna". ¿Qué vulnerabilidad podrías compartir estratégicamente hoy?
+
+8. **Diseña**: Crea un sistema de autoevaluación semanal para medir tu progreso en carisma auténtico. ¿Qué métricas considerarías?
+
+9. **Síntesis**: Combina los niveles 1, 2 y 3 de práctica en un solo ejercicio de 15 minutos. ¿Qué orden seguirías y por qué?
+
+10. **Reflexión final**: Si pudieras cambiar solo una cualidad de ti mismo para ser más carismático, ¿cuál sería? ¿Por qué? ¿Cómo lo entrenarías?
+
+---
+
 **Checklist Final de Calidad:**
 
 - [x] Analogía central (linterna vs espejo)

@@ -539,3 +539,53 @@ El código del futuro será escrito por agents. El tuyo será el diseño que los
 **Recuerda**: Estás leyendo esto en 2026. En 2030, esta guía será historia. Pero tú puedes ser parte de quien la escribe.
 
 ¡Construye algo increíble!
+
+---
+
+## Preguntas de Verificación 📝
+
+Responde cada pregunta basándote en los conceptos de esta master class. Escribe tus respuestas o compártelas para profundizar tu aprendizaje.
+
+### Preguntas sobre Arquitectura de AI Agents
+
+1. **Diseña**: Crea un agente Planner/Executor para una tarea de investigación de mercado. Define los componentes principales y su flujo de datos.
+
+2. **Compara**: ¿Cuál sería la diferencia entre implementar un agente reactivo vs. un agente planificador para una tarea de análisis financiero?
+
+3. **Evalúa**: Un agente multi-agente tiene 5 especialistas trabajando en paralelo. ¿Qué riesgos de comunicación emergence y cómo los mitigarías?
+
+### Preguntas sobre Tool Calling e Integraciones
+
+4. **Propón**: Diseña un sistema de tool routing para que un agente pueda usar: filesystem, terminal, base de datos y API web. ¿Qué consideraciones de seguridad tendrías?
+
+5. **Aplica**: Si un agente necesita acceder a datos de bolsa en tiempo real, ¿qué herramientas elegirías y por qué? Considera latencia, costo y confiabilidad.
+
+6. **Analiza**: ¿Cómo implementarías un mecanismo de fallback cuando una herramienta falla? Ejemplo: base de datos caída durante ejecución.
+
+### Preguntas sobre RAG y Memoria
+
+7. **Calcula**: Un documento tiene 10,000 palabras. Con un chunk size de 512 tokens y overlap del 10%, ¿cuántos chunks generarás? ¿Cómo afecta esto la calidad de recuperación?
+
+8. **Propón**: Diseña un sistema de memoria vectorial para un asistente que recuerde preferencias de usuarios. ¿Qué metadata almacenarías?
+
+### Preguntas Integradoras
+
+9. **Conecta**: Explica cómo el patrón Reflection se relaciona con el concepto de "validar resultados". ¿Qué tan importante es este paso en la autorregulación?
+
+10. **Diseña**: Crea un workflow para automatizar el análisis de reportes financieros trimestrales. Incluye: research agent, data agent, y reporting agent.
+
+11. **Síntesis**: Toma una tarea manual que hagas regularmente (ej: crear informes, responder emails, planificar) y diseña un agente que la automatice. Identifica los puntos de fricción.
+
+12. **Reflexión final**: El código del futuro será escrito por agents. ¿Tú qué papel jugarás en esta transición? ¿Qué habilidades desarrollarás primero?
+
+---
+
+## Glosario Rápido
+
+| Término | Definición |
+|---------|------------|
+| **Agent** | Sistema que percibe, razona y actúa para alcanzar objetivos |
+| **Tool Calling** | Capacidad de un LLM para invocar funciones externas |
+| **RAG** | Retrieval-Augmented Generation: mejora respuestas con contexto externo |
+| **Reflection** | Bucle de autoevaluación y ajuste de resultados |
+| **Multi-Agent** | Sistema con múltiples agentes especializados que colaboran |

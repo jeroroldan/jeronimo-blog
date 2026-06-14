@@ -488,7 +488,7 @@ const paymentProcess = {
 
 #### 📚 **Tipos de Registros DNS**
 
-```dns
+```txt
 🎯 REGISTROS DNS ESENCIALES:
 
 ├── A RECORD
@@ -603,7 +603,7 @@ const cloudflareOptimalConfig = {
 
 #### 🏠 **Para Website/Blog Estático**
 
-```dns
+```txt
 # Configuración básica para Netlify/Vercel
 Type: CNAME
 Name: @
@@ -623,7 +623,7 @@ Value: "v=verification1234567890abcdef"
 
 #### 📧 **Para Email Personalizado (Gmail)**
 
-```dns
+```txt
 # MX Records para Gmail
 Type: MX
 Name: @
@@ -663,7 +663,7 @@ Value: "v=DKIM1; k=rsa; p=TU_CLAVE_PUBLICA_AQUI"
 
 #### 🛒 **Para E-commerce (Shopify)**
 
-```dns
+```txt
 # Para tienda principal
 Type: A
 Name: @
@@ -900,7 +900,7 @@ const performanceMonitoring = {
 
 #### 🌎 **Configuración Global**
 
-```dns
+```txt
 # CONFIGURACIÓN MULTI-REGIÓN
 
 # Región Principal (Global)
@@ -1090,7 +1090,7 @@ const zohoSetup = {
 
 #### 📧 **Forwarder Setup (Opción Gratuita)**
 
-```dns
+```txt
 # Para redirect simple a Gmail personal
 
 # 1. En Cloudflare Email Routing (GRATIS)

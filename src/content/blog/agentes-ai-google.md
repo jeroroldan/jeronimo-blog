@@ -144,3 +144,53 @@ Los agentes de IA representan el próximo salto: autonomía que transforma indus
 Recuerda: Los agentes no reemplazan humanos; los potencian para creatividad pura.
 
 _Inspirado en Google Cloud sobre agentes de IA._
+
+---
+
+## Preguntas de Verificación 📝
+
+Responde cada pregunta basándote en los conceptos de agentes de IA. Escribe tus respuestas o compártelas para profundizar tu aprendizaje.
+
+### Preguntas sobre Tipos de Agentes
+
+1. **Diseña**: Crea un agente de cliente para un e-commerce. Define su perfil, funciones y tipos de interacciones que manejaría.
+
+2. **Compara**: ¿Cuál sería la diferencia entre implementar un agente único vs un sistema multi-agente para gestionar un call center?
+
+3. **Evalúa**: Un agente de seguridad detecta una amenaza. ¿Qué acciones tomaría? ¿Qué límites éticos considerarías?
+
+### Preguntas sobre Arquitectura
+
+4. **Propón**: Diseña la arquitectura de un agente que analice datos financieros y genere señales de trading. Incluye memoria y herramientas.
+
+5. **Aplica**: Explica cómo integrarías memoria a largo plazo en un agente que asista en proyectos de investigación. ¿Qué metadata almacenarías?
+
+6. **Analiza**: Cloud Run es ideal para agentes. ¿Qué limitaciones tendrías para agentes que necesitan interactuar con hardware físico?
+
+### Preguntas sobre Casos de Uso
+
+7. **Diseña**: Un agente creativo debe generar campañas de marketing. ¿Qué herramientas necesitaría y qué tipos de salidas generaría?
+
+8. **Calcula**: Un agente de datos procesa 1000 datasets diarios. ¿Cómo distribuirías las cargas de trabajo para optimizar recursos?
+
+9. **Propón**: Un agente de empleados debe gestionar onboarding. Lista las 5 tareas que automatizaría y su flujo de trabajo.
+
+### Preguntas Integradoras
+
+10. **Conecta**: Explica cómo el perfil de un agente (personalidad) se relaciona con su memoria y herramientas. Ejemplo práctico.
+
+11. **Síntesis**: Toma un proceso manual de tu trabajo y diseña un agente que lo automatice. Identifica: objetivo, herramientas, memoria y flujo.
+
+12. **Reflexión final**: La automatización con agentes está en aumento. ¿Qué habilidades humanas serán más valiosas en este nuevo ecosistema?
+
+---
+
+## Glosario Rápido
+
+| Término | Definición |
+|---------|------------|
+| **Agente único** | Sistema autónomo para un propósito específico |
+| **Multi-agente** | Sistema con múltiples agentes colaborativos |
+| **Vertex AI** | Plataforma de Google para construir agentes |
+| **ADK** | Agent Development Kit de Google |
+| **A2A Protocol** | Protocolo para comunicación entre agentes |

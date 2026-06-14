@@ -232,3 +232,53 @@ graph TB
 ---
 
 **Nota**: El enfoque está en arquitectura, organización y buenas prácticas, no en diseño visual perfecto.
+
+---
+
+## Preguntas de Verificación 📝
+
+Responde cada pregunta basándote en los conceptos del desafío. Escribe tus respuestas o compártelas para profundizar tu aprendizaje.
+
+### Preguntas sobre Arquitectura
+
+1. **Diseña**: Explica cómo estructurarías los módulos de NestJS para cumplir con el patrón de arquitectura limpia. ¿Qué responsabilidades tendría cada capa?
+
+2. **Compara**: ¿Cuál sería la diferencia entre usar el patrón Repository vs acceder directamente al ORM en el service layer? Cuándo usarías cada uno.
+
+3. **Evalúa**: El desafío pide "modularidad" y "separación de preocupaciones". ¿Cómo aplicarías estos principios en la estructura de carpetas del frontend Next.js?
+
+### Preguntas sobre Frontend
+
+4. **Propón**: Diseña un sistema de manejo de estado para el dashboard de despacho. ¿Qué datos manejarías localmente vs en el servidor?
+
+5. **Aplica**: Crea un componente reutilizable para la lista de actividades. ¿Qué props recibiría y cómo manejarías los estados de carga y error?
+
+6. **Analiza**: La app debe funcionar en móvil, tablet y escritorio. ¿Qué estrategias de responsive design aplicarías y qué breakpoints considerarías?
+
+### Preguntas sobre Backend
+
+7. **Diseña**: Implementa el endpoint `activities` con las operaciones CRUD. ¿Qué validaciones incluirías y cómo manejarías los errores?
+
+8. **Calcula**: Si la app maneja 1000 actividades concurrentes, ¿qué estrategias de paginación y caché aplicarías para mantener buen performance?
+
+9. **Propón**: Diseña el sistema de autenticación. ¿Qué almacenarías en el JWT y cómo validarías los permisos por rol?
+
+### Preguntas Integradoras
+
+10. **Conecta**: Explica cómo la arquitectura modular del backend se relaciona con la arquitectura basada en características del frontend. ¿Qué ventajas ofrece esta alineación?
+
+11. **Síntesis**: Toma la funcionalidad de "asignar actividad a conductor". Dibuja el flujo completo desde el frontend hasta la base de datos, incluyendo validaciones y manejo de errores.
+
+12. **Reflexión final**: Este es un desafío "Junior a Mid-Level". ¿Qué decisiones arquitectónicas diferenciarían una solución junior de una solución senior?
+
+---
+
+## Glosario Rápido
+
+| Término | Definición |
+|---------|------------|
+| **Arquitectura limpia** | Patrón que separa las reglas de negocio de la infraestructura |
+| **Repository pattern** | Abstracción para operaciones de base de datos |
+| **DTO** | Objeto que transporta datos entre capas |
+| **Responsive design** | Diseño que se adapta a diferentes tamaños de pantalla |
+| **State management** | Manejo de estado global en aplicaciones |

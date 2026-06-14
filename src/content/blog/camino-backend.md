@@ -266,7 +266,7 @@ describe('User API', () => {
 
 **Analogía**: Tener los utensilios de cocina más usados al alcance de la mano
 
-```redis
+```bash
 # Estrategias de Cache
 1. Cache-aside (Lazy Loading)
 2. Write-through

@@ -1,11 +1,11 @@
 ---
-title: 'MASTERCLASS: Alpha Quant Research Workflow - Fábrica de Estrategias Algorítmicas'
-description: 'Workflow end-to-end usando Python y AI agents para construir, backtest y optimizar estrategias de trading cuantitativas en fracción del tiempo tradicional.'
-pubDate: '2026-06-14'
-code: 'alpha-quant-workflow'
-category: 'quant-trading'
-tags: ['quant', 'trading', 'python', 'ai-agents', 'mt5', 'backtesting']
-difficulty: 'avanzado'
+title: "MASTERCLASS: Alpha Quant Research Workflow - Fábrica de Estrategias Algorítmicas"
+description: "Workflow end-to-end usando Python y AI agents para construir, backtest y optimizar estrategias de trading cuantitativas en fracción del tiempo tradicional."
+pubDate: "2026-06-14"
+code: "alpha-quant-workflow"
+category: "quant-trading"
+tags: ["quant", "trading", "python", "ai-agents", "mt5", "backtesting"]
+difficulty: "avanzado"
 readingTime: 40
 ---
 
@@ -719,16 +719,583 @@ flowchart LR
 
 ## PARTE 7: AUTOMATION COMPARISON
 
-## PARTE 7: AUTOMATION COMPARISON — DÓNDE EJECUTAR LA ESTRATEGIA
+La automatización define cómo una estrategia pasa de señal a ejecución. La decisión no es solo técnica: también afecta latencia, costos, control de riesgo, portabilidad y complejidad operacional.
+
+```mermaid
+flowchart TD
+    A[Señal generada] --> B{Modo de ejecución}
+    B --> C[Manual asistido]
+    B --> D[Semi-automático]
+    B --> E[Automático local]
+    B --> F[Automático cloud]
+    B --> G[Automático broker API]
+    C --> H[Humano confirma orden]
+    D --> I[Sistema prepara orden]
+    I --> H
+    E --> J[Ejecución en VPS]
+    F --> K[Ejecución cloud]
+    G --> L[Ejecución directa]
+    H --> M[Registro y monitoreo]
+    J --> M
+    K --> M
+    L --> M
+```
+
+### 7.1 Comparación de modelos
+
+| Modelo | Ventaja | Desventaja | Mejor uso |
+|--------|---------|------------|-----------|
+| **Manual asistido** | Control humano total | Lentitud y sesgo emocional | Investigación y paper trading |
+| **Semi-automático** | Reduce errores operativos | Requiere confirmación | Estrategias diarias |
+| **Automático local** | Baja latencia relativa | Depende del equipo local | Intradía simple |
+| **Automático cloud** | Alta disponibilidad | Complejidad DevOps | Sistemas 24/7 |
+| **Broker API** | Ejecución directa | Riesgo de integración | Producción robusta |
+| **Híbrido** | Balance control/velocidad | Más piezas que monitorear | Equipos pequeños |
+
+### 7.2 Criterios de decisión
+
+| Criterio | Pregunta clave | Peso sugerido |
+|----------|----------------|---------------|
+| **Latencia** | ¿La estrategia depende de milisegundos? | 20% |
+| **Disponibilidad** | ¿Debe operar 24/7 sin caída? | 20% |
+| **Control de riesgo** | ¿Puede cortar exposición automáticamente? | 25% |
+| **Costo operacional** | ¿El beneficio justifica infraestructura? | 15% |
+| **Complejidad** | ¿El equipo puede mantenerlo? | 10% |
+| **Portabilidad** | ¿Puede migrar de broker o activo? | 10% |
+
+### 7.3 Matriz de automatización
+
+```python
+def choose_automation(latency_sensitive, needs_24_7, team_devops, risk_controls):
+    if latency_sensitive and team_devops:
+        return 'broker_api_cloud'
+    if needs_24_7 and risk_controls:
+        return 'cloud_hybrid'
+    if team_devops:
+        return 'local_automated_vps'
+    if risk_controls:
+        return 'semi_automated'
+    return 'manual_assisted'
+```
+
+### 7.4 Checklist de producción
+
+| Check | Requisito |
+|-------|-----------|
+| Señales reproducibles | Mismo input produce misma señal |
+| Logs estructurados | Cada orden tiene request_id |
+| Reconciliación | Posiciones locales = broker |
+| Kill-switch | Apaga por drawdown, latencia o datos |
+| Alertas | Fallos de datos, órdenes rechazadas, exposición |
+| Backups | Configuración y estado recuperables |
+| Paper trading | Validación antes de capital real |
+| Runbook | Procedimiento ante incidentes |
+
+## APPEND4
+
+## PARTE 8: MT5 INTEGRATION — EJECUCIÓN CON METATRADER 5
+
+MetaTrader 5 puede funcionar como terminal de ejecución, fuente de datos y capa de órdenes para estrategias Python. La integración típica usa el paquete MetaTrader5 para consultar precios, enviar órdenes y leer posiciones.
+
+### 8.1 Arquitectura de integración
+
+```mermaid
+flowchart LR
+    A[Python Strategy] --> B[Signal Generator]
+    B --> C[Risk Engine]
+    C --> D[MT5 Adapter]
+    D --> E[MetaTrader5 Terminal]
+    E --> F[Broker]
+    F --> G[Market]
+    G --> E
+    E --> H[Positions]
+    H --> D
+    D --> I[Logger]
+    I --> J[Monitoring Dashboard]
+```
+
+### 8.2 Requisitos prácticos
+
+| Requisito | Motivo |
+|-----------|--------|
+| Terminal MT5 instalado | El paquete Python se conecta al terminal |
+| Cuenta habilitada para trading automático | Permite órdenes programáticas |
+| Símbolos visibles en Market Watch | Evita errores de símbolo no encontrado |
+| Permisos de trading API | Necesarios para enviar órdenes |
+| VPS estable | Reduce caídas y latencia |
+| Logs y reconciliación | Detecta discrepancias |
+| Kill-switch externo | Apaga la estrategia si el terminal falla |
+
+### 8.3 Adapter básico
+
+```python
+import MetaTrader5 as mt5
+import pandas as pd
+from datetime import datetime, timezone
 
 
+class MT5Adapter:
+    def __init__(self, login, password, server, path=None):
+        self.login = login
+        self.password = password
+        self.server = server
+        self.path = path
 
+    def connect(self):
+        if not mt5.initialize(path=self.path):
+            raise ConnectionError(mt5.last_error())
+        authorized = mt5.login(self.login, password=self.password, server=self.server)
+        if not authorized:
+            raise PermissionError(mt5.last_error())
+        return True
 
+    def rates(self, symbol, timeframe, bars=1000):
+        rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, bars)
+        if rates is None:
+            raise RuntimeError(mt5.last_error())
+        df = pd.DataFrame(rates)
+        df['time'] = pd.to_datetime(df['time'], unit='s', utc=True)
+        return df.set_index('time')
 
+    def symbol_info(self, symbol):
+        info = mt5.symbol_info(symbol)
+        if info is None:
+            raise RuntimeError(mt5.last_error())
+        return info
 
+    def position_exists(self, symbol):
+        positions = mt5.positions_get(symbol=symbol)
+        return positions is not None and len(positions) > 0
 
+    def close_position(self, symbol):
+        positions = mt5.positions_get(symbol=symbol)
+        if not positions:
+            return None
+        position = positions[0]
+        volume = abs(position.volume)
+        order_type = mt5.ORDER_TYPE_SELL if position.type == mt5.POSITION_TYPE_BUY else mt5.ORDER_TYPE_BUY
+        price = mt5.symbol_info_tick(symbol).ask if order_type == mt5.ORDER_TYPE_SELL else mt5.symbol_info_tick(symbol).bid
+        request = {
+            'action': mt5.TRADE_ACTION_DEAL,
+            'symbol': symbol,
+            'volume': volume,
+            'type': order_type,
+            'position': position.ticket,
+            'price': price,
+            'deviation': 20,
+            'magic': 234000,
+            'comment': 'close_position',
+            'type_time': mt5.ORDER_TIME_GTC,
+            'type_filling': mt5.ORDER_FILLING_IOC,
+        }
+        return mt5.order_send(request)
 
+    def send_order(self, symbol, order_type, volume, sl=0.0, tp=0.0):
+        tick = mt5.symbol_info_tick(symbol)
+        price = tick.ask if order_type == mt5.ORDER_TYPE_BUY else tick.bid
+        request = {
+            'action': mt5.TRADE_ACTION_DEAL,
+            'symbol': symbol,
+            'volume': volume,
+            'type': order_type,
+            'price': price,
+            'sl': sl,
+            'tp': tp,
+            'deviation': 20,
+            'magic': 234000,
+            'comment': 'python_strategy',
+            'type_time': mt5.ORDER_TIME_GTC,
+            'type_filling': mt5.ORDER_FILLING_IOC,
+        }
+        result = mt5.order_send(request)
+        if result.retcode != mt5.TRADE_RETCODE_DONE:
+            raise RuntimeError(result._asdict())
+        return result._asdict()
+```
 
+### 8.4 Reconciliación de posiciones
 
+| Fuente | Qué compara | Frecuencia |
+|--------|-------------|------------|
+| Estrategia local | Señal objetivo | Cada tick o vela |
+| MT5 positions | Posición real | Cada ciclo |
+| Historial de órdenes | Fills ejecutados | Cada ciclo |
+| Equity | Capital disponible | Cada minuto |
+| Logs | Discrepancias | En tiempo real |
 
+### 8.5 Loop operacional seguro
+
+```python
+def trading_loop(adapter, strategy, symbol, timeframe, cycle_seconds=60):
+    import time
+
+    while True:
+        try:
+            bars = adapter.rates(symbol, timeframe, bars=500)
+            features = strategy.features(bars)
+            signal = strategy.signal(features).iloc[-1]
+            target = strategy.target_from_signal(signal)
+
+            if target == 0:
+                adapter.close_position(symbol)
+            else:
+                info = adapter.symbol_info(symbol)
+                volume = strategy.size(symbol, info, features.iloc[-1])
+                order_type = mt5.ORDER_TYPE_BUY if target > 0 else mt5.ORDER_TYPE_SELL
+                levels = strategy.levels(features.iloc[-1], target)
+                adapter.send_order(symbol, order_type, volume, levels['sl'], levels['tp'])
+
+            time.sleep(cycle_seconds)
+        except Exception as exc:
+            print(f'error: {exc}')
+            time.sleep(cycle_seconds)
+```
+
+### 8.6 Riesgos específicos de MT5
+
+| Riesgo | Síntoma | Mitigación |
+|--------|---------|------------|
+| Terminal desconectado | copy_rates devuelve None | Healthcheck y reconexión |
+| Símbolo no visible | order_send falla | Agregar a Market Watch |
+| Filling rechazado | Retcode no DONE | Ajustar filling mode |
+| Slippage alto | Precio ejecutado distinto | Deviation y límites |
+| VPS caída | Sin señales ni órdenes | Monitoreo externo |
+| Cuenta en hedge | Múltiples posiciones | Política de neteo o tickets |
+| Broker cambia contrato | Volumen inválido | Leer volume_min y volume_step |
+
+## APPEND5
+
+## PARTE 9: FUTURE ROADMAP — DE PROTOTIPO A PRODUCCIÓN
+
+La ruta hacia producción no es lineal. Primero se valida la idea, luego se industrializa el pipeline, después se automatiza la ejecución y finalmente se monitorea la degradación.
+
+```mermaid
+flowchart LR
+    A[Prototipo notebook] --> B[Scripts modulares]
+    B --> C[Tests automáticos]
+    C --> D[Paper trading]
+    D --> E[Capital reducido]
+    E --> F[Escalado controlado]
+    F --> G[Producción monitorizada]
+    G --> H[Retiro o mejora]
+```
+
+### 9.1 Roadmap por etapas
+
+| Etapa | Objetivo | Duración típica | Entregable |
+|-------|----------|-----------------|------------|
+| **Exploración** | Encontrar hipótesis | 1-2 semanas | Research brief |
+| **Prototipo** | Validar señal básica | 1 semana | Notebook reproducible |
+| **Industrialización** | Convertir en código modular | 1-2 semanas | Package interno |
+| **Backtest robusto** | Medir métricas reales | 1-2 semanas | Reporte walk-forward |
+| **Paper trading** | Verificar ejecución simulada | 2-4 semanas | Logs y fills simulados |
+| **Live small** | Operar capital mínimo | 4-8 semanas | Monitoreo real |
+| **Scale up** | Aumentar tamaño gradualmente | Variable | Control de riesgo |
+| **Retire** | Cerrar estrategia degradada | Cualquier momento | Post-mortem |
+
+### 9.2 Señales de degradación
+
+| Señal | Interpretación | Acción |
+|-------|----------------|--------|
+| Sharpe rolling cae 50% | Edge disminuyendo | Reducir tamaño |
+| Drawdown supera umbral | Riesgo excesivo | Stop temporal |
+| Slippage aumenta | Liquidez deteriorada | Revisar horarios |
+| Latencia aumenta | Problema técnico | Migrar infra |
+| Señales sin fills | Ejecución fallida | Revisar broker |
+| Correlación sube | Diversificación rota | Rebalancear |
+| Regimen cambia | Estrategia fuera de contexto | Pausar o ajustar |
+
+### 9.3 Evolución del sistema
+
+```mermaid
+flowchart TD
+    A[Research Agent] --> B[Strategy Factory]
+    B --> C[Backtest Agent]
+    C --> D[Optimizer]
+    D --> E[Risk Agent]
+    E --> F[MT5 Adapter]
+    F --> G[Monitoring Agent]
+    G --> H[Incident Report]
+    H --> A
+```
+
+### 9.4 Roles de AI agents
+
+| Agente | Responsabilidad | Output |
+|--------|-----------------|--------|
+| **Research Agent** | Generar hipótesis y revisar literatura | Brief de estrategia |
+| **Data Agent** | Validar datos y detectar anomalías | Reporte de calidad |
+| **Code Agent** | Implementar features y tests | Pull request limpio |
+| **Backtest Agent** | Correr backtests y métricas | Reporte comparativo |
+| **Risk Agent** | Revisar drawdown y exposición | Semáforo de riesgo |
+| **Ops Agent** | Monitorear ejecución y logs | Alertas y runbook |
+
+### 9.5 Prompt para Risk Agent
+
+```text
+Actúa como responsable de riesgo cuantitativo.
+Evalúa esta estrategia:
+- Símbolo: {symbol}
+- Timeframe: {timeframe}
+- CAGR: {cagr}
+- Sharpe: {sharpe}
+- Max drawdown: {max_dd}
+- Profit factor: {profit_factor}
+- Trade count: {trade_count}
+- Regímenes probados: {regimes}
+Entrega:
+1. Riesgos principales
+2. Condiciones de pausa
+3. Límites de tamaño
+4. Pruebas faltantes
+5. Decisión: aprobar, aprobar con reducción, rechazar
+```
+
+---
+
+## PARTE 10: I DO / WE DO / YOU DO — EJERCICIOS PROGRESIVOS
+
+### 10.1 I Do — Diagnóstico de mercado guiado
+
+**Objetivo:** diagnosticar un activo antes de proponer estrategia.
+
+| Paso | Acción | Resultado esperado |
+|------|--------|--------------------|
+| 1 | Cargar OHLCV | DataFrame limpio |
+| 2 | Calcular retornos | Serie log-return |
+| 3 | Calcular volatilidad | Volatilidad anualizada |
+| 4 | Calcular tendencia | SMA corta vs SMA larga |
+| 5 | Clasificar régimen | smooth_trend, range o volatile |
+| 6 | Recomendar familia | Trend, mean reversion o breakout |
+
+```python
+diagnostics = MarketDiagnostics(df)
+summary = diagnostics.summary()
+print(summary)
+```
+
+**Interpretación guiada:**
+
+- Si `trend_score` es positivo y estable, prioriza momentum.
+- Si `trend_score` está cerca de cero y la volatilidad es moderada, prioriza mean reversion.
+- Si la volatilidad está muy alta, reduce tamaño o evita operar.
+- Si el spread estimado supera el edge esperado, descarta la estrategia.
+
+### 10.2 We Do — Diseñar una estrategia en equipo
+
+**Escenario:** tienes EURUSD en timeframe H1. El diagnóstico muestra rango lateral con volatilidad moderada.
+
+**Tarea colaborativa:** diseña una estrategia de reversión a la media.
+
+| Decisión | Opción recomendada | Justificación |
+|----------|--------------------|---------------|
+| Feature principal | z-score de precio | Mide desviación de la media |
+| Filtro | ATR bajo o medio | Evita rupturas violentas |
+| Entrada long | z-score menor que -2 | Precio estirado a la baja |
+| Salida | z-score vuelve a 0 | Reversión completada |
+| Stop | ATR múltiplo | Riesgo basado en volatilidad |
+| Validación | Walk-forward | Evita sobreajuste |
+
+```python
+def mean_reversion_signal(df, window=100, z_entry=-2.0, z_exit=0.0):
+    mean = df['close'].rolling(window).mean()
+    std = df['close'].rolling(window).std()
+    z = (df['close'] - mean) / std
+    signal = 0
+    if z.iloc[-1] < z_entry:
+        signal = 1
+    elif z.iloc[-1] > z_exit and df['signal'].iloc[-2] == 1:
+        signal = 0
+    return signal
+```
+
+### 10.3 You Do — Construir tu propia Strategy Factory
+
+**Tarea:** crea una factory para tres familias de estrategias:
+
+1. Trend following
+2. Mean reversion
+3. Breakout
+
+Debes incluir:
+
+- features comunes
+- señales específicas
+- filtros de régimen
+- sizing por ATR
+- métricas de salida
+- criterios de rechazo
+
+| Criterio | Peso |
+|----------|------|
+| Modularidad | 25% |
+| Validación de datos | 20% |
+| Gestión de riesgo | 25% |
+| Backtest reproducible | 20% |
+| Claridad del informe | 10% |
+
+### 10.4 I Do — Backtest con costos conservadores
+
+**Objetivo:** entender cómo los costos destruyen edge falso.
+
+| Escenario | Comisión | Slippage | Resultado esperado |
+|-----------|----------|----------|--------------------|
+| Ingenuo | 0 | 0 | Curva optimista |
+| Realista | 0.0005 | 0.0002 | Curva ajustada |
+| Conservador | 0.0010 | 0.0005 | Curva estresada |
+
+```python
+bt = VectorBacktester(commission=0.0005, slippage=0.0002)
+result = bt.run(prices, signals)
+metrics = bt.metrics(result)
+print(metrics)
+```
+
+### 10.5 We Do — Interpretar métricas
+
+**Caso:** una estrategia tiene Sharpe 2.4, pero solo 18 trades en 5 años.
+
+| Pregunta | Respuesta esperada |
+|----------|--------------------|
+| ¿Es suficiente muestra? | No |
+| ¿Qué riesgo existe? | Sobreajuste o suerte |
+| ¿Qué hacer? | Probar más activos y más tiempo |
+| ¿Qué métrica falta? | Estabilidad por año y por régimen |
+| ¿Se puede automatizar? | No todavía |
+
+### 10.6 You Do — Optimización genética responsable
+
+**Tarea:** define bounds y fitness para una estrategia de cruce de medias.
+
+| Parámetro | Bound mínimo | Bound máximo |
+|-----------|--------------|--------------|
+| short_window | 5 | 30 |
+| long_window | 30 | 200 |
+| atr_window | 10 | 30 |
+| stop_atr_multiple | 1.0 | 4.0 |
+| take_profit_atr_multiple | 1.5 | 5.0 |
+
+**Regla:** no aceptar un candidato si no supera al benchmark en out-of-sample y no mantiene drawdown menor al umbral.
+
+### 10.7 I Do — Integración MT5 en paper trading
+
+**Objetivo:** conectar Python con MT5 sin enviar órdenes reales.
+
+| Paso | Acción | Validación |
+|------|--------|------------|
+| 1 | Inicializar terminal | initialize true |
+| 2 | Login | authorized true |
+| 3 | Leer símbolo | symbol_info no None |
+| 4 | Copiar velas | DataFrame con filas |
+| 5 | Generar señal | Señal reproducible |
+| 6 | Simular orden | order_send no llamado |
+| 7 | Registrar decisión | Log con timestamp |
+
+```python
+adapter = MT5Adapter(login=123456, password='password', server='Broker-Demo')
+adapter.connect()
+bars = adapter.rates('EURUSD', mt5.TIMEFRAME_H1, bars=1000)
+print(bars.tail())
+```
+
+### 10.8 We Do — Revisar runbook de incidente
+
+**Escenario:** MT5 devuelve rechazo de orden por filling mode inválido.
+
+| Paso | Acción |
+|------|--------|
+| 1 | Leer retcode y comment |
+| 2 | Verificar modo de ejecución permitido |
+| 3 | Ajustar type_filling |
+| 4 | Reprocesar orden |
+| 5 | Registrar incidente |
+| 6 | Actualizar tests |
+
+### 10.9 You Do — Diseño de monitoreo
+
+**Tarea:** diseña un dashboard mínimo para producción.
+
+| Widget | Métrica | Alerta |
+|--------|---------|--------|
+| Equity | Capital actual | Caída diaria > umbral |
+| Positions | Exposición por símbolo | Exposición > límite |
+| Signals | Señales generadas | Señal sin orden |
+| Orders | Fills rechazados | Rechazo > 0 |
+| Latency | Tiempo de ciclo | Ciclo > threshold |
+| Data | Última vela recibida | Sin datos > threshold |
+| Risk | Drawdown rolling | Drawdown > umbral |
+
+### 10.10 Cierre práctico
+
+| Nivel | Debes poder hacer |
+|-------|-------------------|
+| **I Do** | Seguir un ejemplo completo de diagnóstico, backtest y ejecución simulada |
+| **We Do** | Ajustar parámetros, interpretar métricas y decidir si avanzar |
+| **You Do** | Construir una factory propia con validación, optimización y monitoreo |
+
+---
+
+## CHECKLIST FINAL DE LA FÁBRICA DE ESTRATEGIAS
+
+| Bloque | Check |
+|--------|-------|
+| Datos | Fuente documentada, validaciones y calendario correcto |
+| Diagnóstico | Régimen, volatilidad, liquidez y costos medidos |
+| Estrategia | Hipótesis clara, features reproducibles y filtros explícitos |
+| Backtest | Costos incluidos, sin look-ahead y con walk-forward |
+| Riesgo | Sizing, drawdown, exposición y kill-switch definidos |
+| Optimización | Bounds lógicos, fitness conservador y validación externa |
+| Automatización | Arquitectura elegida según latencia, disponibilidad y equipo |
+| MT5 | Conexión, reconciliación, logs y control de rechazos |
+| Producción | Paper trading, capital reducido, monitoreo y runbook |
+| Retiro | Criterios claros para pausar, ajustar o cerrar estrategia |
+
+---
+
+## Preguntas de Verificación 📝
+
+Responde cada pregunta basándote en los conceptos de esta master class. Escribe tus respuestas o compártelas para profundizar tu aprendizaje.
+
+### Preguntas sobre Market Diagnostics
+
+1. **Aplica**: Si tu activo muestra un régimen `volatile_range` con volatilidad 40% anualizada, ¿qué tipo de estrategia recomendarías y por qué?
+
+2. **Analiza**: ¿Cómo afecta el slippage a un backtest cuando la frecuencia de trading es intradía? Propones un modelo de estimación?
+
+### Preguntas sobre Strategy Factory
+
+3. **Diseña**: Crea una estrategia de breakouts para un activo con alta liquidez. Define las features, filtros y niveles de entrada/salida.
+
+4. **Reflexiona**: ¿Qué riesgos tienes más en cuenta cuando diseñas una estrategia: el overfitting o el underfitting? Por qué?
+
+### Preguntas sobre Backtesting
+
+5. **Calcula**: Una estrategia genera 100 trades con un profit factor de 1.5 y un win rate del 45%. ¿Cuál sería el profit factor esperado si el win rate baja al 40%?
+
+6. **Evalúa**: ¿Por qué es crucial separar datos de entrenamiento y validación en un backtest? Qué sucede si no lo haces?
+
+### Preguntas Integradoras
+
+7. **Conecta**: Explica cómo el Risk Validation se relaciona con la Genetic Optimization. ¿Qué pasaría si optimizas sin considerar riesgo primero?
+
+8. **Propón un sistema**: Diseña un sistema de monitoreo para detectar degradación de estrategia en producción. ¿Qué alertas configurarías?
+
+9. **Síntesis**: Toma una estrategia que hayas diseñado anteriormente y aplica el framework completo: desde diagnostics hasta monitoreo. Identifica los puntos críticos.
+
+10. **Reflexión final**: De los 10 componentes del workflow, ¿cuál consideras el más crítico para evitar pérdidas en producción? Justifica tu respuesta.
+
+## GLOSARIO RÁPIDO
+
+| Término | Definición |
+|---------|------------|
+| **Alpha** | Ventaja estadística esperada después de costos |
+| **Backtest** | Simulación histórica de una estrategia |
+| **Drawdown** | Caída desde el máximo anterior del equity |
+| **Fitness** | Función que evalúa la calidad de un candidato |
+| **Look-ahead bias** | Uso accidental de información futura |
+| **Overfitting** | Ajuste al ruido histórico en lugar del edge real |
+| **Regime** | Estado del mercado: tendencia, rango, volatilidad o caos |
+| **Slippage** | Diferencia entre precio esperado y precio ejecutado |
+| **Walk-forward** | Validación que avanza ventanas de entrenamiento y prueba |
+| **Kill-switch** | Mecanismo automático para detener la estrategia |
 

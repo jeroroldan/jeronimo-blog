@@ -120,3 +120,53 @@ Revisar código siguiendo mejores prácticas y checklist de calidad.
 ---
 
 > **Claude Code es tan potente como tu capacidad para personalizarlo y documentar tu flujo. Haz de cada sesión una masterclass de productividad.**
+
+---
+
+## Preguntas de Verificación 📝
+
+Responde cada pregunta basándote en los conceptos avanzados de Claude Code. Escribe tus respuestas o compártelas para profundizar tu aprendizaje.
+
+### Preguntas sobre Eficiencia en Línea de Comandos
+
+1. **Aplica**: ¿Cuál sería el workflow ideal usando `/model`, `/insights` y `/compact` para un proyecto de 2 semanas? Prioriza cada comando.
+
+2. **Analiza**: Tu sesión de Claude Code está lenta y usa muchos tokens. ¿Cómo usarías `/compact` estratégicamente sin perder contexto crítico?
+
+3. **Propón**: Diseña un sistema de prompts que aproveche Opus para código complejo y Sonnet para tareas rutinarias.
+
+### Preguntas sobre MCP Servers
+
+4. **Diseña**: Integrarías GitHub MCP con Claude Code para automatizar review de PRs. ¿Qué flujo seguirías?
+
+5. **Aplica**: Playwright automatiza pruebas. Crea un ejemplo donde Claude use Playwright para validar un formulario de login.
+
+6. **Evalúa**: Context7 te permite usar plugins externos. ¿Qué plugin crees que podría faltar para mejorar tu flujo de trabajo?
+
+### Preguntas sobre Skills Personalizados
+
+7. **Crea**: Diseña un skill para revisión de código que incluya: formato de salida, ejemplos y checklist de calidad.
+
+8. **Compara**: ¿Cuál diferencia habría entre usar un skill de code review vs crear un subagente especializado?
+
+9. **Propón**: Un skill para generación de tests unitarios. ¿Qué información necesitaría extraer del código para crear tests efectivos?
+
+### Preguntas sobre Memoria Persistente
+
+10. **Diseña**: Crea la estructura de `CLAUDE.md` para un proyecto de API REST en Node.js. ¿Qué secciones incluirías?
+
+11. **Aplica**: Tu proyecto tiene 50 decisiones técnicas. ¿Cómo organizarías la memoria para que otro desarrollador pueda entender el contexto en 10 minutos?
+
+12. **Reflexión final**: La memoria persistente no es nativa. ¿Qué alternativas considerarías para compartir contexto entre múltiples desarrolladores?
+
+---
+
+## Glosario Rápido
+
+| Término | Definición |
+|---------|------------|
+| **/model** | Cambia entre Sonnet, Opus y Haiku |
+| **MCP** | Model Context Protocol para extender capacidades |
+| **Subagente** | Agente especializado para tareas paralelas |
+| **CLAUDE.md** | Archivo de memoria persistente |
+| **Nimbalyst** | Editor visual Kanban para Claude Code |
