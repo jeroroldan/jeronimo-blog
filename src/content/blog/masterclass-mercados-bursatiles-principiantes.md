@@ -324,7 +324,348 @@ LECCIÓN APRENDIDA:
 
 ---
 
-## PARTE 4: Forex — El Mercado de Divisas 💵🔄
+## PARTE 4: Cómo Saber si Estás Ganando o Perdiendo 📊🧮
+
+Hiciste tu primera compra. Perfecto. Ahora viene la pregunta del millón: **"¿Estoy ganando o perdiendo?"**. Suena básico, pero te sorprende la cantidad de gente que no sabe hacer esta cuenta. Vamos a arreglar eso.
+
+---
+
+### 4.1 La Fórmula Más Simple del Mundo 🎯
+
+```text
+📐 FÓRMULA MÁGICA:
+
+  Ganancia % = (Precio Actual - Precio Compra) / Precio Compra × 100
+
+  O dicho en criollo:
+
+  "Cuánto subió (o bajó) respecto a lo que pagué"
+```
+
+#### Ejemplo con Crypto — Bitcoin 🪙
+
+```text
+COMPRA:
+  📅 Fecha: Martes 10 de junio
+  💰 Invertiste: $50.000
+  📊 Precio BTC: $95.000.000
+  🛒 Compraste: 0.000526 BTC
+
+VENTA (semana siguiente):
+  📅 Fecha: Miércoles 18 de junio
+  📊 Precio BTC: $102.000.000
+
+CUENTA:
+  Tu BTC ahora vale: 0.000526 × $102.000.000 = $53.652
+
+  Ganancia $ = $53.652 - $50.000 = $3.652
+  Ganancia % = ($53.652 - $50.000) / $50.000 × 100 = 7.3%
+
+RESULTADO:
+  🟢 GANASTE $3.652 (7.3% en 8 días)
+  📈 ¡Excelente! Mejor que un plazo fijo en un mes
+```
+
+#### Ejemplo con CEDEAR — Apple 🍎
+
+```text
+COMPRA:
+  📅 Fecha: Martes 10 de junio
+  💰 Invertiste: $31.000 (2 CEDEARs de AAPL a $15.500 c/u)
+  📊 Precio AAPL: $15.500 por CEDEAR
+
+VENTA (semana siguiente):
+  📅 Fecha: Miércoles 18 de junio
+  📊 Precio AAPL: $14.800 por CEDEAR
+
+CUENTA:
+  Tus CEDEARs ahora valen: 2 × $14.800 = $29.600
+
+  Ganancia $ = $29.600 - $31.000 = -$1.400
+  Ganancia % = ($29.600 - $31.000) / $31.000 × 100 = -4.5%
+
+RESULTADO:
+  🔴 PERDISTE $1.400 (4.5% en 8 días)
+  😰 ¿Vendo? ¿Espero? Depende de tu estrategia
+```
+
+> [!TIP]
+> 💡 **Consejo**: No te hagas la cabeza con el signo de porcentaje. Si es **positivo (+)**, ganás. Si es **negativo (-)**, perdés. Así de simple. La cuenta es siempre la misma: `(Precio Actual - Precio Compra) / Precio Compra × 100`.
+
+---
+
+### 4.2 Tu Escenario Real: Martes → Miércoles Semana que Viene 📅
+
+Vamos paso a paso con un caso real para que nunca más te confundas.
+
+```text
+═══════════════════════════════════════════════════════
+📅 MARTES 10 DE JUNIO — DÍA DE COMPRA
+═══════════════════════════════════════════════════════
+
+1️⃣  Abrís la app (Belo, Lemon, Cocos, IOL)
+
+2️⃣  Buscás el activo que querés comprar
+     → En crypto: escribís "BTC" o "Bitcoin"
+     → En CEDEARs: escribís "AAPL" o "Apple"
+
+3️⃣  Ves el PRECIO ACTUAL
+     → BTC: $95.000.000
+     → AAPL: $15.500
+
+4️⃣  Comprás
+     → Ponés $50.000 en BTC
+     → La app te dice: "Compraste 0.000526 BTC"
+     → Anotás este dato: CANTIDAD + PRECIO
+
+5️⃣  Cerrás la app y te olvidás (posta, no mires cada hora)
+
+═══════════════════════════════════════════════════════
+📅 MIÉRCOLES 18 DE JUNIO — DÍA DE REVISIÓN
+═══════════════════════════════════════════════════════
+
+1️⃣  Abrís la app de nuevo
+
+2️⃣  Vas a tu portafolio / tenencias
+
+3️⃣  La app ya te muestra:
+     → Cuánto invertiste: $50.000
+     → Cuánto vale ahora: $53.652
+     → Ganancia: +$3.652 (+7.3%)
+
+4️⃣  ¡LISTO! No tuviste que hacer ninguna cuenta
+     → La app lo calcula por vos automáticamente
+
+5️⃣  DECIDÍS:
+     → 🟢 Si estás conforme: Vendés y tomás ganancia
+     → 🟡 Si querés más: Esperás
+     → 🔴 Si perdiste y no cambiaron los fundamentos: Esperás
+```
+
+> [!NOTE]
+> 📱 **Las apps hacen la cuenta por vos.** Belo, Lemon, Cocos, IOL, todas te muestran tu ganancia o pérdida automáticamente. No necesitás sacar la calculadora. Pero es IMPORTANTE que entiendas la fórmula para saber QUÉ estás viendo.
+
+---
+
+### 4.3 El Excel del Inversor — Google Sheets 📋📊
+
+Si querés tener más control (o si operás en múltiples plataformas), un Excel o Google Sheet es tu mejor amigo.
+
+#### Template Simple — Copiá y Pegá:
+
+```
+| 📅 Fecha | 🏷️ Activo | 🔢 Cantidad | 💰 Precio Compra | 📊 Precio Actual | 💵 Invertido | 💰 Valor Actual | 📈 Ganancia $ | 📈 Ganancia % |
+|----------|-----------|-------------|------------------|------------------|--------------|-----------------|---------------|---------------|
+| 10/06    | BTC       | 0.000526    | $95.000.000      | $102.000.000     | $50.000      | $53.652         | $3.652        | +7,3%         |
+| 10/06    | AAPL      | 2           | $15.500          | $16.200          | $31.000      | $32.400         | $1.400        | +4,5%         |
+| 12/06    | ETH       | 0.01        | $3.500.000       | $3.200.000       | $35.000      | $32.000         | -$3.000       | -8,6%         |
+```
+
+#### Fórmulas de Google Sheets:
+
+```text
+📋 ESTRUCTURA:
+  Columna A: Fecha de compra
+  Columna B: Nombre del activo (BTC, AAPL, etc.)
+  Columna C: Cantidad que compraste
+  Columna D: Precio al que compraste
+  Columna E: Precio actual (lo actualizás manualmente o con API)
+  Columna F: Invertido = C × D (fórmula automática)
+  Columna G: Valor Actual = C × E (fórmula automática)
+  Columna H: Ganancia $ = G - F (fórmula automática)
+  Columna I: Ganancia % = (G - F) / F × 100 (fórmula automática)
+
+📐 FÓRMULAS PARA COPIAR (Google Sheets):
+  F2: =C2*D2
+  G2: =C2*E2
+  H2: =G2-F2
+  I2: =(G2-F2)/F2*100
+```
+
+> [!TIP]
+> 💡 **Consejo práctico**: Creá un Google Sheet con este template y compartilo con vos mismo por WhatsApp o email. Cada vez que comprás o vendés, actualizá la fila. Los domingos a la noche, actualizá los precios actuales. En 5 minutos tenés tu portafolio completo bajo control.
+
+---
+
+### 4.4 Cómo Hacerlo SIN Excel — En las Apps 📱✨
+
+La mejor noticia: **no necesitás Excel**. Todas las apps te calculan todo automáticamente.
+
+#### En Belo / Lemon (Crypto):
+
+```text
+📱 PASOS:
+  1. Abrís la app
+  2. Vas a "Mi Portfolio" o "Mis Activos"
+  3. Ahí ves:
+     → Cuánto invertiste (costo)
+     → Cuánto vale hoy (valor actual)
+     → Ganancia o pérdida en $ y %
+     → Incluso te lo ponen en verde (ganancia) o rojo (pérdida)
+
+💡 TRUCO: Si tocás cada activo, te muestra el historial
+   de compras y el precio promedio que pagaste
+```
+
+#### En Cocos Capital / IOL / Balanz (CEDEARs):
+
+```text
+📱 PASOS:
+  1. Abrís la app del broker
+  2. Vas a "Mis Tenencias" o "Portafolio"
+  3. Ahí ves cada activo con:
+     → Cantidad de títulos
+     → Precio de compra promedio
+     → Precio actual de mercado
+     → Resultado (ganancia/pérdida) en $ y %
+     → % de participación en tu portafolio total
+
+💡 TRUCO: En IOL, si vas a "Detalle" de cada activo,
+   te muestra hasta el rendimiento diario, semanal y mensual
+```
+
+#### En TradingView (Gráficos):
+
+```text
+📱 PASOS:
+  1. Entrás a tradingview.com (gratis)
+  2. Buscás el activo (BTCUSD, AAPL, etc.)
+  3. Usás la herramienta "Medición" (ícono de regla)
+  4. Marcás desde tu precio de compra hasta el precio actual
+  5. Te muestra la ganancia/pérdida en % automáticamente
+
+💡 TRUCO: Podés guardar tus posiciones en "Portfolio"
+   y te avisa cuando llegás a tus objetivos
+```
+
+> [!TIP]
+> 💡 **Consejo**: Usá las apps para el día a día, y un Excel/Sheet para el control mensual. Las apps son rápidas, pero un Excel te da la foto completa de TODOS tus activos juntos, sin importar en qué plataforma estén.
+
+---
+
+### 4.5 Ganancia Realizada vs No Realizada — La Gran Diferencia 💵🧠
+
+Este es uno de los conceptos más importantes que muchos principiantes no entienden.
+
+```text
+═══════════════════════════════════════════════════════
+💰 GANANCIA NO REALIZADA (en papel)
+═══════════════════════════════════════════════════════
+  → Es cuando el precio subió pero NO vendiste
+  → La plata "está" en el papel, no en tu bolsillo
+  → Si mañana baja, tu ganancia desaparece
+  → Es como tener un auto que "vale más" pero no lo vendiste
+
+  EJEMPLO:
+    Compraste BTC a $95.000.000
+    Hoy vale $102.000.000
+    Ganancia no realizada: +$3.652 (7.3%)
+    PERO: Si mañana baja a $90.000.000, perdés plata
+
+═══════════════════════════════════════════════════════
+💵 GANANCIA REALIZADA (en tu bolsillo)
+═══════════════════════════════════════════════════════
+  → Es cuando VENDES y la plata entra a tu cuenta
+  → Ya es tuya, nadie te la puede sacar
+  → Recién ahí "ganaste" de verdad
+  → Es como vender el auto y tener la plata en mano
+
+  EJEMPLO:
+    Compraste BTC a $95.000.000
+    Vendiste a $102.000.000
+    Ganancia realizada: +$3.652 (7.3%)
+    ESE dinero ahora está en tu cuenta → ES TUYO
+```
+
+| 📋 Tipo | 📊 Qué significa | 💰 Ejemplo | 🎯 ¿Es tuya? |
+| :--- | :--- | :--- | :---: |
+| **No realizada** | Subió pero no vendiste | "Tengo +$3.652 en papel" | ❌ No |
+| **Realizada** | Vendiste y tenés la plata | "Vendí y tengo +$3.652 en mi cuenta" | ✅ Sí |
+
+> [!IMPORTANT]
+> 💵 **"Ganancia no realizada" NO es ganancia.** Es potencial. Muchos principiantes se emocionan porque "hicieron 20% en una semana" y empiezan a gastar como si tuvieran esa plata. Después el mercado baja y se dan cuenta de que nunca tuvieron nada. No cuentes los huevos antes de que salgan del cascarón.
+
+---
+
+### 4.6 La Trampa del Porcentaje — El Error Clásico 🚫📉
+
+Vas a ver mucho esto en redes sociales: "¡Subió 100%!". Pero no te dicen el contexto.
+
+```text
+❌ LA TRAMPA:
+
+  "¡Este token subió 100% en una semana!"
+
+  REALIDAD:
+  → El token valía $0.0001
+  → Subió a $0.0002
+  → Eso es +100% 🎉
+  → Pero si pusiste $10.000, ahora tenés $20.000
+  → ¿Ganaste $10.000? Sí
+  → ¿Es mucho? No tanto como suena
+
+✅ EL CONTEXTO:
+
+  "El S&P 500 subió 10% en un año"
+
+  REALIDAD:
+  → Si pusiste $1.000.000, ahora tenés $1.100.000
+  → Eso es +10%
+  → Pero ganaste $100.000 reales
+  → ¿Es poco? No, es excelente para un año
+```
+
+#### Tabla — ¿Qué tan bueno es tu rendimiento?
+
+| 📊 Rendimiento | ⏰ Periempo | 🎯 ¿Es bueno? | 💡 Contexto |
+| :---: | :---: | :---: | :--- |
+| +2% | 1 mes | ✅ Sí | Mejor que plazo fijo |
+| +5% | 1 mes | 🔥 Muy bueno | Rendimiento excelente |
+| +10% | 1 mes | 🚀 Increíble | Poco sostenible, cuidado |
+| +10% | 1 año | ✅ Sí | Promedio del S&P 500 |
+| +20% | 1 año | 🔥 Muy bueno | Por encima del promedio |
+| +50% | 1 año | 🚀 Exceptional | Warren Buffett level |
+| +100% | 1 año | 🎰 Suerte o mucho riesgo | Cuidado con la avaricia |
+
+> [!TIP]
+> 💡 **Consejo**: No te compares con el que "hizo 500% en un mes". Esa persona probablemente tomó riesgos enormes y la próxima vez puede perder todo. Compará tu rendimiento con benchmarks reales: el S&P 500 (~10% anual), la inflación (~40-50% anual en Argentina), o el plazo fijo (~40% anual). Si le ganás a esos, estás haciendo las cosas bien.
+
+---
+
+### 4.7 Checklist del Inversor — Resumen Rápido ✅📋
+
+```text
+✅ ANTES DE COMPRAR:
+  □ ¿Cuánto voy a invertir?
+  □ ¿A qué precio compro?
+  □ ¿Cuántas unidades compro?
+  □ Anoto todo en mi Excel/app
+
+✅ DESPUÉS DE COMPRAR:
+  □ Cierro la app (no miro cada hora)
+  □ Reviso 1 vez por semana
+
+✅ CUANDO REVISION:
+  □ ¿Cuánto vale hoy mi inversión?
+  □ ¿Cuánto gané o perdí en $?
+  □ ¿Cuánto gané o perdí en %?
+  □ ¿Los fundamentos cambiaron?
+  □ Si no cambiaron → espero
+  □ Si cambiaron → evalúo vender
+
+✅ CUANDO VENDO:
+  □ Anoto precio de venta
+  □ Calculo ganancia final
+  □ Actualizo mi Excel
+  □ Celebro (o aprendo si perdí)
+```
+
+> [!TIP]
+> 💡 **Consejo final de esta sección**: La diferencia entre un inversor y un apostador es el **registro**. El inversor sabe exactamente cuánto ganó o perdió, por qué, y qué va a hacer diferente la próxima vez. El apostador "más o menos sabe" y repite los mismos errores. Llevá un registro, por más simple que sea. Tu yo del futuro te lo va a agradecer.
+
+---
+
+## PARTE 5: Forex — El Mercado de Divisas 💵🔄
 
 ### ¿Qué es Forex?
 
@@ -404,7 +745,7 @@ ANALOGÍA:
 
 ---
 
-## PARTE 5: Futuros y Opciones — El Modo Difícil 🎢🔥
+## PARTE 6: Futuros y Opciones — El Modo Difícil 🎢🔥
 
 ### ¿Qué Son los Futuros?
 
@@ -460,7 +801,7 @@ ANALOGÍA:
 
 ---
 
-## PARTE 6: ¿Cuál Elegir? — Tabla Comparativa Final 🤔📊
+## PARTE 7: ¿Cuál Elegir? — Tabla Comparativa Final 🤔📊
 
 ### 🏆 Comparativa Completa
 
@@ -507,7 +848,7 @@ ANALOGÍA:
 
 ---
 
-## PARTE 7: Los 10 Errores que Todos Cometen (y Vos No Vas a Cometer) 🚫💀
+## PARTE 8: Los 10 Errores que Todos Cometen (y Vos No Vas a Cometer) 🚫💀
 
 ### Error #1: Poner Toda la Plata de una Vez 💸
 
@@ -687,7 +1028,7 @@ ANALOGÍA:
 
 ---
 
-## PARTE 8: Tu Plan de Acción — Primeros 90 Días 🗺️✅
+## PARTE 9: Tu Plan de Acción — Primeros 90 Días 🗺️✅
 
 ### 📅 Mes 1: Aprender y Practicar
 
