@@ -2,8 +2,8 @@
 title: 'Guía Fundamental: Ecosistema de IA para Developers'
 code: 'IA'
 description: 'Conceptos clave de inteligencia artificial aplicada al desarrollo de software: LLMs, tokens, agentes, skills y MCP.'
-pubDate: 'Apr 14 2026'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+pubDate: 'Jun 15 2025'
+heroImage: '../../assets/blog-placeholder-3.jpg'
 ---
 
 # 🤖 Guía Fundamental: Ecosistema de IA para Developers

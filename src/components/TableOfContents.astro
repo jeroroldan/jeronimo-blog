@@ -103,9 +103,17 @@ const filteredHeadings = (headings || []).filter(h => h.depth === 2 || h.depth =
     }
     .toc-header {
       padding: 0.75rem;
-      cursor: pointer;
       display: flex;
       justify-content: space-between;
+    }
+    .toc-list {
+      display: block;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .toc-header {
+      cursor: pointer;
     }
     .toc-header::after {
       content: ' +';
