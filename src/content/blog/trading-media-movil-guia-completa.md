@@ -591,7 +591,7 @@ Supongamos:
 
 #### SMA en Excel
 
-```excel
+```text
 =AVERAGE(B2:B21)
 ```
 
@@ -599,19 +599,19 @@ Supongamos:
 
 Si `F1` contiene `α` y `D20` contiene la EMA anterior:
 
-```excel
+```text
 =(B21-D20)*$F$1+D20
 ```
 
 #### Distancia del precio a la media
 
-```excel
+```text
 =(B21-C21)/C21
 ```
 
 #### Pendiente aproximada
 
-```excel
+```text
 =C21-C20
 ```
 
