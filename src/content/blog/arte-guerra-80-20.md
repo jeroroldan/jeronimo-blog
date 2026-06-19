@@ -1057,7 +1057,7 @@ En estrategia, eso no es una razón. Es una señal de alerta.
 
 Si querés aplicar El Arte de la Guerra a un negocio, usá este marco.
 
-## 1. Conocimiento
+## 🧠 1. Conocimiento
 
 ```
 Qué problema resolvés.
@@ -1067,7 +1067,7 @@ Por qué te elegirían.
 Qué no podés prometer.
 ```
 
-## 2. Ganar sin luchar
+## 🕊️ 2. Ganar sin luchar
 
 ```
 No compitas solo por precio.
@@ -1076,7 +1076,7 @@ Elegí un nicho.
 Construí confianza.
 ```
 
-## 3. Flexibilidad
+## 🌊 3. Flexibilidad
 
 ```
 Probá mensajes.
@@ -1085,7 +1085,7 @@ Probá canales.
 Cambiar no es fracasar.
 ```
 
-## 4. Información
+## 🎭 4. Información
 
 ```
 No reveles todo.
@@ -1094,7 +1094,7 @@ Aprendé del cliente.
 Protegé datos sensibles.
 ```
 
-## 5. Terreno
+## 🗺️ 5. Terreno
 
 ```
 Entrá donde haya demanda.
@@ -1102,7 +1102,7 @@ Evitá mercados donde no podés diferenciarte.
 Aprovechá tendencias reales, no modas vacías.
 ```
 
-## 6. Liderazgo
+## 🧭 6. Liderazgo
 
 ```
 Comunicá visión.
@@ -1111,7 +1111,7 @@ No sobrecargues al equipo.
 Medí resultados.
 ```
 
-## 7. Velocidad
+## ⚡ 7. Velocidad
 
 ```
 Lanzá simple.
@@ -1120,7 +1120,7 @@ Iterá.
 Evitá perfeccionismo.
 ```
 
-## 8. Revisión
+## 🔄 8. Revisión
 
 ```
 Cada mes, revisá números, clientes, canales y costos.
@@ -1192,7 +1192,7 @@ Aplicar con foco.
 
 Si tu objetivo es trabajar con empresas de Estados Unidos, El Arte de la Guerra te ayuda a pensar estratégicamente.
 
-## No luches en todos los frentes
+## 🛡️ No luches en todos los frentes
 
 No intentes mejorar todo al mismo tiempo.
 
@@ -1207,7 +1207,7 @@ Entrevistas técnicas.
 Networking.
 ```
 
-## Elige tu terreno
+## 🗺️ Elige tu terreno
 
 No todos los roles son iguales.
 
@@ -1226,7 +1226,7 @@ Data + automatización.
 AI + productividad empresarial.
 ```
 
-## No reveles debilidad innecesaria
+## 🛡️ No reveles debilidad innecesaria
 
 No digas:
 
@@ -1321,7 +1321,7 @@ Conseguir clientes.
 
 Ahora aplicá los 8 principios.
 
-## 1. Conocimiento
+## 🧠 1. Conocimiento
 
 ```
 ¿Qué sé hacer bien?
@@ -1330,7 +1330,7 @@ Ahora aplicá los 8 principios.
 ¿Qué recursos no tengo?
 ```
 
-## 2. Ganar sin luchar
+## 🕊️ 2. Ganar sin luchar
 
 ```
 ¿Cómo puedo lograr este objetivo con menos fricción?
@@ -1338,14 +1338,14 @@ Ahora aplicá los 8 principios.
 ¿Puedo diferenciarme?
 ```
 
-## 3. Flexibilidad
+## 🌊 3. Flexibilidad
 
 ```
 ¿Cuál es mi plan B?
 ¿Qué puedo cambiar si no funciona?
 ```
 
-## 4. Información
+## 🎭 4. Información
 
 ```
 ¿Qué debo comunicar?
@@ -1353,14 +1353,14 @@ Ahora aplicá los 8 principios.
 ¿Qué información necesito conseguir?
 ```
 
-## 5. Terreno y timing
+## 🗺️ 5. Terreno y timing
 
 ```
 ¿Este es buen momento?
 ¿Qué condiciones externas afectan mi decisión?
 ```
 
-## 6. Liderazgo
+## 🧭 6. Liderazgo
 
 ```
 ¿Quién necesita claridad?
@@ -1429,7 +1429,7 @@ Plan B:
 Plan C:
 ```
 
-## Día 5: Información
+## 🛡️ Día 5: Información
 
 Decidí qué vas a comunicar y qué vas a proteger.
 
@@ -1439,7 +1439,7 @@ Voy a proteger:
 Necesito saber:
 ```
 
-## Día 6: Acción rápida
+## ⚡ Día 6: Acción rápida
 
 Ejecutá una acción pequeña.
 
@@ -1453,7 +1453,7 @@ Practicar 3 entrevistas.
 Crear una landing simple.
 ```
 
-## Día 7: Revisión
+## 🧠 Día 7: Revisión
 
 Preguntate:
 
