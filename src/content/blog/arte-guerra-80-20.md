@@ -1384,7 +1384,7 @@ Ahora aplicá los 8 principios.
 
 # 📅 Plan de acción de 7 días
 
-## Día 1: Diagnóstico
+## 📅 Día 1: Diagnóstico
 
 Escribí tu situación actual.
 
