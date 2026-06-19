@@ -1,3 +1,13 @@
+---
+title: "Master Class: Comunicación Atravesada para Conectar con Gente Nueva"
+description: "Master Class sobre cómo comunicarse para ganar, el poder del atrevimiento y la confianza irresistible para conectar con nuevas personas."
+pubDate: "2026-06-19"
+category: "comunicacion"
+tags: ["masterclass", "habilidades-sociales", "confianza"]
+difficulty: "intermedio"
+readingTime: 5
+---
+
 # Master Class: Comunicación Atravesada para Conectar con Gente Nueva
 
 ## Premisa Central: Comunicar para GANAR, no para empatar

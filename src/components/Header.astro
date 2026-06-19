@@ -23,6 +23,16 @@ import { themes } from "../lib/themeMapping";
           <HeaderLink href="/blog">Todas las publicaciones</HeaderLink>
         </div>
       </div>
+      <div class="dropdown">
+        <button class="dropdown-btn" aria-haspopup="true" aria-expanded="false">
+          Idioma
+          <span class="dropdown-icon">▼</span>
+        </button>
+        <div class="dropdown-content">
+          <HeaderLink href="/blog">Español</HeaderLink>
+          <HeaderLink href="/blog/english">English</HeaderLink>
+        </div>
+      </div>
       <HeaderLink href="/about">Acerca de</HeaderLink>
     </div>
     <button id="darkModeToggle" title="Cambiar modo oscuro">
@@ -68,30 +78,30 @@ import { themes } from "../lib/themeMapping";
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", function () {
-    const dropdownBtn = document.querySelector(".dropdown-btn");
-    const dropdownContent = document.querySelector(".dropdown-content");
+    const dropdownBtns = document.querySelectorAll(".dropdown-btn");
+    const dropdownContents = document.querySelectorAll(".dropdown-content");
 
-    if (dropdownBtn && dropdownContent) {
-      dropdownBtn.addEventListener("click", function () {
-        dropdownContent.classList.toggle("show");
-        const expanded =
-          dropdownBtn.getAttribute("aria-expanded") === "true" || false;
-        dropdownBtn.setAttribute("aria-expanded", !expanded);
-      });
-
-      // Close dropdown when clicking outside
-      window.addEventListener("click", function (event) {
-        if (
-          !event.target.matches(".dropdown-btn") &&
-          !event.target.matches(".dropdown-icon")
-        ) {
-          if (dropdownContent.classList.contains("show")) {
-            dropdownContent.classList.remove("show");
-            dropdownBtn.setAttribute("aria-expanded", "false");
-          }
+    dropdownBtns.forEach((btn, index) => {
+      btn.addEventListener("click", function () {
+        const content = dropdownContents[index];
+        if (content) {
+          content.classList.toggle("show");
+          const expanded = btn.getAttribute("aria-expanded") === "true" || false;
+          btn.setAttribute("aria-expanded", !expanded);
         }
       });
-    }
+    });
+
+    window.addEventListener("click", function (event) {
+      if (!event.target.matches(".dropdown-btn") && !event.target.matches(".dropdown-icon")) {
+        dropdownContents.forEach((content, index) => {
+          if (content.classList.contains("show")) {
+            content.classList.remove("show");
+            dropdownBtns[index]?.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
+    });
   });
 </script>
 <style>

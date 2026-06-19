@@ -2,6 +2,7 @@
 title: "Masterclass: AI Agents & Autonomous Engineering"
 code: "ai-agents-masterclass"
 description: "Complete guide to building AI agents, autonomous workflows, and engineering systems"
+language: "en"
 pubDate: "May 06 2026"
 heroImage: "../../assets/blog-placeholder-4.jpg"
 ---

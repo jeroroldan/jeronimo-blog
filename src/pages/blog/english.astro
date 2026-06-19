@@ -1,0 +1,209 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import Header from "../../components/Header.astro";
+import { SITE_TITLE } from "../../consts";
+import DefaultImage from "../../assets/blog-placeholder-1.jpg";
+
+const allPosts = await getCollection("blog");
+const posts = allPosts
+  .filter(post => post.data.language === 'en')
+  .sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  );
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={`English | ${SITE_TITLE}`}
+      description="Blog posts written in English."
+    />
+    <style>
+      .blog-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem;
+      }
+
+      .theme-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding: 3rem;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--border-radius-lg);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--glass-shadow);
+      }
+
+      .theme-title {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .theme-desc {
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .posts-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        list-style-type: none;
+        margin: 4rem 0;
+        padding: 0;
+      }
+
+      .post-card {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        height: 100%;
+        min-width: 0;
+        background: var(--bg-secondary);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        transition: all var(--transition-normal);
+        box-shadow: var(--glass-shadow);
+      }
+
+      .post-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent);
+        box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+      }
+
+      .image-wrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+      }
+
+      .post-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+
+      .post-card:hover .post-image {
+        transform: scale(1.05);
+      }
+
+      .content-wrapper {
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .title {
+        margin: 0 0 0.75rem 0;
+        font-size: 1.35rem;
+        line-height: 1.3;
+        color: var(--text-primary);
+        font-weight: 700;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .meta {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text-secondary);
+        font-size: 1.125rem;
+      }
+
+      @media (max-width: 1024px) {
+        .posts-list {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .theme-title { font-size: 2.5rem; }
+      }
+
+      @media (max-width: 768px) {
+        .posts-list {
+          grid-template-columns: 1fr;
+        }
+        .theme-header { padding: 2rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main class="blog-container">
+      <section class="animate-fade-in">
+        <div class="theme-header">
+          <h1 class="theme-title">English</h1>
+          <p class="theme-desc">Blog posts written in English.</p>
+        </div>
+
+        {posts.length > 0 ? (
+          <ul class="posts-list">
+            {
+              posts.map((post) => (
+                <li class="post-item">
+                  <a href={`/blog/${post.id}/`} class="post-card">
+                    <div class="image-wrapper">
+                      <Image
+                        width={720}
+                        height={400}
+                        src={
+                          post.data.heroImage && typeof post.data.heroImage === "object"
+                            ? post.data.heroImage
+                            : DefaultImage
+                        }
+                        alt={post.data.title}
+                        class="post-image"
+                      />
+                    </div>
+                    <div class="content-wrapper">
+                      <h2 class="title">{post.data.title}</h2>
+                      <div class="meta">
+                        <FormattedDate date={post.data.pubDate} />
+                        {post.data.code && (
+                          <>
+                            <span>•</span>
+                            <span>{post.data.code}</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        ) : (
+          <div class="empty-state">
+            <p>No posts in English yet.</p>
+          </div>
+        )}
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -10,6 +10,11 @@ const blog = defineCollection({
 			title: z.string(),
 			description: z.string(),
 			code: z.string().optional(),
+			language: z.enum(['es', 'en']).default('es').optional(),
+			category: z.string().optional(),
+			tags: z.array(z.string()).optional(),
+			difficulty: z.string().optional(),
+			readingTime: z.number().optional(),
 			// Transform string to Date object
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
