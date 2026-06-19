@@ -1408,7 +1408,7 @@ Riesgos:
 Tendencias:
 ```
 
-## Día 3: Ventaja
+## 🏆 Día 3: Ventaja
 
 Definí cómo vas a diferenciarte.
 
@@ -1419,7 +1419,7 @@ Mi mensaje es:
 Mi prueba de valor es:
 ```
 
-## Día 4: Plan flexible
+## 🔄 Día 4: Plan flexible
 
 Escribí 3 caminos posibles.
 
