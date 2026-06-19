@@ -1244,7 +1244,7 @@ I'm confident in my ability to learn quickly.
 I have experience with the core technologies required for this role.
 ```
 
-## Ganá sin pelear
+## 🏆 Ganá sin pelear
 
 No compitas solo como "otro desarrollador más".
 
@@ -1524,7 +1524,7 @@ Antes de tomar una decisión importante, revisá:
 
 ---
 
-# Las 10 frases más útiles para recordar
+# 💬 Las 10 frases más útiles para recordar
 
 ```
 1. La estrategia empieza antes de la acción.
