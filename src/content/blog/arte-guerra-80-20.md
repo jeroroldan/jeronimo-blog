@@ -1396,7 +1396,7 @@ Ventajas:
 Desventajas:
 ```
 
-## Día 2: Terreno
+## 🔍 Día 2: Terreno
 
 Investigá el contexto.
 
