@@ -21,7 +21,27 @@ export default defineConfig({
 		logHandlers.json(),
 	),
 	integrations: [
-		expressiveCode(),
+		expressiveCode({
+			shiki: {
+				langAlias: {
+					gradle: 'groovy',
+					env: 'ini',
+					caddy: 'hcl',
+					m: 'objc',
+					gitignore: 'ini',
+					figma: 'text',
+					txt: 'text',
+				},
+				langs: [
+					{
+						displayName: 'Plain Text',
+						name: 'text',
+						scopeName: 'source.text',
+						patterns: [{ match: '.*' }],
+					},
+				],
+			},
+		}),
 		mdx(),
 		sitemap()
 	]
