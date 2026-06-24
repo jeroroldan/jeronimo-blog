@@ -1326,3 +1326,189 @@ Responde cada pregunta basándote en los conceptos de esta master class. Escribe
 | **Walk-forward** | Validación que avanza ventanas de entrenamiento y prueba |
 | **Kill-switch** | Mecanismo automático para detener la estrategia |
 
+---
+
+## ANEXO: FORMATO IDEAL PARA ARTÍCULOS EDUCAТIVOS
+
+### Recomendaciones de ancho para lectura larga
+
+El ancho óptimo para artículos educativos es **60–75 caracteres por línea** (incluyendo espacios). Equivale aproximadamente a:
+
+- `max-width: 65ch` en CSS (una de las mejores opciones).
+- 550–750 px de ancho de contenido.
+
+```css
+.article-content {
+  max-width: 65ch;
+}
+```
+
+Muchos estudios de legibilidad consideran que entre **50 y 75 caracteres por línea** es la zona óptima para lectura prolongada.
+
+---
+
+### Anchura recomendada para guías de aprendizaje
+
+Las guías educativas tienen necesidades diferentes a las noticias o blogs normales.
+
+**Ancho recomendado:**
+
+```css
+.article-content {
+  max-width: 60ch;
+}
+```
+
+o
+
+```css
+.article-content {
+  max-width: 65ch;
+}
+```
+
+Esto facilita:
+
+- Mantener la atención
+- Reducir la fatiga visual
+- Mejorar la comprensión
+- Facilitar el seguimiento de conceptos complejos
+
+---
+
+### Lo que hace agradable una guía al cerebro
+
+#### 1. Jerarquía visual muy clara
+
+El usuario debería poder "escanear" el contenido sin leerlo.
+
+**Ejemplo:**
+
+```text
+H1: Guía Avanzada de Orquestación
+Introducción
+H2: ¿Qué es la orquestación?
+Texto...
+H2: Arquitectura Multiagente
+Texto...
+H3: Coordinador
+Texto...
+```
+
+**Regla práctica:**
+
+| Elemento | Tamaño recomendado |
+|----------|------------------|
+| H1 | 40–56 px |
+| H2 | 28–36 px |
+| H3 | 22–28 px |
+| Párrafos | 18–20 px |
+
+#### 2. Párrafos cortos
+
+El cerebro percibe los bloques grandes como "trabajo".
+
+**Mejor:**
+
+Imagina agentes IA como empleados especializados.
+
+Uno analiza datos.
+
+Otro genera reportes.
+
+Un tercero coordina el flujo de trabajo.
+
+**Peor:**
+
+Imagina agentes IA como empleados especializados, uno analiza datos, otro genera reportes y un tercero coordina el flujo de trabajo...
+
+#### 3. Espacio en blanco abundante
+
+Para aprendizaje profundo:
+
+```css
+.article-content {
+  line-height: 1.75;
+  /* Separación entre párrafos: 1–1.5 líneas */
+  /* Mucho espacio antes de cada sección */
+}
+```
+
+#### 4. Secciones cortas
+
+Una buena regla: **200–400 palabras por sección** y luego un nuevo subtítulo.
+
+La sensación psicológica es:
+
+- "Estoy avanzando"
+
+En lugar de:
+
+- "Esto nunca termina"
+
+#### 5. Alternar patrones visuales
+
+Cada pocas pantallas, alterna entre:
+
+- Lista
+- Diagrama
+- Tabla
+- Ejemplo práctico
+- Resumen
+
+**Ejemplo de patrón:**
+
+```text
+Concepto
+↓
+Explicación
+↓
+Ejemplo
+↓
+Resumen
+```
+
+Esto reduce la carga cognitiva.
+
+#### 6. Resúmenes frecuentes
+
+Después de cada tema, agrega un cierre visual:
+
+> **📌 Idea clave** — La orquestación permite coordinar agentes especializados para resolver tareas complejas.
+
+El cerebro recuerda mejor cuando recibe cierres frecuentes.
+
+#### 7. Combinación recomendada de anchura y tamaño de fuente
+
+Una combinación muy utilizada en documentación técnica moderna:
+
+```css
+.article-content {
+  font-size: 18px;
+  line-height: 1.75;
+  max-width: 65ch;
+}
+```
+
+Esto crea una experiencia similar a la de documentación de alta calidad como la de empresas tecnológicas modernas.
+
+---
+
+### Evaluación de legibilidad
+
+Una guía educativa bien estructurada debería aspirar a:
+
+- **Diseño visual:** 9/10
+- **Tipografía:** 8.5/10
+- **Jerarquía de títulos:** 9/10
+- **Legibilidad para lectura larga:** 7.5/10+
+
+Las mejoras más importantes a aplicar:
+
+- Reducir el ancho del texto principal a 60–65ch
+- Aumentar ligeramente el interlineado
+- Dividir algunos párrafos en bloques más pequeños
+- Añadir cajas de "Idea clave", diagramas y resúmenes cada pocas secciones
+
+Con esos ajustes, una guía técnica de **5.000–15.000 palabras** se sentiría mucho más cómoda y menos agotadora de leer.
+

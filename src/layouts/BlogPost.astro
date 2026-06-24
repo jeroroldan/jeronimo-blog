@@ -87,17 +87,18 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 				box-shadow: var(--box-shadow);
 				height: auto;
 			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1.5em;
-				border-radius: 12px;
-				line-height: 1.6;
-				/* Light theme colors */
-				background-color: #F4ECD8;
-				color: #333333;
-			}
+		.prose {
+			max-width: 65ch;
+			width: calc(100% - 2em);
+			margin: auto;
+			padding: 2em;
+			border-radius: 12px;
+			font-size: 18px;
+			line-height: 1.75;
+			/* Light theme colors */
+			background-color: #F4ECD8;
+			color: #333333;
+		}
 			.title {
 				margin-bottom: 1em;
 				padding: 1em 0;
@@ -121,27 +122,31 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 			}
 			
 			/* Contenido markdown */
-			.prose h1 {
-				font-size: 1.6rem;
-				margin: 1.5em 0 1em 0;
-				color: #1a472a;
-				border-bottom: 2px solid #2c5530;
-				padding-bottom: 0.5em;
-			}
-			.prose h2 {
-				font-size: 1.4rem;
-				margin: 1.2em 0 0.8em 0;
-				color: #2c5530;
-			}
-			.prose h3 {
-				font-size: 1.2rem;
-				margin: 1em 0 0.6em 0;
-				color: #333333;
-			}
-			.prose p {
-				margin: 0.8em 0;
-				color: #444444;
-			}
+		.prose h1 {
+			font-size: 2rem;
+			line-height: 1.3;
+			margin: 2em 0 1em 0;
+			color: #1a472a;
+			border-bottom: 2px solid #2c5530;
+			padding-bottom: 0.5em;
+		}
+		.prose h2 {
+			font-size: 1.6rem;
+			line-height: 1.35;
+			margin: 1.8em 0 0.9em 0;
+			padding-top: 0.4em;
+			color: #2c5530;
+		}
+		.prose h3 {
+			font-size: 1.3rem;
+			line-height: 1.4;
+			margin: 1.5em 0 0.7em 0;
+			color: #333333;
+		}
+		.prose p {
+			margin: 1.1em 0;
+			color: #444444;
+		}
 			.prose strong {
 				color: #1a472a;
 				font-weight: bold;
@@ -173,14 +178,14 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 				border-radius: 0 8px 8px 0;
 				color: #444444;
 			}
-			.prose ul, .prose ol {
-				margin: 0.8em 0;
-				padding-left: 1.5em;
-				color: #444444;
-			}
-			.prose li {
-				margin: 0.4em 0;
-			}
+		.prose ul, .prose ol {
+			margin: 1.1em 0;
+			padding-left: 1.5em;
+			color: #444444;
+		}
+		.prose li {
+			margin: 0.5em 0;
+		}
 			
 			/* Dark mode */
 			@media (prefers-color-scheme: dark) {
@@ -262,20 +267,24 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 			}
 			}
 			
-			@media (max-width: 720px) {
-				.title h1 {
-					font-size: 1.5rem;
-				}
-				.prose {
-					padding: 1em;
-				}
-				.prose h1 {
-					font-size: 1.4rem;
-				}
-				.prose h2 {
-					font-size: 1.2rem;
-				}
+		@media (max-width: 720px) {
+			.title h1 {
+				font-size: 1.5rem;
 			}
+			.prose {
+				padding: 1.25em;
+				font-size: 17px;
+			}
+			.prose h1 {
+				font-size: 1.6rem;
+			}
+			.prose h2 {
+				font-size: 1.35rem;
+			}
+			.prose h3 {
+				font-size: 1.15rem;
+			}
+		}
 			
 			/* Botón scroll to top */
 			.scroll-to-top {
