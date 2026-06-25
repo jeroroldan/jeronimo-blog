@@ -2,7 +2,7 @@
 title: "Inglés para Onboarding y Primer Día de Trabajo en Estados Unidos"
 description: "Guía práctica de inglés para sobrevivir y rendir en el onboarding, primer día laboral, reuniones con HR, setup técnico, presentaciones y comunicación con equipos estadounidenses."
 pubDate: "2026-06-19"
-code: "ingles-onboarding-day-one"
+code: "ingles"
 language: "es"
 category: "ingles"
 tags: ["ingles", "onboarding", "primer-dia", "trabajo", "estados-unidos", "comunicacion-profesional"]

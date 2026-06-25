@@ -2,7 +2,7 @@
 title: "Inglés y Cultura Laboral en Estados Unidos"
 description: "Guía práctica para entender comunicación indirecta, feedback, jerarquía plana, reuniones, puntualidad, expectativas y normas no escritas en empresas de Estados Unidos."
 pubDate: "2026-06-19"
-code: "ingles-cultura-laboral-us"
+code: "ingles"
 language: "es"
 category: "ingles"
 tags: ["ingles", "cultura-laboral", "estados-unidos", "comunicacion", "trabajo", "feedback"]

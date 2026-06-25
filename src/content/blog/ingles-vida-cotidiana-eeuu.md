@@ -2,7 +2,7 @@
 title: "Inglés para la Vida Cotidiana en Estados Unidos"
 description: "Guía práctica de inglés para mudarse o trabajar en Estados Unidos: banco, celular, salud, transporte, alquiler, restaurantes, trámites y conversaciones diarias."
 pubDate: "2026-06-19"
-code: "ingles-vida-cotidiana-eeuu"
+code: "ingles"
 language: "es"
 category: "ingles"
 tags: ["ingles", "vida-cotidiana", "estados-unidos", "trámites", "comunicacion", "supervivencia"]

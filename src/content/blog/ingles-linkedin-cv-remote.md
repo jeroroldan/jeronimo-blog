@@ -2,7 +2,7 @@
 title: "Inglés para CV, LinkedIn y Aplicar a Trabajos Remotos"
 description: "Guía práctica para escribir un CV en inglés estilo Estados Unidos, optimizar LinkedIn, redactar cover letters y aplicar a trabajos remotos con mensajes profesionales."
 pubDate: "2026-06-19"
-code: "ingles-linkedin-cv-remote"
+code: "ingles"
 language: "es"
 category: "ingles"
 tags: ["ingles", "cv", "linkedin", "trabajo-remoto", "estados-unidos", "carrera"]

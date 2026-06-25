@@ -2,7 +2,7 @@
 title: "Inglés para Small Talk y Networking Profesional"
 description: "Guía práctica para conversar en inglés en eventos, oficinas, conferencias, reuniones y LinkedIn sin sonar forzado ni invasivo."
 pubDate: "2026-06-19"
-code: "ingles-small-talk-networking"
+code: "ingles"
 language: "es"
 category: "ingles"
 tags: ["ingles", "small-talk", "networking", "comunicacion", "estados-unidos", "carrera"]
