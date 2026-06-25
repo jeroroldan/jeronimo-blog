@@ -1,7 +1,7 @@
 ---
 import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
-import { themes } from "../lib/themeMapping";
+import { themes, themeToSlug } from "../lib/themeMapping";
 ---
 
 <header>
@@ -15,11 +15,9 @@ import { themes } from "../lib/themeMapping";
           <span class="dropdown-icon">▼</span>
         </button>
         <div class="dropdown-content">
-          <HeaderLink href="/blog/seduccion">Seducción</HeaderLink>
-          <HeaderLink href="/blog/informatica">Informática</HeaderLink>
-          <HeaderLink href="/blog/trading">Trading</HeaderLink>
-          <HeaderLink href="/blog/negocios">Negocios</HeaderLink>
-          <HeaderLink href="/blog/superacion">Superación Personal</HeaderLink>
+          {themes.map(theme => (
+            <HeaderLink href={`/blog/${themeToSlug[theme]}`}>{theme}</HeaderLink>
+          ))}
           <HeaderLink href="/blog">Todas las publicaciones</HeaderLink>
         </div>
       </div>

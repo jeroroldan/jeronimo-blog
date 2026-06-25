@@ -12,7 +12,7 @@ import DefaultImage from "../../assets/blog-placeholder-1.jpg";
 import { getThemeFromCode, themes, themeToSlug, slugToTheme } from "../../lib/themeMapping";
 
 export const getStaticPaths = (async () => {
-  const slugs = ['seduccion', 'informatica', 'trading', 'negocios', 'superacion'];
+  const slugs = ['seduccion', 'informatica', 'trading', 'negocios', 'superacion', 'ingles'];
   return slugs.map(s => ({ params: { theme: s }, props: {} }));
 }) satisfies GetStaticPaths;
 
@@ -44,7 +44,8 @@ const themeDescriptions: Record<string, string> = {
   informatica: "Explora el mundo de la tecnología, programación y desarrollo de software.",
   trading: "Aprende sobre inversiones, trading y gestión financiera profesional.",
   negocios: "Desarrolla habilidades empresariales, de liderazgo y emprendimiento.",
-  superacion: "Crece personalmente con técnicas de superación, aprendizaje y productividad."
+  superacion: "Crece personalmente con técnicas de superación, aprendizaje y productividad.",
+  ingles: "Aprende inglés de forma práctica: vocabulario técnico, entrevistas, CV, cultura laboral y comunicación en Estados Unidos."
 };
 
 const themeDescription = themeDescriptions[themeSlug.toLowerCase()] || "Explora nuestro contenido especializado.";

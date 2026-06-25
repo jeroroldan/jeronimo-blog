@@ -6,9 +6,12 @@ export const codeToTheme: Record<string, string> = {
   atraccion: 'Seducción',
   'relaciones-humanas': 'Seducción',
   mindset: 'Seducción',
+  // Inglés
+  Ingles: 'Inglés',
+  ingles: 'Inglés',
+  'brain-english': 'Inglés',
   // Informática
   IA: 'Informática',
-  'Ingles': 'Informática', // Assuming English learning is under Informática
   programacion: 'Informática',
   software: 'Informática',
   desarrollo: 'Informática',
@@ -64,7 +67,8 @@ export const themeToSlug: Record<string, string> = {
   'Informática': 'informatica',
   'Trading': 'trading',
   'Negocios': 'negocios',
-  'Superación Personal': 'superacion'
+  'Superación Personal': 'superacion',
+  'Inglés': 'ingles'
 };
 
 // Map slug back to theme name
@@ -73,7 +77,8 @@ export const slugToTheme: Record<string, string> = {
   'informatica': 'Informática',
   'trading': 'Trading',
   'negocios': 'Negocios',
-  'superacion': 'Superación Personal'
+  'superacion': 'Superación Personal',
+  'ingles': 'Inglés'
 };
 
 // Get codes for a given theme
