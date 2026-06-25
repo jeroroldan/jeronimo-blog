@@ -2,7 +2,7 @@
 title: "Inglés para Entrevistas de Trabajo en Estados Unidos"
 description: "Guía práctica para responder entrevistas laborales en inglés, explicar tu experiencia, usar el método STAR y proyectar confianza profesional en empresas de Estados Unidos."
 pubDate: "2026-06-19"
-code: "ingles-entrevistas-trabajo"
+code: "ingles"
 language: "es"
 category: "ingles"
 tags: ["ingles", "entrevistas", "trabajo", "estados-unidos", "carrera", "comunicacion-profesional"]
