@@ -2,7 +2,7 @@
 title: "Cuenta Demo de Trading: Cómo Empezar, Qué Plataforma Elegir y Cómo Practicar"
 description: "Guía práctica para abrir una cuenta demo, elegir la plataforma correcta, practicar con método, llevar journal y saber cuándo pasar a dinero real."
 pubDate: "2026-06-16"
-code: "trading-cuenta-demo-practica"
+code: "trading"
 category: "trading"
 tags:
   [

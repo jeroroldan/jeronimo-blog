@@ -2,7 +2,7 @@
 title: "Cómo Calcular Medias Móviles en Trading: Guía Completa SMA, EMA, WMA, SMMA y HMA"
 description: "Aprende las fórmulas, ejemplos numéricos, implementación en Python y configuración en TradingView, MT4/5 y Excel para usar medias móviles en trading."
 pubDate: "2026-06-16"
-code: "trading-media-movil-guia-completa"
+code: "trading"
 category: "trading"
 tags:
   [

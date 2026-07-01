@@ -2,7 +2,7 @@
 title: "Day Trading Minimalista: Solo 2 Indicadores (20 SMA + 200 SMA)"
 description: "Estrategia de trading simplificada con 20 SMA y 200 SMA: tendencia, retrocesos, extensiones y squeeze plays."
 pubDate: "2026-06-14"
-code: "day-trading-minimalista-sma"
+code: "trading"
 category: "trading"
 tags:
   [

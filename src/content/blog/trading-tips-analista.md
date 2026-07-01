@@ -2,7 +2,7 @@
 title: "Guía: Mindset y Errores Fatales del Analista Técnico"
 description: "Evita los tropiezos que acaban con el 90% de los traders. Consejos de desarrollo profesional, recursos recomendados y análisis para principiantes."
 pubDate: "2026-04-19"
-code: "trading-tips-analista"
+code: "trading"
 category: "trading"
 tags: ["psicologia-trading", "errores-comunes", "recursos-trading", "aprendizaje-continuo"]
 difficulty: "principiante"

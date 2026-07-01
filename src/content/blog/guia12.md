@@ -1,6 +1,6 @@
 ---
 title: 'Fundamentos del Mercado'
-code: 'trading-opciones-principiantes'
+code: 'trading'
 description: 'Antes de aprender a leer un gráfico, hay que entender qué es lo que realmente se está moviendo detrás de esas velas.'
 pubDate: 'Jul 01 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'

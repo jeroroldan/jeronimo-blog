@@ -1,6 +1,6 @@
 ---
 title: "Trading de Índices: Guía de Patrones Técnicos para Operaciones Conscientes"
-code: "trading-patrones"
+code: "trading"
 description: "Aprende a identificar patrones de estructura marketaria y cambios de tendencia para operar índices sintéticos con consistencia."
 pubDate: "2026-04-15"
 category: "trading"

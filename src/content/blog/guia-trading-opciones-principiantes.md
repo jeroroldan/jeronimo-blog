@@ -1,6 +1,6 @@
 ---
 title: 'Guía de Trading de Opciones para Principiantes'
-code: 'trading-opciones-principiantes'
+code: 'trading'
 description: 'Aprende las bases del trading de opciones financieras con esta guía completa de Soy Mary Inversionista. Desde contratos hasta letras griegas, con ejercicios prácticos.'
 pubDate: 'Apr 16 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -2,7 +2,7 @@
 title: "Curso Intensivo de Trading: Guía Maestra Completa"
 description: "Domina el trading desde fundamentos hasta estrategias avanzadas: acción del precio, ondas de Elliott, gestión de riesgo y psicología del trader."
 pubDate: "2026-04-15"
-code: "trading-masterclass-12h"
+code: "trading"
 category: "trading"
 tags:
   [

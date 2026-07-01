@@ -1,6 +1,6 @@
 ---
 title: 'Bolsa de valores'
-code: "Trading de valores"
+code: "trading"
 description: 'Master class Trading Bolsa de valores'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'

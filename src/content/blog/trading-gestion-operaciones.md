@@ -2,7 +2,7 @@
 title: "Guía: Gestión y Ejecución de Operaciones Professionales"
 description: "Aprende a ejecutar con precisión. Selección de activos, horarios de máxima liquidez y cómo gestionar tus operaciones activas para maximizar beneficios."
 pubDate: "2026-04-19"
-code: "trading-gestion-operaciones"
+code: "trading"
 category: "trading"
 tags: ["gestion-operaciones", "trading-en-vivo", "liquidez", "psicologia-del-trader"]
 difficulty: "intermedio"

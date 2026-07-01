@@ -2,7 +2,7 @@
 title: "Algo-Trading con Fable 5 y Jesse: Guía Completa"
 description: "Aprende a desarrollar, backtestear y validar estrategias de trading algorítmico automatizado usando Fable 5 y el framework Jesse."
 pubDate: "2026-06-14"
-code: "algo-trading-jesse-fable5"
+code: "trading"
 category: "trading"
 tags:
   [

@@ -2,7 +2,7 @@
 title: "Master Class: Criptomonedas — Cómo Operar, Ganar Dinero y Elegir las Mejores"
 description: "Guía completa sobre criptomonedas: qué son, cómo se puede ganar dinero, cuáles son las mejores para operar, estrategias, riesgo, seguridad y plan práctico de 90 días."
 pubDate: "2026-06-16"
-code: "masterclass-criptomonedas-trading"
+code: "trading"
 category: "trading"
 tags:
   [

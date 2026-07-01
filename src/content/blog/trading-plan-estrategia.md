@@ -2,7 +2,7 @@
 title: "Guía: Creando tu Plan de Trading y Estratégia Ganadora"
 description: "Pasa de apostar a operar como un profesional. Diseña tu propia estrategia, comprende la Teoría del Dow y domina el backtesting."
 pubDate: "2026-04-19"
-code: "trading-plan-estrategia"
+code: "trading"
 category: "trading"
 tags: ["trading-plan", "estrategia", "dow-theory", "backtesting", "finanzas"]
 difficulty: "intermedio"

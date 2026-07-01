@@ -2,7 +2,7 @@
 title: "MASTERCLASS: Trading Profesional desde Argentina — Swing Trading, Price Action y Riesgo"
 description: "Guía definitiva para operar acciones, CEDEARs, ETFs y ADRs desde Argentina vía Cocos Capital. Price Action, Análisis Técnico, Gestión del Riesgo y Psicología del Trading profesional."
 pubDate: "2026-07-01"
-code: "trading-masterclass-ar"
+code: "trading"
 category: "trading"
 tags: ["trading", "swing-trading", "price-action", "cedeares", "argentina", "risk-management"]
 difficulty: "avanzado"
