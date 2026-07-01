@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 12
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Guía: Gestión y Ejecución de Operaciones ⚡
 
 > 💡 **En esta guía aprenderás**: Cómo pasar del análisis a la acción. Cubriremos la selección estratégica de activos, la importancia de los horarios de liquidez y las tácticas para gestionar una operación una vez abierta.

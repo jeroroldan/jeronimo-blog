@@ -17,6 +17,18 @@ difficulty: "avanzado"
 readingTime: 20
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los pilares y aplicaciones de la inteligencia artificial moderna:
+
+- Los fundamentos conceptuales que diferencian a cada enfoque de IA
+- Cómo funcionan los modelos de lenguaje y cómo interactuar con ellos
+- Técnicas de prompting y frameworks de agentes autónomos
+- RAG, herramientas MCP y cómo conectar la IA con datos reales
+- Aplicaciones prácticas para desarrollo, negocios y productividad
+
+
 # 👨‍🍳 De Prompt Engineering a Agent Engineering: El Arte de ser el "Chef" de la IA
 
 > **"El Prompt Engineering es la receta. El Agent Engineering es ser el Chef: entender los ingredientes, dominar las técnicas y garantizar la seguridad de la cocina."**

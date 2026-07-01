@@ -6,6 +6,18 @@ pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los pilares y aplicaciones de la inteligencia artificial moderna:
+
+- Los fundamentos conceptuales que diferencian a cada enfoque de IA
+- Cómo funcionan los modelos de lenguaje y cómo interactuar con ellos
+- Técnicas de prompting y frameworks de agentes autónomos
+- RAG, herramientas MCP y cómo conectar la IA con datos reales
+- Aplicaciones prácticas para desarrollo, negocios y productividad
+
+
 ¡Me encanta el enfoque! Vamos a desmitificar esto. En 2025, cuando decimos "Entrenar un Agente", rara vez nos referimos a entrenar una red neuronal desde cero (eso cuesta millones de dólares).
 
 Nos referimos a **Orquestar y Condicionar** un cerebro ya existente (LLM) para que actúe como un empleado específico.

@@ -10,6 +10,18 @@ difficulty: "intermedio"
 readingTime: 15
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Inglés para Small Talk y Networking Profesional
 
 El small talk parece algo pequeño, pero en Estados Unidos tiene un peso enorme. Sirve para romper el hielo, construir confianza y abrir puertas profesionales.

@@ -5,6 +5,18 @@ description: "Diccionario completo de términos matemáticos esenciales para IA:
 pubDate: 2025-11-24
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los pilares y aplicaciones de la inteligencia artificial moderna:
+
+- Los fundamentos conceptuales que diferencian a cada enfoque de IA
+- Cómo funcionan los modelos de lenguaje y cómo interactuar con ellos
+- Técnicas de prompting y frameworks de agentes autónomos
+- RAG, herramientas MCP y cómo conectar la IA con datos reales
+- Aplicaciones prácticas para desarrollo, negocios y productividad
+
+
 Este glosario es tu mapa de tesoro para dominar la jerga matemática de la IA. Cada término incluye definición, ejemplo y aplicación real en sistemas de IA. No necesitas memorizar fórmulas complejas, pero sí entender el concepto detrás de cada uno.
 
 ***

@@ -4,6 +4,18 @@ code: "IA"
 description: "Diccionario del Ingeniero Aumentado (2025)"
 pubDate: 2025-11-24
 ---
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # 📖 Diccionario del Ingeniero Aumentado (2025)
 ## Glosario Técnico para Dominar el Desarrollo con IA
 

@@ -7,6 +7,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás el modelado, diseño y gestión de bases de datos:
+
+- Tipos de bases de datos y cuándo usar cada una según el problema
+- Modelado relacional: entidades, relaciones, normalización y claves
+- Consultas SQL avanzadas, índices y optimización de rendimiento
+- Transacciones, ACID, aislamiento y consistencia en sistemas distribuidos
+- ORMs, migraciones y mejores prácticas en producción
+
+
 # Masterclass: Bases de Datos Relacionales y Modelado
 
 ## 🗄️ FUNDAMENTOS: ¿QUÉ ES UNA BASE DE DATOS RELACIONAL?

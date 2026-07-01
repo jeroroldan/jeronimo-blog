@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 35
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás la visión arquitectónica necesaria para construir sistemas escalables:
+
+- Patrones arquitectónicos y cómo elegir el adecuado para cada contexto
+- Balanceo de carga, caching, colas y bases de datos distribuidas
+- Consistencia, particionamiento y tolerancia a fallos
+- Diseño de APIs, contratos y comunicación entre servicios
+- Trade-offs, medición de rendimiento y toma de decisiones técnicas
+
+
 # MASTERCLASS: Arquitectura del Carácter — Estoicismo Aplicado para Tomar Responsabilidad Total
 
 ## INTRODUCCIÓN: POR QUÉ ESTA MASTERCLASS ES DIFERENTE

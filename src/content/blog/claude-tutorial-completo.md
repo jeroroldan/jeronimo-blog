@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 15
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los pilares y aplicaciones de la inteligencia artificial moderna:
+
+- Los fundamentos conceptuales que diferencian a cada enfoque de IA
+- Cómo funcionan los modelos de lenguaje y cómo interactuar con ellos
+- Técnicas de prompting y frameworks de agentes autónomos
+- RAG, herramientas MCP y cómo conectar la IA con datos reales
+- Aplicaciones prácticas para desarrollo, negocios y productividad
+
+
 # Tutorial Completo de Claude AI: Guía Maestra
 
 > 💡 **En esta guía aprenderás**: Dominar Claude AI completamente, desde el registro hasta automatizaciones avanzadas con Claude Code y Co-work.

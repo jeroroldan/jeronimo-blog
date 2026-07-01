@@ -10,6 +10,18 @@ difficulty: "intermedio"
 readingTime: 20
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # ⚔️ El Arte de la Guerra: Los 8 Principios 80/20 para Ganar con Menos Fricción
 
 El Arte de la Guerra no es solo un libro militar. Es un manual de estrategia para competir en entornos inciertos.

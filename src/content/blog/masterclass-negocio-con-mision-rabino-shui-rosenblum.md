@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 35
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás la visión estratégica para construir y escalar negocios:
+
+- Validación de ideas, modelo de negocio y propuesta de valor
+- Estrategias de crecimiento, monetización y retención de clientes
+- Gestión financiera, pricing y optimización de recursos
+- Liderazgo, cultura organizacional y toma de decisiones bajo incertidumbre
+- Casos reales, errores comunes y lecciones aplicables
+
+
 # MASTERCLASS: Negocio con Misión — Emprender desde Fe, Familia y Servicio con el Rabino Shui Rosenblum
 
 ## INTRODUCCIÓN: POR QUÉ ESTA MASTERCLASS ES DIFERENTE

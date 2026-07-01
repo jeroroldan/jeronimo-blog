@@ -5,6 +5,18 @@ description: "Conceptos Fundamentales de la IA Generativa"
 pubDate: 2025-11-24
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los pilares y aplicaciones de la inteligencia artificial moderna:
+
+- Los fundamentos conceptuales que diferencian a cada enfoque de IA
+- Cómo funcionan los modelos de lenguaje y cómo interactuar con ellos
+- Técnicas de prompting y frameworks de agentes autónomos
+- RAG, herramientas MCP y cómo conectar la IA con datos reales
+- Aplicaciones prácticas para desarrollo, negocios y productividad
+
+
 ¡Claro que sí! Esta es la base de todo. Si entiendes esto, dejas de ver a la IA como "magia" y empiezas a verla como lo que realmente es: **matemática y estadística**.
 
 Aquí tienes la **Guía de Conceptos Fundamentales de la IA Generativa** explicada para desarrolladores, sin humo.

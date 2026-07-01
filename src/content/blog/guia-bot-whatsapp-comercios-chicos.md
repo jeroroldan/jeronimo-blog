@@ -11,6 +11,18 @@ readingTime: 30
 heroImage: "../../assets/blog-placeholder-5.jpg"
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # 🤖 Guía completa para crear un bot de WhatsApp económico para comercios chicos
 
 > **Idea central:** un comercio chico no necesita una app propia para empezar a automatizar. Necesita un asistente por WhatsApp que entienda pedidos, consulte stock, saque turnos y derive a una persona cuando haga falta.

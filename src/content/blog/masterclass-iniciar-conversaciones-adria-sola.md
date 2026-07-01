@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 10
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Master Class: Iniciar Conversaciones con el Método Antiformalidad 🚀
 
 > 💡 **En esta master class aprenderás**: Que la timidez no es un rasgo innato, sino una falta de técnica. Adrià Solà Pastor te muestra su método de **antiformalidad** para conectar con cualquier persona, en cualquier situación, sin esfuerzo.

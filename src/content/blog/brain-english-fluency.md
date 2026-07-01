@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 10
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades en inglés de manera práctica y progresiva:
+
+- Comprensión oral y lectura contextual con estrategias efectivas
+- Expresión oral, fluidez y construcción de frases naturales
+- Gramática aplicada sin memorización mecánica
+- Vocabulario situacional: laboral, tecnológico y cotidiano
+- Consejos de listening, pronunciación y coaching de exposición
+
+
 # Cómo Entrenar tu Cerebro para Hablar Inglés con Fluidez
 
 > 💡 **En esta guía aprenderás**: Un sistema para entrenar tu cerebro a procesar y producir inglés naturalmente, sin traducciones.

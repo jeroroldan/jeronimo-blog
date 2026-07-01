@@ -8,6 +8,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás la visión estratégica para construir y escalar negocios:
+
+- Validación de ideas, modelo de negocio y propuesta de valor
+- Estrategias de crecimiento, monetización y retención de clientes
+- Gestión financiera, pricing y optimización de recursos
+- Liderazgo, cultura organizacional y toma de decisiones bajo incertidumbre
+- Casos reales, errores comunes y lecciones aplicables
+
+
 # 🚀 MASTER CLASS: VENTAS ONLINE & LIDERAZGO
 
 ## Guía Definitiva para Dominar las Ventas Digitales y Convertirte en un Líder de Alto Impacto

@@ -5,6 +5,18 @@ description: "Guía paso a paso para convertirte en consultor de IA: habilidades
 pubDate: 2025-11-24
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los pilares y aplicaciones de la inteligencia artificial moderna:
+
+- Los fundamentos conceptuales que diferencian a cada enfoque de IA
+- Cómo funcionan los modelos de lenguaje y cómo interactuar con ellos
+- Técnicas de prompting y frameworks de agentes autónomos
+- RAG, herramientas MCP y cómo conectar la IA con datos reales
+- Aplicaciones prácticas para desarrollo, negocios y productividad
+
+
 En 2025, ser consultor de IA no es solo saber programar. Es entender cómo las empresas pueden usar IA para resolver problemas reales, generar ROI y mantenerse competitivas. Este manual te guía desde cero hasta tener tu primera consultoría pagada.
 
 ***

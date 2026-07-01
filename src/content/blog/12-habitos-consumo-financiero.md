@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 10
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás los conocimientos para operar en mercados financieros con criterio:
+
+- Tipos de activos, mercados y participantes del ecosistema financiero
+- Análisis fundamental y técnico aplicado a la toma de decisiones
+- Gestión de riesgo, posicionamiento y psicología del trader
+- Estrategias probadas para diferentes perfiles y horizontes temporales
+- Herramientas, plataformas y framework para operar de forma consistente
+
+
 # 12 Hábitos de Consumo que Están Dañando Tus Finanzas: Guía para Gastar Consciente
 
 > 💡 **En esta guía aprenderás**: Cómo identificar y reconsiderar 12 hábitos de consumo cotidianos que, en el mercado actual, están afectando gravemente tus finanzas. El problema no es la falta de disciplina, sino la falta de información actualizada.

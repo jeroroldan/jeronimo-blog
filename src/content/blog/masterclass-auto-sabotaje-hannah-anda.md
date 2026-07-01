@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 10
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Master Class: Por Qué te Autosaboteas (y Cómo Romper el Ciclo) 🧠
 
 > 💡 **En esta master class aprenderás**: Por qué fracasas una y otra vez en hacer actividades que sabes que te beneficiarían — ejercicio, alimentación, terapia — y cómo salir del ciclo de culpa y autotraición. Basada en el episodio de **Mente en Pausa** con la psicóloga Hannah Anda.

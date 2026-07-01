@@ -7,6 +7,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás la arquitectura y las prácticas del desarrollo backend moderno:
+
+- Diseño de APIs RESTful y protocolos de comunicación
+- Modelado de datos, bases de datos relacionales y NoSQL
+- Arquitectura de aplicaciones, patrones y separación de responsabilidades
+- Seguridad, autenticación, autorización y protección de servicios
+- Escalabilidad, caching, colas y despliegue en producción
+
+
 # 🐘 PHP Developer Roadmap 2026 — Masterclass Completa
 ### De Fundamentos a Ingeniero AI-Powered · *By a Senior PHP Engineer*
 

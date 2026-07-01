@@ -5,6 +5,18 @@ description: "Aprende los conceptos matemáticos esenciales que necesitas antes 
 pubDate: 2025-11-24
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los pilares y aplicaciones de la inteligencia artificial moderna:
+
+- Los fundamentos conceptuales que diferencian a cada enfoque de IA
+- Cómo funcionan los modelos de lenguaje y cómo interactuar con ellos
+- Técnicas de prompting y frameworks de agentes autónomos
+- RAG, herramientas MCP y cómo conectar la IA con datos reales
+- Aplicaciones prácticas para desarrollo, negocios y productividad
+
+
 Antes de entender cómo funciona un modelo de lenguaje o una red neuronal, necesitas dominar un conjunto de herramientas matemáticas fundamentales. Esta guía te lleva desde cero absoluto hasta el nivel necesario para comprender IA.
 
 ***

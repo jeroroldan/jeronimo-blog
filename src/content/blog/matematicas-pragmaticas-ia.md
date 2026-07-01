@@ -5,6 +5,18 @@ description: "Descubre las matemáticas esenciales que todo desarrollador de IA 
 pubDate: 2025-11-24
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los pilares y aplicaciones de la inteligencia artificial moderna:
+
+- Los fundamentos conceptuales que diferencian a cada enfoque de IA
+- Cómo funcionan los modelos de lenguaje y cómo interactuar con ellos
+- Técnicas de prompting y frameworks de agentes autónomos
+- RAG, herramientas MCP y cómo conectar la IA con datos reales
+- Aplicaciones prácticas para desarrollo, negocios y productividad
+
+
 Esta es una pregunta crucial que asusta a muchos, pero te tengo buenas noticias:
 
 **Para ser un "Ingeniero de IA" en 2025 (alguien que usa y construye sistemas con IA), NO necesitas ser un matemático académico.** No necesitas resolver integrales complejas a mano ni demostrar teoremas.

@@ -6,6 +6,18 @@ pubDate: 'Apr 14 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido construirás el sistema operativo personal para lograr resultados sostenibles:
+
+- La psicología detrás de los hábitos y cómo rediseñar tu comportamiento
+- Sistemas de disciplina que no dependen de la motivación
+- Gestión del tiempo, foco profundo y eliminación de distracciones
+- Mentalidad de crecimiento y reestructuración de creencias limitantes
+- Prácticas concretas, rutinas y métricas de progreso
+
+
 # 🧭 Errores Clave y Lecciones en 10 Años de Carrera Dev
 
 ## 📚 Índice

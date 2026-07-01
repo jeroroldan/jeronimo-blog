@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 10
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás los conocimientos para operar en mercados financieros con criterio:
+
+- Tipos de activos, mercados y participantes del ecosistema financiero
+- Análisis fundamental y técnico aplicado a la toma de decisiones
+- Gestión de riesgo, posicionamiento y psicología del trader
+- Estrategias probadas para diferentes perfiles y horizontes temporales
+- Herramientas, plataformas y framework para operar de forma consistente
+
+
 # Estrategias Financieras del 1%: Guía para Crear Riqueza y Libertad Financiera
 
 > 💡 **En esta guía aprenderás**: Las estrategias prácticas que utiliza el 1% para generar riqueza, desmitificando ideas convencionales sobre el dinero. Enfoque en ganar más, adquirir negocios y construir relaciones sólidas.

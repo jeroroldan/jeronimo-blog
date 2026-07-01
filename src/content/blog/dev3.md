@@ -6,6 +6,18 @@ pubDate: "2026-06-19"
 heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás las prácticas y herramientas de DevOps y operaciones modernas:
+
+- Contenerización con Docker y orquestación con Kubernetes
+- Pipelines de CI/CD, despliegues automatizados y rollbacks seguros
+- Infraestructura como código: Terraform, provisionamiento y configuración
+- Observabilidad: métricas, logs, trazas y alertas
+- Escalabilidad, seguridad en producción y cultura DevOps aplicada
+
+
 # 🖥️ MASTERCLASS: Servidores, Alojamiento y Nomenclatura DevOps
 
 > Guía completa desde cero hasta producción — Todo lo que necesitás saber

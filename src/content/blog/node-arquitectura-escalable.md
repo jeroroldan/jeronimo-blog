@@ -9,6 +9,18 @@ difficulty: "avanzado"
 readingTime: 18
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los conceptos y herramientas del desarrollo frontend moderno:
+
+- El funcionamiento del runtime JavaScript y el ecosistema de paquetes
+- Patrones de componentes, estado y renderizado en tu framework de elección
+- Optimización de rendimiento, carga y experiencia de usuario
+- Pruebas, tipado, arquitectura y escalabilidad de proyectos frontend
+- Integración con backends, APIs y despliegue en producción
+
+
 # Guía Maestra: Arquitectura y Organización Escalable 🏛️
 
 > 💡 **En esta guía aprenderás**: Cómo estructurar una aplicación para que pueda crecer sin convertirse en un "código espagueti". Implementaremos la separación de Controladores y Servicios, y modelaremos una lógica compleja de reserva de citas.

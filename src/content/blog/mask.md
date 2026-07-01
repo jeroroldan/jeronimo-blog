@@ -7,6 +7,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los conceptos y herramientas del desarrollo frontend moderno:
+
+- El funcionamiento del runtime JavaScript y el ecosistema de paquetes
+- Patrones de componentes, estado y renderizado en tu framework de elección
+- Optimización de rendimiento, carga y experiencia de usuario
+- Pruebas, tipado, arquitectura y escalabilidad de proyectos frontend
+- Integración con backends, APIs y despliegue en producción
+
+
 # Master Class: Masked Views en React Native 🎭
 
 ## 🎯 Introducción: ¿Qué son las Masked Views?

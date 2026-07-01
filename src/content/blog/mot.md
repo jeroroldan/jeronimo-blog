@@ -6,6 +6,18 @@ pubDate: '2024-06-19'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # 🔥 MASTERCLASS: Motivación y PNL Masculina - Encendiendo el Fuego Interior
 
 ## 🚀 PROTOCOLO DE DESPERTAR: La Revolución de Tu Identidad

@@ -7,6 +7,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los conceptos y herramientas esenciales del ecosistema Laravel:
+
+- El ciclo de vida de una petición HTTP en Laravel y cómo funciona el framework internamente
+- Eloquent ORM: consultas, relaciones, scopes y patrones avanzados
+- Validaciones, Form Requests y flujos de datos seguros
+- Migraciones, seeders, factories y manejo de base de datos
+- Arquitectura de servicios, repositorios y pruebas automatizadas
+
+
 # Master Class: Laravel 12 - Creación de Tablas en la Base de Datos con Migrations y Eloquent
 
 ¡Bienvenido a esta master class en formato guía! Como especialista en Laravel, te explicaré cómo crear y gestionar tablas en la base de datos usando **Migrations** (el sistema de versionado de esquemas) y **Eloquent ORM** (el mapeador objeto-relacional). Me enfocaré en Laravel 12 (versión actual a septiembre 2025, lanzada en febrero 2025 con actualizaciones hasta 12.30.1), incluyendo novedades como migraciones condicionales, carga eager automática y métodos optimizados para inserts masivos.

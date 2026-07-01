@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 20
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los principios y herramientas del diseño digital:
+
+- Fundamentos de UI/UX y jerarquía visual aplicada a interfaces reales
+- Diseño de sistemas, componentes reutilizables y patrones de interacción
+- Accesibilidad, responsive y experiencia multi-dispositivo
+- Flujos de trabajo colaborativos entre diseño y desarrollo
+- Prácticas de prototipado, testing con usuarios y entrega a producción
+
+
 # 🎨 FIGMA MASTERCLASS
 
 ## El 20% que te da el 80% del resultado

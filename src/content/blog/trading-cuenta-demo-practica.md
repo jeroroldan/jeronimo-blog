@@ -19,6 +19,18 @@ difficulty: "principiante"
 readingTime: 20
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás los conocimientos para operar en mercados financieros con criterio:
+
+- Tipos de activos, mercados y participantes del ecosistema financiero
+- Análisis fundamental y técnico aplicado a la toma de decisiones
+- Gestión de riesgo, posicionamiento y psicología del trader
+- Estrategias probadas para diferentes perfiles y horizontes temporales
+- Herramientas, plataformas y framework para operar de forma consistente
+
+
 # Cuenta Demo de Trading: Cómo Empezar y Practicar
 
 > 💡 **En esta guía aprenderás**: qué es una cuenta demo, qué tipo de plataforma conviene elegir según tu objetivo, cómo configurar un entorno realista, cómo practicar sin perder el tiempo y qué métricas revisar antes de operar con dinero real.

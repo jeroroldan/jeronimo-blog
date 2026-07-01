@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 15
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los principios y herramientas del diseño digital:
+
+- Fundamentos de UI/UX y jerarquía visual aplicada a interfaces reales
+- Diseño de sistemas, componentes reutilizables y patrones de interacción
+- Accesibilidad, responsive y experiencia multi-dispositivo
+- Flujos de trabajo colaborativos entre diseño y desarrollo
+- Prácticas de prototipado, testing con usuarios y entrega a producción
+
+
 # Guía: Herramientas y Programas Esenciales 🛠️
 
 > 💡 **En esta guía aprenderás**: Cómo instalar programas de forma segura, dominar el correo electrónico, elegir entre suites de oficina y configurar herramientas profesionales para diseño, programación y juegos.

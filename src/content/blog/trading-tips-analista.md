@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 10
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Guía: Mindset y Consejos del Analista 🧠
 
 > 💡 **En esta guía aprenderás**: Cómo evitar los errores psicológicos y técnicos más comunes, qué recursos usar para acelerar tu aprendizaje y cómo mantener una mentalidad de crecimiento para analizar como un experto.

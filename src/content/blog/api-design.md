@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 35
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás una visión integral de la seguridad informática:
+
+- Los vectores de ataque más comunes y cómo prevenirlos
+- Autenticación, autorización y gestión de sesiones seguras
+- Seguridad en APIs, validación de entradas y protección contra inyecciones
+- Cifrado, gestión de secretos y cumplimiento normativo
+- Monitorización, respuesta a incidentes y cultura de seguridad
+
+
 # MASTERCLASS: Diseño de APIs - De Junior a Senior Engineer
 
 ## INTRODUCCIÓN: POR QUÉ ESTE MASTERCLASS ES DIFERENTE

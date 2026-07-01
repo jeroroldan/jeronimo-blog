@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 14
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los principios y herramientas del diseño digital:
+
+- Fundamentos de UI/UX y jerarquía visual aplicada a interfaces reales
+- Diseño de sistemas, componentes reutilizables y patrones de interacción
+- Accesibilidad, responsive y experiencia multi-dispositivo
+- Flujos de trabajo colaborativos entre diseño y desarrollo
+- Prácticas de prototipado, testing con usuarios y entrega a producción
+
+
 # Master Class: Las 7 Fuentes de Atracción Masculina 🧲
 
 > 💡 **En esta master class aprenderás**: Las 7 mayores fuentes de atracción que un hombre genera hacia una mujer, rankeadas por impacto real — desde las más básicas e instintivas hasta las más profundas y duraderas. No es una lista de trucos, es un **portafolio de atracción** que puedes construir conscientemente.

@@ -5,6 +5,18 @@ description: 'Guía Completa de Despliegues para Startups'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás las prácticas y herramientas de DevOps y operaciones modernas:
+
+- Contenerización con Docker y orquestación con Kubernetes
+- Pipelines de CI/CD, despliegues automatizados y rollbacks seguros
+- Infraestructura como código: Terraform, provisionamiento y configuración
+- Observabilidad: métricas, logs, trazas y alertas
+- Escalabilidad, seguridad en producción y cultura DevOps aplicada
+
+
 # Masterclass DevOps: Guía Completa de Despliegues para Startups
 
 ## 🏗️ Introducción: ¿Qué es DevOps y Por Qué Importa?

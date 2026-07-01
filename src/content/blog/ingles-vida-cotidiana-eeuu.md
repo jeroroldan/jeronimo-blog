@@ -10,6 +10,18 @@ difficulty: "principiante-intermedio"
 readingTime: 18
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los fundamentos y las estrategias para alcanzar tu mejor versión física:
+
+- Bases de fisiología del ejercicio y principios del entrenamiento
+- Rutinas estructuradas según tu objetivo y nivel
+- Nutrición aplicada: macronutrientes, déficit/superávit y suplementación
+- Descanso, recuperación y consistencia como pilares del progreso
+- Errores comunes, mitos y cómo optimizar tus resultados a largo plazo
+
+
 # Inglés para la Vida Cotidiana en Estados Unidos
 
 Trabajar en Estados Unidos no significa vivir solo dentro de reuniones y código. También tenés que abrir una cuenta bancaria, contratar internet, hablar con el médico, entender una factura, alquilar un departamento, pedir comida, manejar transporte y resolver problemas diarios.

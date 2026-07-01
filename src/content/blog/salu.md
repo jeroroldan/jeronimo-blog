@@ -10,6 +10,18 @@ tags:
   ["autoayuda", "psicología", "relaciones", "crecimiento personal", "soledad"]
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Superar el Aislamiento Social y Reconectar con el Mundo
 
 ### Una guía práctica basada en evidencia para salir del encierro y construir conexiones reales

@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 11
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los fundamentos y las estrategias para alcanzar tu mejor versión física:
+
+- Bases de fisiología del ejercicio y principios del entrenamiento
+- Rutinas estructuradas según tu objetivo y nivel
+- Nutrición aplicada: macronutrientes, déficit/superávit y suplementación
+- Descanso, recuperación y consistencia como pilares del progreso
+- Errores comunes, mitos y cómo optimizar tus resultados a largo plazo
+
+
 # Master Class: 10 Hábitos Diarios para tu Bienestar 🌟
 
 > 💡 **En esta master class aprenderás**: Diez hábitos simples y prácticos para mejorar tu bienestar y felicidad personal. Sandra González te muestra cómo integrar pequeñas acciones en tu rutina diaria para transformar tu vida sin grandes sacrificios.

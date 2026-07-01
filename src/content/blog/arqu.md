@@ -18,6 +18,18 @@ difficulty: "intermedio"
 readingTime: 25
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los conceptos y herramientas del desarrollo frontend moderno:
+
+- El funcionamiento del runtime JavaScript y el ecosistema de paquetes
+- Patrones de componentes, estado y renderizado en tu framework de elección
+- Optimización de rendimiento, carga y experiencia de usuario
+- Pruebas, tipado, arquitectura y escalabilidad de proyectos frontend
+- Integración con backends, APIs y despliegue en producción
+
+
 # 🏗️ MASTERCLASS: Design Patterns — De Principiante a Experto
 
 > **"Un patrón de diseño no es código que copias — es una solución probada que internalizas."**

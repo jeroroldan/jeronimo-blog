@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 8
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Estrategia de Cinco Pasos para Desarrollar Inteligencia: Guía Práctica
 
 > 💡 **En esta guía aprenderás**: Una metodología de cinco pasos para desarrollar inteligencia en cualquier área, basada en neuroplasticidad y práctica deliberada. Desafía la noción de que la inteligencia es solo genética.

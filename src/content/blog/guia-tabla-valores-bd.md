@@ -5,6 +5,18 @@ description: "Aprende qué son las tablas de valores, para qué sirven, cómo di
 pubDate: 2025-11-24
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los pilares y aplicaciones de la inteligencia artificial moderna:
+
+- Los fundamentos conceptuales que diferencian a cada enfoque de IA
+- Cómo funcionan los modelos de lenguaje y cómo interactuar con ellos
+- Técnicas de prompting y frameworks de agentes autónomos
+- RAG, herramientas MCP y cómo conectar la IA con datos reales
+- Aplicaciones prácticas para desarrollo, negocios y productividad
+
+
 En el mundo de las bases de datos y la analítica de datos, las **tablas de valores** (también conocidas como lookup tables o reference tables) son herramientas fundamentales. Son especialmente importantes cuando trabajas con IA y machine learning, donde la calidad de los datos determina el éxito de los modelos.
 
 ***

@@ -10,6 +10,18 @@ difficulty: "intermedio"
 readingTime: 18
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los principios y herramientas del diseño digital:
+
+- Fundamentos de UI/UX y jerarquía visual aplicada a interfaces reales
+- Diseño de sistemas, componentes reutilizables y patrones de interacción
+- Accesibilidad, responsive y experiencia multi-dispositivo
+- Flujos de trabajo colaborativos entre diseño y desarrollo
+- Prácticas de prototipado, testing con usuarios y entrega a producción
+
+
 # Inglés para Entrevistas de Trabajo en Estados Unidos
 
 Aprender inglés general es útil, pero conseguir trabajo en Estados Unidos requiere un tipo de inglés más específico: el que se usa para vender tu experiencia, explicar decisiones técnicas, manejar presión y demostrar que podés colaborar con un equipo.

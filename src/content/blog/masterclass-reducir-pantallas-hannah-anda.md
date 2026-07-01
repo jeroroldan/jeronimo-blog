@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 10
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades sociales y de conexión interpersonal:
+
+- Psicología de la atracción y principios de influencia aplicados éticamente
+- Comunicación no verbal, lectura de señales y presencia magnética
+- Habilidades conversacionales: iniciación, profundidad y cierre
+- Construcción de confianza auténtica y vulnerabilidad como herramienta
+- Errores comunes, anti-patrones y cómo corregirlos en la práctica
+
+
 # Master Class: Reduce tu Tiempo de Pantalla 80% 📱➡️🧠
 
 > 💡 **En esta master class aprenderás**: Por qué somos adictos al celular desde una perspectiva neurológica y emocional, y cómo Hannah Anda logró reducir su consumo de 6 horas diarias a una relación consciente con la pantalla. Spoiler: no se trata de fuerza de voluntad, sino de **diseñar tu entorno**.

@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 12
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás las prácticas y herramientas de DevOps y operaciones modernas:
+
+- Contenerización con Docker y orquestación con Kubernetes
+- Pipelines de CI/CD, despliegues automatizados y rollbacks seguros
+- Infraestructura como código: Terraform, provisionamiento y configuración
+- Observabilidad: métricas, logs, trazas y alertas
+- Escalabilidad, seguridad en producción y cultura DevOps aplicada
+
+
 # Master Class: Fundamentos y Cultura DevOps ♾️
 
 > 💡 **En esta guía aprenderás**: Qué es realmente DevOps, las 8 etapas críticas de su proceso y cómo la integración de esta cultura diferencia a un desarrollador de un verdadero ingeniero de software.

@@ -18,6 +18,18 @@ tags:
   ]
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido construirás el sistema operativo personal para lograr resultados sostenibles:
+
+- La psicología detrás de los hábitos y cómo rediseñar tu comportamiento
+- Sistemas de disciplina que no dependen de la motivación
+- Gestión del tiempo, foco profundo y eliminación de distracciones
+- Mentalidad de crecimiento y reestructuración de creencias limitantes
+- Prácticas concretas, rutinas y métricas de progreso
+
+
 # Cuidar tu Salud Mental, Pensar Mejor y Ser Más Positivo
 
 ### Una guía práctica y sin rodeos para construir una mente más sana desde adentro

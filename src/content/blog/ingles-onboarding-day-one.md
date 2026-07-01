@@ -10,6 +10,18 @@ difficulty: "intermedio"
 readingTime: 17
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Inglés para Onboarding y Primer Día de Trabajo en Estados Unidos
 
 Conseguir el trabajo es solo una parte. El primer desafío real empieza cuando entrás al equipo.

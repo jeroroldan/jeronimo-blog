@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 14
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido construirás el sistema operativo personal para lograr resultados sostenibles:
+
+- La psicología detrás de los hábitos y cómo rediseñar tu comportamiento
+- Sistemas de disciplina que no dependen de la motivación
+- Gestión del tiempo, foco profundo y eliminación de distracciones
+- Mentalidad de crecimiento y reestructuración de creencias limitantes
+- Prácticas concretas, rutinas y métricas de progreso
+
+
 # Master Class: Menos Pestañas Mentales, Más Progreso Real 🧠🎯
 
 > 💡 **En esta master class aprenderás**: por qué acumular hábitos, cursos, proyectos y técnicas puede crear la sensación de avance sin generar resultados reales. Usaremos el Efecto Zeigarnik, la analogía del navegador con demasiadas pestañas y un sistema de pensamiento estratégico para cerrar bucles, eliminar ruido y enfocarte en menos tareas con mayor profundidad.

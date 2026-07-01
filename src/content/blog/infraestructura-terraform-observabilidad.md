@@ -9,6 +9,18 @@ difficulty: "avanzado"
 readingTime: 18
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás las prácticas y herramientas de DevOps y operaciones modernas:
+
+- Contenerización con Docker y orquestación con Kubernetes
+- Pipelines de CI/CD, despliegues automatizados y rollbacks seguros
+- Infraestructura como código: Terraform, provisionamiento y configuración
+- Observabilidad: métricas, logs, trazas y alertas
+- Escalabilidad, seguridad en producción y cultura DevOps aplicada
+
+
 # Guía: Infraestructura y Observabilidad 🏗️🔍
 
 > 💡 **En esta guía aprenderás**: Cómo aplicar el paradigma de la Infraestructura como Código (IaC) en Azure usando Terraform, y cómo implementar un sistema de observabilidad moderno para entender qué pasa dentro de tu aplicación en producción.

@@ -9,6 +9,18 @@ difficulty: "avanzado"
 readingTime: 14
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los conceptos y herramientas del desarrollo frontend moderno:
+
+- El funcionamiento del runtime JavaScript y el ecosistema de paquetes
+- Patrones de componentes, estado y renderizado en tu framework de elección
+- Optimización de rendimiento, carga y experiencia de usuario
+- Pruebas, tipado, arquitectura y escalabilidad de proyectos frontend
+- Integración con backends, APIs y despliegue en producción
+
+
 # Guía: Autenticación con JWT y Prisma 🔐
 
 > 💡 **En esta guía aprenderás**: Cómo implementar un sistema de autenticación de nivel comercial. Cubriremos el almacenamiento seguro de contraseñas, la generación de JSON Web Tokens y la protección de rutas privadas.

@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 18
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades sociales y de conexión interpersonal:
+
+- Psicología de la atracción y principios de influencia aplicados éticamente
+- Comunicación no verbal, lectura de señales y presencia magnética
+- Habilidades conversacionales: iniciación, profundidad y cierre
+- Construcción de confianza auténtica y vulnerabilidad como herramienta
+- Errores comunes, anti-patrones y cómo corregirlos en la práctica
+
+
 # Humor y Atracción: La Guía Maestro para Ser Más Gracioso (y Atractivo) 😂❤️‍🔥
 
 > *"Si la hacés reír, ya ganaste la mitad de la partida. La otra mitad es saber hasta cuándo seguir."*

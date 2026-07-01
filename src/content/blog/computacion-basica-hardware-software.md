@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 12
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Guía: Hardware y Software desde Cero 💻
 
 > 💡 **En esta guía aprenderás**: Los componentes esenciales de una computadora, cómo "piensa" en binario y los criterios clave para elegir tu próximo equipo según el uso que le vayas a dar.

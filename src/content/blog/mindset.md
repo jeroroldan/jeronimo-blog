@@ -7,6 +7,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Guía Rápida: Mindset Exitoso para Todos los Aspectos de la Vida en 2025
 
 ¡Bienvenido a esta guía práctica! Basada en psicología del éxito y tendencias de 2025 (crecimiento personal con IA, resiliencia post-burnout), te explico cómo cultivar un **mindset exitoso** para carrera, relaciones, salud, finanzas y más. Incluye **ejemplos**, **analogías** y **consejos pro** para aplicar en la vida real o apps como BetterUp (IA para metas). Prioriza acción ética y sostenibilidad.

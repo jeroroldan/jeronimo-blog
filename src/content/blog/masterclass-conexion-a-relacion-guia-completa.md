@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 30
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades sociales y de conexión interpersonal:
+
+- Psicología de la atracción y principios de influencia aplicados éticamente
+- Comunicación no verbal, lectura de señales y presencia magnética
+- Habilidades conversacionales: iniciación, profundidad y cierre
+- Construcción de confianza auténtica y vulnerabilidad como herramienta
+- Errores comunes, anti-patrones y cómo corregirlos en la práctica
+
+
 # Master Class: De la Primera Mirada a la Relación 🏹❤️
 
 > 💡 **En esta master class aprenderás**: El mapa completo del viaje desde que ves a una mujer que te gusta hasta que construyen algo juntos. No teoría abstracta ni "trucos mágicos" — es un paso a paso práctico con ejemplos reales, frases para usar, errores a evitar, y las señales que tenés que leer en cada etapa. Si ya tenés algo de experiencia pero los resultados son inconsistentes, esta guía es para vos.

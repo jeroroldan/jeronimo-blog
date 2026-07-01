@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 8
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Los 6 Principios Mentales del Top 1%
 
 > 💡 **En esta guía aprenderás**: Las seis mentalidades que usan las personas del top 1% para construir riqueza sostenible. Spoiler: no es inteligencia ni suerte, es mindset.

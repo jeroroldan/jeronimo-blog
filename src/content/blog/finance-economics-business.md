@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 18
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás los conocimientos para operar en mercados financieros con criterio:
+
+- Tipos de activos, mercados y participantes del ecosistema financiero
+- Análisis fundamental y técnico aplicado a la toma de decisiones
+- Gestión de riesgo, posicionamiento y psicología del trader
+- Estrategias probadas para diferentes perfiles y horizontes temporales
+- Herramientas, plataformas y framework para operar de forma consistente
+
+
 # Finanzas, Economía y Estrategia: Guía Maestra
 
 > 💡 **En esta guía aprenderás**: Los fundamentos de finanzas, economía y estrategia empresarial para entender cómo los cambios macroeconómicos afectan a las empresas y cómo analizar estados financieros.

@@ -8,6 +8,18 @@ difficulty: "intermedio"
 readingTime: 5
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Master Class: Comunicación Atravesada para Conectar con Gente Nueva
 
 ## Premisa Central: Comunicar para GANAR, no para empatar

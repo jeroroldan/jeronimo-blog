@@ -17,6 +17,18 @@ image: "../../assets/blog-placeholder-1.jpg"
 category: "bienestar"
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los fundamentos y las estrategias para alcanzar tu mejor versión física:
+
+- Bases de fisiología del ejercicio y principios del entrenamiento
+- Rutinas estructuradas según tu objetivo y nivel
+- Nutrición aplicada: macronutrientes, déficit/superávit y suplementación
+- Descanso, recuperación y consistencia como pilares del progreso
+- Errores comunes, mitos y cómo optimizar tus resultados a largo plazo
+
+
 # Mejores Prácticas de Salud Mental para una Vida Equilibrada
 
 ## 1. Introducción

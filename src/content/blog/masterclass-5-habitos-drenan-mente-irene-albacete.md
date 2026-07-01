@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 9
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los fundamentos y las estrategias para alcanzar tu mejor versión física:
+
+- Bases de fisiología del ejercicio y principios del entrenamiento
+- Rutinas estructuradas según tu objetivo y nivel
+- Nutrición aplicada: macronutrientes, déficit/superávit y suplementación
+- Descanso, recuperación y consistencia como pilares del progreso
+- Errores comunes, mitos y cómo optimizar tus resultados a largo plazo
+
+
 # Master Class: 5 Hábitos que Destruyen tu Mente 🧠🚫
 
 > 💡 **En esta master class aprenderás**: Cinco hábitos cotidianos que parecen inofensivos pero están drenando tu energía y afectando tu salud mental. Irene Albacete te invita a retomar la conciencia y el silencio para recuperar tu conexión personal.

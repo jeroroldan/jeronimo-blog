@@ -9,6 +9,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido construirás el sistema operativo personal para lograr resultados sostenibles:
+
+- La psicología detrás de los hábitos y cómo rediseñar tu comportamiento
+- Sistemas de disciplina que no dependen de la motivación
+- Gestión del tiempo, foco profundo y eliminación de distracciones
+- Mentalidad de crecimiento y reestructuración de creencias limitantes
+- Prácticas concretas, rutinas y métricas de progreso
+
+
 # 📊 Diagramas de Flujos n8n + PostgreSQL
 
 ## 🔄 FLUJO 1: Recolección de Datos (El Sistema Digestivo)

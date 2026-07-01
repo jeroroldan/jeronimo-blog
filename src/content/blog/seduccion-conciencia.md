@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 12
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás una visión integral de la seguridad informática:
+
+- Los vectores de ataque más comunes y cómo prevenirlos
+- Autenticación, autorización y gestión de sesiones seguras
+- Seguridad en APIs, validación de entradas y protección contra inyecciones
+- Cifrado, gestión de secretos y cumplimiento normativo
+- Monitorización, respuesta a incidentes y cultura de seguridad
+
+
 # Seduucción Desde la Esencia: Guía de Relaciones Conscientes
 
 > 💡 **En esta guía aprenderás**: La seducción verdadera no es técnica. Es trabajo interno, responsabilidad personal y autoconocimiento. Spoiler: Atraer a otros começa por seducirte a ti mismo.

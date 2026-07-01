@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 11
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades sociales y de conexión interpersonal:
+
+- Psicología de la atracción y principios de influencia aplicados éticamente
+- Comunicación no verbal, lectura de señales y presencia magnética
+- Habilidades conversacionales: iniciación, profundidad y cierre
+- Construcción de confianza auténtica y vulnerabilidad como herramienta
+- Errores comunes, anti-patrones y cómo corregirlos en la práctica
+
+
 # Master Class: 7 Errores de Comunicación que Matan tu Carisma 🎯
 
 > 💡 **En esta master class aprenderás**: Los 7 errores más comunes que te hacen sonar poco carismático en una conversación y, más importante, cómo corregirlos con shifts prácticos. Según Adrià Solà Pastor, estos hábitos, cuando se practican, transforman cómo te perciben los demás.

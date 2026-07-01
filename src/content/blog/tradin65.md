@@ -6,6 +6,18 @@ pubDate: 'Sep 10 2025'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás los conocimientos para operar en mercados financieros con criterio:
+
+- Tipos de activos, mercados y participantes del ecosistema financiero
+- Análisis fundamental y técnico aplicado a la toma de decisiones
+- Gestión de riesgo, posicionamiento y psicología del trader
+- Estrategias probadas para diferentes perfiles y horizontes temporales
+- Herramientas, plataformas y framework para operar de forma consistente
+
+
 # Cómo Generar $100 con Trading: Guía Realista con Casos Reales
 
 ## *La Verdad Sin Filtros + Estrategias Probadas*

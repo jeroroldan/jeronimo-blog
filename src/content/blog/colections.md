@@ -7,6 +7,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los conceptos y herramientas esenciales del ecosistema Laravel:
+
+- El ciclo de vida de una petición HTTP en Laravel y cómo funciona el framework internamente
+- Eloquent ORM: consultas, relaciones, scopes y patrones avanzados
+- Validaciones, Form Requests y flujos de datos seguros
+- Migraciones, seeders, factories y manejo de base de datos
+- Arquitectura de servicios, repositorios y pruebas automatizadas
+
+
 # Master Class: Dominando Arrays y Collections en Laravel
 
 ¡Bienvenido a esta master class! En esta guía detallada, aprenderás cómo usar **arrays** y **collections** en Laravel de manera eficiente. Cubriremos desde conceptos básicos hasta técnicas avanzadas, con ejemplos prácticos, analogías para facilitar la comprensión y mejores prácticas para escribir código limpio, legible y mantenible. Esta clase está diseñada para desarrolladores con conocimientos básicos de PHP y Laravel, pero incluye explicaciones accesibles para principiantes.

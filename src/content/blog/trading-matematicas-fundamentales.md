@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 12
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás los conocimientos para operar en mercados financieros con criterio:
+
+- Tipos de activos, mercados y participantes del ecosistema financiero
+- Análisis fundamental y técnico aplicado a la toma de decisiones
+- Gestión de riesgo, posicionamiento y psicología del trader
+- Estrategias probadas para diferentes perfiles y horizontes temporales
+- Herramientas, plataformas y framework para operar de forma consistente
+
+
 # Guía: Matemáticas Fundamentales para la Bolsa 🔢📈
 
 > 💡 **En esta guía aprenderás**: Por qué el trading es un negocio de números. Veremos cómo calcular el tamaño exacto de tu posición, el ratio riesgo/beneficio y la esperanza matemática que determina si tu sistema es un ganador a largo plazo.

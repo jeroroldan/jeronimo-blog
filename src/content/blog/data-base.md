@@ -5,6 +5,18 @@ code: 'base de datos'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # 🗃️ Guía Definitiva: Modelado de Bases de Datos con Analogías de la Vida Real
 
 ## 🏠 **Introducción: Tu Base de Datos es Como Tu Casa**

@@ -5,6 +5,18 @@ description: 'Guía del Emprendedor: Cómo Detectar Oportunidades de Negocio en 
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás la visión estratégica para construir y escalar negocios:
+
+- Validación de ideas, modelo de negocio y propuesta de valor
+- Estrategias de crecimiento, monetización y retención de clientes
+- Gestión financiera, pricing y optimización de recursos
+- Liderazgo, cultura organizacional y toma de decisiones bajo incertidumbre
+- Casos reales, errores comunes y lecciones aplicables
+
+
 # Guía del Emprendedor: Cómo Detectar Oportunidades de Negocio en Cualquier Situación
 
 ## 🕵️ La Mentalidad del Detective de Oportunidades

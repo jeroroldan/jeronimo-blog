@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 8
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás una visión integral de la seguridad informática:
+
+- Los vectores de ataque más comunes y cómo prevenirlos
+- Autenticación, autorización y gestión de sesiones seguras
+- Seguridad en APIs, validación de entradas y protección contra inyecciones
+- Cifrado, gestión de secretos y cumplimiento normativo
+- Monitorización, respuesta a incidentes y cultura de seguridad
+
+
 # Master Class: Emprender, Autoexigencia y la Verdadera Seguridad 🧠
 
 > 💡 **En esta master class aprenderás**: Por qué los títulos formales no definen tu valor real, por qué emprender puede ser más seguro que un contrato fijo, y cómo pedir ayuda es una señal de fortaleza, no de debilidad. Basado en las enseñanzas de Irene Albacete.

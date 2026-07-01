@@ -6,6 +6,18 @@ pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los conceptos y herramientas esenciales del ecosistema Laravel:
+
+- El ciclo de vida de una petición HTTP en Laravel y cómo funciona el framework internamente
+- Eloquent ORM: consultas, relaciones, scopes y patrones avanzados
+- Validaciones, Form Requests y flujos de datos seguros
+- Migraciones, seeders, factories y manejo de base de datos
+- Arquitectura de servicios, repositorios y pruebas automatizadas
+
+
 # Master Class Completa: Queries en Laravel - De Principiante a Experto
 
 ## 🎯 Introducción: El Universo de las Consultas

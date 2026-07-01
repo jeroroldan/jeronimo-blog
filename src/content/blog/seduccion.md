@@ -5,6 +5,18 @@ description: 'Guía de Atracción Auténtica para Hombres de 40 Años 💫'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades sociales y de conexión interpersonal:
+
+- Psicología de la atracción y principios de influencia aplicados éticamente
+- Comunicación no verbal, lectura de señales y presencia magnética
+- Habilidades conversacionales: iniciación, profundidad y cierre
+- Construcción de confianza auténtica y vulnerabilidad como herramienta
+- Errores comunes, anti-patrones y cómo corregirlos en la práctica
+
+
 # Guía de Atracción Auténtica para Hombres de 40 Años 💫
 
 *Psicología de Relaciones y Desarrollo Personal Masculino*

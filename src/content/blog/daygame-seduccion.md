@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 16
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades sociales y de conexión interpersonal:
+
+- Psicología de la atracción y principios de influencia aplicados éticamente
+- Comunicación no verbal, lectura de señales y presencia magnética
+- Habilidades conversacionales: iniciación, profundidad y cierre
+- Construcción de confianza auténtica y vulnerabilidad como herramienta
+- Errores comunes, anti-patrones y cómo corregirlos en la práctica
+
+
 # DayGame y el Arte de Superar el Miedo: Guía de Desarrollo Social
 
 > 💡 **En esta guía aprenderás**: Cómo transformar tu vida social mediante la práctica constante, la búsqueda de rechazos y el desarrollo de confianza auténtica. Spoiler: no se trata de apariencia o frases, sino de energía y autenticidad.

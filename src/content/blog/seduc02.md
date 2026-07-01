@@ -7,6 +7,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades sociales y de conexión interpersonal:
+
+- Psicología de la atracción y principios de influencia aplicados éticamente
+- Comunicación no verbal, lectura de señales y presencia magnética
+- Habilidades conversacionales: iniciación, profundidad y cierre
+- Construcción de confianza auténtica y vulnerabilidad como herramienta
+- Errores comunes, anti-patrones y cómo corregirlos en la práctica
+
+
 Guía Rápida: Ejemplos Avanzados del Efecto Halo en la Psicología de la Atracción (2025)
 El efecto halo es un sesgo cognitivo donde una cualidad positiva (como carisma, atractivo físico o inteligencia) influye en la percepción general de una persona, haciéndola parecer más deseable en otros aspectos. Basado en psicología social moderna (estudios de 2025, Psicología y Mente), esta guía ofrece ejemplos avanzados para aplicar el efecto halo en contextos de atracción (sociales, románticos, digitales), con analogías, escenarios prácticos y consejos pro para maximizarlo éticamente. Prioriza autenticidad y consentimiento.
 Requisitos previos: Familiaridad con interacciones sociales o apps de citas (e.g., Tinder, Lovendar con IA 2025). Practica en entornos reales o digitales. Recursos: Social Psychology Review (2025).

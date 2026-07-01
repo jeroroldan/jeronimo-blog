@@ -9,6 +9,18 @@ difficulty: "avanzado"
 readingTime: 10
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Longevidad con Dr. David Sinclair: Guía para Revertir el Envejecimiento
 
 > 💡 **En esta guía aprenderás**: La revolucionaria investigación de Dr. David Sinclair sobre revertir el envejecimiento biológico. Desde la Teoría de la Información del Envejecimiento hasta hábitos prácticos para una vida más larga y saludable.

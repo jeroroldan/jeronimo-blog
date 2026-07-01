@@ -5,6 +5,18 @@ description: 'Guía Maestra de Figma: De Novato a Arquitecto Digital'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás la visión arquitectónica necesaria para construir sistemas escalables:
+
+- Patrones arquitectónicos y cómo elegir el adecuado para cada contexto
+- Balanceo de carga, caching, colas y bases de datos distribuidas
+- Consistencia, particionamiento y tolerancia a fallos
+- Diseño de APIs, contratos y comunicación entre servicios
+- Trade-offs, medición de rendimiento y toma de decisiones técnicas
+
+
 # Guía Maestra de Figma: De Novato a Arquitecto Digital
 
 ## Domina la Herramienta de Diseño Más Poderosa del Mundo

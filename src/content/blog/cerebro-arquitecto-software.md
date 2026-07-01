@@ -5,6 +5,18 @@ description: "Cere Arq"
 pubDate: 2025-11-24
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás la visión arquitectónica necesaria para construir sistemas escalables:
+
+- Patrones arquitectónicos y cómo elegir el adecuado para cada contexto
+- Balanceo de carga, caching, colas y bases de datos distribuidas
+- Consistencia, particionamiento y tolerancia a fallos
+- Diseño de APIs, contratos y comunicación entre servicios
+- Trade-offs, medición de rendimiento y toma de decisiones técnicas
+
+
 # El Cerebro del Arquitecto: Conceptos para dominar a la IA
 ## Guía de Estudio 2025 – Teoría Profunda para Ingenieros Aumentados
 

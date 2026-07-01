@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 8
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Por Qué Tener Efectivo No Es Ignorancia Financiera: Guía Estratégica
 
 > 💡 **En esta guía aprenderás**: Por qué mantener efectivo es una estrategia inteligente, no un signo de ignorancia financiera. Ratanael de la Rueda explica cómo la liquidez te da velocidad, independencia y poder de negociación en el mundo financiero.

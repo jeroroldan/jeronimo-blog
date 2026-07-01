@@ -6,6 +6,18 @@ pubDate: 'Dec 03 2025'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los pilares y aplicaciones de la inteligencia artificial moderna:
+
+- Los fundamentos conceptuales que diferencian a cada enfoque de IA
+- Cómo funcionan los modelos de lenguaje y cómo interactuar con ellos
+- Técnicas de prompting y frameworks de agentes autónomos
+- RAG, herramientas MCP y cómo conectar la IA con datos reales
+- Aplicaciones prácticas para desarrollo, negocios y productividad
+
+
 "Quiero entrenar mi propia IA".
 
 Es la frase más común y malinterpretada de la industria. La mayoría de la gente no quiere *entrenar* (pre-training), quiere *ajustar* (fine-tuning) o simplemente *conectar* datos (RAG).

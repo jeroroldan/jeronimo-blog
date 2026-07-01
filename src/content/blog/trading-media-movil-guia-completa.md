@@ -19,6 +19,18 @@ difficulty: "intermedio"
 readingTime: 25
 ---
 
+
+## ¿Qué vas a aprender
+
+En esta guía recorrerás los conceptos del análisis técnico aplicado a los mercados financieros:
+
+- Cómo interpretar gráficos de precio y volumen para tomar decisiones informadas
+- Las principales figuras y patrones de reversal y continuación
+- Indicadores técnicos clave y cómo combinarlos para filtrar señales
+- Cómo construir y validar una estrategia de trading con datos históricos
+- Psicología del trading: gestión del riesgo y disciplina operativa
+
+
 # Cómo Calcular Medias Móviles en Trading
 
 > 💡 **En esta guía aprenderás**: qué es una media móvil, cómo se calculan SMA, EMA, WMA, SMMA y HMA, cómo interpretarlas sin convertirlas en señales mágicas, y cómo implementarlas en Python, TradingView, MT4/5 y Excel.

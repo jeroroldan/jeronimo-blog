@@ -6,6 +6,18 @@ pubDate: 'Apr 16 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades en inglés de manera práctica y progresiva:
+
+- Comprensión oral y lectura contextual con estrategias efectivas
+- Expresión oral, fluidez y construcción de frases naturales
+- Gramática aplicada sin memorización mecánica
+- Vocabulario situacional: laboral, tecnológico y cotidiano
+- Consejos de listening, pronunciación y coaching de exposición
+
+
 # Guía Definitiva para Aprender un Idioma por Cuenta Propia 🚀
 
 ## Introducción

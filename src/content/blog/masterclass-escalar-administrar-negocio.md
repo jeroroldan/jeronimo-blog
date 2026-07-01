@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 30
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás los conocimientos para operar en mercados financieros con criterio:
+
+- Tipos de activos, mercados y participantes del ecosistema financiero
+- Análisis fundamental y técnico aplicado a la toma de decisiones
+- Gestión de riesgo, posicionamiento y psicología del trader
+- Estrategias probadas para diferentes perfiles y horizontes temporales
+- Herramientas, plataformas y framework para operar de forma consistente
+
+
 # Master Class: Cómo Escalar y Administrar tu Negocio desde $0 🚀📊
 
 > 💡 **En esta master class aprenderás**: El mapa completo para llevar tu negocio desde la idea hasta los primeros $100K. No teoría de libros de texto — es un paso a paso práctico con fórmulas, templates, ejemplos reales y los errores que el 90% de emprendedores comete. Si estás arrancando o ya tenés algo funcionando pero no sabés cómo crecer, esta guía es para vos.

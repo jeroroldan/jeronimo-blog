@@ -10,6 +10,18 @@ difficulty: 'principiante'
 readingTime: 60
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades en inglés de manera práctica y progresiva:
+
+- Comprensión oral y lectura contextual con estrategias efectivas
+- Expresión oral, fluidez y construcción de frases naturales
+- Gramática aplicada sin memorización mecánica
+- Vocabulario situacional: laboral, tecnológico y cotidiano
+- Consejos de listening, pronunciación y coaching de exposición
+
+
 # Master Class Inglés A1: Guía Definitiva con Diálogos
 
 > **En esta master class aprenderás**: Vocabulario esencial A1, gramática básica, pronunciación y cómo desenvolverte en situaciones cotidianas con más de 130 diálogos organizados por tema.

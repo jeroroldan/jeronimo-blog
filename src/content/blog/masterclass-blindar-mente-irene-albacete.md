@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 13
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Master Class: 13 Claves para Blindar tu Mente 🛡️
 
 > 💡 **En esta master class aprenderás**: Cómo dejar de ser vulnerable ante los comentarios y actitudes de los demás. Irene Albacete te ofrece 13 claves psicológicas para blindar tu mente y proteger tu paz interior, reconociendo que aunque no puedes controlar el entorno, sí puedes trabajar en tu capacidad de respuesta.

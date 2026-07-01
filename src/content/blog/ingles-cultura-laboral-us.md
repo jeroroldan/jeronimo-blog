@@ -10,6 +10,18 @@ difficulty: "intermedio"
 readingTime: 16
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Inglés y Cultura Laboral en Estados Unidos
 
 Trabajar en Estados Unidos no es solo hablar inglés. También es entender cómo se comunica la gente, cómo se da feedback, cómo se toman decisiones y qué comportamientos se valoran en el trabajo.

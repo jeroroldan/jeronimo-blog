@@ -7,6 +7,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás las herramientas y flujos de automatización:
+
+- Arquitectura de workflows, nodos y conexiones
+- Integración con APIs, bases de datos y servicios en la nube
+- Manejo de errores, reintentos y despliegues en producción
+- Patrones avanzados: bifurcaciones, bucles y condicionales
+- Casos de uso reales para equipos y negocios
+
+
 # Masterclass: Diagramas de Arquitecturas de Automatización con n8n
 
 *Diseña, visualiza y documenta sistemas de automatización de clase enterprise*

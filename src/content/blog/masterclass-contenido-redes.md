@@ -6,6 +6,18 @@ pubDate: 'Jun 15 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido construirás el sistema operativo personal para lograr resultados sostenibles:
+
+- La psicología detrás de los hábitos y cómo rediseñar tu comportamiento
+- Sistemas de disciplina que no dependen de la motivación
+- Gestión del tiempo, foco profundo y eliminación de distracciones
+- Mentalidad de crecimiento y reestructuración de creencias limitantes
+- Prácticas concretas, rutinas y métricas de progreso
+
+
 # Masterclass: Cómo Hacer Contenido para Redes Sociales
 
 Crear contenido para redes no es publicar por publicar. No es copiar tendencias al azar, subir una foto con una frase motivacional o intentar que todo se vuelva viral.

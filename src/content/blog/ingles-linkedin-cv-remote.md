@@ -10,6 +10,18 @@ difficulty: "intermedio"
 readingTime: 16
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Inglés para CV, LinkedIn y Aplicar a Trabajos Remotos
 
 Conseguir trabajo en Estados Unidos o en empresas que contratan remoto desde Latinoamérica no depende solo de programar bien. También depende de saber presentar tu experiencia en inglés.

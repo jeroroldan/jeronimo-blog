@@ -6,6 +6,18 @@ code: "figma"
 image: "/images/blog/fi.jpg"
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los principios y herramientas del diseño digital:
+
+- Fundamentos de UI/UX y jerarquía visual aplicada a interfaces reales
+- Diseño de sistemas, componentes reutilizables y patrones de interacción
+- Accesibilidad, responsive y experiencia multi-dispositivo
+- Flujos de trabajo colaborativos entre diseño y desarrollo
+- Prácticas de prototipado, testing con usuarios y entrega a producción
+
+
 # ◆ FIGMA — Panel Lateral
 
 ### Manual de Experto: Layers, Assets & Pages

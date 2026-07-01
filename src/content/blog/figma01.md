@@ -6,6 +6,18 @@ pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás la visión arquitectónica necesaria para construir sistemas escalables:
+
+- Patrones arquitectónicos y cómo elegir el adecuado para cada contexto
+- Balanceo de carga, caching, colas y bases de datos distribuidas
+- Consistencia, particionamiento y tolerancia a fallos
+- Diseño de APIs, contratos y comunicación entre servicios
+- Trade-offs, medición de rendimiento y toma de decisiones técnicas
+
+
 Guía Master Class: Creación de Prototipos Modernos y Reutilizables en Figma para MVPs
 ¡Hola! Como experto en Figma y diseño de prototipos para Minimum Viable Products (MVPs), te presento esta guía completa y estructurada para dominar la creación de pantallas, flujos y funcionalidades. Esta master class está diseñada para diseñadores principiantes y avanzados que quieran crear prototipos eficientes, escalables y listos para validar ideas con stakeholders o usuarios. Usaremos Figma (versión 2025+), enfocándonos en prácticas modernas como Auto Layout, componentes reutilizables y animaciones fluidas.
 La guía incluye ejemplos prácticos, consejos clave, mejores prácticas, herramientas de IA y plugins esenciales. Al final, podrás prototipar un MVP completo en horas, no días.

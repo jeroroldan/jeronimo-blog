@@ -8,6 +8,18 @@ tags: ["Figma", "Design", "Nomenclature", "Beginners"]
 heroImage: "../../assets/blog-placeholder-3.jpg"
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los principios y herramientas del diseño digital:
+
+- Fundamentos de UI/UX y jerarquía visual aplicada a interfaces reales
+- Diseño de sistemas, componentes reutilizables y patrones de interacción
+- Accesibilidad, responsive y experiencia multi-dispositivo
+- Flujos de trabajo colaborativos entre diseño y desarrollo
+- Prácticas de prototipado, testing con usuarios y entrega a producción
+
+
 # 📚 Diccionario Maestro: Domina el Lenguaje de Figma
 
 > **"Hablar el mismo idioma que la herramienta es el primer paso para dejar de ser un usuario y empezar a ser un creador."**

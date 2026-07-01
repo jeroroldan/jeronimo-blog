@@ -5,6 +5,18 @@ description: 'Guía Definitiva: Cómo Construir un Negocio Digital de Millones d
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás la visión estratégica para construir y escalar negocios:
+
+- Validación de ideas, modelo de negocio y propuesta de valor
+- Estrategias de crecimiento, monetización y retención de clientes
+- Gestión financiera, pricing y optimización de recursos
+- Liderazgo, cultura organizacional y toma de decisiones bajo incertidumbre
+- Casos reales, errores comunes y lecciones aplicables
+
+
 # Master Class: El ABC de los Bonos - Guía Completa para el Inversor
 
 ## Introducción: ¿Por qué los Bonos?

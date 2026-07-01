@@ -17,6 +17,18 @@ difficulty: "avanzado"
 readingTime: 25
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás los conocimientos para operar en mercados financieros con criterio:
+
+- Tipos de activos, mercados y participantes del ecosistema financiero
+- Análisis fundamental y técnico aplicado a la toma de decisiones
+- Gestión de riesgo, posicionamiento y psicología del trader
+- Estrategias probadas para diferentes perfiles y horizontes temporales
+- Herramientas, plataformas y framework para operar de forma consistente
+
+
 # Curso Intensivo de Trading: Guía Maestra
 
 > 💡 **En esta guía aprenderás**: Todo lo necessário para convertirte en un trader consistente: desde leer gráficos hasta controlar tu psicología.

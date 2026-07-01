@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 12
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás una visión integral de la seguridad informática:
+
+- Los vectores de ataque más comunes y cómo prevenirlos
+- Autenticación, autorización y gestión de sesiones seguras
+- Seguridad en APIs, validación de entradas y protección contra inyecciones
+- Cifrado, gestión de secretos y cumplimiento normativo
+- Monitorización, respuesta a incidentes y cultura de seguridad
+
+
 # Guía: Seguridad Informática Básica 🛡️
 
 > 💡 **En esta guía aprenderás**: Cómo te infectan las amenazas modernas, qué técnicas usan los hackers reales y las herramientas fundamentales (Antivirus y Firewall) para mantener tu información a salvo.

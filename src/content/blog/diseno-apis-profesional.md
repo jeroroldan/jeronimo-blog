@@ -6,6 +6,18 @@ pubDate: 'Apr 14 2026'
 heroImage: '../../assets/blog-placeholder-2.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás una visión integral de la seguridad informática:
+
+- Los vectores de ataque más comunes y cómo prevenirlos
+- Autenticación, autorización y gestión de sesiones seguras
+- Seguridad en APIs, validación de entradas y protección contra inyecciones
+- Cifrado, gestión de secretos y cumplimiento normativo
+- Monitorización, respuesta a incidentes y cultura de seguridad
+
+
 # Diseño de APIs Profesional: El Contrato Digital de los Sistemas Modernos 🌐🔌
 
 ## INTRODUCCIÓN: MÁS ALLÁ DE LOS ENDPOINTS

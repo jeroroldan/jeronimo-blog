@@ -21,6 +21,18 @@ difficulty: "intermedio"
 readingTime: 35
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás una visión integral de la seguridad informática:
+
+- Los vectores de ataque más comunes y cómo prevenirlos
+- Autenticación, autorización y gestión de sesiones seguras
+- Seguridad en APIs, validación de entradas y protección contra inyecciones
+- Cifrado, gestión de secretos y cumplimiento normativo
+- Monitorización, respuesta a incidentes y cultura de seguridad
+
+
 # Master Class: Criptomonedas — Cómo Operar y Elegir las Mejores 🪙🚀
 
 > 💡 **En esta master class aprenderás**: qué son las criptomonedas, cómo se puede ganar dinero con ellas, cuáles son las mejores para operar según tu perfil, cómo construir una estrategia realista y cómo evitar las estafas más comunes.

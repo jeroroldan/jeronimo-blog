@@ -10,6 +10,18 @@ readingTime: 15
 heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades sociales y de conexión interpersonal:
+
+- Psicología de la atracción y principios de influencia aplicados éticamente
+- Comunicación no verbal, lectura de señales y presencia magnética
+- Habilidades conversacionales: iniciación, profundidad y cierre
+- Construcción de confianza auténtica y vulnerabilidad como herramienta
+- Errores comunes, anti-patrones y cómo corregirlos en la práctica
+
+
 # Seducción Ética: Técnicas Modernas para Conectar de Verdad 🎯❤️
 
 > 💡 **En esta guía aprenderás**: Técnicas de seducción basadas en psicología social que funcionan sin manipular a nadie. Autenticidad, confianza, humor, lenguaje corporal y estrategias digitales para crear conexiones reales — no trucos vacíos.

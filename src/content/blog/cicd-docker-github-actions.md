@@ -9,6 +9,20 @@ difficulty: "avanzado"
 readingTime: 16
 ---
 
+
+## ¿Qué vas a aprender
+
+En esta masterclass profundizarás en el diseño, construcción y evolución de APIs profesionales:
+
+- Los estilos arquitectónicos y cuándo elegir cada uno según el problema
+- Protocolos de red y cómo impactan en el rendimiento de tus servicios
+- Modelado de recursos, versionado y contratos que sobreviven al tiempo
+- Autenticación, autorización y protección contra vulnerabilidades comunes
+- Criterios para diseñar APIs mantenibles, escalables y seguras
+
+Al finalizar podrás diseñar APIs con criterio arquitectónico sólido, no solo escribir endpoints.
+
+
 # Guía: Pipelines de CI/CD con Docker y Actions 🐳
 
 > 💡 **En esta guía aprenderás**: Cómo empaquetar tu aplicación en contenedores Docker y cómo configurar un flujo de Integración y Entrega Continua (CI/CD) que valide, construya y despliegue tu código automáticamente.

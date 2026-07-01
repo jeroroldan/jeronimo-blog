@@ -7,6 +7,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido entenderás el ecosistema blockchain y las tecnologías descentralizadas:
+
+- Fundamentos de blockchain, criptografía y consenso distribuido
+- Cómo funcionan las criptomonedas, tokens y smart contracts
+- Arquitectura de dApps, wallets y protocolos DeFi
+- Seguridad, privacidad y riesgos del ecosistema
+- Casos de uso reales y el futuro de la web descentralizada
+
+
 # MASTERCLASS: Blockchain - Los Fundamentos Sin Delirio
 ## Todo lo que Necesitas Saber Sin Humo Ni Marketing
 

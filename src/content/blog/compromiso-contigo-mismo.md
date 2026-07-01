@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 8
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # Compromiso Contigo Mismo: La Responsabilidad Total que Transforma
 
 > 💡 **En esta guía aprenderás**: Por qué la mayoría no avanza y cómo tomar el compromiso real que transforma tu vida. Spoiler: no son las oportunidades, eres tú.

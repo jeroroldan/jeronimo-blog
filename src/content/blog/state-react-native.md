@@ -5,6 +5,18 @@ description: 'Guía Completa: Estado Global en React Native'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los conceptos y herramientas del desarrollo frontend moderno:
+
+- El funcionamiento del runtime JavaScript y el ecosistema de paquetes
+- Patrones de componentes, estado y renderizado en tu framework de elección
+- Optimización de rendimiento, carga y experiencia de usuario
+- Pruebas, tipado, arquitectura y escalabilidad de proyectos frontend
+- Integración con backends, APIs y despliegue en producción
+
+
 # Guía Completa: Estado Global en React Native
 
 ## Context API, Zustand y Redux con Arquitectura Limpia

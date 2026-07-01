@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 12
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido construirás el sistema operativo personal para lograr resultados sostenibles:
+
+- La psicología detrás de los hábitos y cómo rediseñar tu comportamiento
+- Sistemas de disciplina que no dependen de la motivación
+- Gestión del tiempo, foco profundo y eliminación de distracciones
+- Mentalidad de crecimiento y reestructuración de creencias limitantes
+- Prácticas concretas, rutinas y métricas de progreso
+
+
 # Master Class: Deja de Esforzarte, Empieza a Sistemas ⚙️
 
 > 💡 **En esta master class aprenderás**: Que la falta de constancia no es falta de fuerza de voluntad, sino una gestión ineficiente de tus decisiones diarias. Sandra González te enseña a diseñar un sistema que reduzca la fricción y automatice tu progreso.

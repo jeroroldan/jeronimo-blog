@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 15
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # 🇺🇸 MASTERCLASS DE INGLÉS: El 80/20 para Comunicarte YA
 
 > **Filosofía:** No necesitás saber todo el inglés. Necesitás saber lo suficiente para ser entendido y entender. Esto es exactamente eso.

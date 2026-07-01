@@ -9,6 +9,18 @@ difficulty: "intermedio"
 readingTime: 14
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás las prácticas y herramientas de DevOps y operaciones modernas:
+
+- Contenerización con Docker y orquestación con Kubernetes
+- Pipelines de CI/CD, despliegues automatizados y rollbacks seguros
+- Infraestructura como código: Terraform, provisionamiento y configuración
+- Observabilidad: métricas, logs, trazas y alertas
+- Escalabilidad, seguridad en producción y cultura DevOps aplicada
+
+
 # Guía: Gestión de Proyectos y Desarrollo Seguro 🛠️
 
 > 💡 **En esta guía aprenderás**: Cómo organizar tu flujo de trabajo usando GitHub Projects, establecer reglas de protección para tu rama principal y asegurar que cada línea de código sea validada por pruebas unitarias.

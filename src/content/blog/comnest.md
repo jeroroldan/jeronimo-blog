@@ -6,6 +6,18 @@ pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás el framework NestJS y sus patrones arquitectónicos:
+
+- Módulos, controladores, servicios y providers
+- Inyección de dependencias, decoradores y ciclo de vida
+- Pruebas unitarias, e2e y arquitectura escalable
+- Integración con bases de datos, colas y microservicios
+- Despliegue en producción y monitoreo
+
+
 # Guía Completa de Comandos NestJS CLI
 
 ## Instalación del CLI

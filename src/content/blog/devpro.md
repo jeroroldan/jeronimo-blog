@@ -40,6 +40,18 @@ tags:
 readingTime: 18
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás la visión estratégica para construir y escalar negocios:
+
+- Validación de ideas, modelo de negocio y propuesta de valor
+- Estrategias de crecimiento, monetización y retención de clientes
+- Gestión financiera, pricing y optimización de recursos
+- Liderazgo, cultura organizacional y toma de decisiones bajo incertidumbre
+- Casos reales, errores comunes y lecciones aplicables
+
+
 [Mes 1-2] ──> Fundamentos de Computer Science e Infraestructura Interna
 [Mes 3-4] ──> Ingeniería de Software Avanzada, Modelado y Arquitectura
 [Mes 5-6] ──> Backend de Alta Disponibilidad y Sistemas Distribuidos

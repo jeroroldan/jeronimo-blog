@@ -7,6 +7,18 @@ tags: ["Figma", "Design", "Auto Layout", "UX/UI"]
 heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los principios y herramientas del diseño digital:
+
+- Fundamentos de UI/UX y jerarquía visual aplicada a interfaces reales
+- Diseño de sistemas, componentes reutilizables y patrones de interacción
+- Accesibilidad, responsive y experiencia multi-dispositivo
+- Flujos de trabajo colaborativos entre diseño y desarrollo
+- Prácticas de prototipado, testing con usuarios y entrega a producción
+
+
 # 🎨 Guía Maestra: Domina el Auto Layout en Figma
 
 > **"El diseño manual es como pintar un cuadro; el Auto Layout es como construir un sistema vivo que respira y se adapta."**

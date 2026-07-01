@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 10
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido explorarás los conceptos clave y su aplicación práctica:
+
+- Fundamentos teóricos y contexto necesario para entender el tema
+- Aplicaciones prácticas y casos de uso reales
+- Herramientas, técnicas y mejores prácticas recomendadas
+- Ejemplos guiados paso a paso
+- Errores comunes, anti-patrones y cómo evitarlos
+
+
 # 5 Lecciones de Negocios: Lo Que Nadie Te Cuenta de Emprender
 
 > 💡 **En esta guía aprenderás**: Las 5 lecciones fundamentales que aprendimos al construir proyectos desde jóvenes. Spoiler: La realidad de emprender es muy diferente a lo que muestran las redes sociales.

@@ -7,6 +7,18 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los conceptos y herramientas del desarrollo frontend moderno:
+
+- El funcionamiento del runtime JavaScript y el ecosistema de paquetes
+- Patrones de componentes, estado y renderizado en tu framework de elección
+- Optimización de rendimiento, carga y experiencia de usuario
+- Pruebas, tipado, arquitectura y escalabilidad de proyectos frontend
+- Integración con backends, APIs y despliegue en producción
+
+
 # Master Class: Expo SDK 54, React Native 0.81 y React 19 - Guía Completa
 
 ¡Bienvenido a esta master class en formato guía! Como especialista en Expo y React Native, te llevaré de la mano por las novedades más recientes (a septiembre de 2025). Usaré **ejemplos prácticos de código**, **analogías cotidianas** para que las nuevas APIs se sientan intuitivas, y me enfocaré en lo esencial para que puedas aplicarlo inmediatamente en tus proyectos.

@@ -9,6 +9,18 @@ difficulty: "principiante"
 readingTime: 8
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás tus habilidades sociales y de conexión interpersonal:
+
+- Psicología de la atracción y principios de influencia aplicados éticamente
+- Comunicación no verbal, lectura de señales y presencia magnética
+- Habilidades conversacionales: iniciación, profundidad y cierre
+- Construcción de confianza auténtica y vulnerabilidad como herramienta
+- Errores comunes, anti-patrones y cómo corregirlos en la práctica
+
+
 # 3 Cambios de Mentalidad que Multiplican el Éxito
 
 > 💡 **En esta guía aprenderás**: Los tres cambios de mentalidad fundamentales que pueden multiplicar tu éxito en seducción, dinero y crecimiento personal. Spoiler: No depende de tus características físicas o estatus social.

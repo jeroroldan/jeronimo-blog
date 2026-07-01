@@ -6,6 +6,18 @@ pubDate: 'Apr 16 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido desarrollarás la visión arquitectónica necesaria para construir sistemas escalables:
+
+- Patrones arquitectónicos y cómo elegir el adecuado para cada contexto
+- Balanceo de carga, caching, colas y bases de datos distribuidas
+- Consistencia, particionamiento y tolerancia a fallos
+- Diseño de APIs, contratos y comunicación entre servicios
+- Trade-offs, medición de rendimiento y toma de decisiones técnicas
+
+
 # Guía de System Design para Senior Developers 🚀
 
 ## Introducción

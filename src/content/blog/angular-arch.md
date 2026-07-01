@@ -7,6 +7,18 @@ code: "informatica"
 tags: ["Angular", "Arquitectura", "Frontend", "Clean Code", "Escalabilidad"]
 ---
 
+
+## ¿Qué vas a aprender
+
+En este contenido dominarás los conceptos y herramientas del desarrollo frontend moderno:
+
+- El funcionamiento del runtime JavaScript y el ecosistema de paquetes
+- Patrones de componentes, estado y renderizado en tu framework de elección
+- Optimización de rendimiento, carga y experiencia de usuario
+- Pruebas, tipado, arquitectura y escalabilidad de proyectos frontend
+- Integración con backends, APIs y despliegue en producción
+
+
 # Arquitectura Angular: De Código Espagueti a Sistemas de Élite
 
 > [!IMPORTANT]
