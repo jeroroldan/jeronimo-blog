@@ -1,6 +1,6 @@
 ---
 title: 'Guía de la Ciencia de la Seducción: Leda Casas'
-code: 'ciencia-seduccion-leda-casas'
+code: 'seduccion'
 description: 'La psicóloga y sexóloga Leda Casas revela los patrones universales del comportamiento humano, el lenguaje no verbal y las claves para una conexión consciente y profunda.'
 pubDate: 'Apr 16 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'

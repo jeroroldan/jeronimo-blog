@@ -2,7 +2,7 @@
 title: "Master Class: Las 7 Fuentes de Atracción Masculina (Ranking de Impacto)"
 description: "Las 7 mayores fuentes de atracción que un hombre genera hacia una mujer, rankeadas por impacto real. Basado en psicología evolutiva, neurociencia social y experiencia práctica."
 pubDate: "2026-06-03"
-code: "masterclass-7-fuentes-atraccion-masculina"
+code: "seduccion"
 category: "relaciones"
 tags: ["atraccion", "seduccion", "relaciones", "psicologia", "masculinidad", "confianza", "desarrollo-personal"]
 difficulty: "intermedio"

@@ -1,6 +1,6 @@
 ---
 title: 'Guía Magistral de Seducción y Habilidades Sociales: Héctor Latorre'
-code: 'magistral-seduccion-hector-latorre'
+code: 'seduccion'
 description: 'Aprende los pilares fundamentales de la seducción auténtica con Héctor Latorre. No hay frases mágicas, solo práctica, inteligencia emocional y conexión genuina.'
 pubDate: 'Apr 16 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -2,7 +2,7 @@
 title: "Seducción y Habilidades Sociales: La Guía Maestra para una Autenticidad Magnética"
 description: "Descubre por qué la seducción no es un talento innato sino una habilidad que se entrena. Aprende a superar el análisis excesivo, dominar la primera impresión y desarrollar soltura social mediante la práctica constante."
 pubDate: "2026-06-10"
-code: "seduccion-habilidades-sociales"
+code: "seduccion"
 category: "habilidades-blandas"
 tags: ["seduccion", "citas", "habilidades-sociales", "desarrollo-personal", "autenticidad"]
 difficulty: "principiante"

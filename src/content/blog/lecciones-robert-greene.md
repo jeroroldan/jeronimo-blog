@@ -2,7 +2,7 @@
 title: "Lecciones de Robert Greene: Poder, Seducción y Maestría - Guía Práctica"
 description: "Robert Greene comparte insights sobre poder interno, el arte de la seducción, el camino a la maestría y su recuperación tras un derrame cerebral. Lecciones aplicables para la vida cotidiana."
 pubDate: "2026-04-15"
-code: "lecciones-robert-greene"
+code: "seduccion"
 category: "desarrollo-personal"
 tags: ["robert-greene", "poder", "seduccion", "maestria", "desarrollo-personal", "psicologia"]
 difficulty: "intermedio"

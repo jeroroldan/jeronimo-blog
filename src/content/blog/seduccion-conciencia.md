@@ -2,7 +2,7 @@
 title: "Seducción Desde la Esencia: Guía de Relaciones Conscientes"
 description: "La verdadera seducción nace de liberarse del ego y alcanzar paz interior. Psicología, dinámicas de género y vulnerabilidad responsable."
 pubDate: "2026-04-15"
-code: "seduccion-esencia"
+code: "seduccion"
 category: "aprendizaje"
 tags: ["seduccion", "relaciones", "desarrollo-personal", "vulnerabilidad", "psicologia"]
 difficulty: "intermedio"

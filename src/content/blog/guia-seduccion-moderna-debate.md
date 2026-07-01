@@ -1,6 +1,6 @@
 ---
 title: 'Guía de Seducción Moderna: Debate entre Héctor La Torre y Alexandra Tejada'
-code: 'seduccion-moderna-debate'
+code: 'seduccion'
 description: 'Descubre los secretos para conectar auténticamente en la época digital: ego, miedo al rechazo, triple conexión, lenguaje corporal, primera cita, crisis de relaciones modernas y apps de citas con integridad.'
 pubDate: 'Apr 16 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'

@@ -2,7 +2,7 @@
 title: "Errores Comunes en la Caza: Guía para Mejorar tus Habilidades Sociales"
 description: "Los errores más frecuentes que cometen los hombres al intentar conquistar y cómo transformarlos en habilidades sociales genuinas."
 pubDate: "2026-04-15"
-code: "errores-seduccion"
+code: "seduccion"
 category: "aprendizaje"
 tags: ["seduccion", "relaciones", "habilidades-sociales", "error-comunes", "desarrollo-personal"]
 difficulty: "principiante"

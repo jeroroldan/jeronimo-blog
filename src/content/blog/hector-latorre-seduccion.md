@@ -2,7 +2,7 @@
 title: "Seducción, Carisma y Confianza: Guía de Desarrollo Interpersonal"
 description: "Una conversación profunda sobre relaciones modernas, atracción y desarrollo personal. La línea entre persuasión ética y manipulación."
 pubDate: "2026-04-15"
-code: "hector-latorre"
+code: "seduccion"
 category: "aprendizje"
 tags: ["seduccion", "carisma", "confianza", "relaciones", "desarrollo-personal", "manipulacion"]
 difficulty: "intermedio"
