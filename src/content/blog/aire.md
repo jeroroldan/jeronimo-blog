@@ -1,6 +1,6 @@
 ---
 title: "Masterclass: AI Engineering"
-code: "AI Engineering"
+code: "AI"
 description: "De los modelos fundacionales a sistemas en producción"
 pubDate: "Jun 23 2026"
 heroImage: "../../assets/blog-placeholder-1.jpg"
