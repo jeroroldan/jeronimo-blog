@@ -48,6 +48,34 @@ const categories = uniqueCategories.slice(0, 8);
 				</div>
 			</section>
 
+			<section class="reading-benefits-section">
+				<div class="section-header">
+					<h2>El poder de leer todos los días</h2>
+				</div>
+				<p class="reading-benefits-intro">
+					La lectura constante es uno de los hábitos más transformadores que puedes cultivar.
+					Cada página que recorres fortalece tu mente, amplía tu mundo y te acerca a la mejor versión de ti mismo.
+				</p>
+				<div class="benefits-grid">
+					{[
+						{ icon: '📚', title: 'Expande tu mente', text: 'Cada libro te acerca a nuevas ideas, culturas y formas de ver el mundo.' },
+						{ icon: '🧠', title: 'Mejora tu concentración', text: 'Leer entrena tu capacidad de enfoque profundo en un mundo lleno de distracciones.' },
+						{ icon: '😌', title: 'Reduce el estrés', text: 'Unos minutos de lectura diaria calman la mente y te ayudan a recargar energías.' },
+						{ icon: '💡', title: 'Potencia tu creatividad', text: 'La lectura despierta la imaginación y te inspira a crear sin límites.' },
+						{ icon: '🚀', title: 'Acelera tu crecimiento', text: 'Aprende de los mejores pensadores y acelera tu desarrollo personal y profesional.' },
+						{ icon: '💬', title: 'Mejora tu comunicación', text: 'Enriquece tu vocabulario, claridad y confianza al expresar tus ideas.' },
+					].map((benefit) => (
+						<div class="benefit-card">
+							<div class="benefit-icon">{benefit.icon}</div>
+							<div class="benefit-content">
+								<h3>{benefit.title}</h3>
+								<p>{benefit.text}</p>
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+
 			<section class="recent-posts">
 				<div class="section-header">
 					<h2>Posts Recientes</h2>
