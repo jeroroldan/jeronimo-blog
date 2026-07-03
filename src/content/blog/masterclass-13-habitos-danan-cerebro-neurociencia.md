@@ -414,22 +414,22 @@ flowchart TD
 
 #### 🔨 Alternativa concreta
 
-Elegir **un solo hábito** y hacerlo tan pequeño que sea casi imposible fallar. Repetir durante 30 días antes de agregar otro.
+🎯 Elegir **un solo hábito** y hacerlo tan pequeño que sea casi imposible fallar ✅. Repetir durante 30 días 📅 antes de agregar otro 🌱.
 
 ### 📝 4.5 You Do — Tu plan de cambio mínimo
 
 Completa:
 
 ```text
-🌱 El hábito que daño más mi cerebro hoy es: ____________________
+🌱 El hábito que daño más mi cerebro hoy es: 🧠 ____________________
 
-La alternativa mínima que implementaré es: ______________________
+La alternativa mínima que implementaré es: ✅ ______________________
 
-Será tan pequeña que no pueda fallar: ___________________________
+Será tan pequeña que no pueda fallar: 🎯 ___________________________
 
-Lo haré todos los días a las: ____________________________________
+Lo haré todos los días a las: ⏰ ____________________________________
 
-Si fallo un día, mi rebote será: ________________________________
+Si fallo un día, mi rebote será: 🔄 ________________________________
 ```
 
 ---
@@ -438,9 +438,9 @@ Si fallo un día, mi rebote será: ________________________________
 
 ### 🎯 5.1 Principio Central
 
-No se trata de corregir los 13 hábitos a la vez. Eso sería un cambio dramático, exactamente lo que el cerebro rechaza. La propuesta de Irene Albacete es elegir **un solo hábito** y comenzar a implementarlo hoy mismo.
+🚫 No se trata de corregir los 13 hábitos a la vez. Eso sería un cambio dramático 💥, exactamente lo que el cerebro rechaza 🛑. La propuesta de Irene Albacete es elegir **un solo hábito** 🎯 y comenzar a implementarlo hoy mismo 📅.
 
-La clave no es la perfección. Es la repetición consciente. Cada vez que eliges la alternativa, estás votando por una nueva identidad: alguien que trabaja a favor de su cerebro.
+🔑 La clave no es la perfección. Es la repetición consciente ✨. Cada vez que elegís la alternativa, estás votando 🗳️ por una nueva identidad 🦁: alguien que trabaja a favor de su cerebro 🧠.
 
 ```mermaid
 flowchart TD
@@ -458,13 +458,13 @@ flowchart TD
 
 | 📅 Día | 🔨 Acción | 📝 Registro |
 |--------|-----------|-------------|
-| 1 | Elegir el hábito y definir la versión mínima | Nota inicial de por qué importa |
-| 2 | Ejecutar la alternativa una vez | Sensación antes y después |
-| 3 | Repetir y ajustar el horario | ¿Fue fácil o difícil? |
-| 4 | Conectar el hábito con una rutina existente | ¿A qué lo ataste? |
-| 5 | Anticipar un obstáculo | Plan si fallás |
-| 6 | Repetir incluso sin ganas | Registro de disciplina |
-| 7 | Revisar: ¿qué cambió? | Decisión: continuar, ajustar o cambiar |
+| 1️⃣ | 🎯 Elegir el hábito y definir la versión mínima | 💡 Nota inicial de por qué importa |
+| 2️⃣ | ✅ Ejecutar la alternativa una vez | 😊 Sensación antes y después |
+| 3️⃣ | 🔄 Repetir y ajustar el horario | 🤔 ¿Fue fácil o difícil? |
+| 4️⃣ | 🔗 Conectar el hábito con una rutina existente | 🪝 ¿A qué lo ataste? |
+| 5️⃣ | 🚧 Anticipar un obstáculo | 🛡️ Plan si fallás |
+| 6️⃣ | 💪 Repetir incluso sin ganas | 📊 Registro de disciplina |
+| 7️⃣ | 🔍 Revisar: ¿qué cambió? | 🎯 Decisión: continuar, ajustar o cambiar |
 
 ---
 
@@ -472,47 +472,47 @@ flowchart TD
 
 ### 6.1 I Do — Diagnosticar tu hábito principal
 
-**🎯 Objetivo:** identificar con claridad qué hábito te resta más energía mental.
+**🎯 Objetivo:** identificar con claridad qué hábito te resta más energía mental ⚡.
 
 | 🔢 Paso | 🔨 Acción | 🎁 Resultado esperado |
 |---------|-----------|-----------------------|
-| 1️⃣ | Leer la lista de 13 hábitos | Conciencia inicial |
-| 2️⃣ | Puntuar del 1 al 5 cuánto te identifica cada uno | Mapa personal |
-| 3️⃣ | Elegir el que tenga mayor puntuación | Foco claro |
-| 4️⃣ | Escribir cómo se manifiesta en tu día | Conciencia específica |
-| 5️⃣ | Formular una alternativa mínima | Primer paso concreto |
+| 1️⃣ | 📖 Leer la lista de 13 hábitos | 🧠 Conciencia inicial |
+| 2️⃣ | ⭐ Puntuar del 1 al 5 cuánto te identifica cada uno | 🗺️ Mapa personal |
+| 3️⃣ | 🎯 Elegir el que tenga mayor puntuación | 🔍 Foco claro |
+| 4️⃣ | ✍️ Escribir cómo se manifiesta en tu día | 💡 Conciencia específica |
+| 5️⃣ | 🧩 Formular una alternativa mínima | 🚀 Primer paso concreto |
 
 ### 6.2 We Do — Diseñar entornos de apoyo
 
-**🎭 Escenario:** un grupo quiere reducir el ruido constante y la dopamina barata en sus mañanas.
+**🎭 Escenario:** un grupo quiere reducir el ruido constante 🔇 y la dopamina barata 🍭 en sus mañanas 🌅.
 
 | 🎯 Elemento | 🔨 Acción |
 |-------------|-----------|
-| 📱 Teléfono | Cargar fuera del dormitorio |
-| 🔔 Notificaciones | Desactivarlas hasta las 9 AM |
-| 🎵 Sonido | Acordar momentos compartidos de silencio |
-| 🧘 Ritual | Definir una señal de inicio de día sin pantallas |
-| 📅 Revisión | Compartir cómo fue la semana |
+| 📱 Teléfono | 🛏️ Cargar fuera del dormitorio |
+| 🔔 Notificaciones | ⏰ Desactivarlas hasta las 9 AM |
+| 🎵 Sonido | 🤫 Acordar momentos compartidos de silencio |
+| 🧘 Ritual | 🌅 Definir una señal de inicio de día sin pantallas |
+| 📅 Revisión | 💬 Compartir cómo fue la semana |
 
 ### 6.3 You Do — Tu experimento de 30 días
 
-**🎯 Tarea:** elegir un hábito, aplicar la alternativa mínima durante 30 días y registrar el proceso.
+**🎯 Tarea:** elegir un hábito, aplicar la alternativa mínima durante 30 días 📅 y registrar el proceso 📝.
 
 Debes incluir:
 
-- El hábito elegido y por qué
-- La alternativa mínima
-- El horario o ancla
-- Una escala del 1 al 10 de claridad mental cada día
-- Una nota breve al final de cada semana
+- 🧠 El hábito elegido y por qué
+- ✅ La alternativa mínima
+- ⏰ El horario o ancla
+- 📊 Una escala del 1 al 10 de claridad mental cada día
+- 📝 Una nota breve al final de cada semana
 
-| Criterio | Peso |
-|----------|------|
-| Claridad en el hábito elegido | 25% |
-| Tamaño mínimo de la alternativa | 25% |
-| Constancia en el registro | 25% |
-| Ajustes realistas | 15% |
-| Reflexión final | 10% |
+| 📋 Criterio | ⚖️ Peso |
+|-------------|---------|
+| 🎯 Claridad en el hábito elegido | 25% |
+| 🌱 Tamaño mínimo de la alternativa | 25% |
+| 📅 Constancia en el registro | 25% |
+| 🔄 Ajustes realistas | 15% |
+| 💭 Reflexión final | 10% |
 
 ---
 
@@ -538,13 +538,13 @@ Debes incluir:
 
 ## 🏁 CONCLUSIÓN
 
-> 🧠 Tu cerebro no es tu enemigo. Es un sistema que busca ahorrar energía y sobrevivir. El problema aparece cuando los atajos que crea para ahorrar energía terminan robándote claridad, regulación emocional y bienestar.
+> 🧠 Tu cerebro no es tu enemigo. Es un sistema que busca ahorrar energía ⚡ y sobrevivir 🦁. El problema aparece cuando los atajos que crea para ahorrar energía terminan robándote claridad 💡, regulación emocional ❤️ y bienestar 🌈.
 
-Irene Albacete no propone una revolución radical. Propone algo mucho más poderoso: **la elección consciente de un solo hábito**.
+🎤 Irene Albacete no propone una revolución radical 🚫. Propone algo mucho más poderoso 💎: **la elección consciente de un solo hábito** 🎯.
 
-No necesitás cambiarlo todo. Necesitás dejar de vivir en piloto automático lo suficiente como para elegir, una vez al día, trabajar a favor de tu cerebro.
+🌱 No necesitás cambiarlo todo. Necesitás dejar de vivir en piloto automático ✈️ lo suficiente como para elegir, una vez al día ☀️, trabajar a favor de tu cerebro 🧠.
 
-Esa elección repetida es la que construye una mente más clara, una emoción más estable y una vida que se siente tuya.
+✨ Esa elección repetida es la que construye una mente más clara 💎, una emoción más estable ⚓ y una vida que se siente tuya 🏠.
 
 ---
 
@@ -552,23 +552,23 @@ Esa elección repetida es la que construye una mente más clara, una emoción m�
 
 | 🧩 Bloque | ✅ Check |
 |-----------|----------|
-| 🔇 Atención | Identifiqué mi principal distractor mental |
-| 🛌 Cuerpo | Elegí una necesidad básica a proteger |
-| 🧘 Mente | Apliqué una técnica de observación o filtro |
-| ❤️ Identidad | Elegí un cambio minúsculo para 30 días |
-| 🎯 Acción | Comencé hoy, aunque sea con un paso pequeño |
-| 📝 Registro | Tengo una forma de seguir mi progreso |
+| 🔇 Atención | 🎯 Identifiqué mi principal distractor mental |
+| 🛌 Cuerpo | 💧 Elegí una necesidad básica a proteger |
+| 🧘 Mente | 👁️ Apliqué una técnica de observación o filtro |
+| ❤️ Identidad | 🌱 Elegí un cambio minúsculo para 30 días |
+| 🎯 Acción | 🚀 Comencé hoy, aunque sea con un paso pequeño |
+| 📝 Registro | 📊 Tengo una forma de seguir mi progreso |
 
 ---
 
 ## 📝 PREGUNTAS DE VERIFICACIÓN
 
-1. **🎯 Aplica**: ¿Cuál de los 13 hábitos se manifiesta más claramente en tu día a día?
-2. **🔍 Analiza**: ¿Cómo afecta la dopamina barata tu capacidad de hacer tareas importantes?
-3. **🎨 Diseña**: Escribe una alternativa mínima para el hábito que más te cuesta.
-4. **💭 Reflexiona**: ¿Por qué crees que el cerebro prefiere cambios pequeños y constantes?
-5. **🤝 Conecta**: ¿Cómo se relacionan el estado de alerta permanente y la dificultad para tomar decisiones?
-6. **🚀 Propón**: ¿Qué entorno podrías modificar para hacer más fácil tu cambio elegido?
+1. **🎯 Aplica**: ¿Cuál de los 13 hábitos se manifiesta más claramente en tu día a día? 📅
+2. **🔍 Analiza**: ¿Cómo afecta la dopamina barata 🍭 tu capacidad de hacer tareas importantes? 💼
+3. **🎨 Diseña**: Escribe una alternativa mínima 🌱 para el hábito que más te cuesta. 🧗
+4. **💭 Reflexiona**: ¿Por qué crees que el cerebro 🧠 prefiere cambios pequeños y constantes? 🐢
+5. **🤝 Conecta**: ¿Cómo se relacionan el estado de alerta permanente 🚨 y la dificultad para tomar decisiones? 🤔
+6. **🚀 Propón**: ¿Qué entorno 🏠 podrías modificar para hacer más fácil tu cambio elegido? 🎯
 
 ---
 
