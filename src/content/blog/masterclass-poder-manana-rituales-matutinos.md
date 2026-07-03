@@ -78,12 +78,12 @@ flowchart LR
     
     subgraph We_Do["🤝 We Do (Colaborativo)"]
         direction TB
-        B1[Equipo: definir valores del día] --> B2[Interpretar: detectar distracciones mañaneras] --> B3[Diseñar: ritual y entorno] --> B4[Revisar: disciplina de 30 días]
+        B1[👥 Equipo: definir valores del día] --> B2[🔍 Interpretar: detectar distracciones mañaneras] --> B3[🎨 Diseñar: ritual y entorno] --> B4[✅ Revisar: disciplina de 30 días]
     end
     
     subgraph You_Do["🚀 You Do (Independiente)"]
         direction TB
-        C1[Construir: ritual matutino ideal] --> C2[Definir: entorno anti-distracción] --> C3[Diseñar: carta desde el futuro] --> C4[Aplicar: 30 días de disciplina]
+        C1[🛠️ Construir: ritual matutino ideal] --> C2[🚫 Definir: entorno anti-distracción] --> C3[✍️ Diseñar: carta desde el futuro] --> C4[🔥 Aplicar: 30 días de disciplina]
     end
     
     classDef I_DoStyle fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
