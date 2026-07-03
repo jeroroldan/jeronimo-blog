@@ -381,23 +381,23 @@ flowchart TD
 
 #### 🔨 Alternativa concreta
 
-Practicar la **validación emocional**: "Estoy sintiendo X, y tiene sentido que lo sienta". No es justificar, es reconocer. Luego, decidir si la emoción requiere acción o simplemente presencia.
+❤️ Practicar la **validación emocional**: "Estoy sintiendo X 😢, y tiene sentido que lo sienta". No es justificar 🛡️, es reconocer 👁️. Luego, decidir si la emoción requiere acción 🔨 o simplemente presencia 🧘.
 
 ### 🛋️ 4.3 Hábito 12 — Esperar a tener motivación
 
 **⏰ Momento clave en el video: 11:00**
 
-Esperar motivación para empezar es una trampa. La motivación no suele preceder a la acción: muchas veces es su consecuencia. El movimiento genera momentum. Cuando empezamos con algo pequeño, el cerebro recibe retroalimentación positiva y eso produce más ganas de continuar.
+🛋️ Esperar motivación para empezar es una trampa 🪤. La motivación no suele preceder a la acción 🚶: muchas veces es su consecuencia ✨. El movimiento genera momentum 🌊. Cuando empezamos con algo pequeño 🌱, el cerebro recibe retroalimentación positiva 👍 y eso produce más ganas de continuar 🔥.
 
 | 🛋️ Esperar motivación | 🚀 Empezar pequeño |
 |-----------------------|--------------------|
-| Depende del estado de ánimo | Funciona aunque no tengas ganas |
-| Postergación | Avance acumulativo |
-| Frustración | Confianza creciente |
+| 🎢 Depende del estado de ánimo | ✅ Funciona aunque no tengas ganas |
+| ⏳ Postergación | 📈 Avance acumulativo |
+| 😤 Frustración | 💪 Confianza creciente |
 
 #### 🔨 Alternativa concreta
 
-Usar la regla del **"mínimo viable"**. En lugar de "hacer ejercicio", comprometerse con "ponerme las zapatillas y salir a la vereda". En lugar de "escribir el informe", comprometerse con "abrir el documento y escribir una oración".
+🎯 Usar la regla del **"mínimo viable"**. En lugar de "hacer ejercicio" 🏋️, comprometerse con "ponerme las zapatillas 👟 y salir a la vereda". En lugar de "escribir el informe" 📝, comprometerse con "abrir el documento 📄 y escribir una oración ✍️".
 
 ### 🎭 4.4 Hábito 13 — Creer que cambiar es un drama
 
