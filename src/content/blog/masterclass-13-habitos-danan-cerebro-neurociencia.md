@@ -403,14 +403,14 @@ flowchart TD
 
 **⏰ Momento clave en el video: 11:00**
 
-El cerebro prefiere cambios pequeños, predecibles y constantes. Las transformaciones dramáticas generan resistencia, miedo y abandono. Cambiar no es un evento épico: es la suma de decisiones minúsculas repetidas.
+🎭 El cerebro prefiere cambios pequeños 🌱, predecibles 🔮 y constantes 📅. Las transformaciones dramáticas 🎆 generan resistencia 🛑, miedo 😨 y abandono 🏳️. Cambiar no es un evento épico 🏰: es la suma de decisiones minúsculas ✨ repetidas 🔁.
 
 | 💥 Cambio dramático | 🌱 Cambio minúsculo |
 |---------------------|---------------------|
-| Dieta radical | Comer una fruta más al día |
-| Gimnasio 2 horas | 10 minutos de caminata |
-| Leer un libro por semana | Leer 5 páginas al día |
-| Abandono frecuente | Identidad que se construye |
+| 🥗 Dieta radical | 🍎 Comer una fruta más al día |
+| 🏋️ Gimnasio 2 horas | 🚶 10 minutos de caminata |
+| 📚 Leer un libro por semana | 📖 Leer 5 páginas al día |
+| 🏳️ Abandono frecuente | 🦁 Identidad que se construye |
 
 #### 🔨 Alternativa concreta
 
