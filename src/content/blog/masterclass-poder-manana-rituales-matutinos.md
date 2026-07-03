@@ -28,7 +28,7 @@ En este contenido desarrollarás un sistema práctico para transformar tus maña
 
 La mayoría de los libros de productividad empiezan por la lista de tareas, las apps o las técnicas de gestión del tiempo. Esta masterclass empieza por un momento mucho más básico y mucho más poderoso: **el primer minuto de tu día**.
 
-Los primeros minutos del día definen tu enfoque, tu energía y tu capacidad de liderazgo personal. Si empezás reaccionando a estímulos externos (alarma, teléfono, redes sociales), el resto del día se organiza alrededor de las prioridades de otros. Si empezás con intención, el resto del día se organiza alrededor de tus prioridades.
+⏰ Los primeros minutos del día definen tu enfoque, tu energía ⚡ y tu capacidad de liderazgo personal 👑. Si empezás reaccionando a estímulos externos (📳 alarma, 📱 teléfono, 📲 redes sociales), el resto del día se organiza alrededor de las prioridades de otros. Si empezás con intención 🎯, el resto del día se organiza alrededor de tus prioridades.
 
 En esta charla, el creador explica por qué tomar el control de tu mañana no es un lujo: es el primer acto de liderazgo sobre tu propia vida 💪. No se trata de madrugar a las 5 AM por moda. Se trata de proteger el primer momento del día para ordenar tu mente, definir tu foco y ejecutar lo importante antes de que el ruido empiece.
 
@@ -101,11 +101,11 @@ flowchart LR
 
 ### 🎯 1.1 Principio Central
 
-La mayoría de las personas comienza el día en estado de reacción. La alarma suena 📳, el teléfono está al alcance de la mano, y antes de haber abierto los ojos ya están respondiendo a estímulos externos: mensajes 📱, notificaciones 🔔, redes sociales 📱, noticias 📰.
+😱 La mayoría de las personas comienza el día en estado de reacción. La alarma suena 📳, el teléfono está al alcance de la mano 🤳, y antes de haber abierto los ojos 👀 ya están respondiendo a estímulos externos: mensajes 📱, notificaciones 🔔, redes sociales 📱, noticias 📰.
 
-Esa forma de empezar genera estrés 😫, falta de dirección y la sensación de que el día te pertenece menos de lo que debería. No es casualidad que muchas personas terminen la semana con la sensación de haber vivido días ajenos.
+Esa forma de empezar genera estrés 😫, falta de dirección 🧭 y la sensación de que el día te pertenece menos de lo que debería. No es casualidad que muchas personas terminen la semana con la sensación de haber vivido días ajenos.
 
-El primer acto de liderazgo personal 👑 es dejar de reaccionar para empezar a diseñar.
+👑 El primer acto de liderazgo personal es dejar de reaccionar para empezar a diseñar 🎨.
 
 ```mermaid
 flowchart TD
@@ -204,9 +204,9 @@ __________________________________________________
 
 ### 🎯 2.1 Principio Central
 
-El control mental matutino no es un ejercicio de pensamiento positivo. Es un sistema de **5 pasos** ⚙️ que ordena la mente antes de que el mundo empiece a pedirle cosas.
+🧠 El control mental matutino no es un ejercicio de pensamiento positivo. Es un sistema de **5 pasos** ⚙️ que ordena la mente antes de que el mundo 🌍 empiece a pedirle cosas.
 
-Cada paso tiene una función específica: la intención define el rumbo 🧭, la gratitud cambia la perspectiva 🔄, la visualización prepara el éxito 🗺️, la acción ejecuta lo importante ⚡ y la identidad elige quién sos en el proceso 🦁.
+Cada paso tiene una función específica: la intención define el rumbo 🧭, la gratitud cambia la perspectiva 🔄, la visualización prepara el éxito 🏆, la acción ejecuta lo importante ⚡ y la identidad elige quién sos en el proceso 🦁.
 
 ```mermaid
 flowchart TD
@@ -325,9 +325,9 @@ __________________________________________________
 
 ### 🎯 3.1 Principio Central
 
-Tu mente absorbe lo que te rodea. No es una metáfora: es un hecho con implicancias prácticas. Un espacio ordenado, silencioso y libre de distractores no es un lujo estético. Es una **herramienta de liderazgo personal** 👑.
+🧠 Tu mente absorbe lo que te rodea. No es una metáfora: es un hecho con implicancias prácticas. Un espacio ordenado 🧹, silencioso 🤫 y libre de distractores no es un lujo estético. Es una **herramienta de liderazgo personal** 👑.
 
-Mantener el teléfono lejos 📵, la mesa despejada y el entorno alineado con tu foco no es "ser organizado". Es proteger tu capacidad de dirigirte antes de que el mundo empiece a hacerlo por vos.
+Mantener el teléfono lejos 📵, la mesa despejada 🪑 y el entorno alineado con tu foco no es "ser organizado". Es proteger tu capacidad de dirigirte antes de que el mundo 🌍 empiece a hacerlo por vos.
 
 ```mermaid
 flowchart TD
@@ -431,9 +431,9 @@ __________________________________________________
 
 ### 🎯 4.1 Principio Central
 
-El ejercicio de la carta ✉️ consiste en escribir desde la perspectiva de tu "versión futura" 🦁 —esa versión de vos que ya tiene la disciplina, el éxito y la claridad que estás buscando— un mensaje dirigido a tu yo presente.
+✉️ El ejercicio de la carta consiste en escribir desde la perspectiva de tu "versión futura" 🦁 —esa versión de vos que ya tiene la disciplina 🔥, el éxito 🏆 y la claridad 💡 que estás buscando— un mensaje dirigido a tu yo presente 🙋.
 
-No es un ejercicio de fantasía. Es un ejercicio de anclaje emocional ⚓: cuando estés cansado, dubitativo o con ganas de abandonar, esa carta te recuerda quién estás decidiendo ser y por qué vale la pena el esfuerzo.
+No es un ejercicio de fantasía 🦄. Es un ejercicio de anclaje emocional ⚓: cuando estés cansado 😴, dubitativo 🤔 o con ganas de abandonar 🏳️, esa carta te recuerda quién estás decidiendo ser y por qué vale la pena el esfuerzo 💪.
 
 ```mermaid
 flowchart TD
@@ -467,20 +467,20 @@ flowchart TD
 ### 📖 4.4 Ejemplo de carta (fragmento)
 
 ```text
-Querido yo del pasado:
+✉️ Querido yo del pasado:
 
-Te escribo desde el día en que finalmente lo entendiste. No fue el día
-del gran éxito. Fue un martes cualquiera, después de semanas de mostrar
-sin ver resultados. Quiero recordarte algo:
+Te escribo desde el día en que finalmente lo entendiste 💡. No fue el día
+del gran éxito 🏆. Fue un martes cualquiera 📅, después de semanas de mostrar
+sin ver resultados 📉. Quiero recordarte algo:
 
-Esa mañana que querías apagar la alarma y no hacer el ritual...
-lo hiciste igual. Y ese día no pasó nada extraordinario. Pero fue la
-repetición número 27 de ese pequeño acto de disciplina, y en la 28
-algo cambió. No el resultado. Sos vos. Tu mirada sobre lo que era
-"no vale la pena" cambió por "esto me está construyendo".
+Esa mañana que querías apagar la alarma ⏰ y no hacer el ritual...
+lo hiciste igual 💪. Y ese día no pasó nada extraordinario ✨. Pero fue la
+repetición número 27 de ese pequeño acto de disciplina 🔥, y en la 28
+algo cambió 🔄. No el resultado. Sos vos 🦁. Tu mirada sobre lo que era
+"no vale la pena" cambió por "esto me está construyendo" 🏗️.
 
-Hoy tengo la vida que soñabas. No porque el camino fue fácil, sino
-porque lo recorriste incluso cuando no veías el final.
+Hoy tengo la vida que soñabas 🌟. No porque el camino fue fácil 🛤️, sino
+porque lo recorriste incluso cuando no veías el final 🏁.
 ```
 
 ### 🛠️ 4.5 Cómo usar la carta en la práctica
@@ -549,9 +549,9 @@ Tu yo del futuro 🦁
 
 ### 🎯 5.1 Principio Central
 
-Un ritual matutino no es una lista de tareas que hay que cumplir para sentirse productivo. Es una **secuencia diseñada** 🧩 para proteger tu foco, cambiar tu perspectiva y ejecutar lo importante antes de que el ruido exterior tome el control.
+🧩 Un ritual matutino no es una lista de tareas que hay que cumplir para sentirse productivo. Es una **secuencia diseñada** 🎨 para proteger tu foco 👁️, cambiar tu perspectiva 🔄 y ejecutar lo importante ⚡ antes de que el ruido exterior 📢 tome el control.
 
-La duración ideal es entre **15 y 30 minutos**. No más larga: lo que no es sostenible no es ritual, es obligación.
+⏰ La duración ideal es entre **15 y 30 minutos**. No más larga: lo que no es sostenible no es ritual, es obligación 😓.
 
 ```mermaid
 flowchart TD
@@ -680,13 +680,13 @@ flowchart TD
 
 > ☀️ Tu mañana no es solo el comienzo del día. Es el primer acto de liderazgo sobre tu propia vida. Si no tomás el control en los primeros minutos, el mundo lo hará por vos.
 
-El creador de esta guía no te pide que te levantes a las 5 AM, que hagas una rutina de 2 horas ni que te conviertas en una máquina de productividad 🤖. Te pide algo más simple y más poderoso: que los primeros minutos de tu día sean tuyos.
+🎤 El creador de esta guía no te pide que te levantes a las 5 AM ⏰, que hagas una rutina de 2 horas 🕐 ni que te conviertas en una máquina de productividad 🤖. Te pide algo más simple y más poderoso 💎: que los primeros minutos de tu día sean tuyos.
 
-No por egoísmo. Por eficiencia espiritual y operativa. Una mente ordenada, agradecida, visualizada y enfocada genera una vida ordenada, agradecida, visualizada y enfocada ✨.
+No por egoísmo 😌. Por eficiencia espiritual y operativa ⚡. Una mente ordenada 🧹, agradecida 🙏, visualizada 🧠 y enfocada 🎯 genera una vida ordenada, agradecida, visualizada y enfocada ✨.
 
-El sistema de 5 pasos ⚙️ no es una lista para cumplir. Es un menú para diseñar tu propia versión. La gratitud 🙏 y la visualización 🧠 no son ejercicios de autoayuda vacía: son herramientas de reencuadre cognitivo respaldadas por décadas de estudio en psicología y rendimiento. La identidad 🦁 no es una frase de afirmación vacía: es la elección más poderosa que podés hacer porque define la totalidad de cómo interpretás y respondés al mundo.
+El sistema de 5 pasos ⚙️ no es una lista para cumplir. Es un menú 🍽️ para diseñar tu propia versión. La gratitud 🙏 y la visualización 🧠 no son ejercicios de autoayuda vacía: son herramientas de reencuadre cognitivo respaldadas por décadas de estudio en psicología 🧑‍⚕️ y rendimiento 📈. La identidad 🦁 no es una frase de afirmación vacía: es la elección más poderosa que podés hacer porque define la totalidad de cómo interpretás y respondés al mundo 🌍.
 
-Y la disciplina 🔥... la disciplina no es un castigo. La disciplina es el acto de confiar en tu yo del futuro más de lo que confiás en tu comodidad del presente. Los 30 días no son una meta. Son el umbral a partir del cual dejás de ser alguien que intenta y pasás a ser alguien que es.
+Y la disciplina 🔥... la disciplina no es un castigo. La disciplina es el acto de confiar en tu yo del futuro 🦁 más de lo que confiás en tu comodidad del presente 🛋️. Los 30 días no son una meta 🏁. Son el umbral a partir del cual dejás de ser alguien que intenta y pasás a ser alguien que es ✨.
 
 ---
 
