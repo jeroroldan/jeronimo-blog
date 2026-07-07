@@ -222,15 +222,15 @@ El esfuerzo solitario tiene límites. Las relaciones:
 | Preguntar sin contribuir | Preguntar + aportar ⚖️ |
 | Olvidar contactos | Mantener conexión 🌱 |
 
-### 4.3 🛠️🤝 Framework: red de contactos productiva
+### 4.3 🛠️🤝📋 Framework: red de contactos productiva 👥🤝🚀
 
 ```
-👥 Sistema relacional:
-1. ¿Qué 5 personas pueden ayudarme esta semana? 🎯
-2. ¿Qué valor ofrezco sin esperar retorno? 💡
-3. ¿Qué pregunto para entender sus metas? ❓
-4. ¿Cómo mantengo conexión sin agobiar? 🌱
-5. ¿Qué colaboración co-creadora propongo? ✨
+👥 Sistema relacional 🤝🌟📈:
+1. ¿Qué 5 personas pueden ayudarme esta semana? 🎯👥⚡
+2. ¿Qué valor ofrezco sin esperar retorno? 💡🎁🌟
+3. ¿Qué pregunto para entender sus metas? ❓🎯🧠
+4. ¿Cómo mantengo conexión sin agobiar? 🌱💌🕊️
+5. ¿Qué colaboración co-creadora propongo? ✨🤝🚀
 ```
 
 ---
