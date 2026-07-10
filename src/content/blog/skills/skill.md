@@ -1512,3 +1512,63 @@ Las mejoras más importantes a aplicar:
 
 Con esos ajustes, una guía técnica de **5.000–15.000 palabras** se sentiría mucho más cómoda y menos agotadora de leer.
 
+---
+
+## ANEXO B: CÓMO USAR CLAUDE COMO MAPA PARA CREAR GUÍAS Y BLOGS
+
+### Estructura Visual del Framework
+
+Estilo limpio que simula anotación "handwritten" sobre fondo claro, con tipografías sans-serif redondeadas y amigables.
+
+**Código de Colores Estratégico:**
+
+| Color | Uso |
+|-------|-----|
+| **Negro** | Texto base, títulos secundarios, cuerpo de prompts |
+| **Naranja/Rojo** | Captar atención — palabra clave principal, números de lista, asteriscos, conceptos críticos |
+| **Verde** (subrayados) | Resaltar métricas clave (20%, 80%, 10 dos horas, 15 minutos, 5 minutos) |
+
+### Los 6 Consejos de Aprendizaje Acelerado
+
+Cada punto sigue la misma lógica: **título en mayúsculas** (acción clara) + **prompt** con variable `[tema]`.
+
+#### 1. Aprende cualquier cosa en 20 horas
+**Concepto:** Regla de Pareto (80/20) combinada con las 20 horas de práctica inteligente de Josh Kaufman.
+
+> "Necesito aprender [tema] rápido. Crea un plan de 20 horas enfocado en el 20% que genera el 80% de los resultados. Divide en sesiones de 10 dos horas con los mejores recursos y una mini revisión de 15 minutos al final de cada una."
+
+#### 2. Crea una miniguía de una página
+**Concepto:** Síntesis extrema y formato escaneable para repasos rápidos de 5 minutos.
+
+> "Resume los conceptos clave de [tema] en una sola página. Usa viñetas, diagramas y ejemplos para que pueda revisarlo en 5 minutos."
+
+#### 3. Hazme un quiz antes de tomar un descanso
+**Concepto:** Evocación activa (active recall) con retroalimentación inmediata antes de consolidar el aprendizaje.
+
+> "Ya estudié [tema]. Hazme 10 preguntas progresivamente más difíciles para probar mi comprensión. Después de cada respuesta, corrígeme y explica lo que erré."
+
+#### 4. Construye una escalera de aprendizaje
+**Concepto:** Gamificación y progresión por niveles con hitos claros (ruta de aprendizaje estructurada).
+
+> "Divide [tema] en 5 niveles de dificultad. Muéstrame cómo avanzar del Nivel 1 (principiante) al Nivel 5 (avanzado) con un hito claro en cada paso."
+
+#### 5. Encuentra los mejores recursos para aprender
+**Concepto:** Curación de contenido y filtrado de paja para ir directo a lo valioso.
+
+> "Lista los 5 mejores recursos (libros, videos, cursos o personas) para aprender [tema] rápido, y explica por qué cada uno vale mi tiempo."
+
+#### 6. Usa la técnica de Feynman
+**Concepto:** Explicar conceptos complejos en términos tan simples que un niño los entienda, detectando baches de conocimiento.
+
+> "Explica [tema] para mí en los términos más simples posibles. Luego, hazme preguntas para detectar vacíos, vuelve a enseñarme lo que fallé y repite hasta que pueda explicarlo claramente como si fuera mío."
+
+### Fórmula para tus propias guías
+
+Esta estructura es replicable para cualquier tema o nicho:
+
+1. **Fórmula del título:** "Cómo usar [Herramienta/Filosofía] para [Resultado deseado] más rápido"
+2. **Formato de entrega:** Carruseles para redes o PDFs de una página con sistema de variables `[variable]`
+3. **Estructura ganadora:** Título en acción + Plantilla directa (copiar y pegar)
+
+La combinación de **título en acción** + **plantilla directa** es lo que mejor convierte y se comparte en internet.
+
