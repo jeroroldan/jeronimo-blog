@@ -462,9 +462,9 @@ ESCENARIO 2: Pedido de stock
 6. Confirma recepción al vendedor por email
 ```
 
-### 3.6 Medición de Impacto Operativo
+### 📈 3.6 Medición de Impacto Operativo
 
-| Métrica | Antes (manual) | Después (automatizado) | Cómo medirlo |
+| 📊 Métrica | 🐢 Antes (manual) | 🚀 Después (automatizado) | 📐 Cómo medirlo |
 |---------|---------------|----------------------|--------------|
 | Tiempo de respuesta a reclamo | 4 horas | 5 minutos | Timestamp captura vs notificación |
 | Casos procesados por día | 20 | 50+ | Conteo en Sheets |
@@ -474,13 +474,13 @@ ESCENARIO 2: Pedido de stock
 
 ---
 
-## PARTE 4: REPORTES Y BRIEFS EJECUTIVOS AUTOMÁTICOS
+## 📊 PARTE 4: REPORTES Y BRIEFS EJECUTIVOS AUTOMÁTICOS
 
-### 4.1 Principio Central
+### 💡 4.1 Principio Central
 
 Un dato sin contexto no es información. Un reporte sin acción no es útil. El objetivo del Módulo 4 es cerrar el circuito completo: desde la captura de datos hasta un brief ejecutivo que sintetice KPIs, riesgos y próximos pasos, listo para comunicar decisiones.
 
-### 4.2 Circuito Completo
+### 🔄 4.2 Circuito Completo
 
 ```mermaid
 flowchart LR
@@ -494,9 +494,9 @@ flowchart LR
     G --> C
 ```
 
-### 4.3 Componentes del Reporte Automático
+### 🧩 4.3 Componentes del Reporte Automático
 
-| Componente | Descripción | Herramienta |
+| 🧱 Componente | ⚙️ Descripción | 🛠️ Herramienta |
 |------------|-------------|-------------|
 | **Datos fuente** | Registros capturados por el chatbot | Google Sheets |
 | **Procesamiento** | Agregación, filtros, cálculos de KPIs | Make + Sheets |
@@ -505,19 +505,19 @@ flowchart LR
 | **Visualización** | Tablero de indicadores | AppSheet / Sheets |
 | **Distribución** | Envío automático a stakeholders | Make |
 
-### 4.4 Construcción del Reporte
+### 🏗️ 4.4 Construcción del Reporte
 
 ```text
 FUNCION generar_reporte_semanal(datos_sheets, plantilla_brief)
 
-    // 1. Extraer datos de la semana
+    // 1. 📥 Extraer datos de la semana
     datos_semana = sheets.consultar({
         pestania: "Pedidos",
         filtro: "timestamp >= fecha_inicio_semana",
         columnas: ["tipo", "prioridad", "cantidad", "estado"]
     })
     
-    // 2. Calcular KPIs
+    // 2. 📊 Calcular KPIs
     kpis = {
         "total_casos": contar(datos_semana),
         "por_prioridad": agrupar(datos_semana, "prioridad"),
@@ -530,10 +530,10 @@ FUNCION generar_reporte_semanal(datos_sheets, plantilla_brief)
         )
     }
     
-    // 3. Detectar anomalías
+    // 3. 🚨 Detectar anomalías
     anomalias = detectar_anomalias(datos_semana, kpis.historial)
-    
-    // 4. Generar brief con ChatGPT
+
+    // 4. 🤖 Generar brief con ChatGPT
     brief = chatgpt.generar({
         instrucciones: plantilla_brief,
         datos: kpis,
@@ -541,7 +541,7 @@ FUNCION generar_reporte_semanal(datos_sheets, plantilla_brief)
         periodo: "semana actual"
     })
     
-    // 5. Escribir reporte en Sheets
+    // 5. 💾 Escribir reporte en Sheets
     sheets.escribir({
         pestania: "Reportes",
         fila: nueva_fila(),
@@ -554,7 +554,7 @@ FUNCION generar_reporte_semanal(datos_sheets, plantilla_brief)
         }
     })
     
-    // 6. Distribuir
+    // 6. 📤 Distribuir
     make.enviar_email({
         destino: "direccion@empresa.com",
         asunto: "Brief Semanal - Semana {numero_semana}",
@@ -565,45 +565,45 @@ FUNCION generar_reporte_semanal(datos_sheets, plantilla_brief)
     RETORNAR brief
 ```
 
-### 4.5 Plantilla de Brief Ejecutivo
+### 📝 4.5 Plantilla de Brief Ejecutivo
 
 ```text
-PLANTILLA DE BRIEF SEMANAL:
+📋 PLANTILLA DE BRIEF SEMANAL:
 
-INSTRUCCIONES PARA CHATGPT:
+🤖 INSTRUCCIONES PARA CHATGPT:
 
 Generá un brief ejecutivo semanal con la siguiente estructura:
 
-1. RESUMEN EJECUTIVO (2-3 líneas)
+1. 📌 RESUMEN EJECUTIVO (2-3 líneas)
    - Síntesis de la semana en números
 
-2. HALLAZGOS PRINCIPALES (3-4 puntos)
+2. 🔍 HALLAZGOS PRINCIPALES (3-4 puntos)
    - Cada punto debe tener: hallazgo + dato concreto + implicancia
    - Priorizar anomalías, tendencias y cambios significativos
 
-3. KPIs CLAVE (tabla)
-   | Indicador | Valor esta semana | Variación vs semana anterior | Estado |
+3. 📊 KPIs CLAVE (tabla)
+   | Indicador | Valor esta semana | Variación vs semana anterior | 🚦 Estado |
    |-----------|------------------|------------------------------|--------|
    | Total casos | {valor} | {variación} | {verde/amarillo/rojo} |
    | Tasa de resolución | {valor} | {variación} | {verde/amarillo/rojo} |
    | Tiempo promedio respuesta | {valor} | {variación} | {verde/amarillo/rojo} |
 
-4. RIESGOS IDENTIFICADOS
+4. ⚠️ RIESGOS IDENTIFICADOS
    - ¿Qué está empeorando?
    - ¿Qué requiere atención urgente?
 
-5. PRÓXIMOS PASOS (3-5 recomendaciones)
+5. 🎯 PRÓXIMOS PASOS (3-5 recomendaciones)
    - Acciones concretas, ordenadas por prioridad
    - Responsable sugerido para cada acción
 
-6. DATOS FUENTE
+6. 📂 DATOS FUENTE
    - Período analizado: {fecha_inicio} a {fecha_fin}
    - Total registros procesados: {total}
 ```
 
-### 4.6 Tablero AppSheet
+### 📱 4.6 Tablero AppSheet
 
-| Widget | Tipo | KPI que muestra |
+| 🧩 Widget | 🏷️ Tipo | 📊 KPI que muestra |
 |--------|------|-----------------|
 | **Contador** | Número grande | Total casos de la semana |
 | **Gráfico de barras** | Barras apiladas | Casos por tipo y prioridad |
@@ -612,12 +612,12 @@ Generá un brief ejecutivo semanal con la siguiente estructura:
 | **Semáforo** | Indicador RGB | Estado de cada KPI (verde/amarillo/rojo) |
 | **Botón de acción** | Botón | Enviar brief, actualizar datos |
 
-### 4.7 Automatización del Envío
+### ⏰ 4.7 Automatización del Envío
 
 ```text
 FUNCION programar_envio_brief(frecuencia, destinatarios)
     
-    // Ejecutar todos los viernes a las 17:00
+    // 📅 Ejecutar todos los viernes a las 17:00
     programar({
         trigger: "cron",
         expresion: "0 17 * * 5",  // Viernes 17:00
@@ -628,27 +628,27 @@ FUNCION programar_envio_brief(frecuencia, destinatarios)
         }
     })
     
-    // Si hay anomalía grave, enviar inmediato
+    // 🚨 Si hay anomalía grave, enviar inmediato
     programar({
         trigger: "evento",
         condicion: "tasa_resolucion < 50%",
         accion: "generar_alerta_urgente",
         parametros: {
             destinatarios: "direccion@empresa.com",
-            asunto: "[URGENTE] Caída en tasa de resolución"
+            asunto: "[URGENTE] 🚨 Caída en tasa de resolución"
         }
     })
 ```
 
 ---
 
-## PARTE 5: INTEGRACIÓN DEL CIRCUITO COMPLETO
+## 🔗 PARTE 5: INTEGRACIÓN DEL CIRCUITO COMPLETO
 
-### 5.1 Principio Central
+### 💡 5.1 Principio Central
 
-Cada módulo resuelve una parte del problema. Pero el valor real aparece cuando se integran: el asistente analiza, el chatbot captura, la automatización conecta y el reporte cierra el ciclo.
+Cada módulo resuelve una parte del problema. Pero el valor real aparece cuando se integran: el asistente analiza 🤖, el chatbot captura 💬, la automatización conecta ⚡ y el reporte cierra el ciclo 📊.
 
-### 5.2 Arquitectura Integrada
+### 🏗️ 5.2 Arquitectura Integrada
 
 ```mermaid
 flowchart TD
@@ -668,54 +668,54 @@ flowchart TD
     L --> B
 ```
 
-### 5.3 Flujo de Datos entre Módulos
+### 🔄 5.3 Flujo de Datos entre Módulos
 
-| Módulo | Entrada | Procesamiento | Salida | Conecta a |
+| 🧩 Módulo | 📥 Entrada | ⚙️ Procesamiento | 📤 Salida | 🔗 Conecta a |
 |--------|---------|---------------|--------|-----------|
 | **M1: Asistente** | Documentos + instrucciones | Análisis + generación de insights | Recomendaciones de captura | M2 |
 | **M2: Chatbot** | Preguntas + validaciones | Captura conversacional | Registros en Sheets | M3 |
 | **M3: Automatización** | Sheets - nuevos registros | Clasificación + notificaciones | Alertas + estados actualizados | M4 |
 | **M4: Reportes** | Sheets + KPIs | Agregación + narrativa | Brief ejecutivo semanal | Stakeholders |
 
-### 5.4 Ejemplo de Caso Completo
+### 🎬 5.4 Ejemplo de Caso Completo
 
 ```text
-CASO: Gestión de reclamos comerciales
+📋 CASO: Gestión de reclamos comerciales
 
-DÍA 1 - CONFIGURACIÓN:
-1. Asistente (M1): Se cargan políticas de devolución, 
+📅 DÍA 1 - CONFIGURACIÓN:
+1. 🤖 Asistente (M1): Se cargan políticas de devolución, 
    históricos de reclamos, catálogo de productos
-2. Chatbot (M2): Se diseña flujo de captura de reclamos
+2. 💬 Chatbot (M2): Se diseña flujo de captura de reclamos
    - Tipo de reclamo, producto, descripción, evidencia
-3. Make (M3): Se configura:
-   - Alta -> Email urgente a gerencia
-   - Media -> Resumen diario a supervisor
-   - Baja -> Reporte semanal
-4. Reporte (M4): Se define plantilla de brief semanal
+3. ⚡ Make (M3): Se configura:
+   - 🔴 Alta -> 📧 Email urgente a gerencia
+   - 🟡 Media -> 📋 Resumen diario a supervisor
+   - 🟢 Baja -> 📊 Reporte semanal
+4. 📊 Reporte (M4): Se define plantilla de brief semanal
 
-SEMANA 1 - OPERACIÓN:
-- Cliente envía reclamo por chatbot
-- Sheets registra: "Reclamo - Producto X - Prioridad Alta"
-- Make detecta prioridad Alta
-- Email urgente a gerencia con todos los datos
-- Gerencia asigna responsable
+📆 SEMANA 1 - OPERACIÓN:
+- 👤 Cliente envía reclamo por chatbot
+- 📋 Sheets registra: "Reclamo - Producto X - Prioridad Alta"
+- ⚡ Make detecta prioridad Alta
+- 📧 Email urgente a gerencia con todos los datos
+- 👔 Gerencia asigna responsable
 
-SEMANA 2 - REPORTE:
-- Sheets calcula: 45 reclamos, 78% resueltos
-- ChatGPT genera brief identificando:
-  * Producto X concentra 60% de reclamos
-  * Tiempo de respuesta mejoró 40%
-  * Recomendación: revisar lote del producto X
-- Brief llega automático a dirección el viernes
+📆 SEMANA 2 - REPORTE:
+- 📊 Sheets calcula: 45 reclamos, 78% resueltos
+- 🤖 ChatGPT genera brief identificando:
+  * 🚨 Producto X concentra 60% de reclamos
+  * ⚡ Tiempo de respuesta mejoró 40%
+  * ✅ Recomendación: revisar lote del producto X
+- 📧 Brief llega automático a dirección el viernes
 
-SEMANA 3 - MEJORA CONTINUA:
-- Dirección decide revisar producto X
-- Asistente analiza datos y sugiere acciones correctivas
-- Se ajustan preguntas del chatbot para producto X
-- Ciclo se reinicia con mejora incorporada
+📆 SEMANA 3 - MEJORA CONTINUA:
+- 🎯 Dirección decide revisar producto X
+- 🤖 Asistente analiza datos y sugiere acciones correctivas
+- 🔧 Se ajustan preguntas del chatbot para producto X
+- 🔄 Ciclo se reinicia con mejora incorporada
 ```
 
-### 5.5 Matriz de Integración
+### 🔗 5.5 Matriz de Integración
 
 | Necesidad | M1: Asistente | M2: Chatbot | M3: Make | M4: Reporte |
 |-----------|---------------|-------------|----------|-------------|
@@ -728,71 +728,71 @@ SEMANA 3 - MEJORA CONTINUA:
 
 ---
 
-## PARTE 6: I DO / WE DO / YOU DO — EJERCICIOS PROGRESIVOS
+## ✍️ PARTE 6: I DO / WE DO / YOU DO — EJERCICIOS PROGRESIVOS
 
-### 6.1 I Do — Crear un Asistente Personalizado
+### 👨‍🏫 6.1 I Do — Crear un Asistente Personalizado
 
-**Objetivo:** construir un GPT personalizado con documentos propios.
+🎯 **Objetivo:** construir un GPT personalizado con documentos propios.
 
-| Paso | Acción | Resultado esperado |
-|------|--------|--------------------|
-| 1 | Seleccionar 3-5 documentos de tu negocio | Base de conocimiento lista |
-| 2 | Definir instrucciones del sistema usando la plantilla de la Parte 1 | Prompt de sistema escrito |
-| 3 | Cargar documentos en NotebookLM | Documentos indexados |
-| 4 | Configurar GPT personalizado con instrucciones + NotebookLM | Asistente funcional |
-| 5 | Hacer una consulta de prueba: "Analizá las tendencias del último trimestre" | Respuesta estructurada |
+| 👣 Paso | 🎬 Acción | ✅ Resultado esperado |
+|---------|-----------|----------------------|
+| 1️⃣ | Seleccionar 3-5 documentos de tu negocio | 📚 Base de conocimiento lista |
+| 2️⃣ | Definir instrucciones del sistema usando la plantilla de la Parte 1 | 📝 Prompt de sistema escrito |
+| 3️⃣ | Cargar documentos en NotebookLM | 📂 Documentos indexados |
+| 4️⃣ | Configurar GPT personalizado con instrucciones + NotebookLM | 🤖 Asistente funcional |
+| 5️⃣ | Hacer una consulta de prueba: "Analizá las tendencias del último trimestre" | 💡 Respuesta estructurada |
 
 ```text
-// Plantilla rápida para el asistente
+// 🚀 Plantilla rápida para el asistente
 
-NOMBRE: "Asistente de Análisis [Tu Empresa]"
-INSTRUCCIONES: Usar plantilla de la Parte 1.5
-DOCUMENTOS: Cargar en NotebookLM:
-  - ventas_2025.csv
-  - informe_q1_2026.pdf
-  - kpi_históricos.xlsx
+📛 NOMBRE: "Asistente de Análisis [Tu Empresa]"
+📝 INSTRUCCIONES: Usar plantilla de la Parte 1.5
+📂 DOCUMENTOS: Cargar en NotebookLM:
+  - 📊 ventas_2025.csv
+  - 📄 informe_q1_2026.pdf
+  - 📈 kpi_históricos.xlsx
 
-PRIMERA CONSULTA:
+🎯 PRIMERA CONSULTA:
 "Resumí los hallazgos principales del último período.
 Identificá tendencias, anomalías y recomendá 3 acciones."
 ```
 
-### 6.2 We Do — Diseñar un Chatbot en Equipo
+### 👥 6.2 We Do — Diseñar un Chatbot en Equipo
 
-**Escenario:** el equipo de soporte recibe 30 reclamos diarios por email desestructurado. Cada reclamo requiere 3 intercambios para obtener todos los datos necesarios.
+🎬 **Escenario:** el equipo de soporte recibe 30 reclamos diarios por email desestructurado. Cada reclamo requiere 3 intercambios para obtener todos los datos necesarios.
 
-**Tarea colaborativa:** diseñar el chatbot de intake.
+📋 **Tarea colaborativa:** diseñar el chatbot de intake.
 
-| Decisión | Opción recomendada | Justificación |
-|----------|--------------------|---------------|
-| Plataforma | Jotform (formulario conversacional) | Validación en línea, lógica condicional |
-| Campos mínimos | Tipo, descripción, email, prioridad | Captura eficiente sin fricción |
-| Preguntas condicionales | Si es reclamo técnico, pedir código de error | Segmentación automática |
-| Validaciones | Email formato, descripción > 20 caracteres | Calidad de datos desde origen |
-| Destino | Google Sheets con columnas fijas | Base accesible para Make |
+| ✅ Decisión | 💡 Opción recomendada | 🔍 Justificación |
+|------------|------------------------|-----------------|
+| 🛠️ Plataforma | Jotform (formulario conversacional) | Validación en línea, lógica condicional |
+| 📋 Campos mínimos | Tipo, descripción, email, prioridad | Captura eficiente sin fricción |
+| 🔀 Preguntas condicionales | Si es reclamo técnico, pedir código de error | Segmentación automática |
+| ✅ Validaciones | Email formato, descripción > 20 caracteres | Calidad de datos desde origen |
+| 🎯 Destino | Google Sheets con columnas fijas | Base accesible para Make |
 
 ```text
-FLUJO DEL CHATBOT:
+💬 FLUJO DEL CHATBOT:
 
-1. Bienvenida: "Hola, vamos a registrar tu reclamo en 2 minutos"
-2. "¿Qué tipo de reclamo querés hacer?"
-   - Técnico / Facturación / Producto / Otro
-3. [Si Técnico] "¿Cuál es el código de error?"
-   - Validación: formato "ERR-XXXXX"
-4. "Describí brevemente el problema"
-   - Validación: mínimo 20 caracteres
-5. "¿Qué prioridad tiene para vos?"
-   - Alta / Media / Baja
-6. "Dejanos tu mail para hacer seguimiento"
-   - Validación: formato email
-7. Confirmación: "Listo, tu reclamo {id} fue registrado"
+1. 👋 Bienvenida: "Hola, vamos a registrar tu reclamo en 2 minutos"
+2. 🤔 "¿Qué tipo de reclamo querés hacer?"
+   - ⚙️ Técnico / 💰 Facturación / 📦 Producto / ❓ Otro
+3. [Si ⚙️ Técnico] "¿Cuál es el código de error?"
+   - ✅ Validación: formato "ERR-XXXXX"
+4. ✏️ "Describí brevemente el problema"
+   - ✅ Validación: mínimo 20 caracteres
+5. 🚦 "¿Qué prioridad tiene para vos?"
+   - 🔴 Alta / 🟡 Media / 🟢 Baja
+6. 📧 "Dejanos tu mail para hacer seguimiento"
+   - ✅ Validación: formato email
+7. ✅ Confirmación: "Listo, tu reclamo {id} fue registrado"
 ```
 
-### 6.3 You Do — Conectar Chatbot con Automatización
+### 👤 6.3 You Do — Conectar Chatbot con Automatización
 
-**Tarea:** conectar el chatbot que diseñaron en 6.2 con Make para generar alertas automáticas.
+📋 **Tarea:** conectar el chatbot que diseñaron en 6.2 con Make para generar alertas automáticas.
 
-| Componente | Tu diseño |
+| 🧩 Componente | ✏️ Tu diseño |
 |------------|-----------|
 | Disparador en Make | |
 | Rutas de clasificación | |
@@ -800,17 +800,17 @@ FLUJO DEL CHATBOT:
 | Canales de notificación | |
 | Actualización de estado en Sheets | |
 
-### 6.4 I Do — Configurar un Flujo en Make
+### 👨‍🏫 6.4 I Do — Configurar un Flujo en Make
 
-**Objetivo:** crear un flujo que envíe un email cuando se registre un reclamo prioritario.
+🎯 **Objetivo:** crear un flujo que envíe un email cuando se registre un reclamo prioritario.
 
-| Paso | Acción | Resultado esperado |
-|------|--------|--------------------|
-| 1 | Crear cuenta en Make y conectar Google Sheets | Conexión exitosa |
-| 2 | Agregar módulo "Watch Rows" en Sheets | Disparador configurado |
-| 3 | Agregar módulo "Router" para filtrar por prioridad | Clasificación funcional |
-| 4 | Agregar módulo "Email" para prioridad Alta | Email enviado al probar |
-| 5 | Agregar módulo "Update Row" para marcar notificado | Estado actualizado |
+| 👣 Paso | 🎬 Acción | ✅ Resultado esperado |
+|---------|-----------|----------------------|
+| 1️⃣ | Crear cuenta en Make y conectar Google Sheets | 🔗 Conexión exitosa |
+| 2️⃣ | Agregar módulo "Watch Rows" en Sheets | 🔔 Disparador configurado |
+| 3️⃣ | Agregar módulo "Router" para filtrar por prioridad | 🔀 Clasificación funcional |
+| 4️⃣ | Agregar módulo "Email" para prioridad Alta | 📧 Email enviado al probar |
+| 5️⃣ | Agregar módulo "Update Row" para marcar notificado | ✅ Estado actualizado |
 
 ```text
 ESTRUCTURA DEL FLUJO EN MAKE:
@@ -835,25 +835,25 @@ ESTRUCTURA DEL FLUJO EN MAKE:
    Value: "Notificado - Urgente"
 ```
 
-### 6.5 We Do — Interpretar un Brief Generado
+### 👥 6.5 We Do — Interpretar un Brief Generado
 
-**Caso:** el sistema generó el siguiente brief para la semana:
+🎬 **Caso:** el sistema generó el siguiente brief para la semana:
 
 > *"Esta semana se registraron 52 reclamos, un 30% más que la semana anterior. El producto X concentra el 65% de los casos. La tasa de resolución cayó al 65%. Se recomienda revisar el lote 2045 del producto X y reforzar el equipo de soporte los lunes."*
 
-| Pregunta | Respuesta esperada |
-|----------|--------------------|
-| ¿Cuál es la anomalía principal? | Producto X con 65% de reclamos |
-| ¿Qué dato falta para tomar acción? | Naturaleza del problema del producto X |
-| ¿Qué recomendación validar primero? | Revisar lote 2045 |
-| ¿Qué KPI requiere atención urgente? | Tasa de resolución al 65% |
-| ¿Qué harías con esta información? | Reunión con calidad y producción |
+| ❓ Pregunta | 💡 Respuesta esperada |
+|------------|----------------------|
+| 🚨 ¿Cuál es la anomalía principal? | Producto X con 65% de reclamos |
+| ❓ ¿Qué dato falta para tomar acción? | Naturaleza del problema del producto X |
+| ✅ ¿Qué recomendación validar primero? | Revisar lote 2045 |
+| 🆘 ¿Qué KPI requiere atención urgente? | Tasa de resolución al 65% |
+| 🎯 ¿Qué harías con esta información? | Reunión con calidad y producción |
 
-### 6.6 You Do — Generar tu Propio Brief Automático
+### 👤 6.6 You Do — Generar tu Propio Brief Automático
 
-**Tarea:** usando tus datos reales o simulados, completa el circuito:
+📋 **Tarea:** usando tus datos reales o simulados, completa el circuito:
 
-| Paso | Tu implementación |
+| 👣 Paso | ✏️ Tu implementación |
 |------|-------------------|
 | 1 | Datos en Sheets (simula 20+ registros) |
 | 2 | Plantilla de brief adaptada a tu contexto |
@@ -861,33 +861,33 @@ ESTRUCTURA DEL FLUJO EN MAKE:
 | 4 | Brief generado (copia el resultado) |
 | 5 | Una decisión que tomarías basada en el brief |
 
-### 6.7 I Do — Tablero en AppSheet
+### 👨‍🏫 6.7 I Do — Tablero en AppSheet
 
-**Objetivo:** crear un tablero visual con los KPIs del negocio.
+🎯 **Objetivo:** crear un tablero visual con los KPIs del negocio.
 
-| Widget | Dato que muestra | Fórmula en Sheets |
-|--------|------------------|-------------------|
-| Total casos | CONTAR(Semana!A:A) | =CONTAR.SI(Tabla!Prioridad; "Alta") |
-| Tasa resolución | Resueltos / Totales | =CONTAR.SI.CONJUNTO(...) |
-| Tendencia semanal | Gráfico de casos por día | Tabla dinámica por fecha |
-| Top reclamos | Producto con más casos | =INDICE(MODA(...)) |
+| 🧩 Widget | 📊 Dato que muestra | 📐 Fórmula en Sheets |
+|-----------|-------------------|---------------------|
+| 🔢 Total casos | CONTAR(Semana!A:A) | =CONTAR.SI(Tabla!Prioridad; "Alta") |
+| 📈 Tasa resolución | Resueltos / Totales | =CONTAR.SI.CONJUNTO(...) |
+| 📉 Tendencia semanal | Gráfico de casos por día | Tabla dinámica por fecha |
+| 🏆 Top reclamos | Producto con más casos | =INDICE(MODA(...)) |
 
-### 6.8 We Do — Revisar el Circuito Completo
+### 👥 6.8 We Do — Revisar el Circuito Completo
 
-**Escenario:** el equipo implementó los 4 módulos pero el brief semanal llega vacío.
+🎬 **Escenario:** el equipo implementó los 4 módulos pero el brief semanal llega vacío.
 
-| Posible causa | Diagnóstico | Solución |
+| ⚠️ Posible causa | 🔍 Diagnóstico | ✅ Solución |
 |---------------|-------------|----------|
 | Sheets no tiene datos nuevos | Verificar si el chatbot está registrando | Probar chatbot manualmente |
 | Make no detecta nuevos registros | Verificar Watch Rows configurado | Re-conectar módulo |
 | ChatGPT no recibe datos | Verificar formato de los KPIs | Revisar plantilla del prompt |
 | Email no se envía | Verificar módulo de email en Make | Probar con email de prueba |
 
-### 6.9 You Do — Proyecto Completo
+### 👤 6.9 You Do — Proyecto Completo
 
-**Tarea:** implementa los 4 módulos para UN caso real de tu organización o personal.
+📋 **Tarea:** implementa los 4 módulos para UN caso real de tu organización o personal.
 
-| Entregable | Descripción |
+| 📦 Entregable | 📝 Descripción |
 |------------|-------------|
 | **M1: Asistente** | Captura de pantalla del GPT configurado + resultado de consulta |
 | **M2: Chatbot** | Link al chatbot funcional + estructura de Sheets |
@@ -895,70 +895,70 @@ ESTRUCTURA DEL FLUJO EN MAKE:
 | **M4: Reporte** | Brief generado automáticamente |
 | **Integración** | Diagrama del circuito completo con flechas de conexión |
 
-### 6.10 Cierre Práctico
+### 🏁 6.10 Cierre Práctico
 
-| Nivel | Debes poder hacer |
-|-------|-------------------|
-| **I Do** | Seguir un ejemplo completo de cada módulo y obtener resultados |
-| **We Do** | Diseñar en equipo el flujo de un caso real, tomar decisiones justificadas |
-| **You Do** | Implementar el circuito completo para un problema real de principio a fin |
-
----
-
-## CHECKLIST FINAL DE IA PRÁCTICA
-
-| Bloque | Check |
-|--------|-------|
-| **M1: Asistente** | GPT personalizado con instrucciones + documentos cargados en NotebookLM |
-| **M2: Chatbot** | Chatbot funcional con preguntas inteligentes + validaciones + Sheets conectado |
-| **M3: Automatización** | Flujo en Make con disparador, rutas y notificaciones probado |
-| **M4: Reporte** | Plantilla de brief + generación automática + distribución programada |
-| **Integración** | Los 4 módulos conectados en un circuito que funciona sin intervención manual |
-| **Prueba** | Cada módulo probado con datos reales o simulados verificando salidas |
-| **Documentación** | Instrucciones de uso y mantenimiento del sistema |
-| **Métricas** | Impacto medido: tiempo ahorrado, casos procesados, errores reducidos |
+| 🎯 Nivel | ✅ Debes poder hacer |
+|----------|---------------------|
+| **👨‍🏫 I Do** | Seguir un ejemplo completo de cada módulo y obtener resultados |
+| **👥 We Do** | Diseñar en equipo el flujo de un caso real, tomar decisiones justificadas |
+| **👤 You Do** | Implementar el circuito completo para un problema real de principio a fin |
 
 ---
 
-## PREGUNTAS DE VERIFICACIÓN
+## ✅ CHECKLIST FINAL DE IA PRÁCTICA
 
-Responde cada pregunta basándote en los conceptos de esta masterclass.
+| 🧩 Bloque | ✅ Check |
+|-----------|---------|
+| **🤖 M1: Asistente** | GPT personalizado con instrucciones + documentos cargados en NotebookLM |
+| **💬 M2: Chatbot** | Chatbot funcional con preguntas inteligentes + validaciones + Sheets conectado |
+| **⚡ M3: Automatización** | Flujo en Make con disparador, rutas y notificaciones probado |
+| **📊 M4: Reporte** | Plantilla de brief + generación automática + distribución programada |
+| **🔗 Integración** | Los 4 módulos conectados en un circuito que funciona sin intervención manual |
+| **🧪 Prueba** | Cada módulo probado con datos reales o simulados verificando salidas |
+| **📝 Documentación** | Instrucciones de uso y mantenimiento del sistema |
+| **📈 Métricas** | Impacto medido: tiempo ahorrado, casos procesados, errores reducidos |
 
-### Preguntas sobre Asistentes Inteligentes
+---
+
+## ❓ PREGUNTAS DE VERIFICACIÓN
+
+Responde cada pregunta basándote en los conceptos de esta masterclass. 📝
+
+### 🤖 Preguntas sobre Asistentes Inteligentes
 
 1. **Aplica:** Tenés 5 informes trimestrales en PDF y un dataset de ventas en CSV. ¿Cómo configurarías un asistente para que genere un resumen ejecutivo semanal?
 
 2. **Analiza:** ¿Qué diferencia hay entre usar ChatGPT genérico y un GPT personalizado con documentos cargados? ¿Cuándo justifica el esfuerzo?
 
-### Preguntas sobre Chatbots
+### 💬 Preguntas sobre Chatbots
 
-3. **Diseña:** Un comercio quiere que los clientes registren pedidos por chat. ¿Qué preguntas harías y qué validaciones pondrías en cada una?
+3. 🎯 **Diseña:** Un comercio quiere que los clientes registren pedidos por chat. ¿Qué preguntas harías y qué validaciones pondrías en cada una?
 
-4. **Reflexiona:** ¿En qué casos un chatbot es mejor que un formulario tradicional? ¿Y al revés?
+4. 🤔 **Reflexiona:** ¿En qué casos un chatbot es mejor que un formulario tradicional? ¿Y al revés?
 
-### Preguntas sobre Automatización
+### ⚡ Preguntas sobre Automatización
 
-5. **Calcula:** Si recibís 20 reclamos diarios y cada alerta manual toma 5 minutos, ¿cuántas horas ahorra la automatización por mes (22 días)?
+5. 🧮 **Calcula:** Si recibís 20 reclamos diarios y cada alerta manual toma 5 minutos, ¿cuántas horas ahorra la automatización por mes (22 días)?
 
-6. **Evalúa:** Un flujo de Make no está enviando emails para registros de prioridad Alta. ¿Qué pasos seguirías para diagnosticar el problema?
+6. 🔍 **Evalúa:** Un flujo de Make no está enviando emails para registros de prioridad Alta. ¿Qué pasos seguirías para diagnosticar el problema?
 
-### Preguntas sobre Reportes y Briefs
+### 📊 Preguntas sobre Reportes y Briefs
 
-7. **Conecta:** Explica cómo se relacionan los datos capturados por el chatbot (M2) con la calidad del brief ejecutivo (M4). ¿Qué pasa si los datos de entrada son inconsistentes?
+7. 🔗 **Conecta:** Explica cómo se relacionan los datos capturados por el chatbot (M2) con la calidad del brief ejecutivo (M4). ¿Qué pasa si los datos de entrada son inconsistentes?
 
-8. **Propón un sistema:** Diseñá un tablero AppSheet con 5 widgets para monitorear reclamos. ¿Qué KPI mostraría cada uno y qué alerta configurarías?
+8. 🛠️ **Propón un sistema:** Diseñá un tablero AppSheet con 5 widgets para monitorear reclamos. ¿Qué KPI mostraría cada uno y qué alerta configurarías?
 
-### Preguntas Integradoras
+### 🔗 Preguntas Integradoras
 
-9. **Síntesis:** Tomá un proceso manual de tu trabajo y aplicá el circuito completo: ¿qué capturaría el chatbot, qué automatizaría Make, qué analizaría el asistente y qué mostraría el reporte?
+9. 🧠 **Síntesis:** Tomá un proceso manual de tu trabajo y aplicá el circuito completo: ¿qué capturaría el chatbot, qué automatizaría Make, qué analizaría el asistente y qué mostraría el reporte?
 
-10. **Reflexión final:** De los 4 módulos, ¿cuál creés que genera más impacto inmediato en productividad? ¿Por qué? ¿Y cuál requiere más planificación previa?
+10. 💭 **Reflexión final:** De los 4 módulos, ¿cuál creés que genera más impacto inmediato en productividad? ¿Por qué? ¿Y cuál requiere más planificación previa?
 
 ---
 
-## GLOSARIO RÁPIDO
+## 📖 GLOSARIO RÁPIDO
 
-| Término | Definición |
+| 📌 Término | 📝 Definición |
 |---------|------------|
 | **GPT Personalizado** | Versión de ChatGPT configurada con instrucciones específicas y documentos propios |
 | **NotebookLM** | Herramienta de Google para cargar documentos y hacer preguntas sobre su contenido |
