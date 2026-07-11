@@ -431,13 +431,13 @@ FUNCION crear_flujo_automatizacion(origen_sheets, destino_notificacion)
 
 | 📌 Evento en Sheets | ⚡ Acción | 📡 Canal | 🕐 Cuándo |
 |------------------|--------|-------|--------|
-| Nuevo registro prioridad Alta | Notificación urgente | Email + Slack | Inmediato |
-| Nuevo registro prioridad Media | Resumen diario | Email | Fin del día |
-| Nuevo registro prioridad Baja | Reporte semanal | Email | Viernes |
-| Registro sin procesar > 24h | Alerta de pendiente | Slack | Diario |
-| Volumen alto de reclamos | Alerta de anomalía | Email + Slack | Umbral configurable |
+| 🔴 Nuevo registro prioridad Alta | 🚨 Notificación urgente | Email + Slack | ⚡ Inmediato |
+| 🟡 Nuevo registro prioridad Media | 📋 Resumen diario | Email | 🌅 Fin del día |
+| 🟢 Nuevo registro prioridad Baja | 📊 Reporte semanal | Email | 📅 Viernes |
+| ⏳ Registro sin procesar > 24h | ⚠️ Alerta de pendiente | Slack | 📆 Diario |
+| 📈 Volumen alto de reclamos | 🚨 Alerta de anomalía | Email + Slack | 🎯 Umbral configurable |
 
-### 3.5 Ejemplo de Escenarios
+### 🎬 3.5 Ejemplo de Escenarios
 
 ```text
 ESCENARIO 1: Reclamo prioritario
