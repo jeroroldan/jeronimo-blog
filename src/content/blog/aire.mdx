@@ -6,26 +6,40 @@ pubDate: "Jun 23 2026"
 heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
+import { Image } from 'astro:assets';
+import aogenerative from '../../assets/aogenerative.png';
 
 
-## ¿Qué vas a aprender
+
+## 📚 ¿Qué vas a aprender
 
 En este contenido explorarás los conceptos clave y su aplicación práctica:
 
-- Fundamentos teóricos y contexto necesario para entender el tema
-- Aplicaciones prácticas y casos de uso reales
-- Herramientas, técnicas y mejores prácticas recomendadas
-- Ejemplos guiados paso a paso
-- Errores comunes, anti-patrones y cómo evitarlos
+- 🧠 Fundamentos teóricos y contexto necesario para entender el tema
+- 🏢 Aplicaciones prácticas y casos de uso reales
+- 🛠️ Herramientas, técnicas y mejores prácticas recomendadas
+- 📝 Ejemplos guiados paso a paso
+- ⚠️ Errores comunes, anti-patrones y cómo evitarlos
 
 
-# Masterclass: AI Engineering
-### De los modelos fundacionales a sistemas en producción
-*Basado en el recorrido conceptual del libro "AI Engineering" de Chip Huyen*
+<div class="concept-hero">
+	<Image
+		src={aogenerative}
+		alt="AI Engineering: de los modelos fundacionales a sistemas en producción"
+		width={800}
+		height={450}
+		format="png"
+	/>
+</div>
+
+
+# 🎓 Masterclass: AI Engineering
+### 🚀 De los modelos fundacionales a sistemas en producción
+*📖 Basado en el recorrido conceptual del libro "AI Engineering" de Chip Huyen*
 
 ---
 
-## Cómo usar esta masterclass
+## 🗺️ Cómo usar esta masterclass
 
 Este documento está organizado en **6 módulos**, cada uno correspondiente a un bloque temático del libro. Cada módulo incluye:
 
@@ -35,25 +49,25 @@ Este documento está organizado en **6 módulos**, cada uno correspondiente a un
 - ⚠️ **Errores comunes**
 - ✅ **Checklist de cierre** para autoevaluarte
 
-Al final encontrarás un **glosario**, una **hoja de ruta de aprendizaje** y **recursos** para seguir profundizando.
+🔗 Al final encontrarás un **glosario**, una **hoja de ruta de aprendizaje** y **recursos** para seguir profundizando.
 
-| Módulo | Tema | Duración aprox. en el video |
+| Módulo | Tema | ⏱️ Duración aprox. en el video |
 |---|---|---|
-| 1 | Fundamentos del AI Engineering | 0:00 – 8:40 |
-| 2 | Evaluación y Selección de Modelos | 8:40 – 23:15 |
-| 3 | Prompt Engineering y RAG | 23:15 – 36:56 |
-| 4 | Agentes y Memoria | 36:56 – 43:02 |
-| 5 | Fine-tuning e Ingeniería de Datasets | 43:02 – 59:45 |
-| 6 | Optimización de Inferencia y Arquitectura de Sistemas | 59:45 – 1:16:03 |
+| 1️⃣ | 🧱 Fundamentos del AI Engineering | 0:00 – 8:40 |
+| 2️⃣ | 📊 Evaluación y Selección de Modelos | 8:40 – 23:15 |
+| 3️⃣ | 🔍 Prompt Engineering y RAG | 23:15 – 36:56 |
+| 4️⃣ | 🤖 Agentes y Memoria | 36:56 – 43:02 |
+| 5️⃣ | 🎛️ Fine-tuning e Ingeniería de Datasets | 43:02 – 59:45 |
+| 6️⃣ | ⚡ Optimización de Inferencia y Arquitectura de Sistemas | 59:45 – 1:16:03 |
 
 ---
 
-## Módulo 1 — Fundamentos del AI Engineering
+## 🧱 Módulo 1 — Fundamentos del AI Engineering
 
 ### 🎯 Objetivo
 Entender por qué surgió una disciplina nueva ("AI Engineering") distinta del Machine Learning tradicional, y comprender los bloques arquitectónicos que la hacen posible.
 
-### 1.1 El cambio de paradigma: de entrenar modelos a *usar* modelos
+### 1.1 🔄 El cambio de paradigma: de entrenar modelos a *usar* modelos
 
 Durante años, "hacer ML" significaba: recolectar datos etiquetados, diseñar features, entrenar un modelo desde cero y desplegarlo. El **AI Engineering** nace cuando aparecen los **modelos fundacionales (foundation models)**: modelos gigantes, entrenados una sola vez por unos pocos laboratorios (OpenAI, Anthropic, Google, Meta...) sobre cantidades masivas de datos, y que luego cualquier equipo puede **adaptar** a su problema sin volver a entrenar desde cero.
 
@@ -66,7 +80,7 @@ Esto invierte la pirámide de esfuerzo:
 | El modelo es la parte difícil | El **producto, la evaluación y los datos de uso** son la parte difícil |
 | Itera sobre arquitectura | Itera sobre prompts, contexto y pipelines |
 
-### 1.2 Self-supervision: por qué los foundation models pudieron escalar
+### 1.2 🧬 Self-supervision: por qué los foundation models pudieron escalar
 
 La clave que permitió entrenar modelos con billones de parámetros sobre internet entero fue el **aprendizaje auto-supervisado (self-supervised learning)**. En lugar de necesitar humanos etiquetando cada ejemplo, el modelo genera su propia señal de entrenamiento a partir de los datos crudos:
 
@@ -75,7 +89,7 @@ La clave que permitió entrenar modelos con billones de parámetros sobre intern
 
 Esto significa que **cualquier texto disponible en internet** (libros, código, foros, Wikipedia) se convierte automáticamente en datos de entrenamiento, sin intervención humana de etiquetado. Esa es la razón estructural detrás de la escala actual de los modelos.
 
-### 1.3 La arquitectura Transformer
+### 1.3 🏗️ La arquitectura Transformer
 
 El Transformer (Vaswani et al., 2017) es la arquitectura que hizo viable este escalamiento. Sus piezas esenciales:
 
@@ -87,7 +101,7 @@ El Transformer (Vaswani et al., 2017) es la arquitectura que hizo viable este es
 
 **¿Por qué importa la atención?** Es lo que le permite al modelo entender que en la frase *"el banco estaba cerrado porque era domingo"*, "banco" se refiere a una institución y no a un asiento, usando el contexto completo de la oración en un solo paso de cómputo paralelo (a diferencia de las arquitecturas secuenciales anteriores).
 
-### 1.4 Scaling laws: por qué "más grande" funcionó (hasta cierto punto)
+### 1.4 📈 Scaling laws: por qué "más grande" funcionó (hasta cierto punto)
 
 Las **leyes de escalamiento (scaling laws)** son observaciones empíricas que muestran que el rendimiento de un modelo mejora de forma predecible (siguiendo una ley de potencias) en función de tres variables:
 
@@ -111,12 +125,12 @@ El hallazgo clave (popularizado por el paper de Kaplan et al. y refinado por "Ch
 
 ---
 
-## Módulo 2 — Evaluación y Selección de Modelos
+## 📊 Módulo 2 — Evaluación y Selección de Modelos
 
 ### 🎯 Objetivo
 Comprender por qué evaluar sistemas de IA generativa es fundamentalmente distinto (y más difícil) que evaluar ML clásico, y aprender marcos prácticos para elegir el modelo correcto.
 
-### 2.1 ¿Por qué evaluar IA generativa es más difícil?
+### 2.1 🤔 ¿Por qué evaluar IA generativa es más difícil?
 
 En ML clásico (clasificación, regresión), hay una **respuesta correcta objetiva**: accuracy, F1, RMSE. En IA generativa:
 
@@ -126,7 +140,7 @@ En ML clásico (clasificación, regresión), hay una **respuesta correcta objeti
 - **Los modelos son no deterministas** (con temperatura > 0, la misma entrada puede dar salidas distintas).
 - **El "ground truth" puede no existir** o ser costoso de generar (requiere expertos humanos).
 
-### 2.2 Métodos de evaluación
+### 2.2 🧪 Métodos de evaluación
 
 | Método | Cómo funciona | Pros | Contras |
 |---|---|---|---|
@@ -136,7 +150,7 @@ En ML clásico (clasificación, regresión), hay una **respuesta correcta objeti
 | **Evaluación basada en exactitud programática** | Para tareas con respuesta verificable (código, SQL, matemática): se ejecuta el output y se comprueba el resultado | Objetiva y barata | Solo aplica a tareas verificables |
 | **Comparación por pares (pairwise)** | Se le pide al juez (humano o IA) que elija cuál de dos respuestas es mejor, no que puntúe en abstracto | Más confiable que puntuar de 1 a 10 directamente | Requiere más comparaciones para ordenar muchas opciones |
 
-### 2.3 AI como Juez — cómo implementarlo bien
+### 2.3 ⚖️ AI como Juez — cómo implementarlo bien
 
 Usar un LLM para evaluar a otro LLM ("LLM-as-a-judge") es hoy el método más usado en producción porque escala. Buenas prácticas:
 
@@ -146,7 +160,7 @@ Usar un LLM para evaluar a otro LLM ("LLM-as-a-judge") es hoy el método más us
 4. **Usa un modelo distinto (o más capaz) como juez** del que generó la respuesta, para reducir el sesgo de "un modelo prefiriendo su propio estilo".
 5. **Evita el sesgo de posición**: si comparás dos respuestas, alterná el orden en que se presentan.
 
-### 2.4 Framework para seleccionar un modelo
+### 2.4 🧭 Framework para seleccionar un modelo
 
 Elegir el modelo correcto no es "elegir el más potente del ranking", sino resolver una optimización con varias restricciones:
 
@@ -171,12 +185,12 @@ Elegir el modelo correcto no es "elegir el más potente del ranking", sino resol
 
 ---
 
-## Módulo 3 — Prompt Engineering y RAG
+## 🔍 Módulo 3 — Prompt Engineering y RAG
 
 ### 🎯 Objetivo
 Dominar las técnicas para extraer el máximo rendimiento de un modelo sin modificar sus pesos, y entender cómo conectar modelos a datos privados o actualizados mediante RAG.
 
-### 3.1 Prompt Engineering: principios fundamentales
+### 3.1 💬 Prompt Engineering: principios fundamentales
 
 El prompt es la única "API de control" que tenés sobre un modelo cerrado. Técnicas clave:
 
@@ -187,7 +201,7 @@ El prompt es la única "API de control" que tenés sobre un modelo cerrado. Téc
 - **Estructura explícita de salida**: pedir JSON, Markdown con secciones fijas, o un esquema específico reduce la ambigüedad y facilita el parseo automático downstream.
 - **Descomposición de tareas complejas**: en vez de un prompt monolítico, dividir el problema en sub-pasos encadenados (prompt chaining) suele dar mejores resultados que pedir todo de una vez.
 
-### 3.2 Por qué el prompting solo no alcanza
+### 3.2 🚧 Por qué el prompting solo no alcanza
 
 Los modelos fundacionales tienen dos límites estructurales que el prompting no puede resolver:
 
@@ -196,7 +210,7 @@ Los modelos fundacionales tienen dos límites estructurales que el prompting no 
 
 Ahí entra **RAG (Retrieval-Augmented Generation)**.
 
-### 3.3 RAG: arquitectura y funcionamiento
+### 3.3 🗂️ RAG: arquitectura y funcionamiento
 
 RAG combina **recuperación de información** con **generación**, en vez de depender únicamente de lo que el modelo "memorizó" durante el entrenamiento.
 
@@ -221,7 +235,7 @@ RAG combina **recuperación de información** con **generación**, en vez de dep
 - **Re-ranking** (opcional pero recomendado): un segundo modelo, más preciso pero más lento que la búsqueda vectorial inicial, reordena los top resultados para mejorar precisión final antes de pasarlos al modelo generador.
 - **Búsqueda híbrida**: combinar búsqueda vectorial (semántica) con búsqueda por palabras clave (léxica, tipo BM25) suele superar a usar solo una de las dos, porque captura tanto significado como coincidencias exactas (nombres propios, códigos, IDs).
 
-### 3.4 Cuándo RAG no es suficiente
+### 3.4 🛑 Cuándo RAG no es suficiente
 
 RAG resuelve "el modelo no sabe esto", pero no resuelve "el modelo no sabe *hacer* esto" (un estilo muy específico, un formato de razonamiento particular, terminología de dominio muy especializada que requiere ajuste de comportamiento). Para eso, el siguiente paso es **fine-tuning** (Módulo 5).
 
@@ -237,12 +251,12 @@ RAG resuelve "el modelo no sabe esto", pero no resuelve "el modelo no sabe *hace
 
 ---
 
-## Módulo 4 — Agentes y Memoria
+## 🤖 Módulo 4 — Agentes y Memoria
 
 ### 🎯 Objetivo
 Entender qué transforma un modelo de "generador de texto" a "agente capaz de actuar", y cómo se le da continuidad/memoria a través de interacciones.
 
-### 4.1 ¿Qué es un agente de IA?
+### 4.1 🕵️ ¿Qué es un agente de IA?
 
 Un **agente** es un sistema construido sobre un foundation model que puede:
 
@@ -254,7 +268,7 @@ Un **agente** es un sistema construido sobre un foundation model que puede:
 
 Este patrón se conoce comúnmente como el ciclo **ReAct** (Reason + Act): el modelo alterna entre "pensar" y "actuar", usando el resultado de cada acción para decidir el siguiente paso.
 
-### 4.2 Tool use (uso de herramientas)
+### 4.2 🔧 Tool use (uso de herramientas)
 
 La capacidad central que habilita a los agentes es el **function calling / tool use**: el modelo no solo genera texto, sino que puede generar una **llamada estructurada a una función** (con nombre y argumentos), que el sistema externo ejecuta de verdad, devolviendo el resultado al modelo para que continúe.
 
@@ -266,7 +280,7 @@ Ejemplos típicos de herramientas:
 
 **Diseño de herramientas (tool design):** las herramientas deben tener nombres y descripciones muy claras (el modelo elige cuál usar basándose en esa descripción), parámetros bien tipados, y idealmente devolver errores informativos que el agente pueda usar para reintentar o corregir el curso.
 
-### 4.3 Memoria en sistemas agénticos
+### 4.3 🧠 Memoria en sistemas agénticos
 
 Por defecto, un LLM no tiene memoria entre llamadas: cada request es independiente salvo que vos le pases el historial. La "memoria" en sistemas agénticos se construye en distintas capas:
 
@@ -278,7 +292,7 @@ Por defecto, un LLM no tiene memoria entre llamadas: cada request es independien
 
 Como la ventana de contexto es finita y cara, los sistemas de memoria de largo plazo suelen funcionar como un RAG aplicado al historial del propio usuario: se resumen o indexan interacciones pasadas, y se recuperan solo los fragmentos relevantes en cada nueva conversación, en lugar de cargar todo el historial completo.
 
-### 4.4 Riesgos específicos de los sistemas agénticos
+### 4.4 ⚡ Riesgos específicos de los sistemas agénticos
 
 - **Acumulación de errores**: si el agente da muchos pasos, un error temprano se propaga y se amplifica en pasos posteriores.
 - **Bucles infinitos**: el agente puede quedar "atascado" repitiendo la misma acción sin converger — se necesitan límites máximos de iteraciones.
@@ -297,12 +311,12 @@ Como la ventana de contexto es finita y cara, los sistemas de memoria de largo p
 
 ---
 
-## Módulo 5 — Fine-tuning e Ingeniería de Datasets
+## 🎛️ Módulo 5 — Fine-tuning e Ingeniería de Datasets
 
 ### 🎯 Objetivo
 Saber cuándo conviene pasar de "solo prompting" a ajustar los pesos del modelo, y entender las técnicas modernas para hacerlo de forma eficiente, junto con la importancia crítica de la calidad de los datos.
 
-### 5.1 ¿Cuándo conviene hacer fine-tuning?
+### 5.1 🤔 ¿Cuándo conviene hacer fine-tuning?
 
 Antes de fine-tunear, conviene agotar alternativas más baratas y rápidas de iterar: mejor prompting, few-shot examples, y RAG. El **fine-tuning tiene sentido cuando**:
 
@@ -313,7 +327,7 @@ Antes de fine-tunear, conviene agotar alternativas más baratas y rápidas de it
 
 **Regla general:** *prompting y RAG primero, fine-tuning después* — el fine-tuning es más costoso de iterar (requiere datasets curados, cómputo de entrenamiento, validación) y debería usarse cuando hay evidencia clara de que el prompting llegó a su límite.
 
-### 5.2 LoRA (Low-Rank Adaptation)
+### 5.2 🧩 LoRA (Low-Rank Adaptation)
 
 Fine-tunear *todos* los parámetros de un modelo de miles de millones de parámetros es costosísimo en memoria y cómputo. **LoRA** resuelve esto de forma elegante:
 
@@ -322,7 +336,7 @@ Fine-tunear *todos* los parámetros de un modelo de miles de millones de paráme
 - Esto permite fine-tunear modelos grandes en hardware mucho más modesto, entrenar más rápido, y — ventaja clave en producción — **guardar múltiples adaptadores LoRA pequeños** (uno por cliente, tarea o dominio) y intercambiarlos sobre el mismo modelo base, en lugar de mantener una copia completa del modelo por cada caso de uso.
 - Variante popular: **QLoRA**, que combina LoRA con cuantización del modelo base (ver Módulo 6) para reducir aún más los requisitos de memoria durante el entrenamiento.
 
-### 5.3 Ingeniería de datasets: la parte que más importa y menos se ve
+### 5.3 🗃️ Ingeniería de datasets: la parte que más importa y menos se ve
 
 Si hay un consenso fuerte en la práctica del fine-tuning moderno es este: **la calidad del dataset importa más que la cantidad y, frecuentemente, más que el algoritmo de entrenamiento elegido.**
 
@@ -334,7 +348,7 @@ Si hay un consenso fuerte en la práctica del fine-tuning moderno es este: **la 
 - **Deduplicación**: ejemplos duplicados o casi idénticos sesgan el aprendizaje hacia esos patrones específicos y desperdician cómputo.
 - **Filtrado de calidad**: remover ejemplos con errores, respuestas de baja calidad, o contenido no representativo del comportamiento deseado.
 
-### 5.4 Datos sintéticos
+### 5.4 🧪 Datos sintéticos
 
 Cuando los datos reales son escasos, costosos de etiquetar, o tienen problemas de privacidad, una práctica cada vez más extendida es **generar datos sintéticos** usando otro modelo (frecuentemente uno más grande/capaz) para producir ejemplos de entrenamiento:
 
@@ -356,12 +370,12 @@ Cuando los datos reales son escasos, costosos de etiquetar, o tienen problemas d
 
 ---
 
-## Módulo 6 — Optimización de Inferencia y Arquitectura de Sistemas
+## ⚡ Módulo 6 — Optimización de Inferencia y Arquitectura de Sistemas
 
 ### 🎯 Objetivo
 Conocer las técnicas para servir modelos de forma eficiente en producción, balanceando latencia, throughput y costo, y entender por qué la observabilidad es indispensable.
 
-### 6.1 El trade-off central: latencia vs. throughput vs. costo
+### 6.1 ⚖️ El trade-off central: latencia vs. throughput vs. costo
 
 - **Latencia**: tiempo que tarda un usuario individual en recibir su respuesta (clave en chat en tiempo real).
 - **Throughput**: cantidad total de requests/tokens que el sistema puede procesar por unidad de tiempo (clave para servir muchos usuarios simultáneos a bajo costo).
@@ -369,7 +383,7 @@ Conocer las técnicas para servir modelos de forma eficiente en producción, bal
 
 Optimizar inferencia consiste en mover este trade-off a tu favor sin sacrificar calidad de las respuestas.
 
-### 6.2 Cuantización (quantization)
+### 6.2 📉 Cuantización (quantization)
 
 Los pesos de un modelo se almacenan normalmente en punto flotante de 16 o 32 bits. La **cuantización** los convierte a representaciones de menor precisión (8 bits, 4 bits, incluso menos):
 
@@ -377,7 +391,7 @@ Los pesos de un modelo se almacenan normalmente en punto flotante de 16 o 32 bit
 - **Costo**: una pequeña pérdida de precisión numérica, que en general impacta poco la calidad si se hace correctamente (existen técnicas de cuantización "consciente" que minimizan la degradación).
 - Es una de las optimizaciones de mayor relación beneficio/esfuerzo en producción.
 
-### 6.3 Decodificación especulativa (speculative decoding)
+### 6.3 🏎️ Decodificación especulativa (speculative decoding)
 
 La generación autoregresiva normal produce **un token a la vez**, cada uno requiriendo un paso completo por el modelo grande — esto es lento. La **decodificación especulativa** acelera esto así:
 
@@ -387,20 +401,20 @@ La generación autoregresiva normal produce **un token a la vez**, cada uno requ
 
 El resultado es matemáticamente equivalente a la salida del modelo grande solo, pero generada más rápido, porque se aprovecha el cómputo paralelo de verificación en lugar del cómputo secuencial de generación token por token.
 
-### 6.4 Batching (agrupamiento de requests)
+### 6.4 📦 Batching (agrupamiento de requests)
 
 Las GPU son extremadamente eficientes procesando muchas operaciones en paralelo, pero ineficientes si se les da una sola request a la vez. El **batching** agrupa múltiples requests de distintos usuarios para procesarlas juntas:
 
 - **Batching estático**: se espera a juntar un grupo fijo de requests antes de procesarlas — simple, pero puede generar latencia de espera.
 - **Batching continuo (continuous/in-flight batching)**: técnica moderna (usada en motores como vLLM) donde nuevas requests se incorporan dinámicamente al batch en cada paso de generación, sin esperar a que termine todo el batch anterior — maximiza el uso de GPU sin penalizar tanto la latencia individual.
 
-### 6.5 Otras optimizaciones relevantes
+### 6.5 🔧 Otras optimizaciones relevantes
 
 - **KV-cache**: durante la generación autoregresiva, se cachean los cálculos de atención de tokens ya procesados para no recalcularlos en cada nuevo token — esencial para que la generación no se vuelva cuadráticamente más lenta a medida que crece la conversación.
 - **Paralelismo de modelo**: para modelos que no entran en la memoria de una sola GPU, se distribuyen sus capas o tensores entre múltiples GPUs.
 - **Streaming de respuesta**: enviar tokens al usuario a medida que se generan (en vez de esperar la respuesta completa) mejora drásticamente la *latencia percibida*, aunque el tiempo total de generación sea el mismo.
 
-### 6.6 Observabilidad y feedback de usuarios
+### 6.6 📡 Observabilidad y feedback de usuarios
 
 Ningún sistema de IA en producción está completo sin instrumentación que permita detectar degradación de calidad, costos inesperados o comportamientos no deseados **después** del despliegue:
 
@@ -425,7 +439,7 @@ La observabilidad cierra el ciclo: lo que se aprende monitoreando producción re
 
 ---
 
-## Glosario rápido
+## 📖 Glosario rápido
 
 | Término | Definición breve |
 |---|---|
@@ -448,25 +462,25 @@ La observabilidad cierra el ciclo: lo que se aprende monitoreando producción re
 
 ---
 
-## Hoja de ruta de aprendizaje sugerida
+## 🗓️ Hoja de ruta de aprendizaje sugerida
 
-1. **Semana 1–2**: Fundamentos (Módulo 1) + practicar prompt engineering (Módulo 3.1) sobre una API real.
-2. **Semana 3**: Armar tu primer set de evaluación propio + experimentar con AI-as-judge (Módulo 2).
-3. **Semana 4–5**: Construir un pipeline RAG simple end-to-end sobre tus propios documentos (Módulo 3.3).
-4. **Semana 6**: Construir un agente básico con 1-2 herramientas (calculadora + búsqueda) (Módulo 4).
-5. **Semana 7–8**: Si tu caso de uso lo justifica, experimentar con fine-tuning vía LoRA sobre un modelo open-weight chico (Módulo 5).
-6. **Semana 9**: Desplegar y medir: agregar observabilidad básica (logging + métricas) y probar una optimización de inferencia simple, como cuantización (Módulo 6).
+1. 🟢 **Semana 1–2**: Fundamentos (Módulo 1) + practicar prompt engineering (Módulo 3.1) sobre una API real.
+2. 📊 **Semana 3**: Armar tu primer set de evaluación propio + experimentar con AI-as-judge (Módulo 2).
+3. 🗂️ **Semana 4–5**: Construir un pipeline RAG simple end-to-end sobre tus propios documentos (Módulo 3.3).
+4. 🤖 **Semana 6**: Construir un agente básico con 1-2 herramientas (calculadora + búsqueda) (Módulo 4).
+5. 🎛️ **Semana 7–8**: Si tu caso de uso lo justifica, experimentar con fine-tuning vía LoRA sobre un modelo open-weight chico (Módulo 5).
+6. 🚀 **Semana 9**: Desplegar y medir: agregar observabilidad básica (logging + métricas) y probar una optimización de inferencia simple, como cuantización (Módulo 6).
 
 ---
 
-## Recursos para profundizar
+## 🔗 Recursos para profundizar
 
-- Libro: *AI Engineering* — Chip Huyen (O'Reilly, 2024)
-- Paper original del Transformer: *"Attention Is All You Need"* (Vaswani et al., 2017)
-- Paper de scaling laws: Kaplan et al. (2020) y el paper "Chinchilla" de DeepMind (Hoffmann et al., 2022)
-- Paper de LoRA: Hu et al., *"LoRA: Low-Rank Adaptation of Large Language Models"* (2021)
-- Documentación de motores de inferencia con batching continuo: vLLM, TensorRT-LLM
-- Frameworks de RAG y agentes para experimentar: LangChain, LlamaIndex
+- 📚 Libro: *AI Engineering* — Chip Huyen (O'Reilly, 2024)
+- 📄 Paper original del Transformer: *"Attention Is All You Need"* (Vaswani et al., 2017)
+- 📈 Paper de scaling laws: Kaplan et al. (2020) y el paper "Chinchilla" de DeepMind (Hoffmann et al., 2022)
+- 🧩 Paper de LoRA: Hu et al., *"LoRA: Low-Rank Adaptation of Large Language Models"* (2021)
+- ⚙️ Documentación de motores de inferencia con batching continuo: vLLM, TensorRT-LLM
+- 🛠️ Frameworks de RAG y agentes para experimentar: LangChain, LlamaIndex
 
 ---
 
