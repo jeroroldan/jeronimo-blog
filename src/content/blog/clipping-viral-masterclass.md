@@ -11,6 +11,8 @@ readingTime: 35
 
 # MASTERCLASS: Dominando el Clipping Viral - La Fábrica de Contenido de Segunda Vida
 
+![Clipping viral](../../assets/clipping.png)
+
 ## INTRODUCCIÓN: POR QUÉ ESTA MASTERCLASS ES DIFERENTE
 
 La creación de contenido digital cambió de reglas. Ya no basta con producir un solo video exitoso. Hoy la ventaja está en quienes pueden transformar horas de contenido largo en decenas de fragmentos cortos, optimizados y distribuidos masivamente.
