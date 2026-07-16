@@ -11,7 +11,15 @@ readingTime: 32
 
 # 🎬 MASTERCLASS: Dominando el Clipping Viral - La Fábrica de Contenido de Segunda Vida
 
-![Clipping viral](../../assets/clipping.png)
+<div class="concept-hero">
+	<Image
+		src={IAgenerative}
+		alt="IA generativa aplicada a los negocios en 2026"
+		width={800}
+		height={450}
+		format="png"
+	/>
+</div>
 
 ## 🚀 INTRODUCCIÓN: POR QUÉ ESTA MASTERCLASS ES DIFERENTE
 
