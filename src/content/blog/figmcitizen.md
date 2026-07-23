@@ -1,6 +1,6 @@
 ---
 title: 'FIGMA CITIZEN'
-code: 'figma'
+code: 'Figma'
 description: 'Master Class: Figma Citizen'
 pubDate: 'Jul 23 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'
