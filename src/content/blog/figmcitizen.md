@@ -6,8 +6,171 @@ pubDate: 'Jul 23 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
-
 # Figma — WAIOT App Citizen
+
+---
+
+## Modelos mentales para entender Figma
+
+Si nunca usaste Figma, pensalo con estas metáforas. Cada una explica un concepto distinto.
+
+### 1. Figma = Photoshop + CSS combinados
+
+Figma es un programa de dibujo vectorial (como Illustrator, no como Paint: podés editar cualquier cosa en cualquier momento) pero con reglas de layout que funcionan **exactamente como CSS flexbox**. Todo lo que dibujás son capas en el panel izquierdo. Cada capa:
+
+- **Frame** → es un `<div>`. Tiene fondo, borde, padding, y cosas adentro.
+- **Rectangle (R)** → es un `<div>` con solo `background-color`.
+- **Text (T)** → es un `<p>` o `<span>`. Tiene font-size, weight, color.
+- **Auto Layout** → es `display: flex`. Idéntico.
+
+Si sabés CSS, ya sabés Figma. Solo tenés que aprender dónde están los botones.
+
+### 2. La metáfora de la pared y los estantes
+
+Imaginá que la pantalla de iPhone (frame `390×844`) es una **pared**. Cada cosa que ponés adentro es un **estante** clavado en un lugar fijo de la pared.
+
+- Si el estante **NO tiene Auto Layout**: los objetos adentro están sueltos. Vos los movés a mano, uno por uno, donde quieras. Como pegar post-its en un corcho.
+- Si el estante **SÍ tiene Auto Layout** (`Shift+A`): los objetos adentro se ordenan solos en fila o columna, con un espacio fijo. Como libros en una biblioteca que se acomodan automáticamente.
+
+**Cuándo usar cada uno:**
+- Pocas cosas, distintas entre sí → estante común (frame sin Auto Layout)
+- Varias cosas iguales en fila/columna → estante con Auto Layout
+
+### 3. Hug vs Fill (abrazar vs rellenar)
+
+Cuando un frame tiene Auto Layout, cada hijo puede tener dos comportamientos respecto al ancho/alto:
+
+| Comportamiento | En Figma | En CSS | Metáfora |
+|---|---|---|---|
+| **Hug contents** | El frame se achica para ajustarse a lo que tiene adentro | `width: fit-content` | Un cinturón que se ajusta a la cintura |
+| **Fill container** | El frame se estira para ocupar todo el espacio disponible | `width: 100%` o `flex: 1` | Un globo que se infla hasta tocar las paredes |
+| **Fixed** | El frame tiene un tamaño fijo | `width: 360px` | Una caja rígida |
+
+**Ejemplo práctico en el wizard:** La barra de progreso tiene 7 segmentos. Cada segmento usa `Fill container` en ancho para que todos midan lo mismo y ocupen todo el ancho disponible. Si usaran `Fixed`, tendrías que calcular el ancho a mano.
+
+### 4. La pila de papeles (z-index)
+
+Las capas en el panel izquierdo se apilan como **hojas de papel**. La que está más arriba en la lista tapa a las que están más abajo en la pantalla. No existe `z-index: 999`. El orden se controla arrastrando capas arriba/abajo en el panel.
+
+```
+Panel izquierdo (capas):     Resultado en pantalla:
+┌──────────────┐             ┌────────────────────┐
+│ 🟦 Card azul │ ← tapa a   │ ██████████████████ │ ← esto es lo que se ve
+│ 🟥 Texto rojo│ ← tapa a   │ (texto rojo tapado) │
+│ 🟩 Fondo     │             │ (fondo tapado)      │
+└──────────────┘             └────────────────────┘
+```
+
+**Ejemplo real:** Cuando hacés un modal (Editar Perfil), el overlay oscuro y la card blanca tienen que estar **arriba** de todo en el panel de capas, para que tapen el contenido de atrás.
+
+### 5. Constraints (anclas) — solo para frames sin Auto Layout
+
+Cuando un frame **no** tiene Auto Layout, sus elementos hijos tienen "constraints" (restricciones). Es como clavar algo a un borde y decir "si el padre se agranda, vos te estirás o te quedás pegado a ese borde".
+
+Ejemplo visual:
+
+```
+Frame padre se estira →        El hijo con constraint "Left & Right"
+┌────────────┐                 se estira con él:
+│ ┌────────┐ │                 ┌──────────────┐
+│ │  hijo   │ │                 │ ┌──────────┐ │
+│ └────────┘ │                 │ │   hijo    │ │
+└────────────┘                 │ └──────────┘ │
+                               └──────────────┘
+
+El hijo con constraint "Right" se queda pegado a la derecha:
+┌────────────┐                 ┌──────────────┐
+│         ┌──┤                 │           ┌──┤
+│         │h │                 │           │h │
+│         └──┤                 │           └──┤
+└────────────┘                 └──────────────┘
+```
+
+**Para este prototipo no lo vas a necesitar** porque las pantallas son fijas (390×844). Pero si algún día hacés componentes responsive, acordate de esto.
+
+### 6. Componente = molde (no lo uses en este proyecto)
+
+Un componente es como crear un **molde**. Hacés un botón, lo convertís en componente, y después creás copias (`instances`). Si cambiás el molde original, **todas** las copias se actualizan solas.
+
+Una **variante** es el mismo molde pero con estados diferentes. Ej: un componente botón con variantes "Primary / Secondary / Disabled". Cambiás la variante en el panel derecho sin crear un botón nuevo.
+
+**No vamos a usar componentes ni variantes en este prototipo** porque dijiste que no. En su lugar: copiá y pegá (`Ctrl+C` / `Ctrl+V`). Es más trabajo pero más simple de entender.
+
+### 7. Group (Ctrl+G) = fantasma sin cuerpo
+
+`Ctrl+G` agrupa capas visualmente pero el grupo **no tiene cuerpo**. No le podés poner fondo, ni borde, ni Auto Layout. Es solo para mover cosas juntas o para ordenar el panel izquierdo.
+
+**Analogía:** Un group es como poner varios papeles sueltos dentro de un folio transparente. Los movés juntos, pero el folio no tiene color ni forma propia.
+
+| Si necesito... | Usá |
+|---|---|
+| Mover 3 piezas sueltas juntas | `Ctrl+G` (Group) |
+| Ponerle fondo blanco y borde a algo | Frame (`F`) |
+| Que los elementos se ordenen solos | Frame + Auto Layout (`Shift+A`) |
+| Organizar capas en el panel | Cualquiera de los dos |
+
+**Regla práctica:** Si dudás entre Group y Frame, usá Frame. Siempre. El Group casi nunca es la respuesta correcta para layouts. El Frame te da más control.
+
+### 8. El inspector derecho = DevTools de Chrome
+
+El panel derecho de Figma es **exactamente como el panel de estilos del DevTools** de Chrome. Cuando seleccionás un elemento, ves:
+
+```
+DevTools (CSS)          Figma (panel Design)
+─────────────           ────────────────────
+background-color  →     Fill
+border            →     Stroke
+border-radius     →     Corner radius
+box-shadow        →     Effects > Drop shadow
+font-size         →     Text > Font size
+font-weight       →     Text > Font weight
+color             →     Text > Fill (sí, el color de texto está en Fill)
+opacity           →     Layer > Opacity
+width / height    →     W / H (arriba a la derecha del panel)
+padding           →     Auto Layout > Padding
+gap               →     Auto Layout > Gap
+```
+
+**Dato clave:** El color de texto en Figma está en la propiedad **Fill**, igual que el fondo de un rectángulo. No hay `color` separado. Si seleccionás un texto y cambiás Fill, cambiás el color de la letra.
+
+### 9. Selección y navegación
+
+| Acción | Atajo | Equivalente mental |
+|---|---|---|
+| Seleccionar elemento | Click | Click en el DOM |
+| Seleccionar adentro de un frame | Doble click | `document.querySelector()` |
+| Salir de un frame al padre | `Esc` o click afuera | Subir un nivel en el DOM |
+| Seleccionar todo dentro de un frame | `Ctrl+A` estando dentro | `parentElement.children` |
+| Mover en el canvas | Espacio + arrastrar | Scroll en el viewport |
+| Zoom | `Ctrl` + rueda | `Ctrl` + rueda en el navegador |
+| Ver todo el canvas | `Shift+1` | Fit to screen |
+
+### 10. Resumen: la tabla definitiva de traducción mental
+
+| Concepto | En tu cabeza |
+|---|---|
+| Figma entero | Un navegador donde diseñás en vez de codear |
+| Canvas (área gris) | El viewport infinito |
+| Frame | `<div>` con estilos |
+| Rectángulo (R) | `<div>` solo con background |
+| Texto (T) | `<p>` | 
+| `Shift+A` | `display: flex` |
+| Auto Layout H / V | `flex-direction: row / column` |
+| Gap | `gap: 12px` |
+| Padding | `padding: 16px` |
+| Fill (color) | `background-color` (o `color` si es texto) |
+| Stroke | `border` |
+| Corner radius | `border-radius` |
+| Hug contents | `fit-content` |
+| Fill container | `flex: 1` o `100%` |
+| Fixed W/H | `width: 360px; height: 48px` |
+| Panel izquierdo (capas) | Árbol del DOM |
+| Panel derecho (design) | Estilos del DevTools |
+| Componente principal | Molde / `<template>` |
+| Instancia de componente | Copia pegada al molde |
+| Ctrl+G (Group) | `<div>` sin CSS, solo para mover junto |
+| Constraints | `position: sticky` / anclas a bordes |
+| Prototype (pestaña) | `onClick` + `router.push()` |
 
 ---
 
