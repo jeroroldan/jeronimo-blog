@@ -10,6 +10,11 @@ difficulty: 'principiante'
 readingTime: 25
 ---
 
+import { Image } from 'astro:assets';
+import figma01 from '../../assets/figma01.png';
+import figma02 from '../../assets/figma02.png';
+import figma03 from '../../assets/figma03.png';
+
 # 🎨 Figma — WAIOT App Citizen
 
 > **🎯 Objetivo de Aprendizaje** — Al final de esta guía, podrás crear un prototipo completo de 10 pantallas en Figma usando modelos mentales de CSS, entendiendo cuándo usar Auto Layout, frames, grupos y componentes. No necesitas experiencia previa en diseño.
@@ -726,7 +731,7 @@ Los badges: rectángulo con paddingH `8`, paddingV `2`, radius `8`. Fondo del co
 | 9 | **Diálogo Éxito** | Baja |
 | 10 | **Bottom Sheet** | Ya incluido en Mapa |
 
-![Referencia del prototipo completo — vista general](../../assets/figma01.png)
+<Image src={figma01} alt="Referencia del prototipo completo — vista general" width={640} height={320} />
 
 ---
 
@@ -856,7 +861,7 @@ Misma card pero con overlay `rgba(0,0,0,0.45)` de fondo, y 2 botones: Cancelar (
 | 3 waste cards | **Auto Layout H** | 8 |
 | Info card | Frame a mano | — |
 
-![Referencia pantalla Home — dashboard](../../assets/figma02.png)
+<Image src={figma02} alt="Referencia pantalla Home — dashboard" width={640} height={320} />
 
 ---
 
@@ -910,7 +915,7 @@ Misma card pero con overlay `rgba(0,0,0,0.45)` de fondo, y 2 botones: Cancelar (
 | Cada card (contenido horizontal) | **Auto Layout H** | 12 |
 | Info dentro de cada card | **Auto Layout V** | 4 |
 
-![Referencia pantalla Lista de Solicitudes](../../assets/figma03.png)
+<Image src={figma03} alt="Referencia pantalla Lista de Solicitudes" width={640} height={320} />
 
 ### 🗑️ Estado vacío
 
