@@ -1,20 +1,28 @@
 ---
 title: 'FIGMA CITIZEN'
 code: 'Figma'
-description: 'Master Class: Figma Citizen'
+description: 'Master Class: Figma Citizen — De cero a prototipo profesional usando modelos mentales de CSS'
 pubDate: 'Jul 23 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'
+category: 'design'
+tags: ['figma', 'ui', 'prototipado', 'css', 'flexbox', 'app-design']
+difficulty: 'principiante'
+readingTime: 25
 ---
 
-# Figma — WAIOT App Citizen
+# 🎨 Figma — WAIOT App Citizen
+
+> **🎯 Objetivo de Aprendizaje** — Al final de esta guía, podrás crear un prototipo completo de 10 pantallas en Figma usando modelos mentales de CSS, entendiendo cuándo usar Auto Layout, frames, grupos y componentes. No necesitas experiencia previa en diseño.
+
+> **💡 Enfoque** — Esta guía no te enseña botones de Figma. Te enseña a **pensar** en Figma como si fuera HTML/CSS. Cada concepto tiene una traducción directa a algo que ya conocés del desarrollo web.
 
 ---
 
-## Modelos mentales para entender Figma
+## 🧠 Modelos mentales para entender Figma
 
 Si nunca usaste Figma, pensalo con estas metáforas. Cada una explica un concepto distinto.
 
-### 1. Figma = Photoshop + CSS combinados
+### 1. 🎨 Figma = Photoshop + CSS combinados
 
 Figma es un programa de dibujo vectorial (como Illustrator, no como Paint: podés editar cualquier cosa en cualquier momento) pero con reglas de layout que funcionan **exactamente como CSS flexbox**. Todo lo que dibujás son capas en el panel izquierdo. Cada capa:
 
@@ -25,7 +33,7 @@ Figma es un programa de dibujo vectorial (como Illustrator, no como Paint: podé
 
 Si sabés CSS, ya sabés Figma. Solo tenés que aprender dónde están los botones.
 
-### 2. La metáfora de la pared y los estantes
+### 2. 🧱 La metáfora de la pared y los estantes
 
 Imaginá que la pantalla de iPhone (frame `390×844`) es una **pared**. Cada cosa que ponés adentro es un **estante** clavado en un lugar fijo de la pared.
 
@@ -36,7 +44,7 @@ Imaginá que la pantalla de iPhone (frame `390×844`) es una **pared**. Cada cos
 - Pocas cosas, distintas entre sí → estante común (frame sin Auto Layout)
 - Varias cosas iguales en fila/columna → estante con Auto Layout
 
-### 3. Hug vs Fill (abrazar vs rellenar)
+### 3. 🤗 Hug vs Fill (abrazar vs rellenar)
 
 Cuando un frame tiene Auto Layout, cada hijo puede tener dos comportamientos respecto al ancho/alto:
 
@@ -48,7 +56,7 @@ Cuando un frame tiene Auto Layout, cada hijo puede tener dos comportamientos res
 
 **Ejemplo práctico en el wizard:** La barra de progreso tiene 7 segmentos. Cada segmento usa `Fill container` en ancho para que todos midan lo mismo y ocupen todo el ancho disponible. Si usaran `Fixed`, tendrías que calcular el ancho a mano.
 
-### 4. La pila de papeles (z-index)
+### 4. 📚 La pila de papeles (z-index)
 
 Las capas en el panel izquierdo se apilan como **hojas de papel**. La que está más arriba en la lista tapa a las que están más abajo en la pantalla. No existe `z-index: 999`. El orden se controla arrastrando capas arriba/abajo en el panel.
 
@@ -63,7 +71,7 @@ Panel izquierdo (capas):     Resultado en pantalla:
 
 **Ejemplo real:** Cuando hacés un modal (Editar Perfil), el overlay oscuro y la card blanca tienen que estar **arriba** de todo en el panel de capas, para que tapen el contenido de atrás.
 
-### 5. Constraints (anclas) — solo para frames sin Auto Layout
+### 5. ⚓ Constraints (anclas) — solo para frames sin Auto Layout
 
 Cuando un frame **no** tiene Auto Layout, sus elementos hijos tienen "constraints" (restricciones). Es como clavar algo a un borde y decir "si el padre se agranda, vos te estirás o te quedás pegado a ese borde".
 
@@ -88,7 +96,7 @@ El hijo con constraint "Right" se queda pegado a la derecha:
 
 **Para este prototipo no lo vas a necesitar** porque las pantallas son fijas (390×844). Pero si algún día hacés componentes responsive, acordate de esto.
 
-### 6. Componente = molde (no lo uses en este proyecto)
+### 6. 🏭 Componente = molde (no lo uses en este proyecto)
 
 Un componente es como crear un **molde**. Hacés un botón, lo convertís en componente, y después creás copias (`instances`). Si cambiás el molde original, **todas** las copias se actualizan solas.
 
@@ -96,7 +104,7 @@ Una **variante** es el mismo molde pero con estados diferentes. Ej: un component
 
 **No vamos a usar componentes ni variantes en este prototipo** porque dijiste que no. En su lugar: copiá y pegá (`Ctrl+C` / `Ctrl+V`). Es más trabajo pero más simple de entender.
 
-### 7. Group (Ctrl+G) = fantasma sin cuerpo
+### 7. 👻 Group (Ctrl+G) = fantasma sin cuerpo
 
 `Ctrl+G` agrupa capas visualmente pero el grupo **no tiene cuerpo**. No le podés poner fondo, ni borde, ni Auto Layout. Es solo para mover cosas juntas o para ordenar el panel izquierdo.
 
@@ -111,7 +119,7 @@ Una **variante** es el mismo molde pero con estados diferentes. Ej: un component
 
 **Regla práctica:** Si dudás entre Group y Frame, usá Frame. Siempre. El Group casi nunca es la respuesta correcta para layouts. El Frame te da más control.
 
-### 8. El inspector derecho = DevTools de Chrome
+### 8. 🔍 El inspector derecho = DevTools de Chrome
 
 El panel derecho de Figma es **exactamente como el panel de estilos del DevTools** de Chrome. Cuando seleccionás un elemento, ves:
 
@@ -133,7 +141,7 @@ gap               →     Auto Layout > Gap
 
 **Dato clave:** El color de texto en Figma está en la propiedad **Fill**, igual que el fondo de un rectángulo. No hay `color` separado. Si seleccionás un texto y cambiás Fill, cambiás el color de la letra.
 
-### 9. Selección y navegación
+### 9. 🖱️ Selección y navegación
 
 | Acción | Atajo | Equivalente mental |
 |---|---|---|
@@ -145,7 +153,7 @@ gap               →     Auto Layout > Gap
 | Zoom | `Ctrl` + rueda | `Ctrl` + rueda en el navegador |
 | Ver todo el canvas | `Shift+1` | Fit to screen |
 
-### 10. Resumen: la tabla definitiva de traducción mental
+### 10. 📋 Resumen: la tabla definitiva de traducción mental
 
 | Concepto | En tu cabeza |
 |---|---|
@@ -172,9 +180,11 @@ gap               →     Auto Layout > Gap
 | Constraints | `position: sticky` / anclas a bordes |
 | Prototype (pestaña) | `onClick` + `router.push()` |
 
+> **📌 Idea clave** — Figma no es una herramienta mágica de diseño. Es un navegador donde dibujás `<div>`s con CSS visual. Si entendés HTML y Flexbox, ya entendiste el 80% de Figma. El 20% restante es saber dónde están los botones.
+
 ---
 
-## Setup inicial
+## 🛠️ Setup inicial
 
 `F` → **iPhone 14** (`390 × 844`) → fondo `#F4F8F5`
 
@@ -194,11 +204,11 @@ Colores (copialos en un post-it o tenelos a mano):
 
 ---
 
-## Equivalencia Figma ↔ HTML/CSS
+## 🔄 Equivalencia Figma ↔ HTML/CSS
 
 Si venís del mundo web, pensá cada cosa de Figma como si fuera HTML/CSS:
 
-### Elementos básicos
+### 🧱 Elementos básicos
 
 | Figma | HTML/CSS | Explicación |
 |---|---|---|
@@ -208,7 +218,7 @@ Si venís del mundo web, pensá cada cosa de Figma como si fuera HTML/CSS:
 | **Crear Frame (F)** | Escribir `<div></div>` | Creás un contenedor vacío |
 | **Seleccionar y mover** | `margin` / `position` | Decidís dónde va el elemento |
 
-### Auto Layout = Flexbox
+### 📏 Auto Layout = Flexbox
 
 Auto Layout **es literalmente flexbox de CSS**:
 
@@ -229,7 +239,7 @@ Auto Layout **es literalmente flexbox de CSS**:
 
 **Traducción mental:** Cada vez que en la web harías `display: flex`, en Figma hacés `Shift+A`.
 
-### Estilos visuales
+### 🎨 Estilos visuales
 
 | Figma | CSS |
 |---|---|
@@ -247,7 +257,7 @@ Auto Layout **es literalmente flexbox de CSS**:
 | **Line height** | `line-height: 22px;` |
 | **Text align** | `text-align: center;` |
 
-### Agrupamiento y jerarquía
+### 🗂️ Agrupamiento y jerarquía
 
 | Figma | HTML/CSS |
 |---|---|
@@ -257,7 +267,7 @@ Auto Layout **es literalmente flexbox de CSS**:
 | **Clip content** | `overflow: hidden;` |
 | **Absolute position** | `position: absolute;` |
 
-### Cómo pensarlo: de CSS mental a Figma
+### 💭 Cómo pensarlo: de CSS mental a Figma
 
 | Quiero hacer esto en CSS | En Figma hago |
 |---|---|
@@ -274,21 +284,21 @@ Auto Layout **es literalmente flexbox de CSS**:
 
 ---
 
-## Frame vs Auto Layout: cuándo usar cada uno
+## ⚡ Frame vs Auto Layout: cuándo usar cada uno
 
-### ¿Qué es un Frame?
+### 📦 ¿Qué es un Frame?
 
 Es una **caja contenedora** (`<div>`). La pantalla misma es un frame. Una card es un frame. Un botón es un frame.
 
 Creás un frame: `F` y dibujás → es un rectángulo que puede tener fondo, borde, y cosas adentro.
 
-### ¿Qué es Auto Layout?
+### 🔗 ¿Qué es Auto Layout?
 
 Es una **propiedad que le ponés a un frame** para que los elementos de adentro se organicen solos en fila (horizontal) o columna (vertical), con un espacio fijo entre ellos (`gap`).
 
 Se activa: seleccionás un frame que ya existe → `Shift+A` → elegís dirección → ponés un número en `gap`.
 
-### La diferencia en criollo
+### 🆚 La diferencia en criollo
 
 | Situación | Usá |
 |---|---|
@@ -299,7 +309,7 @@ Se activa: seleccionás un frame que ya existe → `Shift+A` → elegís direcci
 | Tengo un header con logo, texto, gear, client logo | **Frame** a mano, los posiciono yo |
 | Tengo un diálogo modal con título, texto, 2 botones | **Frame** a mano (son 4 cosas distintas) |
 
-### Cuándo SÍ usar Auto Layout
+### ✅ Cuándo SÍ usar Auto Layout
 
 Usalo cuando tenés **3 o más elementos del mismo tipo** que van en fila o columna.
 
@@ -315,7 +325,7 @@ Usalo cuando tenés **3 o más elementos del mismo tipo** que van en fila o colu
 8. **InfoRows en detalle**: rows label|valor → Auto Layout V, gap 0
 9. **Botones Cancelar/Guardar**: en fila → Auto Layout H, gap 12
 
-### Cuándo NO usar Auto Layout
+### ❌ Cuándo NO usar Auto Layout
 
 **Regla de oro**: si son 2 o menos elementos, o si son elementos distintos entre sí → a mano.
 
@@ -329,7 +339,7 @@ Usalo cuando tenés **3 o más elementos del mismo tipo** que van en fila o colu
 - Un select individual (rectángulo + placeholder + flechita)
 - El diálogo de éxito (4 cosas distintas)
 
-### Error común #1: Auto Layout para todo
+### ⚠️ Error común #1: Auto Layout para todo
 
 "Le pongo Auto Layout a la pantalla entera."
 
@@ -337,7 +347,7 @@ Usalo cuando tenés **3 o más elementos del mismo tipo** que van en fila o colu
 
 **Hacé en su lugar:** Nada. Posicioná cada sección a mano con el mouse. Usá `Alt` para ver distancias.
 
-### Error común #2: No usar Auto Layout para listas
+### ⚠️ Error común #2: No usar Auto Layout para listas
 
 "Las 10 cards de solicitud las alineo a ojo."
 
@@ -345,7 +355,7 @@ Usalo cuando tenés **3 o más elementos del mismo tipo** que van en fila o colu
 
 **Hacé en su lugar:** Frame + Auto Layout vertical con `gap: 12`. Cambiás el gap y todo se mueve solo.
 
-### Error común #3: Usar Ctrl+G en vez de Frame
+### ⚠️ Error común #3: Usar Ctrl+G en vez de Frame
 
 `Ctrl+G` (Group) es como un `<div>` sin CSS. No tiene fondo, no tiene borde, no puede tener Auto Layout.
 
@@ -353,7 +363,7 @@ Usalo cuando tenés **3 o más elementos del mismo tipo** que van en fila o colu
 
 **Cuándo usar Frame:** Cuando necesitás fondo, borde, recorte, o Auto Layout.
 
-### Niveles de anidación
+### 🏗️ Niveles de anidación
 
 No anides más de 2 o 3 Auto Layouts dentro de otros. Si llegás a 4, te vas a pelear con Figma. Abrí un frame nuevo a mano.
 
@@ -376,7 +386,7 @@ Frame pantalla + Auto Layout V
                  └─ Auto Layout V  ← demasiado
 ```
 
-### Cómo pensarlo antes de empezar cada pantalla
+### 💡 Cómo pensarlo antes de empezar cada pantalla
 
 Preguntate por cada zona:
 
@@ -385,9 +395,11 @@ Preguntate por cada zona:
 - "¿Esto son 2 o 3 cosas distintas?" → Frame a mano (o Text/Rectangle nomás)
 - "¿Esto va suelto en la pantalla?" → Rectángulo (`R`) o texto (`T`) nomás
 
+> **📌 Idea clave** — La decisión más importante en Figma es cuándo usar Auto Layout. Regla de oro: **3 o más elementos iguales en fila/columna** → Auto Layout. **2 o menos, o elementos distintos** → Frame a mano. Si dudás entre Group y Frame, usá Frame. Siempre.
+
 ---
 
-## Medidas que se repiten en todo
+## 📐 Medidas que se repiten en todo
 
 | Elemento | Ancho × Alto | Fill | Border | Radius |
 |---|---|---|---|---|
@@ -401,7 +413,7 @@ Margen horizontal en toda la app: `16` a cada lado.
 
 ---
 
-## Cómo hacer un Select en Figma
+## 🔽 Cómo hacer un Select en Figma
 
 En Figma no existe un componente "select". Se simula con un rectángulo y texto:
 
@@ -418,7 +430,106 @@ Repetí para todos los selects (son iguales, solo cambia el texto).
 
 ---
 
-## Colores de badges de estado
+## 🔽 Dropdown flotante del Select
+
+El dropdown que se despliega al tocar un select no existe como componente nativo en Figma. Se simula con un **frame flotante** que aparece debajo del campo, superpuesto al contenido. Acá te muestro cómo armarlo paso a paso.
+
+### 🎯 Cómo se ve terminado
+
+```
+┌──────────────────────────────────┐
+│  Seleccionar tipo de tarea   ▾   │  ← select (ya lo tenés)
+└──────────────────────────────────┘
+┌──────────────────────────────────┐  ← dropdown flotante
+│  ✓  Reclamo por recolección      │  ← opción seleccionada
+│  ──────────────────────────────  │
+│     Recolección domiciliaria     │
+│  ──────────────────────────────  │
+│     Recolección de poda          │
+│  ──────────────────────────────  │
+│     Reciclaje                    │
+└──────────────────────────────────┘  ← shadow, radius 12
+```
+
+Cada opción tiene `48` de alto, padding horizontal `16`, y las opciones están separadas por una línea de `1px`.
+
+### 📋 Paso a paso
+
+| # | Icono | Acción |
+|---|-------|--------|
+| 1 | 📦 | Creá un **Frame** (`F`) debajo del select, ancho `360`, alto automático. Llamalo "Dropdown". |
+| 2 | 🎨 | Configurá estilos: `Fill #FFFFFF`, `Stroke #DBE4DE 1px`, `Corner radius 12`. |
+| 3 | 🌑 | Agregá sombra: `Effects → Drop shadow`, `X: 0, Y: 4, Blur: 12`, color `#000000` al `10%`. |
+| 4 | 🔗 | Activá **Auto Layout vertical** (`Shift+A`), `gap: 0`, `padding: 0`. |
+| 5 | 📐 | Creá el **separador**: `R`, alto `1px`, ancho `Fill container`, fill `#DBE4DE`. |
+| 6 | 🧩 | Creá la **primera opción**: Frame + Auto Layout H (`Shift+A`), `paddingH 16`, `paddingV 14`, `align center`, `gap 12`, ancho `Fill container`. |
+| 7 | ✅ | Dentro de la opción: checkmark `✓` (`T`, size `14`, color `#298F66`, weight `600`) + texto (`T`, size `16`, color `#12211B`, `Fill container`). |
+| 8 | 🔁 | Duplicá la fila: `Ctrl+D` a la opción, ponela debajo en el Auto Layout, cambiá el texto y el checkmark. |
+| 9 | 🔄 | Intercalá separador → opción → separador → opción → ... en el Auto Layout V. |
+| 10 | 📚 | En el **panel izquierdo de capas**, arrastrá el dropdown para que esté **arriba** del select (z-index). Esto hace que lo tape visualmente. |
+| 11 | 🗂️ | Seleccioná el select + el dropdown → `Ctrl+G` para agruparlos. Así los movés juntos. |
+
+### 🎨 Opción seleccionada vs sin seleccionar
+
+| Estado | Checkmark | Texto |
+|--------|-----------|-------|
+| **Seleccionada** | `✓` visible, color `#298F66` | color `#298F66`, weight `600` |
+| **Sin seleccionar** | `✓` invisible (opacity `0%`) o borrado | color `#12211B`, weight `Regular` |
+
+**Truco:** creá una sola opción con el checkmark visible y otra sin él. Duplicá la que necesites según el caso.
+
+### 📐 Medidas del dropdown
+
+| Elemento | Medida |
+|----------|--------|
+| Ancho dropdown | `360` (igual al select) |
+| Alto por opción | `48` |
+| Padding horizontal | `16` |
+| Padding vertical | `14` |
+| Separador | alto `1px`, fill `#DBE4DE` |
+| Shadow | `Y: 4, Blur: 12, #000 10%` |
+| Corner radius | `12` |
+
+### 💡 Cómo posicionarlo correctamente
+
+El dropdown debe quedar **justo debajo** del select, sin espacio entre ellos:
+
+```
+Select  ──┐
+           │← 0px de separación
+Dropdown ──┘
+```
+
+Usá `Alt` mientras movés el dropdown para verificar que la distancia al select sea `0`. Si querés que el dropdown tenga un gap chico (ej: `4px`), también lo medís con `Alt`.
+
+El dropdown **no va dentro** del frame del select. Va al mismo nivel en la jerarquía de capas, pero **encima** visualmente:
+
+```
+Panel de capas:            Resultado:
+┌─────────────┐            ┌──────────────────┐
+│ 📋 Dropdown │ ← arriba   │ Seleccionar... ▾ │ ← select
+│ 📦 Select   │ ← abajo    │ ┌──────────────┐ │
+└─────────────┘            │ │ Opción 1     │ │ ← dropdown tapa
+                           │ │ Opción 2     │ │   lo que viene
+                           │ └──────────────┘ │   después
+                           └──────────────────┘
+```
+
+> **💡 Consejo clave** — Hacé un dropdown de ejemplo completo (con 4 opciones), agrupalo con su select, y después `Ctrl+C` / `Ctrl+V` para todos los selects del wizard. Solo cambiá los textos de las opciones. En 2 minutos tenés todos los dropdowns listos.
+
+### ⚠️ Errores comunes
+
+| Error | Consecuencia | Solución |
+|-------|-------------|----------|
+| Meter el dropdown **dentro** del frame del select | El select se agranda, rompe el layout | El dropdown debe estar **fuera**, al mismo nivel |
+| No poner sombra al dropdown | Se confunde con el contenido de atrás | Siempre `Drop shadow` para separarlo |
+| Usar `Fixed height` en el dropdown | Si agregás o sacás opciones, se rompe | Dejá el alto en `Hug contents` |
+| Olvidar el z-index (orden de capas) | El dropdown aparece **detrás** de otros elementos | Arrastralo arriba en el panel de capas |
+| No alinear el ancho del dropdown con el select | Queda desprolijo visualmente | Mismo ancho: `360` |
+
+---
+
+## 🏷️ Colores de badges de estado
 
 | Estado | Hex |
 |---|---|
@@ -434,7 +545,7 @@ Los badges: rectángulo con paddingH `8`, paddingV `2`, radius `8`. Fondo del co
 
 ---
 
-## Guía de tipografía
+## ✍️ Guía de tipografía
 
 | Uso | Tamaño | Peso |
 |---|---|---|
@@ -446,31 +557,31 @@ Los badges: rectángulo con paddingH `8`, paddingV `2`, radius `8`. Fondo del co
 
 ---
 
-## Consejos prácticos
+## 💡 Consejos prácticos
 
-1. **Duplicá pantallas, no las crees de cero.** Hacé la Home → `Ctrl+D` → borrá contenido → armá la siguiente. El header y el fondo ya están.
+1. 🔁 **Duplicá pantallas, no las crees de cero.** Hacé la Home → `Ctrl+D` → borrá contenido → armá la siguiente. El header y el fondo ya están.
 
-2. **Hacé un select de ejemplo y copialo.** Ponelo en una esquina de la página. Cada vez que necesites uno, `Ctrl+C` / `Ctrl+V`, cambiá el texto.
+2. 🧩 **Hacé un select de ejemplo y copialo.** Ponelo en una esquina de la página. Cada vez que necesites uno, `Ctrl+C` / `Ctrl+V`, cambiá el texto.
 
-3. **Alineá con `Alt`.** Mantené `Alt` y mové el mouse sobre otro elemento. Figma te muestra la distancia en pixels.
+3. 📏 **Alineá con `Alt`.** Mantené `Alt` y mové el mouse sobre otro elemento. Figma te muestra la distancia en pixels.
 
-4. **`Ctrl+G` para agrupar** cosas que van juntas (un input + su label, una card entera). Después movés el grupo entero.
+4. 📦 **`Ctrl+G` para agrupar** cosas que van juntas (un input + su label, una card entera). Después movés el grupo entero.
 
-5. **Para el mapa**, un rectángulo gris `#E5E7EB` que ocupe lo que sobra de la pantalla. Texto "Mapa (react-native-maps)" y emojis 📍.
+5. 🗺️ **Para el mapa**, un rectángulo gris `#E5E7EB` que ocupe lo que sobra de la pantalla. Texto "Mapa (react-native-maps)" y emojis 📍.
 
-6. **Para las fotos**, rectángulo gris `#D1D5DB` con texto "Foto" o 🖼. `250` alto en detalle, `80×80` en wizard.
+6. 🖼️ **Para las fotos**, rectángulo gris `#D1D5DB` con texto "Foto" o 🖼. `250` alto en detalle, `80×80` en wizard.
 
-7. **Los badges** son rectángulos chiquitos con texto adentro. Fondo del color al 18%, texto 100%.
+7. 🏷️ **Los badges** son rectángulos chiquitos con texto adentro. Fondo del color al 18%, texto 100%.
 
-8. **El progress bar** se hace con rectángulos finitos (ancho flexible, alto `3`, gap `4`) en Auto Layout H.
+8. 📊 **El progress bar** se hace con rectángulos finitos (ancho flexible, alto `3`, gap `4`) en Auto Layout H.
 
-9. **Bottom sheet**: rectángulo blanco, `borderTopRadius: 20`, alto ~`200`. Handle: `40×4`, radius `2`, centrado, fill `#DBE4DE`.
+9. 📋 **Bottom sheet**: rectángulo blanco, `borderTopRadius: 20`, alto ~`200`. Handle: `40×4`, radius `2`, centrado, fill `#DBE4DE`.
 
-10. **Placeholder**: No existe como propiedad en Figma. Simplemente escribí texto gris (`#677E73`) adentro del campo.
+10. 📝 **Placeholder**: No existe como propiedad en Figma. Simplemente escribí texto gris (`#677E73`) adentro del campo.
 
 ---
 
-## Las 10 pantallas (orden para hacerlas)
+## 📱 Las 10 pantallas (orden para hacerlas)
 
 | # | Pantalla | Complejidad |
 |---|---|---|
@@ -487,7 +598,7 @@ Los badges: rectángulo con paddingH `8`, paddingV `2`, radius `8`. Fondo del co
 
 ---
 
-## Pantalla 1 — Splash
+## 📱 Pantalla 1 — 🚀 Splash
 
 ```
 ┌────────────────────────────┐
@@ -509,7 +620,7 @@ Fondo: rectángulo `390×844`, fill `#298F66`. Todo centrado vertical y horizont
 
 ---
 
-## Pantalla 2 — Registro / Login
+## 📱 Pantalla 2 — 📝 Registro / Login
 
 ```
 ┌────────────────────────────┐
@@ -545,17 +656,17 @@ Fondo: rectángulo `390×844`, fill `#298F66`. Todo centrado vertical y horizont
 
 Card blanca centrada (radius 16, padding 24), 3 inputs iguales uno abajo del otro, botón "Continuar" verde. Esta pantalla reusa el mismo formulario que Edit Profile.
 
-### Versión full-screen (registro inicial)
+### 🆕 Versión full-screen (registro inicial)
 
 Fondo `#F4F8F5`, card blanca centrada, solo botón "Continuar" (sin Cancelar).
 
-### Versión modal (editar perfil)
+### ✏️ Versión modal (editar perfil)
 
 Misma card pero con overlay `rgba(0,0,0,0.45)` de fondo, y 2 botones: Cancelar (borde gris) + Guardar (verde). Título "Editar perfil".
 
 ---
 
-## Pantalla 3 — Home (Dashboard)
+## 📱 Pantalla 3 — 🏠 Home (Dashboard)
 
 ```
 ┌────────────────────────────────┐
@@ -603,7 +714,7 @@ Misma card pero con overlay `rgba(0,0,0,0.45)` de fondo, y 2 botones: Cancelar (
 └────────────────────────────────┘
 ```
 
-### Resumen de Auto Layouts en Home
+### 📊 Resumen de Auto Layouts en Home
 
 | Zona | Tipo | Gap |
 |---|---|---|
@@ -615,7 +726,7 @@ Misma card pero con overlay `rgba(0,0,0,0.45)` de fondo, y 2 botones: Cancelar (
 
 ---
 
-## Pantalla 4 — Lista de Solicitudes
+## 📱 Pantalla 4 — 📋 Lista de Solicitudes
 
 ```
 ┌────────────────────────────────┐
@@ -654,7 +765,7 @@ Misma card pero con overlay `rgba(0,0,0,0.45)` de fondo, y 2 botones: Cancelar (
 └────────────────────────────────┘
 ```
 
-### Resumen de Auto Layouts en SrListScreen
+### 📊 Resumen de Auto Layouts en SrListScreen
 
 | Zona | Tipo | Gap |
 |---|---|---|
@@ -665,7 +776,7 @@ Misma card pero con overlay `rgba(0,0,0,0.45)` de fondo, y 2 botones: Cancelar (
 | Cada card (contenido horizontal) | **Auto Layout H** | 12 |
 | Info dentro de cada card | **Auto Layout V** | 4 |
 
-### Estado vacío
+### 🗑️ Estado vacío
 
 ```
 ┌──────────────────────────────┐
@@ -682,13 +793,13 @@ Misma card pero con overlay `rgba(0,0,0,0.45)` de fondo, y 2 botones: Cancelar (
 └──────────────────────────────┘
 ```
 
-### Modal de borrador
+### 🔄 Modal de borrador
 
 Fondo: rectángulo full-screen `rgba(0,0,0,0.5)`. Card blanca centrada (radius 16, padding 24, maxWidth ~340).
 
 Contenido: icono 📄 (wrap 56×56, radius 28, bg rgba(0,0,0,0.05)), título "Solicitud en progreso" (17 bold), texto (14, textSecondary, centrado), botón "Continuar solicitud" (primary, full width), botón "Empezar una nueva" (secondary, borde, full width).
 
-### Cómo armar la lista paso a paso
+### 🔨 Cómo armar la lista paso a paso
 
 ```
 1. Frame exterior → Auto Layout V, gap 12, padding 16
@@ -712,7 +823,7 @@ Contenido: icono 📄 (wrap 56×56, radius 28, bg rgba(0,0,0,0.05)), título "So
 
 ---
 
-## Pantalla 5 — Mapa de Contenedores
+## 📱 Pantalla 5 — 🗺️ Mapa de Contenedores
 
 ```
 ┌────────────────────────────────┐
@@ -743,7 +854,7 @@ Contenido: icono 📄 (wrap 56×56, radius 28, bg rgba(0,0,0,0.05)), título "So
 └────────────────────────────────┘
 ```
 
-### Bottom Sheet de Contenedor
+### 📋 Bottom Sheet de Contenedor
 
 ```
 ┌──────────────────────────────────────┐
@@ -764,7 +875,7 @@ Contenido: icono 📄 (wrap 56×56, radius 28, bg rgba(0,0,0,0.05)), título "So
 
 Frame: bg white, borderTopLeftRadius 20, borderTopRightRadius 20, padding 24, paddingBottom 40. Todo a mano excepto las 2 rows de info (Auto Layout V, gap 0 con separador).
 
-### Resumen de Auto Layouts en Mapa
+### 📊 Resumen de Auto Layouts en Mapa
 
 | Zona | Tipo | Gap |
 |---|---|---|
@@ -778,7 +889,7 @@ Frame: bg white, borderTopLeftRadius 20, borderTopRightRadius 20, padding 24, pa
 
 ---
 
-## Pantalla 6 — Wizard Crear Solicitud
+## 📱 Pantalla 6 — 🧙 Wizard Crear Solicitud
 
 ### Estructura base (se repite en los 7 pasos)
 
@@ -803,7 +914,7 @@ Frame: bg white, borderTopLeftRadius 20, borderTopRightRadius 20, padding 24, pa
 
 Estrategia: creá este frame base → `Ctrl+D` 6 veces → cambiá solo el contenido de cada paso.
 
-### Paso 1 — TypeStep (Elegir tipo de solicitud)
+### 📍 Paso 1 — TypeStep (Elegir tipo de solicitud)
 
 ```
 ¿Qué tipo de solicitud quieres realizar?  ← 14, textSecondary
@@ -829,7 +940,7 @@ Estrategia: creá este frame base → `Ctrl+D` 6 veces → cambiá solo el conte
 
 Este paso NO tiene botón Siguiente. Avanza al clickear una card.
 
-### Paso 2 — SubtypeStep (Datos del servicio)
+### 📝 Paso 2 — SubtypeStep (Datos del servicio)
 
 ```
 Selecciona el tipo de tarea            ← 14, textSecondary
@@ -856,7 +967,7 @@ Comentarios
          └──────────────────────┘
 ```
 
-### Paso 3 — WasteTypeStep (Tipo de residuo)
+### 🗑️ Paso 3 — WasteTypeStep (Tipo de residuo)
 
 ```
 Selecciona el tipo de residuo          ← 14, textSecondary
@@ -867,7 +978,7 @@ Tipo de residuo
 └──────────────────────────────────┘
 ```
 
-### Paso 4 — LocationStep (Ubicación)
+### 📍 Paso 4 — LocationStep (Ubicación)
 
 ```
 Dirección del servicio                 ← 14, textSecondary
@@ -890,7 +1001,7 @@ Dirección del servicio                 ← 14, textSecondary
 └──────────────────────────────────┘
 ```
 
-### Paso 5 — PhotosStep (Evidencia)
+### 📷 Paso 5 — PhotosStep (Evidencia)
 
 ```
 Añade evidencia fotográfica           ← 14, textSecondary
@@ -906,7 +1017,7 @@ Añade evidencia fotográfica           ← 14, textSecondary
 └──────┘ └──────┘ └──────┘
 ```
 
-### Paso 6 — ContactStep (Datos de contacto)
+### 📞 Paso 6 — ContactStep (Datos de contacto)
 
 ```
 Datos de contacto del solicitante     ← 14, textSecondary
@@ -922,7 +1033,7 @@ Teléfono
 └──────────────────────────────────┘
 ```
 
-### Paso 7 — ConfirmationStep (Resumen y enviar)
+### ✅ Paso 7 — ConfirmationStep (Resumen y enviar)
 
 ```
 Confirma los datos de tu solicitud   ← 14, textSecondary
@@ -950,7 +1061,7 @@ Confirma los datos de tu solicitud   ← 14, textSecondary
          └──────────────────────┘
 ```
 
-### Resumen de Auto Layouts en Wizard
+### 📊 Resumen de Auto Layouts en Wizard
 
 | Zona | Tipo | Gap |
 |---|---|---|
@@ -966,7 +1077,7 @@ Confirma los datos de tu solicitud   ← 14, textSecondary
 
 ---
 
-## Pantalla 7 — Detalle de Solicitud
+## 📱 Pantalla 7 — 🔍 Detalle de Solicitud
 
 ```
 ┌────────────────────────────────┐
@@ -1036,7 +1147,7 @@ Confirma los datos de tu solicitud   ← 14, textSecondary
 └────────────────────────────────┘
 ```
 
-### Resumen de Auto Layouts en SrDetail
+### 📊 Resumen de Auto Layouts en SrDetail
 
 | Zona | Tipo | Gap |
 |---|---|---|
@@ -1047,7 +1158,7 @@ Confirma los datos de tu solicitud   ← 14, textSecondary
 
 ---
 
-## Pantalla 8 — Editar Perfil (modal)
+## 📱 Pantalla 8 — 👤 Editar Perfil (modal)
 
 ```
 ┌────────────────────────────────┐
@@ -1087,7 +1198,7 @@ Misma card, pero fondo `#F4F8F5` (sin overlay), título "¡Bienvenido!", subtít
 
 ---
 
-## Pantalla 9 — Diálogo de Éxito
+## 📱 Pantalla 9 — 🎉 Diálogo de Éxito
 
 ```
 ┌────────────────────────────────┐
@@ -1118,7 +1229,7 @@ Todo a mano (son 5 cosas distintas: check, título, texto, #ID, botón).
 
 ---
 
-## Resumen: qué Auto Layout en cada pantalla
+## 📊 Resumen: qué Auto Layout en cada pantalla
 
 | Pantalla | Auto Layouts |
 |---|---|
@@ -1134,7 +1245,7 @@ Todo a mano (son 5 cosas distintas: check, título, texto, #ID, botón).
 
 ---
 
-## Flujo de navegación
+## 🧭 Flujo de navegación
 
 ```
 Splash
@@ -1154,19 +1265,78 @@ Home ◄─── Tabs ───► SrList ─────► SrDetail
 
 ---
 
-## Checklist final antes de empezar
+> **📌 Idea clave** — Un prototipo de 10 pantallas en Figma se construye con 3 herramientas: **Frame** (tu `<div>`), **Auto Layout** (tu `display: flex`), y **Text** (tu `<p>`). Todo lo demás —selects, badges, botones, cards— son combinaciones de esas tres. No sobre-diseñes. No busques el componente perfecto. Empezá con un rectángulo y un texto.
 
-- [ ] Crear frame 390×844 con fondo #F4F8F5
-- [ ] Tener los colores a mano (post-it o segunda pantalla)
-- [ ] Hacer primer select de ejemplo, copiarlo para reusar
-- [ ] Hacer primer input de ejemplo, copiarlo para reusar
-- [ ] Hacer primer botón primario de ejemplo, copiarlo para reusar
-- [ ] Hacer primer badge de ejemplo, copiarlo para reusar
-- [ ] Empezar por Home (es la más variada, sirve de base)
-- [ ] `Ctrl+D` para cada pantalla nueva
-- [ ] Auto Layout solo para 3+ elementos iguales
-- [ ] `Alt` para verificar distancias
-- [ ] Mapa = rectángulo gris con 📍
-- [ ] Fotos = rectángulo gris con 🖼
-- [ ] No anidar más de 3 Auto Layouts
-- [ ] Wizard: hacer frame base, duplicar 6 veces
+---
+
+## ✅ Checklist final antes de empezar
+
+| # | Check | Categoría |
+|---|-------|-----------|
+| 1 | Crear frame 390×844 con fondo `#F4F8F5` | 📐 Setup |
+| 2 | Tener los colores a mano (post-it o segunda pantalla) | 🎨 Setup |
+| 3 | Hacer primer select de ejemplo, copiarlo para reusar | 🧩 Reutilización |
+| 4 | Hacer primer input de ejemplo, copiarlo para reusar | 🧩 Reutilización |
+| 5 | Hacer primer botón primario de ejemplo, copiarlo para reusar | 🧩 Reutilización |
+| 6 | Hacer primer badge de ejemplo, copiarlo para reusar | 🧩 Reutilización |
+| 7 | Empezar por Home (es la más variada, sirve de base) | 📱 Orden |
+| 8 | `Ctrl+D` para cada pantalla nueva | 📱 Orden |
+| 9 | Auto Layout solo para 3+ elementos iguales | ⚡ Regla |
+| 10 | `Alt` para verificar distancias | 🖱️ Técnica |
+| 11 | Mapa = rectángulo gris con 📍 | 🗺️ Truco |
+| 12 | Fotos = rectángulo gris con 🖼 | 🖼️ Truco |
+| 13 | No anidar más de 3 Auto Layouts | 🏗️ Regla |
+| 14 | Wizard: hacer frame base, duplicar 6 veces | 🧙 Técnica |
+
+---
+
+## 📝 Preguntas de Verificación
+
+Responde cada pregunta basándote en lo aprendido en esta guía. Escribí tus respuestas o compartilas para profundizar tu aprendizaje.
+
+### 📐 Preguntas sobre Modelos Mentales
+
+1. **Traducí**: Un compañero te dice "necesito un contenedor con 3 botones en fila, separados por 12px, centrados verticalmente". ¿Qué creás en Figma y qué propiedades configurás?
+
+2. **Compará**: ¿En qué se diferencia un Group (`Ctrl+G`) de un Frame? ¿En qué situación usarías cada uno?
+
+3. **Identificá**: Un diseñador novato puso Auto Layout a la pantalla entera y no logra alinear el header con el contenido. ¿Qué error cometió y cómo lo arreglarías?
+
+### ⚡ Preguntas sobre Auto Layout
+
+4. **Aplicá**: Tenés que diseñar un formulario con 5 campos (label + input) uno debajo del otro, separados por 20px. ¿Usás Auto Layout? ¿Por qué sí o por qué no?
+
+5. **Depurá**: Una card de solicitud tiene icono + textos + flecha. Los textos son de distinto alto y la flecha queda desalineada. ¿Qué propiedad de Auto Layout soluciona esto?
+
+6. **Diseñá**: Describí cómo crearías la lista de 3 cards de residuos del Home (Domiciliario, Reciclable, Poda) para que ocupen exactamente 1/3 del ancho cada una, con gap de 8px.
+
+### 🔄 Preguntas de Traducción CSS → Figma
+
+7. **Convertí**: Tenés este CSS: `display: flex; flex-direction: column; gap: 16px; padding: 20px; align-items: flex-start;`. Traducilo a acciones concretas en Figma.
+
+8. **Explicá**: ¿Por qué el color de texto en Figma se configura en la propiedad "Fill" y no hay una propiedad separada "Color"? ¿Qué implicancia tiene esto al diseñar?
+
+### 🧠 Preguntas Integradoras
+
+9. **Planificá**: Vas a diseñar la pantalla de SrList desde cero. Enumerá los pasos que seguirías, qué crearías primero, y en qué orden aplicarías los Auto Layouts.
+
+10. **Reflexioná**: Después de leer esta guía, ¿cuál considerás que es el concepto más importante que cambió tu forma de pensar Figma? Justificá tu respuesta.
+
+---
+
+## 🔤 Glosario Rápido
+
+| Término | Definición | Equivalente mental |
+|---------|------------|-------------------|
+| **Auto Layout** | Sistema que ordena elementos automáticamente en fila o columna con espacio fijo | `display: flex` en CSS |
+| **Canvas** | El área de trabajo infinita de Figma (fondo gris) | El viewport del navegador |
+| **Constraints** | Restricciones que anclan un elemento a los bordes de su frame padre | `position: sticky` o anclas |
+| **Fill container** | El elemento se estira para ocupar todo el espacio disponible | `width: 100%` o `flex: 1` |
+| **Frame** | Caja contenedora con sus propios estilos (fondo, borde, padding) | `<div>` con CSS |
+| **Gap** | Espacio fijo entre elementos dentro de un Auto Layout | `gap: 12px` en CSS |
+| **Group** | Agrupación de capas sin estilos propios, solo para organizar o mover | `<div>` sin CSS |
+| **Hug contents** | El frame se ajusta al tamaño de su contenido | `width: fit-content` |
+| **Instancia** | Copia de un componente que se actualiza cuando el original cambia | Instancia de una clase |
+| **Overlay** | Capa semitransparente que cubre el contenido detrás de un modal | `rgba(0,0,0,0.5)` + `position: fixed` |
+| **Padding** | Espacio interno entre el borde del frame y su contenido | `padding: 16px` en CSS |
+| **Variante** | Distintos estados de un mismo componente (ej: Primary / Disabled) | Props o estados de un componente |
