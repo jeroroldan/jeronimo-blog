@@ -399,6 +399,136 @@ Preguntate por cada zona:
 
 ---
 
+## 🎯 Alineación: cómo dejar todo donde querés sin pelearte con Figma
+
+Alinear elementos es lo que más frustración genera al empezar. La sensación de que "nada queda donde debe" es normal. La buena noticia: Figma tiene 3 formas de alinear, y conociendo cuándo usar cada una, el problema desaparece.
+
+### 🧭 Las 3 formas de alinear (y cuándo usarlas)
+
+| Método | Cómo se activa | Cuándo usarlo |
+|--------|---------------|---------------|
+| **Auto Layout** | `Shift+A` → panel derecho (Align) | Cuando los elementos están dentro de un Auto Layout |
+| **Toolbar de alineación** | Seleccionar 2+ elementos → botones arriba | Cuando los elementos están **sueltos** (sin Auto Layout) |
+| **Manual con `Alt`** | `Alt` + mover mouse sobre otro elemento | Para verificar distancias o posicionar cosas únicas |
+
+### 1️⃣ Alinear con Auto Layout (la forma fácil)
+
+Si ya tenés Auto Layout activado, la alineación se controla desde el panel derecho. Es **idéntico a flexbox**:
+
+```
+Panel derecho de Figma:          Equivalente CSS:
+
+Align horizontal                 justify-content
+├─ Left                          justify-content: flex-start
+├─ Center                        justify-content: center
+├─ Right                         justify-content: flex-end
+├─ Space between                 justify-content: space-between
+
+Align vertical                   align-items
+├─ Top                           align-items: flex-start
+├─ Center                        align-items: center
+├─ Bottom                        align-items: flex-end
+```
+
+**Ejemplo concreto:** En una card de solicitud tenés \[icono\] \[textos\] \[flecha ▸\]. La flecha queda desalineada porque los textos tienen distinto alto.
+
+```
+Antes:                              Después:
+┌──────────────────────────────┐    ┌──────────────────────────────┐
+│ ┌──┐   Reclamo        ▸     │    │ ┌──┐   Reclamo              │
+│ │📋│   #1042                 │    │ │📋│   #1042           ▸    │
+│ └──┘   12/05/25              │    │ └──┘   12/05/25              │
+└──────────────────────────────┘    └──────────────────────────────┘
+```
+
+**Solución:** Seleccioná el Auto Layout H de la card → panel derecho → **Align vertical: Center**. Todo se centra solo.
+
+### 2️⃣ Alinear con la toolbar (elementos sueltos)
+
+Cuando los elementos **no** están dentro de un Auto Layout, usás los botones de alineación que aparecen arriba al seleccionar 2 o más elementos:
+
+| Botón | Atajo | Qué hace |
+|-------|-------|----------|
+| Align left | — | Alinea todo al borde izquierdo del más lejano |
+| Align center H | — | Centra horizontalmente respecto al grupo |
+| Align right | — | Alinea todo al borde derecho |
+| Align top | — | Alinea todo al borde superior |
+| Align center V | — | Centra verticalmente respecto al grupo |
+| Align bottom | — | Alinea todo al borde inferior |
+| **Tidy Up** | — | Distribuye con espacio uniforme (mágico) |
+
+**⚠️ Cuidado:** La toolbar alinea respecto al **elemento más lejano** en esa dirección, no al frame padre. Si seleccionás 3 cards y hacés "Align left", las 3 se van al borde izquierdo de la que esté más a la izquierda, no al borde del frame.
+
+### 3️⃣ Posicionamiento manual con `Alt`
+
+Mantené `Alt` y pasá el mouse **sobre otro elemento**. Figma te muestra la distancia en píxeles desde el elemento que tenés seleccionado hasta ese otro elemento.
+
+```
+Tenés seleccionado un botón.
+Alt + mouse sobre el borde derecho de la pantalla:
+
+Botón ←────── 16px ──────→│ borde pantalla
+
+Alt + mouse sobre el elemento de arriba:
+
+Elemento superior
+      ↕ 20px
+Botón seleccionado
+```
+
+**Cuándo usarlo:**
+- Verificar márgenes (¿esto está a 16px del borde?)
+- Posicionar elementos únicos (la card de bienvenida, el header)
+- Revisar consistencia (¿todos los gaps son 12?)
+
+**Tip:** `Alt` también funciona para medir la distancia entre dos elementos que **no** tenés seleccionados. `Alt` + mouse sobre el primero, después `Alt` + mouse sobre el segundo.
+
+### 🎮 Flechas y nudges (ajuste fino)
+
+| Tecla | Movimiento |
+|-------|------------|
+| `←` `→` `↑` `↓` | 1px en esa dirección |
+| `Shift` + flecha | 10px en esa dirección (nudge grande) |
+
+Usá las flechas para el ajuste final después de alinear groseramente con el mouse. Típico: alineás a ojo, después `Alt` para ver que te faltan 3px, y corregís con 3 toques de flecha.
+
+### 🔧 Smart Selection: el secreto mejor guardado
+
+Si seleccionás **varios elementos en fila o columna** (no dentro de Auto Layout), aparecen handles rosados entre ellos:
+
+```
+[Card 1]  ←──●──→  [Card 2]  ←──●──→  [Card 3]
+              ↑
+         handle rosado (drag para ajustar gap)
+```
+
+Arrastrando ese handle rosado cambiás el espacio entre **todos** al mismo tiempo. También podés intercambiar posiciones arrastrando los círculos de las esquinas.
+
+### ✅ Checklist de alineación antes de dar por terminada una pantalla
+
+| # | Verificación | Con qué |
+|---|-------------|---------|
+| 1 | ¿Márgenes horizontales son todos `16`? | `Alt` desde cada elemento al borde |
+| 2 | ¿Gaps entre secciones son consistentes? | `Alt` entre secciones |
+| 3 | ¿Elementos dentro de Auto Layout están centrados? | Panel derecho → Align |
+| 4 | ¿Elementos sueltos están alineados? | Seleccionarlos → toolbar |
+| 5 | ¿Cards de una lista tienen la misma separación? | Smart selection → handle rosado |
+
+### ⚠️ Errores típicos de alineación
+
+| Error | Por qué pasa | Solución |
+|-------|-------------|----------|
+| "Alineo al centro y se van a cualquier lado" | La toolbar alinea al elemento más lejano, no al frame | Creá un frame contenedor y usá Auto Layout |
+| "Las cards de la lista no quedan parejas" | Las moviste a mano una por una | Metelas en Auto Layout V con gap fijo |
+| "El texto y el icono no se centran" | No activaste `Align center` en el Auto Layout | Panel derecho → Align vertical → Center |
+| "Mido con Alt y los números no coinciden" | Estás midiendo al borde del frame, no al contenido | Medí al contenido (texto, icono), no al frame |
+| "Uso flechas y se mueve de a 10px" | Tenés `Shift` activado sin querer | Soltá `Shift`, mové de a 1px |
+| "Alineo todo y al agrandar la pantalla se rompe" | Usaste posicionamiento manual en vez de Auto Layout | Auto Layout + Fill container para que escale solo |
+
+> **📌 Idea clave** — Si estás peleándote con la alineación, probablemente deberías estar usando Auto Layout. El 90% de los problemas de alineación se resuelven con `Shift+A` + `Align center`. Si no necesitás Auto Layout para el layout, usalo igual solo para centrar: lo activás, centrás, y si querés lo desactivás después.
+
+---
+
 ## 📐 Medidas que se repiten en todo
 
 | Elemento | Ancho × Alto | Fill | Border | Radius |
