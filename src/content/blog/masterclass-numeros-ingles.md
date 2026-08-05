@@ -268,6 +268,45 @@ Solo la ÚLTIMA palabra se vuelve ordinal:
 
 > **Regla** ✅ — *twenty-first*, no "twentieth-first". El ordinal va al final.
 
+### 2.6 Explicación simple: ordinales vs cardinales 🧩
+
+Los **números ordinales** expresan **orden o posición** en una secuencia (1.º, 2.º, 3.º...) 🥇🥈🥉, a diferencia de los **cardinales** que cuentan cantidades (1, 2, 3...).
+
+| Tipo | Función | Ejemplo |
+|------|---------|---------|
+| **Cardinal** | Cuenta cantidad | one, two, three |
+| **Ordinal** | Indica posición | first, second, third |
+
+**Reglas rápidas:**
+
+- 🔥 **1.º, 2.º y 3.º** tienen formas únicas:
+  - `1st` = **first**
+  - `2nd` = **second**
+  - `3rd` = **third**
+- ➕ A partir del **4.º (4th)** casi todos añaden **-th** al final:
+  - `four` → **fourth**
+  - `eighteen` → **eighteenth**
+- 🔄 Las **decenas exactas** (20, 30, 90...) cambian la **y** por **-ieth**:
+  - `ninety` (90) → **ninetieth** (90.º)
+- 🧩 Los **números compuestos** solo cambian la ÚLTIMA cifra:
+  - `31` → thirty + first = **thirty-first**
+
+### 2.7 Truco para acordarte siempre 🧠
+
+**La regla "1, 2, 3 = ST, ND, RD"** (las terminaciones de la abreviatura):
+
+| Número | Abreviatura | Palabra |
+|--------|-------------|---------|
+| 1 | **1st** | first |
+| 2 | **2nd** | second |
+| 3 | **3rd** | third |
+
+**Todo lo demás** → acaba en **-th**: fourth, fifth, eighth... 👈
+
+> **Consejo clave para ejercicios de escribir** ✍️ — Cuando tengas que elegir una palabra entre opciones, fíjate en el número entre paréntesis:
+> - Si termina en **8** (18th) → busca la palabra que empiece igual que 18: **eighteen + th = eighteenth**.
+> - Si termina en **0** (90) → busca la opción que termine en **-tieth**: **ninetieth**.
+
 ---
 
 ## PARTE 3: FECHAS — A SOBREVIVIR EN EL MUNDO REAL 📅
