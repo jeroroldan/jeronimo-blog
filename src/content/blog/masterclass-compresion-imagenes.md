@@ -79,11 +79,15 @@ flowchart LR
 
 ---
 
-## PARTE 1: EL SECRETO — LA PERCEPCIÓN HUMANA 👁️
+## PARTE 1: EL SECRETO — LA PERCEPCIÓN HUMANA 👁️✨
 
-### 1.1 Principio Central 💡
+### 1.1 Principio Central 💡🔑
 
-El ojo humano **no puede percibir todos los colores con la misma sensibilidad**. Los sensores fotográficos capturan mucho más detalle del que podemos apreciar, y los formatos con pérdida aprovechan esta característica para comprimir imágenes de manera eficiente.
+El ojo humano **no puede percibir todos los colores con la misma sensibilidad** 👀. Los sensores fotográficos capturan mucho más detalle del que podemos apreciar, y los formatos con pérdida aprovechan esta característica para comprimir imágenes de manera eficiente 🗜️.
+
+![Bits & Bytes](../../assets/bistbytes.png)
+
+> **Ilustración** 🖼️ — Todo archivo de imagen al final es una secuencia de **bits y bytes** 💾. Comprimir es reducir esa secuencia sin que el ojo note la diferencia.
 
 ```mermaid
 flowchart TD
@@ -93,9 +97,9 @@ flowchart TD
     D --> E[Archivo mas pequeno, mismo aspecto]
 ```
 
-> **Tip del profe** 🧠 — Somos mucho más sensibles a cambios de **luminancia** (luz) que a cambios **cromáticos** (color). Por eso la compresión "engaña" al ojo eliminando color imperceptible, no luz.
+> **Tip del profe** 🧠 — Somos mucho más sensibles a cambios de **luminancia** (luz) 💡 que a cambios **cromáticos** (color) 🎨. Por eso la compresión "engaña" al ojo eliminando color imperceptible, no luz.
 
-### 1.2 Qué significa "percepción limitada"
+### 1.2 Qué significa "percepción limitada" 🔍🧩
 
 | Capacidad | Lo que pasa | Por qué importa |
 |-----------|------------|-----------------|
@@ -106,9 +110,9 @@ flowchart TD
 
 ---
 
-## PARTE 2: JPG — EL REY DE LA FOTOGRAFÍA 📸
+## PARTE 2: JPG — EL REY DE LA FOTOGRAFÍA 📸📷
 
-### 2.1 Qué es y por qué revolucionó el mundo
+### 2.1 Qué es y por qué revolucionó el mundo 🌟
 
 El formato **JPG** (Joint Photographic Experts Group) revolucionó la fotografía digital desde su creación en **1992** 🎉. Su efectividad radica en un principio simple pero poderoso: aprovechar que el ojo no distingue todo el color capturado.
 
@@ -183,9 +187,9 @@ El tuego de los **bloques** es crucial para la calidad final:
 
 ---
 
-## PARTE 3: PNG — CALIDAD SIN PÉRDIDA Y TRANSPARENCIA 🛡️
+## PARTE 3: PNG — CALIDAD SIN PÉRDIDA Y TRANSPARENCIA 🛡️✨
 
-### 3.1 Qué es y cuándo brillA
+### 3.1 Qué es y cuándo brillA 💎
 
 El formato **PNG** (Portable Network Graphics) ofrece una alternativa con características distintas al JPG:
 
@@ -223,7 +227,7 @@ Una ventaja significativa del PNG es su capacidad para manejar **transparencias*
 
 ## PARTE 4: MEDIOS DE VISUALIZACIÓN — RGB vs CMYK 🖥️🖨️
 
-### 4.1 La diferencia fundamental
+### 4.1 La diferencia fundamental 🎯
 
 Es importante entender cómo se representan los colores en diferentes medios:
 
@@ -240,7 +244,7 @@ flowchart LR
 
 > **Tip** 💡 — RGB va desde la ausencia total de color (**negro**) hasta la presencia total (**blanco**). CMYK funciona con tinta sobre papel, por eso el negro se suma aparte.
 
-### 4.2 ¿Por qué importa para JPG/PNG?
+### 4.2 ¿Por qué importa para JPG/PNG? 🔍
 
 Esta diferencia fundamental explica por qué los formatos digitales como JPG y PNG están optimizados para **visualización en pantalla** (RGB), mientras que para impresión profesional se requieren otros procesos de conversión (a CMYK).
 
@@ -250,7 +254,7 @@ Esta diferencia fundamental explica por qué los formatos digitales como JPG y P
 
 ## PARTE 5: DECISIÓN — ¿CUÁNDO USAR CADA UNO? 🤔
 
-### 5.1 Matriz de elección
+### 5.1 Matriz de elección 📊🧭
 
 La elección entre JPG y PNG dependerá siempre del uso específico, considerando factores como la necesidad de transparencia, la calidad requerida y las limitaciones de almacenamiento o ancho de banda.
 
@@ -279,7 +283,7 @@ flowchart TD
 
 ## PARTE 6: TRAMPA COMÚN — NO CAIGAS 💀🚫
 
-### 6.1 Errores que te delatan como principiante
+### 6.1 Errores que te delatan como principiante 🚫⚠️
 
 | Error ❌ | Correcto ✅ |
 |---------|-------------|
