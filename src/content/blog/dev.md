@@ -1,6 +1,6 @@
 ---
 title: 'Masterclass DevOps: Guía Completa de Despliegues para Startups'
-code: 'devops'
+code: 'DevOps'
 description: 'Guía Completa de Despliegues para Startups'
 pubDate: 'Jun 19 2024'
 heroImage: '../../assets/blog-placeholder-1.jpg'
