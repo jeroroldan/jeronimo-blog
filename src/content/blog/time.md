@@ -2,7 +2,7 @@
 title: 'Masterclass: Telling the Time in English'
 code: 'ingles'
 description: 'Guía completa para dominar cómo decir la hora en inglés'
-pubDate: 'Ago 19 2026'
+pubDate: 'Jun 19 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
