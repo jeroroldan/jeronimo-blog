@@ -2,7 +2,7 @@
 title: "Guía: Despliegue de API Express y PostgreSQL en Railway"
 description: "Lleva tu aplicación del entorno local a producción. Aprende a configurar Railway, conectar bases de datos en la nube y gestionar variables de entorno."
 pubDate: "2026-04-19"
-code: "deploy-node-railway-guia"
+code: "devops"
 category: "devops"
 tags: ["deployment", "railway", "postgresql", "cloud", "backend"]
 difficulty: "intermedio"
