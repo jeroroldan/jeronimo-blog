@@ -1,6 +1,6 @@
 ---
 title: 'Guía Práctica: Cultura DevOps Moderna'
-code: 'DevOps'
+code: 'Devops'
 description: 'DevOps como cultura: responsabilidad, automatización, observabilidad y disponibilidad para equipos de alto rendimiento.'
 pubDate: 'Apr 14 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'

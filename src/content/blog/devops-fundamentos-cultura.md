@@ -2,7 +2,7 @@
 title: "Master Class: Fundamentos y Cultura DevOps"
 description: "Más que herramientas, DevOps es una cultura. Descubre las 8 etapas del proceso, la automatización y cómo transforma el ciclo de vida del software."
 pubDate: "2026-04-19"
-code: "devops-fundamentos-cultura"
+code: "devops"
 category: "devops"
 tags: ["devops", "agile", "automatizacion", "cultura-it", "ingenieria-software"]
 difficulty: "intermedio"

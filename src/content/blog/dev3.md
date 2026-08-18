@@ -1,6 +1,6 @@
 ---
 title: "DevOps"
-code: "dev3"
+code: "devops"
 description: "DevOps Masterclass"
 pubDate: "2026-06-19"
 heroImage: "../../assets/blog-placeholder-1.jpg"
