@@ -20,6 +20,13 @@ export default defineConfig({
 		logHandlers.console(),
 		logHandlers.json(),
 	),
+	vite: {
+		server: {
+			// Reduce dev-server module-runner load that triggers the
+			// "transport invoke timed out" CSS error on Windows.
+			preTransformRequests: false,
+		},
+	},
 	integrations: [
 		expressiveCode({
 			shiki: {
