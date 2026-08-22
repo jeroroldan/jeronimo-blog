@@ -38,6 +38,7 @@ export default defineConfig({
 					gitignore: 'ini',
 					figma: 'text',
 					txt: 'text',
+					promql: 'text',
 				},
 				langs: [
 					{
