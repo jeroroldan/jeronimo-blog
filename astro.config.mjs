@@ -26,12 +26,6 @@ export default defineConfig({
 			// "transport invoke timed out" CSS error on Windows.
 			preTransformRequests: false,
 		},
-		build: {
-			rollupOptions: {
-				// This can help with memory usage on Windows
-				maxMemoryLimit: '1.5G',
-			},
-		},
 	},
 	integrations: [
 		expressiveCode({
