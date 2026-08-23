@@ -15,7 +15,7 @@ readingTime: 45
 
 ## 🎯 INTRODUCCIÓN: POR QUÉ ESTE MASTERCLASS ES DIFERENTE 💡🌟
 
-La procrastinación NO es un problema de gestión del tiempo. No es vagancia. No es falta de voluntad. Es **neurociencia emocional disfrazada de pereza**.
+🚫 La procrastinación NO es un problema de gestión del tiempo ⏰. No es vagancia 💤. No es falta de voluntad 🧱. Es **neurociencia emocional disfrazada de pereza** 😴✨.
 
 La mayoría de las personas creen que necesitan "mejor planificación" o "más disciplina". Pero cuando tu amígdala detecta una amenaza emocional (fracaso, juicio, esfuerzo), tu cerebro activa el escape ANTES de que tu cortex prefrontal pueda decidir con lógica. ⚡🧠
 
@@ -121,12 +121,12 @@ Este loop es el **mecanismo neuronal de la procrastinación**. 🧠 Cada escape 
 
 ```
 🔁 Mapeo personal del bucle:
-1. Tarea que evito: ________________
-2. Emoción real detrás: ________________ (miedo, ansiedad, aburrimiento, juicio)
-3. Actividad de escape: ________________ (celular, redes, limpiar, etc.)
-4. Refuerzo que recibo: ________________ (dopamina, alivio, distracción)
-5. Culpa después: ________________ ("debería haber...")
-6. Palabra clave para romper: ________________ (ej: "ALTO", "STOP", "AHORA")
+1. 🎯 Tarea que evito: ________________
+2. 😰 Emoción real detrás: ________________ (miedo, ansiedad, aburrimiento, juicio)
+3. 📱 Actividad de escape: ________________ (celular, redes, limpiar, etc.)
+4. 🍬 Refuerzo que recibo: ________________ (dopamina, alivio, distracción)
+5. 😞 Culpa después: ________________ ("debería haber...")
+6. 🛑 Palabra clave para romper: ________________ (ej: "ALTO", "STOP", "AHORA")
 ```
 
 ### 1.5 🧪 Código de visualización del loop neuronal (Python + Matplotlib) 💻📊
@@ -237,7 +237,7 @@ Basado en la **Terapia Cognitivo-Conductual de Aaron Beck** 🧠⚕️, Álvaro 
 
 "Reconoce qué tarea evitas y, sobre todo, qué emoción te genera. Ponerle nombre ayuda a ganar perspectiva." — (14:27 - 15:54) 💬
 
-**Técnica "Nombrar sin juzgar" (Labeling):**
+**🏷️ Técnica "Nombrar sin juzgar" (Labeling):**
 
 1. ¿Qué tarea estoy evitando? 📋
 2. ¿Qué emoción tengo? (miedo, ansiedad, aburrimiento, juicio) 😰😨😤
@@ -301,7 +301,7 @@ class ProcrastinationJournal:
 
 "Convierte la tarea en algo tan pequeño que tu cerebro no active la alarma." — (15:57 - 16:28) 🧠✅
 
-**Técnica de micro-tareas:**
+**🐢⚡ Técnica de micro-tareas:**
 
 | Tarea original 🎯 | Tarea ridícula 🐢 | Tiempo estimado ⏱️ | Por qué funciona 🧠 |
 |-------------------|-------------------|-------------------|---------------------|
@@ -316,18 +316,18 @@ class ProcrastinationJournal:
 ```
 🐢 Transforma estas tareas en versiones ridículas:
 
-1. "Escribir artículo completo" → ________________ (meta: < 2 min)
-2. "Estudiar 3 capítulos" → ________________ (meta: < 2 min)
-3. "Hacer presentación" → ________________ (meta: < 2 min)
-4. "Llamar al banco" → ________________ (meta: < 2 min)
-5. "Limpiar garage" → ________________ (meta: < 2 min)
+1. ✍️ "Escribir artículo completo" → ________________ (meta: < 2 min)
+2. 📚 "Estudiar 3 capítulos" → ________________ (meta: < 2 min)
+3. 📊 "Hacer presentación" → ________________ (meta: < 2 min)
+4. ☎️ "Llamar al banco" → ________________ (meta: < 2 min)
+5. 🧹 "Limpiar garage" → ________________ (meta: < 2 min)
 ```
 
 ### 3.3 ⏱️ Paso 3: La Regla de los 5 Minutos ⏱️🔥
 
 "Comprométete a trabajar solo 5 minutos. Esto elimina la presión del resultado y ayuda a construir una nueva identidad como alguien que actúa sin importar su estado de ánimo." — (17:40 - 19:14) 🚀
 
-**Protocolo completo de la Regla 5 Minutos:**
+**⏱️🔥 Protocolo completo de la Regla 5 Minutos:**
 
 | Paso 📋 | Acción ⚡ | Detalle 📝 |
 |---------|---------|------------|
@@ -389,7 +389,7 @@ class FiveMinuteRule:
 
 ### 4.1 🏫 I Do — Identificar el avoidance loop en vivo 🎯🔥
 
-**Objetivo:** experimentar el circuito neuronal y aprender a interrumpirlo. 🧠
+**🎯 Objetivo:** experimentar el circuito neuronal y aprender a interrumpirlo. 🧠💡
 
 | Paso 🚶 | Acción ⚡ | Resultado esperado ✅ |
 |---------|---------|----------------------|
@@ -435,7 +435,7 @@ class FiveMinuteRule:
 
 ### 4.3 🎯 You Do — Construir tu sistema anti-procrastinación personal 🛠️🚀
 
-**Tarea:** diseña un sistema basado en CBT con 4 componentes:
+**🎯🛠️ Tarea:** diseña un sistema basado en CBT con 4 componentes:
 
 | Componente 🧩 | Acción ⚡ | Alerta de fallo 🔔 |
 |---------------|---------|-------------------|
@@ -444,7 +444,7 @@ class FiveMinuteRule:
 | ⏱️ 5 minutos | Compromiso consciente con timer | Sin compromiso en 7 días 📅 |
 | 📊 Registro | Bitácora de bucles rotos (app o papel) | Sin registro en 14 días 📅 |
 
-**Criterios de éxito:**
+**🏆✅ Criterios de éxito:**
 
 | Criterio 📊 | Peso ⚖️ |
 |-------------|---------|
@@ -456,7 +456,7 @@ class FiveMinuteRule:
 
 ### 4.4 🔧 I Do — Mapear el avoidance loop con diagrama de flujo 🗺️💻
 
-**Objetivo:** visualizar tu propio loop neuronal. 🧠
+**🎯 Objetivo:** visualizar tu propio loop neuronal. 🧠🗺️
 
 ```mermaid
 flowchart TD
@@ -481,7 +481,7 @@ flowchart TD
 
 ### 4.5 👥 We Do — Role play: interrumpir el loop en grupo 🎭👥
 
-**Roles:**
+**🎭 Roles:**
 
 | Rol 🎭 | Responsabilidad ⚡ |
 |--------|-------------------|
@@ -490,7 +490,7 @@ flowchart TD
 | **Coach CBT** 🧠 | Aplica las 3 preguntas de Beck |
 | **Verificador** ✅ | Acuerda micro-tarea y follow-up en 1 hora |
 
-**Preguntas del Coach CBT:**
+**❓ Preguntas del Coach CBT:**
 
 1. ¿Qué evitas sentir si empiezas esta tarea? 🤔
 2. ¿Qué evidencia tienes de que tu predicción negativa es cierta? 🔍
@@ -500,7 +500,7 @@ flowchart TD
 
 ### 4.6 🎯 You Do — Sistema de monitoreo personal con dashboard 📊🖥️
 
-**Tarea:** crea un dashboard mínimo con estos widgets:
+**🎯📊 Tarea:** crea un dashboard mínimo con estos widgets:
 
 | Widget 📊 | Métrica 📈 | Alerta 🔔 | Acción ⚡ |
 |-----------|-----------|----------|----------|
