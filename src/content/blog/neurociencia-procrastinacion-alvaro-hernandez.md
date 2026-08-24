@@ -11,11 +11,9 @@ readingTime: 45
 
 # 🧠🔥 MASTERCLASS: La Neurociencia de la Procrastinación — Rompiendo el Bucle de Evitación ✨🚀
 
-![🧠 La Neurociencia de la Procrastinación](../../assets/procratisnacion.jpg)
+![🧠 La Neurociencia de la Procrastinación](../../assets/procratisnacion.jpg){style="z-index: 1000; position: relative; margin-top: -20px;"}
 
 ## 🎯 INTRODUCCIÓN: POR QUÉ ESTE MASTERCLASS ES DIFERENTE 💡🌟
-
-🚫 La procrastinación NO es un problema de gestión del tiempo ⏰. No es vagancia 💤. No es falta de voluntad 🧱. Es **neurociencia emocional disfrazada de pereza** 😴✨.
 
 La mayoría de las personas creen que necesitan "mejor planificación" o "más disciplina". Pero cuando tu amígdala detecta una amenaza emocional (fracaso, juicio, esfuerzo), tu cerebro activa el escape ANTES de que tu cortex prefrontal pueda decidir con lógica. ⚡🧠
 
