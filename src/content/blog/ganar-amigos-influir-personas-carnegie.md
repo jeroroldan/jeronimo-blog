@@ -11,7 +11,7 @@ readingTime: 50
 
 # 🤝🔥 MASTERCLASS: Cómo Ganar Amigos e Influir Sobre las Personas — Los 12 Principios de Dale Carnegie Aplicados al Emprendimiento ✨🚀
 
-![🤝 Cómo Ganar Amigos e Influir Sobre las Personas](../../assets/amigos.jpg){style="z-index: 1000; position: relative; margin-top: -20px;"}
+![🤝 Cómo Ganar Amigos e Influir Sobre las Personas](../../assets/amigos.jpg)
 
 ## 🎯 INTRODUCCIÓN: POR QUÉ ESTE MASTERCLASS ES DIFERENTE 💡🌟
 

@@ -11,7 +11,7 @@ readingTime: 35
 
 # 🎉🔥 MASTERCLASS: La Técnica del PR para la Socialización Magnética — El Método de Héctor Latorre para Conectar en Fiestas y Eventos ✨🚀
 
-![🎉 La Técnica del PR para la Socialización Magnética](../../assets/sedu.jpg){style="z-index: 1000; position: relative; margin-top: -20px;"}
+![🎉 La Técnica del PR para la Socialización Magnética](../../assets/sedu.jpg)
 
 ## 🎯 INTRODUCCIÓN: POR QUÉ ESTE MASTERCLASS ES DIFERENTE 💡🌟
 

@@ -11,7 +11,7 @@ readingTime: 45
 
 # 🧠🔥 MASTERCLASS: La Neurociencia de la Procrastinación — Rompiendo el Bucle de Evitación ✨🚀
 
-![🧠 La Neurociencia de la Procrastinación](../../assets/procratisnacion.jpg){style="z-index: 1000; position: relative; margin-top: -20px;"}
+![🧠 La Neurociencia de la Procrastinación](../../assets/procratisnacion.jpg)
 
 ## 🎯 INTRODUCCIÓN: POR QUÉ ESTE MASTERCLASS ES DIFERENTE 💡🌟
 

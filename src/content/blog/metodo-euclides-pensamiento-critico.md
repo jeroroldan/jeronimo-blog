@@ -11,7 +11,7 @@ readingTime: 45
 
 # 📐🔥 MASTERCLASS: El Método de Euclides para el Pensamiento Crítico — 4 Habilidades Milenarias Aplicadas a la Resolución de Problemas ✨🚀
 
-![📐 El Método de Euclides para el Pensamiento Crítico](../../assets/cuestionar.jpg){style="z-index: 1000; position: relative; margin-top: -20px;"}
+![📐 El Método de Euclides para el Pensamiento Crítico](../../assets/cuestionar.jpg)
 
 ## 🎯 INTRODUCCIÓN: POR QUÉ ESTE MASTERCLASS ES DIFERENTE 💡🌟
 
