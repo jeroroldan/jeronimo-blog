@@ -5,6 +5,7 @@ import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
+import ReadIndicator from "../../components/ReadIndicator.astro";
 import { SITE_TITLE } from "../../consts";
 import DefaultImage from "../../assets/blog-placeholder-1.jpg";
 
@@ -166,7 +167,7 @@ const posts = allPosts
             {
               posts.map((post) => (
                 <li class="post-item">
-                  <a href={`/blog/${post.id}/`} class="post-card">
+                  <a href={`/blog/${post.id}/`} class="post-card" data-slug={post.id}>
                     <div class="image-wrapper">
                       <Image
                         width={720}
