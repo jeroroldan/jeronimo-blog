@@ -1,0 +1,755 @@
+---
+import { getCollection } from 'astro:content';
+import { ClientRouter } from 'astro:transitions';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+const allPosts = await getCollection('blog');
+const totalPosts = allPosts.length;
+
+const catCounts = new Map<string, number>();
+for (const post of allPosts) {
+	const cat = post.data.category?.trim();
+	if (!cat) continue;
+	catCounts.set(cat, (catCounts.get(cat) ?? 0) + 1);
+}
+const categories = [...catCounts.entries()].sort((a, b) => b[1] - a[1]);
+const maxCatCount = Math.max(1, ...categories.map(([, count]) => count));
+
+const now = new Date();
+const months: { key: string; label: string; count: number }[] = [];
+for (let i = 11; i >= 0; i--) {
+	const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+	const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+	months.push({ key, label: d.toLocaleDateString('es', { month: 'short' }).replace('.', ''), count: 0 });
+}
+const monthIndex = new Map(months.map((m) => [m.key, m]));
+for (const post of allPosts) {
+	const d = post.data.pubDate;
+	const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+	const month = monthIndex.get(key);
+	if (month) month.count++;
+}
+const maxMonthCount = Math.max(1, ...months.map((m) => m.count));
+
+const postsWithTime = allPosts.filter((p) => typeof p.data.readingTime === 'number');
+const totalReadingMinutes = postsWithTime.reduce((acc, p) => acc + (p.data.readingTime ?? 0), 0);
+
+const postsMeta = allPosts.map((post) => ({
+	id: post.id,
+	category: post.data.category?.trim() || '',
+	readingTime: typeof post.data.readingTime === 'number' ? post.data.readingTime : 0,
+}));
+
+const generatedAt = new Date().toLocaleDateString('es', {
+	day: 'numeric',
+	month: 'long',
+	year: 'numeric',
+});
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead
+			title="Mi Progreso"
+			description="Métricas de tu progreso de lectura y estadísticas del contenido del blog."
+		/>
+		<ClientRouter />
+	</head>
+	<body>
+		<Header />
+		<main class="dashboard-container">
+			<header class="dash-hero">
+				<h1>Mi Progreso</h1>
+				<p>Tu avance de lectura y la evolución del blog, todo en un solo lugar.</p>
+				<span class="dash-date">Actualizado al {generatedAt}</span>
+			</header>
+
+			<section class="dash-top">
+				<article class="card card-ring">
+					<h2>Progreso general</h2>
+					<div class="ring">
+						<svg viewBox="0 0 200 200" role="img" aria-label="Porcentaje de artículos leídos">
+							<circle class="ring-track" cx="100" cy="100" r="80"></circle>
+							<circle
+								class="ring-fill"
+								cx="100"
+								cy="100"
+								r="80"
+								stroke-dasharray="502.66"
+								stroke-dashoffset="502.66"
+							></circle>
+						</svg>
+						<div class="ring-center">
+							<strong id="ring-percent">0%</strong>
+							<span>completado</span>
+						</div>
+					</div>
+					<p class="ring-summary">
+						<span id="kpi-read">0</span> de <span id="kpi-total">{totalPosts}</span> artículos leídos
+					</p>
+				</article>
+
+				<div class="kpi-grid">
+					<article class="card kpi-card">
+						<span class="kpi-icon">🔥</span>
+						<strong class="kpi-value" id="kpi-streak">0</strong>
+						<span class="kpi-label">Racha actual<br /><small>días consecutivos</small></span>
+					</article>
+					<article class="card kpi-card">
+						<span class="kpi-icon">🏆</span>
+						<strong class="kpi-value" id="kpi-best">0</strong>
+						<span class="kpi-label">Mejor racha<br /><small>récord histórico</small></span>
+					</article>
+					<article class="card kpi-card">
+						<span class="kpi-icon">⏱️</span>
+						<strong class="kpi-value" id="kpi-minutes">0</strong>
+						<span class="kpi-label">Minutos leídos<br /><small>tiempo invertido</small></span>
+					</article>
+					<article class="card kpi-card">
+						<span class="kpi-icon">📚</span>
+						<strong class="kpi-value">{totalReadingMinutes.toLocaleString('es')}</strong>
+						<span class="kpi-label">Minutos disponibles<br /><small>biblioteca completa</small></span>
+					</article>
+				</div>
+			</section>
+
+			<div id="empty-banner" class="empty-banner" hidden>
+				<span class="empty-icon">🚀</span>
+				<div>
+					<strong>Todavía no hay lectura registrada.</strong>
+					<p>Cuando termines un artículo se marcará como leído y tus métricas aparecerán acá.</p>
+				</div>
+				<a href="/blog" class="empty-cta">Empezar a leer</a>
+			</div>
+
+			<section class="card section-card">
+				<h2>Actividad de lectura</h2>
+				<p class="section-sub">Artículos leídos por día durante las últimas 15 semanas.</p>
+				<div class="heatmap-scroll">
+					<div class="heatmap" id="heatmap"></div>
+				</div>
+				<div class="heatmap-footer">
+					<span>Días activos: <strong id="kpi-active-days">0</strong></span>
+					<div class="heatmap-legend">
+						<span>Menos</span>
+						<span class="hm-cell lvl-0"></span>
+						<span class="hm-cell lvl-1"></span>
+						<span class="hm-cell lvl-2"></span>
+						<span class="hm-cell lvl-3"></span>
+						<span class="hm-cell lvl-4"></span>
+						<span>Más</span>
+					</div>
+				</div>
+			</section>
+
+			<div class="dash-columns">
+				<section class="card section-card" data-max={maxCatCount}>
+					<h2>Progreso por categoría</h2>
+					<p class="section-sub">La parte sólida indica cuántos artículos leíste de cada tema.</p>
+					{
+						categories.map(([cat, count]) => (
+							<div class="cat-row" data-total={count}>
+								<a class="cat-name" href={`/blog?category=${encodeURIComponent(cat)}`}>
+									{cat}
+								</a>
+								<div class="cat-bar">
+									<div class="cat-bar-total" style={`width:${(count / maxCatCount) * 100}%`} />
+									<div class="cat-bar-read" data-cat={cat} />
+								</div>
+								<span class="cat-count">{count}</span>
+							</div>
+						))
+					}
+				</section>
+
+				<section class="card section-card">
+					<h2>Publicaciones por mes</h2>
+					<p class="section-sub">Nuevos artículos publicados en los últimos 12 meses.</p>
+					<div class="months-chart">
+						{
+							months.map((month) => (
+								<div class="month-col" title={`${month.count} publicación(es)`}>
+									<span class="month-value">{month.count > 0 ? month.count : ''}</span>
+									<div class="month-track">
+										<div class="month-bar" style={`height:${(month.count / maxMonthCount) * 100}%`} />
+									</div>
+									<span class="month-label">{month.label}</span>
+								</div>
+							))
+						}
+					</div>
+				</section>
+			</div>
+
+			<script type="application/json" id="posts-meta" set:html={JSON.stringify(postsMeta)} />
+
+			<script>
+				import { getReadEntries } from '../lib/readStatus';
+
+				type PostMeta = { id: string; category: string; readingTime: number };
+
+				const DAY_MS = 86_400_000;
+
+				function dayKey(d: Date): string {
+					return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+				}
+
+				function parseMeta(): PostMeta[] {
+					try {
+						return JSON.parse(document.getElementById('posts-meta')?.textContent ?? '[]');
+					} catch {
+						return [];
+					}
+				}
+
+				function setText(id: string, value: string): void {
+					const el = document.getElementById(id);
+					if (el) el.textContent = value;
+				}
+
+				function computeStats(posts: PostMeta[]) {
+					const entries = getReadEntries();
+					const readSlugs = new Set(Object.keys(entries));
+
+					const perDay = new Map<string, number>();
+					for (const ts of Object.values(entries)) {
+						const key = dayKey(new Date(ts));
+						perDay.set(key, (perDay.get(key) ?? 0) + 1);
+					}
+
+					const midnightDays = [...Object.values(entries)]
+						.map((ts) => {
+							const d = new Date(ts);
+							return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+						})
+						.sort((a, b) => a - b);
+
+					let bestStreak = 0;
+					let run = 0;
+					let prev = 0;
+					for (const day of midnightDays) {
+						run = day - prev === DAY_MS ? run + 1 : 1;
+						if (run > bestStreak) bestStreak = run;
+						prev = day;
+					}
+
+					let currentStreak = 0;
+					const cursor = new Date();
+					if (!perDay.has(dayKey(cursor))) cursor.setTime(cursor.getTime() - DAY_MS);
+					while (perDay.has(dayKey(cursor))) {
+						currentStreak++;
+						cursor.setTime(cursor.getTime() - DAY_MS);
+					}
+
+					const readPosts = posts.filter((p) => readSlugs.has(p.id));
+					const minutesRead = readPosts.reduce((acc, p) => acc + p.readingTime, 0);
+					const percent = posts.length ? Math.round((readPosts.length / posts.length) * 100) : 0;
+
+					const perCategory = new Map<string, number>();
+					for (const post of readPosts) {
+						if (!post.category) continue;
+						perCategory.set(post.category, (perCategory.get(post.category) ?? 0) + 1);
+					}
+
+					return {
+						readCount: readPosts.length,
+						total: posts.length,
+						percent,
+						currentStreak,
+						bestStreak,
+						minutesRead,
+						activeDays: perDay.size,
+						perDay,
+						perCategory,
+					};
+				}
+
+				function renderHeatmap(perDay: Map<string, number>): void {
+					const container = document.getElementById('heatmap');
+					if (!container) return;
+					container.innerHTML = '';
+
+					const WEEKS = 15;
+					const today = new Date();
+					today.setHours(0, 0, 0, 0);
+					const mondayOffset = (today.getDay() + 6) % 7;
+					const lastMonday = today.getTime() - mondayOffset * DAY_MS;
+					const start = lastMonday - (WEEKS - 1) * 7 * DAY_MS;
+
+					for (let week = 0; week < WEEKS; week++) {
+						for (let day = 0; day < 7; day++) {
+							const cellDate = new Date(start + (week * 7 + day) * DAY_MS);
+							const count = perDay.get(dayKey(cellDate)) ?? 0;
+							const cell = document.createElement('span');
+							cell.className = `hm-cell lvl-${Math.min(count, 4)}`;
+							cell.title =
+								count > 0
+									? `${cellDate.toLocaleDateString('es')} · ${count} artículo(s)`
+									: cellDate.toLocaleDateString('es');
+							container.appendChild(cell);
+						}
+					}
+				}
+
+				function updateCategoryBars(perCategory: Map<string, number>): void {
+					const section = document.querySelector<HTMLElement>('[data-max]');
+					const max = Number(section?.dataset.max) || 1;
+					section?.querySelectorAll<HTMLElement>('.cat-row').forEach((row) => {
+						const cat = row.querySelector<HTMLElement>('.cat-bar-read')?.dataset.cat ?? '';
+						const total = Number(row.dataset.total) || 0;
+						const read = Math.min(perCategory.get(cat) ?? 0, total);
+						const bar = row.querySelector<HTMLElement>('.cat-bar');
+						if (bar) bar.title = `${read}/${total} leído(s)`;
+						const readBar = row.querySelector<HTMLElement>('.cat-bar-read');
+						if (readBar) readBar.style.width = `${(read / max) * 100}%`;
+					});
+				}
+
+				function initProgress(): void {
+					const stats = computeStats(parseMeta());
+
+					setText('kpi-read', String(stats.readCount));
+					setText('kpi-streak', String(stats.currentStreak));
+					setText('kpi-best', String(stats.bestStreak));
+					setText('kpi-minutes', stats.minutesRead.toLocaleString('es'));
+					setText('kpi-active-days', String(stats.activeDays));
+					setText('ring-percent', `${stats.percent}%`);
+
+					const emptyBanner = document.getElementById('empty-banner');
+					if (emptyBanner) emptyBanner.hidden = stats.total === 0 || stats.readCount > 0;
+
+					requestAnimationFrame(() => {
+						const ring = document.querySelector<SVGCircleElement>('.ring-fill');
+						if (ring) {
+							const circumference = 2 * Math.PI * 80;
+							ring.style.strokeDashoffset = String(circumference * (1 - stats.percent / 100));
+						}
+					});
+
+					renderHeatmap(stats.perDay);
+					updateCategoryBars(stats.perCategory);
+				}
+
+				initProgress();
+				document.addEventListener('astro:page-load', initProgress);
+			</script>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.dashboard-container {
+		width: 100%;
+		max-width: 1024px;
+		margin: 0 auto;
+		padding: 3rem 1.5rem 4rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1.75rem;
+	}
+
+	/* ---- Hero ---- */
+	.dash-hero {
+		text-align: center;
+		margin-bottom: 0.5rem;
+	}
+
+	.dash-hero h1 {
+		font-size: clamp(2.25rem, 5vw, 3.25rem);
+		margin-bottom: 0.5rem;
+		background: linear-gradient(135deg, var(--accent), var(--accent-light));
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		color: transparent;
+	}
+
+	.dash-hero p {
+		margin-bottom: 0.5rem;
+		font-size: 1.125rem;
+	}
+
+	.dash-date {
+		font-size: 0.85rem;
+		color: var(--text-muted);
+	}
+
+	/* ---- Cards ---- */
+	.card {
+		background: var(--bg-secondary);
+		border: 1px solid var(--glass-border);
+		border-radius: var(--border-radius-md);
+		padding: 1.5rem;
+		box-shadow: var(--glass-shadow);
+	}
+
+	.card h2 {
+		font-size: 1.15rem;
+		margin: 0 0 1rem;
+	}
+
+	.section-sub {
+		font-size: 0.9rem;
+		margin: -0.5rem 0 1.25rem;
+	}
+
+	/* ---- Fila superior: anillo + KPIs ---- */
+	.dash-top {
+		display: grid;
+		grid-template-columns: minmax(230px, 300px) 1fr;
+		gap: 1.25rem;
+		align-items: stretch;
+	}
+
+	.card-ring {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.ring {
+		position: relative;
+		width: min(190px, 60vw);
+		margin: 0.5rem auto 0.75rem;
+	}
+
+	.ring svg {
+		width: 100%;
+		height: auto;
+		transform: rotate(-90deg);
+	}
+
+	.ring circle {
+		fill: none;
+		stroke-width: 16;
+		stroke-linecap: round;
+	}
+
+	.ring-track {
+		stroke: var(--accent-soft);
+	}
+
+	.ring-fill {
+		stroke: var(--accent);
+		transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.ring-center {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.1rem;
+	}
+
+	.ring-center strong {
+		font-size: 2rem;
+		line-height: 1;
+		color: var(--text-primary);
+	}
+
+	.ring-center span {
+		font-size: 0.85rem;
+		color: var(--text-muted);
+	}
+
+	.ring-summary {
+		font-size: 0.95rem;
+		margin: 0;
+	}
+
+	.ring-summary span {
+		font-weight: 700;
+		color: var(--accent);
+	}
+
+	.kpi-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.25rem;
+	}
+
+	.kpi-card {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.2rem;
+	}
+
+	.kpi-icon {
+		font-size: 1.4rem;
+	}
+
+	.kpi-value {
+		font-size: 2rem;
+		font-weight: 700;
+		line-height: 1.1;
+		color: var(--text-primary);
+	}
+
+	.kpi-label {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--text-secondary);
+	}
+
+	.kpi-label small {
+		font-weight: 400;
+		color: var(--text-muted);
+	}
+
+	/* ---- Banner estado vacío ---- */
+	.empty-banner {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+		padding: 1.25rem 1.5rem;
+		border-radius: var(--border-radius-md);
+		border: 1px dashed var(--accent);
+		background: var(--accent-soft);
+	}
+
+	.empty-banner[hidden] {
+		display: none;
+	}
+
+	.empty-icon {
+		font-size: 1.8rem;
+	}
+
+	.empty-banner strong {
+		color: var(--text-primary);
+	}
+
+	.empty-banner p {
+		margin: 0;
+		font-size: 0.92rem;
+	}
+
+	.empty-cta {
+		margin-left: auto;
+		padding: 0.55rem 1.1rem;
+		border-radius: 999px;
+		background: var(--accent);
+		color: #fff;
+		font-weight: 600;
+		font-size: 0.9rem;
+	}
+
+	.empty-cta:hover {
+		background: var(--accent-dark);
+		color: #fff;
+	}
+
+	/* ---- Heatmap ---- */
+	.section-card h2 {
+		margin-top: 0;
+	}
+
+	.heatmap-scroll {
+		overflow-x: auto;
+		padding-bottom: 0.5rem;
+	}
+
+	.heatmap {
+		display: grid;
+		grid-auto-flow: column;
+		grid-template-rows: repeat(7, 15px);
+		grid-auto-columns: 15px;
+		gap: 3px;
+		min-width: max-content;
+	}
+
+	.hm-cell {
+		display: inline-block;
+		width: 15px;
+		height: 15px;
+		border-radius: 4px;
+		background: var(--accent);
+	}
+
+	.hm-cell.lvl-0 {
+		background: var(--accent-soft);
+	}
+
+	.hm-cell.lvl-1 {
+		opacity: 0.3;
+	}
+
+	.hm-cell.lvl-2 {
+		opacity: 0.55;
+	}
+
+	.hm-cell.lvl-3 {
+		opacity: 0.78;
+	}
+
+	.hm-cell.lvl-4 {
+		opacity: 1;
+	}
+
+	.heatmap-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 0.75rem;
+		font-size: 0.88rem;
+		color: var(--text-secondary);
+	}
+
+	.heatmap-footer strong {
+		color: var(--accent);
+	}
+
+	.heatmap-legend {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		font-size: 0.8rem;
+		color: var(--text-muted);
+	}
+
+	.heatmap-legend .hm-cell {
+		width: 13px;
+		height: 13px;
+	}
+
+	/* ---- Columnas inferiores ---- */
+	.dash-columns {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.25rem;
+		align-items: start;
+	}
+
+	/* ---- Barras por categoría ---- */
+	.cat-row {
+		display: grid;
+		grid-template-columns: minmax(90px, 140px) 1fr 2.2rem;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.45rem 0;
+	}
+
+	.cat-name {
+		font-size: 0.9rem;
+		font-weight: 500;
+		color: var(--text-secondary);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.cat-name:hover {
+		color: var(--accent);
+	}
+
+	.cat-bar {
+		position: relative;
+		height: 10px;
+		border-radius: 999px;
+		background: var(--accent-soft);
+		overflow: hidden;
+	}
+
+	.cat-bar-total,
+	.cat-bar-read {
+		position: absolute;
+		inset: 0 auto 0 0;
+		border-radius: inherit;
+		transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.cat-bar-total {
+		background: var(--accent-light);
+		opacity: 0.35;
+	}
+
+	.cat-bar-read {
+		width: 0%;
+		background: linear-gradient(90deg, var(--accent), var(--accent-light));
+	}
+
+	.cat-count {
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: var(--text-muted);
+		text-align: right;
+	}
+
+	/* ---- Publicaciones por mes ---- */
+	.months-chart {
+		display: flex;
+		align-items: stretch;
+		gap: 6px;
+		height: 190px;
+	}
+
+	.month-col {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.3rem;
+		min-width: 0;
+	}
+
+	.month-value {
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: var(--accent);
+		min-height: 1rem;
+	}
+
+	.month-track {
+		flex: 1;
+		width: 100%;
+		max-width: 26px;
+		display: flex;
+		align-items: flex-end;
+		background: var(--accent-soft);
+		border-radius: 6px;
+		overflow: hidden;
+	}
+
+	.month-bar {
+		width: 100%;
+		min-height: 2px;
+		border-radius: 6px 6px 0 0;
+		background: linear-gradient(180deg, var(--accent-light), var(--accent));
+	}
+
+	.month-label {
+		font-size: 0.72rem;
+		color: var(--text-muted);
+	}
+
+	/* ---- Responsive ---- */
+	@media (max-width: 800px) {
+		.dash-top,
+		.dash-columns {
+			grid-template-columns: 1fr;
+		}
+
+		.kpi-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 0.9rem;
+		}
+
+		.empty-cta {
+			margin-left: 0;
+			width: 100%;
+			text-align: center;
+		}
+	}
+</style>

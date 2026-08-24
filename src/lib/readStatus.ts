@@ -28,6 +28,10 @@ export function getReadSlugs(): string[] {
 	return Object.keys(readStore());
 }
 
+export function getReadEntries(): ReadRecord {
+	return readStore();
+}
+
 export function isRead(slug: string): boolean {
 	return slug in readStore();
 }
