@@ -10,7 +10,7 @@ import ReadAloud from '../components/ReadAloud.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import DefaultImage from '../assets/blog-placeholder-1.jpg';
 
-type Props = CollectionEntry<'blog'>['data'] & { slug: string };
+type Props = CollectionEntry<'blog'>['data'] & { slug?: string; headings?: Heading[] };
 type Heading = { depth: number; slug: string; text: string };
 
 const { title, description, pubDate, updatedDate, heroImage, headings, slug } = Astro.props;
@@ -463,7 +463,7 @@ const { title, description, pubDate, updatedDate, heroImage, headings, slug } = 
 			// Lightbox: click en una imagen del post la expande a pantalla completa.
 			// Delegación en document para sobrevivir a las navegaciones del ClientRouter.
 			document.addEventListener('click', (e) => {
-				const target = e.target as HTMLElement;
+				const target = e.target as HTMLImageElement;
 				if (target?.tagName !== 'IMG' || !target.closest('.prose')) return;
 				if (target.closest('a')) e.preventDefault();
 				const src = target.getAttribute('src') || target.src;

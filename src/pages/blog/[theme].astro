@@ -8,9 +8,9 @@ import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 import TopicFilter from "../../components/TopicFilter.astro";
 import ReadIndicator from "../../components/ReadIndicator.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import { SITE_TITLE } from "../../consts";
 import DefaultImage from "../../assets/blog-placeholder-1.jpg";
-import { getThemeFromCode, themes, themeToSlug, slugToTheme } from "../../lib/themeMapping";
+import { getThemeFromCode, themes, slugToTheme } from "../../lib/themeMapping";
 
 export const getStaticPaths = (async () => {
   const slugs = ['seduccion', 'informatica', 'trading', 'negocios', 'superacion', 'ingles'];

@@ -16,7 +16,7 @@ const posts = allPosts
 	.slice(0, 6);
 
 const totalPosts = allPosts.length;
-const uniqueCategories = [...new Set(allPosts.map(p => p.data.category).filter(Boolean))];
+const uniqueCategories = [...new Set(allPosts.map(p => p.data.category).filter((c): c is string => Boolean(c)))];
 const totalCategories = uniqueCategories.length;
 const categories = uniqueCategories.slice(0, 8);
 ---
@@ -131,7 +131,7 @@ const categories = uniqueCategories.slice(0, 8);
 			<section class="newsletter-section animate-fade-in">
 				<h2>¡No te pierdas nada!</h2>
 				<p>Recibe los mejores artículos sobre desarrollo personal, tecnología, trading y más directamente en tu correo.</p>
-				<form class="newsletter-form" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte! (Demo)');">
+				<form class="newsletter-form" onsubmit="alert('¡Gracias por suscribirte! (Demo)'); return false;">
 					<input type="email" class="newsletter-input" placeholder="tu@email.com" required />
 					<button type="submit" class="newsletter-submit">Suscribirme</button>
 				</form>
