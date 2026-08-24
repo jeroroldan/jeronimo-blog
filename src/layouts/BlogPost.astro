@@ -10,10 +10,10 @@ import ReadAloud from '../components/ReadAloud.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import DefaultImage from '../assets/blog-placeholder-1.jpg';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & { slug: string };
 type Heading = { depth: number; slug: string; text: string };
 
-const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, headings, slug } = Astro.props;
 ---
 
 <html lang="en">
@@ -86,6 +86,30 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 				border-radius: 12px;
 				box-shadow: var(--box-shadow);
 				height: auto;
+			}
+			.read-sentinel {
+				height: 1px;
+				width: 100%;
+			}
+			.read-badge {
+				display: inline-block;
+				margin: 0.5em auto 0;
+				padding: 0.25em 0.9em;
+				border-radius: 999px;
+				background: #2c5530;
+				color: #ffffff;
+				font-size: 0.8rem;
+				font-weight: 700;
+				letter-spacing: 0.03em;
+			}
+			.read-badge[hidden] {
+				display: none;
+			}
+			@media (prefers-color-scheme: dark) {
+				.read-badge {
+					background: #68d391;
+					color: #1a202c;
+				}
 			}
 		.prose {
 			max-width: 65ch;
@@ -389,7 +413,7 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 		<Header />
 		<main>
 			<div class="post-layout">
-				<article>
+				<article data-slug={slug}>
 					<div class="hero-image">
 						<Image 
 							width={640} 
@@ -415,9 +439,11 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 							</div>
 							<h1>{title}</h1>
 							<ReadAloud />
+							<p id="readBadge" class="read-badge" hidden>✓ Ya leíste este artículo</p>
 							<hr />
 						</div>
 						<slot />
+						<div class="read-sentinel" aria-hidden="true"></div>
 					</div>
 				</article>
 				<aside class="post-sidebar">
@@ -479,6 +505,59 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 					});
 				});
 			});
+		</script>
+
+		<script>
+			// Marca el artículo como leído cuando el lector llega al final
+			// (la sentinela al cierre del contenido entra en el viewport).
+			import { isRead, markAsRead } from '../lib/readStatus';
+
+			function setupReadTracking() {
+				const article = document.querySelector<HTMLElement>('article[data-slug]');
+				if (!article || article.dataset.readInit) return;
+				article.dataset.readInit = 'true';
+
+				const slug = article.getAttribute('data-slug');
+				if (!slug) return;
+
+				const badge = document.getElementById('readBadge');
+				if (badge && isRead(slug)) badge.hidden = false;
+
+				const markAndShow = () => {
+					markAsRead(slug);
+					if (badge) badge.hidden = false;
+				};
+
+				const sentinel = document.querySelector('.read-sentinel');
+				if (sentinel && 'IntersectionObserver' in window) {
+					const observer = new IntersectionObserver(
+						(entries) => {
+							for (const entry of entries) {
+								if (entry.isIntersecting) {
+									markAndShow();
+									observer.disconnect();
+								}
+							}
+						},
+						{ threshold: 1 }
+					);
+					observer.observe(sentinel);
+				} else {
+					// Fallback sin IntersectionObserver: scroll cerca del final.
+					const onScroll = () => {
+						const bottomReached =
+							window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 200;
+						if (bottomReached) {
+							markAndShow();
+							window.removeEventListener('scroll', onScroll);
+						}
+					};
+					window.addEventListener('scroll', onScroll, { passive: true });
+				}
+			}
+
+			document.addEventListener('DOMContentLoaded', setupReadTracking);
+			document.addEventListener('astro:page-load', setupReadTracking);
 		</script>
 	</body>
 </html>

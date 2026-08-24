@@ -7,6 +7,7 @@ import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 import TopicFilter from "../../components/TopicFilter.astro";
+import ReadIndicator from "../../components/ReadIndicator.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import DefaultImage from "../../assets/blog-placeholder-1.jpg";
 import { getThemeFromCode, themes, themeToSlug, slugToTheme } from "../../lib/themeMapping";
@@ -196,7 +197,7 @@ const themeTitle = originalTheme;
           {
             posts.map((post) => (
               <li class="post-item" data-code={post.data.code || "sin-codigo"}>
-                <a href={`/blog/${post.id}/`} class="post-card">
+                <a href={`/blog/${post.id}/`} class="post-card" data-slug={post.id}>
                   <div class="image-wrapper">
                     <Image
                       width={720}
@@ -226,5 +227,6 @@ const themeTitle = originalTheme;
       </section>
     </main>
     <Footer />
+    <ReadIndicator />
   </body>
 </html>

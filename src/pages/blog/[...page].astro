@@ -7,6 +7,7 @@ import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 import TopicFilter from "../../components/TopicFilter.astro";
+import ReadIndicator from "../../components/ReadIndicator.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import DefaultImage from "../../assets/blog-placeholder-1.jpg";
 import { getThemeFromCode } from "../../lib/themeMapping";
@@ -267,7 +268,7 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
                   data-code={post.data.code || "sin-codigo"}
                   data-theme={getThemeFromCode(post.data.code)}
                 >
-                  <a href={`/blog/${post.id}/`} class="post-card">
+                  <a href={`/blog/${post.id}/`} class="post-card" data-slug={post.id}>
                     <div class="image-wrapper">
                       <Image
                         width={isFeatured ? 1024 : 720}
@@ -321,5 +322,6 @@ const { page, allThemes = [], allCodes = [] } = Astro.props;
       </section>
     </main>
     <Footer />
+    <ReadIndicator />
   </body>
 </html>

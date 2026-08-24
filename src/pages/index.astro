@@ -6,6 +6,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import ReadIndicator from '../components/ReadIndicator.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import DefaultImage from '../assets/blog-placeholder-1.jpg';
 
@@ -83,7 +84,7 @@ const categories = uniqueCategories.slice(0, 8);
 				</div>
 				<div class="posts-grid">
 					{posts.map((post) => (
-						<a href={`/blog/${post.id}/`} class="post-card animate-fade-in">
+						<a href={`/blog/${post.id}/`} class="post-card animate-fade-in" data-slug={post.id}>
 							<div class="post-card-image-wrapper">
 								<Image
 									src={post.data.heroImage && typeof post.data.heroImage === 'object' ? post.data.heroImage : DefaultImage}
@@ -137,6 +138,7 @@ const categories = uniqueCategories.slice(0, 8);
 			</section>
 		</main>
 		<Footer />
+		<ReadIndicator />
 	</body>
 </html>
 

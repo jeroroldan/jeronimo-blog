@@ -1,0 +1,56 @@
+---
+// Marca visualmente las tarjetas de artículos ya leídos por el visitante.
+// El estado vive en localStorage (ver src/lib/readStatus.ts).
+import { getReadSlugs } from '../lib/readStatus';
+---
+
+<style is:global>
+	a.post-card[data-slug],
+	li[data-slug] > a.post-card {
+		position: relative;
+	}
+	a.post-card.post-read .title,
+	a.post-card.post-read .post-card-title {
+		opacity: 0.55;
+	}
+	a.post-card.post-read::after {
+		content: '✓ Leído';
+		position: absolute;
+		top: 0.75rem;
+		right: 0.75rem;
+		z-index: 2;
+		padding: 0.25rem 0.65rem;
+		border-radius: 999px;
+		background: #2c5530;
+		color: #fff;
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.03em;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+		pointer-events: none;
+	}
+	@media (prefers-color-scheme: dark) {
+		a.post-card.post-read::after {
+			background: #68d391;
+			color: #1a202c;
+		}
+	}
+</style>
+
+<script>
+	import { getReadSlugs } from '../lib/readStatus';
+
+	function applyReadIndicators() {
+		const read = new Set(getReadSlugs());
+		document.querySelectorAll<HTMLElement>('a.post-card[data-slug]').forEach((card) => {
+			const slug = card.getAttribute('data-slug');
+			if (!slug) return;
+			card.classList.toggle('post-read', read.has(slug));
+		});
+	}
+
+	// Cubre carga inicial y navegación normal...
+	document.addEventListener('DOMContentLoaded', applyReadIndicators);
+	// ...y la navegación con View Transitions (ClientRouter).
+	document.addEventListener('astro:page-load', applyReadIndicators);
+</script>
