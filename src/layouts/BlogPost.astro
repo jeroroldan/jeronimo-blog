@@ -122,13 +122,15 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 			}
 			
 			/* Contenido markdown */
-		.prose img {
+		/* :global() necesario: los <img> del markdown no reciben el atributo de scope */
+		.prose :global(img) {
 			display: block;
-			max-width: 320px;
-			width: 100%;
+			max-width: 100%;
+			width: auto;
 			height: auto;
 			margin: 1.5em auto;
 			border-radius: 8px;
+			cursor: zoom-in;
 		}
 		.prose h1 {
 			font-size: 2rem;
@@ -359,6 +361,28 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 				}
 			}
 		</style>
+		<style is:global>
+			/* Lightbox para expandir imágenes del post */
+			.img-lightbox {
+				position: fixed;
+				inset: 0;
+				z-index: 9999;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: rgba(0, 0, 0, 0.85);
+				cursor: zoom-out;
+				padding: 1rem;
+			}
+			.img-lightbox img {
+				max-width: 95vw;
+				max-height: 95vh;
+				width: auto;
+				height: auto;
+				border-radius: 8px;
+				box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+			}
+		</style>
 	</head>
 
 	<body>
@@ -409,6 +433,30 @@ const { title, description, pubDate, updatedDate, heroImage, headings } = Astro.
 		
 		<Footer />
 		
+		<script>
+			// Lightbox: click en una imagen del post la expande a pantalla completa.
+			// Delegación en document para sobrevivir a las navegaciones del ClientRouter.
+			document.addEventListener('click', (e) => {
+				const target = e.target as HTMLElement;
+				if (target?.tagName !== 'IMG' || !target.closest('.prose')) return;
+				if (target.closest('a')) e.preventDefault();
+				const src = target.getAttribute('src') || target.src;
+				if (!src) return;
+				document.querySelector('.img-lightbox')?.remove();
+				const overlay = document.createElement('div');
+				overlay.className = 'img-lightbox';
+				const full = document.createElement('img');
+				full.src = src;
+				full.alt = target.alt;
+				overlay.appendChild(full);
+				overlay.addEventListener('click', () => overlay.remove());
+				document.body.appendChild(overlay);
+			});
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape') document.querySelector('.img-lightbox')?.remove();
+			});
+		</script>
+
 		<script>
 			// Funcionalidad del botón scroll to top
 			document.addEventListener('DOMContentLoaded', function() {
