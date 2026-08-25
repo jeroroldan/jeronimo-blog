@@ -28,12 +28,10 @@ const {
 } = Astro.props;
 
 // Auto-discovery at build time. `import.meta.glob` requires a literal pattern,
-// so GLOB_PATTERN must be a string literal here. Dropping a new file into
+// so this pattern must be a string literal. Dropping a new file into
 // src/assets/ is enough to include it on the next build/deploy — no manual
 // imports or edits needed.
-const GLOB_PATTERN = '../assets/*.{jpg,jpeg,png,webp,gif,svg,avif}';
-
-const modules = import.meta.glob(GLOB_PATTERN, {
+const modules = import.meta.glob('../assets/*.{jpg,jpeg,png,webp,gif,svg,avif}', {
 	eager: true,
 	import: 'default',
 }) as Record<string, ImageMetadata>;
