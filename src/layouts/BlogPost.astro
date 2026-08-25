@@ -80,13 +80,14 @@ const { title, description, pubDate, updatedDate, heroImage, headings, slug } = 
 				max-width: 440px;
 				margin: 0.5rem auto 0;
 			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-				height: auto;
-			}
+		.hero-image img {
+			display: block;
+			margin: 0 auto;
+			border-radius: 12px;
+			box-shadow: var(--box-shadow);
+			height: auto;
+			cursor: zoom-in;
+		}
 			.read-sentinel {
 				height: 1px;
 				width: 100%;
@@ -384,30 +385,8 @@ const { title, description, pubDate, updatedDate, heroImage, headings, slug } = 
 					font-size: 1.1rem;
 				}
 			}
-		</style>
-		<style is:global>
-			/* Lightbox para expandir imágenes del post */
-			.img-lightbox {
-				position: fixed;
-				inset: 0;
-				z-index: 9999;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				background: rgba(0, 0, 0, 0.85);
-				cursor: zoom-out;
-				padding: 1rem;
-			}
-			.img-lightbox img {
-				max-width: 95vw;
-				max-height: 95vh;
-				width: auto;
-				height: auto;
-				border-radius: 8px;
-				box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-			}
-		</style>
-	</head>
+	</style>
+</head>
 
 	<body>
 		<Header />
@@ -462,25 +441,47 @@ const { title, description, pubDate, updatedDate, heroImage, headings, slug } = 
 		<script>
 			// Lightbox: click en una imagen del post la expande a pantalla completa.
 			// Delegación en document para sobrevivir a las navegaciones del ClientRouter.
-			document.addEventListener('click', (e) => {
-				const target = e.target as HTMLImageElement;
-				if (target?.tagName !== 'IMG' || !target.closest('.prose')) return;
-				if (target.closest('a')) e.preventDefault();
-				const src = target.getAttribute('src') || target.src;
-				if (!src) return;
-				document.querySelector('.img-lightbox')?.remove();
-				const overlay = document.createElement('div');
-				overlay.className = 'img-lightbox';
-				const full = document.createElement('img');
-				full.src = src;
-				full.alt = target.alt;
-				overlay.appendChild(full);
-				overlay.addEventListener('click', () => overlay.remove());
-				document.body.appendChild(overlay);
-			});
-			document.addEventListener('keydown', (e) => {
-				if (e.key === 'Escape') document.querySelector('.img-lightbox')?.remove();
-			});
+			// Guardia global para evitar listeners duplicados en transiciones de vista.
+			if (!(window as any).__lightboxInit) {
+				(window as any).__lightboxInit = true;
+
+				function openLightbox(src: string, alt: string) {
+					document.querySelector('.img-lightbox')?.remove();
+					const overlay = document.createElement('div');
+					overlay.className = 'img-lightbox';
+					const full = document.createElement('img');
+					full.src = src;
+					full.alt = alt;
+					overlay.appendChild(full);
+					const closeBtn = document.createElement('button');
+					closeBtn.className = 'img-lightbox-close';
+					closeBtn.innerHTML = '&times;';
+					closeBtn.setAttribute('aria-label', 'Cerrar imagen ampliada');
+					closeBtn.addEventListener('click', (e) => {
+						e.stopPropagation();
+						overlay.remove();
+					});
+					overlay.appendChild(closeBtn);
+					overlay.addEventListener('click', () => overlay.remove());
+					document.body.appendChild(overlay);
+				}
+
+				document.addEventListener('click', (e) => {
+					const target = e.target as HTMLImageElement;
+					if (target?.tagName !== 'IMG') return;
+					// Amplía imágenes del contenido markdown y la hero image
+					if (!target.closest('.prose') && !target.closest('.hero-image')) return;
+					const link = target.closest('a');
+					if (link) e.preventDefault();
+					const src = target.getAttribute('src') || target.src;
+					if (!src) return;
+					openLightbox(src, target.alt || '');
+				});
+
+				document.addEventListener('keydown', (e) => {
+					if (e.key === 'Escape') document.querySelector('.img-lightbox')?.remove();
+				});
+			}
 		</script>
 
 		<script>

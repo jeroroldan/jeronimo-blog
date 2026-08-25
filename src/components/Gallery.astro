@@ -229,6 +229,49 @@ const images: GalleryImage[] = Object.entries(modules)
 	});
 </script>
 
+<script>
+	// Lightbox para ampliar imágenes de la galería
+	if (!(window as any).__galleryLightboxInit) {
+		(window as any).__galleryLightboxInit = true;
+
+		function openLightbox(src: string, alt: string) {
+			document.querySelector('.img-lightbox')?.remove();
+			const overlay = document.createElement('div');
+			overlay.className = 'img-lightbox';
+			const full = document.createElement('img');
+			full.src = src;
+			full.alt = alt;
+			overlay.appendChild(full);
+			const closeBtn = document.createElement('button');
+			closeBtn.className = 'img-lightbox-close';
+			closeBtn.innerHTML = '&times;';
+			closeBtn.setAttribute('aria-label', 'Cerrar imagen ampliada');
+			closeBtn.addEventListener('click', (e) => {
+				e.stopPropagation();
+				overlay.remove();
+			});
+			overlay.appendChild(closeBtn);
+			overlay.addEventListener('click', () => overlay.remove());
+			document.body.appendChild(overlay);
+		}
+
+		document.addEventListener('click', (e) => {
+			const target = e.target as HTMLImageElement;
+			if (target?.tagName !== 'IMG') return;
+			if (!target.closest('.gallery-slide')) return;
+			const link = target.closest('a');
+			if (link) e.preventDefault();
+			const src = target.getAttribute('src') || target.src;
+			if (!src) return;
+			openLightbox(src, target.alt || '');
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') document.querySelector('.img-lightbox')?.remove();
+		});
+	}
+</script>
+
 <style>
 	.gallery-section {
 		margin-bottom: 4rem;
@@ -279,6 +322,7 @@ const images: GalleryImage[] = Object.entries(modules)
 		width: 100%;
 		height: clamp(240px, 42vw, 540px);
 		object-fit: cover;
+		cursor: zoom-in;
 	}
 
 	.gallery-caption {
