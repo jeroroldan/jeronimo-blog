@@ -11,14 +11,46 @@ type GalleryImage = {
 interface Props {
 	title?: string;
 	subtitle?: string;
-	images: GalleryImage[];
+	/**
+	 * Glob pattern used to auto-discover images. IMPORTANT: `import.meta.glob`
+	 * only accepts a literal string (not a variable), so this prop is a hint
+	 * for humans; the real pattern is defined as a literal below (GLOB_PATTERN).
+	 */
+	globPattern?: string;
+	/** Optional captions keyed by filename, e.g. { 'iot-01.jpg': { alt, caption } }. */
+	captions?: Record<string, { alt?: string; caption: string }>;
 }
 
 const {
 	title = 'Aprende visualmente',
 	subtitle = 'Cuando no quieras leer, mira y aprende de distintos temas.',
-	images,
+	captions = {},
 } = Astro.props;
+
+// Auto-discovery at build time. `import.meta.glob` requires a literal pattern,
+// so GLOB_PATTERN must be a string literal here. Dropping a new file into
+// src/assets/ is enough to include it on the next build/deploy — no manual
+// imports or edits needed.
+const GLOB_PATTERN = '../assets/*.{jpg,jpeg,png,webp,gif,svg,avif}';
+
+const modules = import.meta.glob(GLOB_PATTERN, {
+	eager: true,
+	import: 'default',
+}) as Record<string, ImageMetadata>;
+
+const DEFAULT_CAPTION = 'Aprende visualmente: cada imagen es una puerta a un tema nuevo.';
+
+const images: GalleryImage[] = Object.entries(modules)
+	.map(([path, src]) => {
+		const name = path.split('/').pop() ?? path;
+		const entry = captions[name] ?? {};
+		return {
+			src,
+			alt: entry.alt ?? name.replace(/\.[^.]+$/, ''),
+			caption: entry.caption ?? DEFAULT_CAPTION,
+		};
+	})
+	.filter((img) => Boolean(img.src));
 ---
 
 <section class="gallery-section animate-fade-in" aria-labelledby="gallery-title">
