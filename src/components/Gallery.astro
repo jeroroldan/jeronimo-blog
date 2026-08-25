@@ -1,0 +1,345 @@
+---
+import { Image } from 'astro:assets';
+
+type GalleryImage = {
+	src: ImageMetadata;
+	alt: string;
+	caption: string;
+	href?: string;
+};
+
+interface Props {
+	title?: string;
+	subtitle?: string;
+	images: GalleryImage[];
+}
+
+const {
+	title = 'Aprende visualmente',
+	subtitle = 'Cuando no quieras leer, mira y aprende de distintos temas.',
+	images,
+} = Astro.props;
+---
+
+<section class="gallery-section animate-fade-in" aria-labelledby="gallery-title">
+	<div class="section-header">
+		<div>
+			<h2 id="gallery-title">{title}</h2>
+			{subtitle && <p class="gallery-subtitle">{subtitle}</p>}
+		</div>
+	</div>
+
+	<div
+		class="gallery"
+		data-carousel
+		role="region"
+		aria-roledescription="carrusel"
+		aria-label={title}
+	>
+		<div class="gallery-viewport">
+			<ul class="gallery-track" data-track>
+				{
+					images.map((img, i) => (
+						<li
+							class="gallery-slide"
+							role="group"
+							aria-roledescription="slide"
+							aria-label={`${i + 1} de ${images.length}`}
+							aria-hidden={i === 0 ? 'false' : 'true'}
+						>
+							{img.href ? (
+								<a class="gallery-link" href={img.href}>
+									<Image
+										src={img.src}
+										alt={img.alt}
+										width={960}
+										height={540}
+										class="gallery-image"
+										loading={i === 0 ? 'eager' : 'lazy'}
+								/>
+								</a>
+							) : (
+								<Image
+									src={img.src}
+									alt={img.alt}
+									width={960}
+									height={540}
+									class="gallery-image"
+									loading={i === 0 ? 'eager' : 'lazy'}
+								/>
+							)}
+							<div class="gallery-caption">
+								<p>{img.caption}</p>
+							</div>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+
+		<button class="gallery-nav gallery-prev" type="button" data-prev aria-label="Imagen anterior">
+			&#8249;
+		</button>
+		<button class="gallery-nav gallery-next" type="button" data-next aria-label="Imagen siguiente">
+			&#8250;
+		</button>
+
+		<div class="gallery-dots" data-dots role="tablist" aria-label="Seleccionar imagen">
+			{
+				images.map((_, i) => (
+					<button
+						type="button"
+						class="gallery-dot"
+						data-dot={i}
+						role="tab"
+						aria-label={`Ir a la imagen ${i + 1}`}
+						aria-selected={i === 0 ? 'true' : 'false'}
+					/>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	function initCarousel(root: HTMLElement) {
+		if (root.dataset.carouselInit) return;
+		root.dataset.carouselInit = 'true';
+
+		const track = root.querySelector<HTMLElement>('[data-track]');
+		const slides = Array.from(root.querySelectorAll<HTMLElement>('.gallery-slide'));
+		const prevBtn = root.querySelector<HTMLButtonElement>('[data-prev]');
+		const nextBtn = root.querySelector<HTMLButtonElement>('[data-next]');
+		const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-dot]'));
+		if (!track || slides.length === 0) return;
+
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const AUTOPLAY_MS = 6000;
+		let current = 0;
+		let timer: number | undefined;
+
+		const goTo = (index: number) => {
+			const len = slides.length;
+			current = (index + len) % len;
+			track.style.transform = `translateX(-${current * 100}%)`;
+			slides.forEach((slide, i) => slide.setAttribute('aria-hidden', i === current ? 'false' : 'true'));
+			dots.forEach((dot, i) => dot.setAttribute('aria-selected', i === current ? 'true' : 'false'));
+		};
+
+		const next = () => goTo(current + 1);
+		const prev = () => goTo(current - 1);
+
+		const startAutoplay = () => {
+			if (reduceMotion || slides.length <= 1) return;
+			stopAutoplay();
+			timer = window.setInterval(next, AUTOPLAY_MS);
+		};
+		const stopAutoplay = () => {
+			if (timer) window.clearInterval(timer);
+			timer = undefined;
+		};
+
+		nextBtn?.addEventListener('click', () => {
+			next();
+			startAutoplay();
+		});
+		prevBtn?.addEventListener('click', () => {
+			prev();
+			startAutoplay();
+		});
+		dots.forEach((dot, i) => {
+			dot.addEventListener('click', () => {
+				goTo(i);
+				startAutoplay();
+			});
+		});
+
+		root.addEventListener('mouseenter', stopAutoplay);
+		root.addEventListener('mouseleave', startAutoplay);
+		root.addEventListener('focusin', stopAutoplay);
+		root.addEventListener('focusout', startAutoplay);
+
+		root.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowRight') {
+				next();
+				startAutoplay();
+			} else if (e.key === 'ArrowLeft') {
+				prev();
+				startAutoplay();
+			}
+		});
+
+		let startX = 0;
+		let dragging = false;
+		root.addEventListener('touchstart', (e) => {
+			startX = e.touches[0].clientX;
+			dragging = true;
+			stopAutoplay();
+		}, { passive: true });
+		root.addEventListener('touchend', (e) => {
+			if (!dragging) return;
+			dragging = false;
+			const diff = e.changedTouches[0].clientX - startX;
+			if (Math.abs(diff) > 50) {
+				if (diff < 0) next();
+				else prev();
+			}
+			startAutoplay();
+		}, { passive: true });
+
+		goTo(0);
+		startAutoplay();
+	}
+
+	document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(initCarousel);
+	document.addEventListener('astro:page-load', () => {
+		document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(initCarousel);
+	});
+</script>
+
+<style>
+	.gallery-section {
+		margin-bottom: 4rem;
+	}
+
+	.gallery-subtitle {
+		margin: 0;
+		font-size: 1rem;
+		color: var(--text-secondary);
+		max-width: 640px;
+	}
+
+	.gallery {
+		position: relative;
+		border-radius: var(--border-radius-lg);
+		overflow: hidden;
+		background: var(--glass-bg);
+		border: 1px solid var(--glass-border);
+		box-shadow: var(--glass-shadow);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+	}
+
+	.gallery-viewport {
+		overflow: hidden;
+	}
+
+	.gallery-track {
+		display: flex;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		transition: transform var(--transition-normal);
+	}
+
+	.gallery-slide {
+		flex: 0 0 100%;
+		min-width: 0;
+		position: relative;
+	}
+
+	.gallery-link {
+		display: block;
+	}
+
+	.gallery-image {
+		display: block;
+		width: 100%;
+		height: clamp(240px, 42vw, 540px);
+		object-fit: cover;
+	}
+
+	.gallery-caption {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 1.5rem 2rem 1.25rem;
+		background: linear-gradient(to top, rgba(2, 6, 23, 0.82), rgba(2, 6, 23, 0));
+	}
+
+	.gallery-caption p {
+		margin: 0;
+		color: #f8fafc;
+		font-size: 1.05rem;
+		font-weight: 500;
+		line-height: 1.5;
+		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	}
+
+	.gallery-nav {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: none;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.85);
+		color: var(--text-primary);
+		font-size: 1.75rem;
+		line-height: 1;
+		cursor: pointer;
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+		transition: all var(--transition-fast);
+		z-index: 2;
+	}
+
+	.gallery-nav:hover {
+		background: #ffffff;
+		color: var(--accent-dark);
+		transform: translateY(-50%) scale(1.08);
+	}
+
+	.gallery-prev {
+		left: 1rem;
+	}
+
+	.gallery-next {
+		right: 1rem;
+	}
+
+	.gallery-dots {
+		position: absolute;
+		bottom: 0.75rem;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 0.5rem;
+		z-index: 3;
+	}
+
+	.gallery-dot {
+		width: 10px;
+		height: 10px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.5);
+		cursor: pointer;
+		transition: all var(--transition-fast);
+	}
+
+	.gallery-dot[aria-selected='true'] {
+		background: #ffffff;
+		width: 24px;
+		border-radius: 999px;
+	}
+
+	@media (max-width: 768px) {
+		.gallery-nav {
+			width: 40px;
+			height: 40px;
+			font-size: 1.4rem;
+		}
+		.gallery-caption {
+			padding: 1rem 1.25rem 1.75rem;
+		}
+		.gallery-caption p {
+			font-size: 0.95rem;
+		}
+	}
+</style>

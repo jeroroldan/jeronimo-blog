@@ -7,8 +7,35 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import ReadIndicator from '../components/ReadIndicator.astro';
+import Gallery from '../components/Gallery.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import DefaultImage from '../assets/blog-placeholder-1.jpg';
+import amigos from '../assets/amigos.jpg';
+import analogiaPatrones from '../assets/analogia-patrones.jpg';
+import aoGenerative from '../assets/aogenerative.png';
+import bistBytes from '../assets/bistbytes.png';
+import blogPlaceholder1 from '../assets/blog-placeholder-1.jpg';
+import blogPlaceholder2 from '../assets/blog-placeholder-2.jpg';
+import blogPlaceholder3 from '../assets/blog-placeholder-3.jpg';
+import blogPlaceholder4 from '../assets/blog-placeholder-4.jpg';
+import blogPlaceholder5 from '../assets/blog-placeholder-5.jpg';
+import blogPlaceholderAbout from '../assets/blog-placeholder-about.jpg';
+import clipping from '../assets/clipping.png';
+import cuestionar from '../assets/cuestionar.jpg';
+import dinero from '../assets/dinero.png';
+import especializa from '../assets/especializa.jpg';
+import figma01 from '../assets/figma01.png';
+import figma02 from '../assets/figma02.png';
+import figma03 from '../assets/figma03.png';
+import iaGenerative from '../assets/IAgenerative.png';
+import iot01 from '../assets/iot-01.jpg';
+import iot02 from '../assets/iot-02.jpg';
+import iot03 from '../assets/iot-03.jpg';
+import patrones from '../assets/patrones.jpg';
+import procratisnacion from '../assets/procratisnacion.jpg';
+import sed from '../assets/sed.jpg';
+import sedu from '../assets/sedu.jpg';
+import whole from '../assets/whole.png';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts
@@ -19,6 +46,35 @@ const totalPosts = allPosts.length;
 const uniqueCategories = [...new Set(allPosts.map(p => p.data.category).filter((c): c is string => Boolean(c)))];
 const totalCategories = uniqueCategories.length;
 const categories = uniqueCategories.slice(0, 8);
+
+const galleryImages = [
+	{ src: iot01, alt: 'Dispositivos IoT conectados', caption: 'Internet de las Cosas: cómo los objetos cotidianos se conectan y comparten datos.' },
+	{ src: iot02, alt: 'Arquitectura de un sistema IoT', caption: 'Arquitectura IoT: sensores, conectividad y la nube trabajando en conjunto.' },
+	{ src: iot03, alt: 'Aplicaciones de IoT', caption: 'Casos de uso de IoT: hogar, industria y ciudades inteligentes.' },
+	{ src: amigos, alt: 'Personas colaborando en equipo', caption: 'Habilidades sociales: construir relaciones que suman en tu vida.' },
+	{ src: cuestionar, alt: 'Pensamiento crítico', caption: 'Pensamiento crítico: cuestiona para aprender mejor cada día.' },
+	{ src: analogiaPatrones, alt: 'Aprender por analogías y patrones', caption: 'Pensamiento de patrones: aprende reconociendo similitudes entre temas.' },
+	{ src: patrones, alt: 'Patrones visuales', caption: 'Patrones: la base del aprendizaje, la creatividad y la resolución de problemas.' },
+	{ src: aoGenerative, alt: 'IA generativa', caption: 'IA generativa: crea contenido e ideas con inteligencia artificial.' },
+	{ src: iaGenerative, alt: 'IA generativa aplicada', caption: 'IA generativa aplicada a proyectos y flujos de trabajo reales.' },
+	{ src: bistBytes, alt: 'Bites de conocimiento', caption: 'Bites de conocimiento: ideas pequeñas que suman mucho aprendizaje.' },
+	{ src: clipping, alt: 'Clipping de video', caption: 'Clipping de video: sintetiza información clave en segundos.' },
+	{ src: dinero, alt: 'Educación financiera', caption: 'Educación financiera: entiende el flujo del dinero y su propósito.' },
+	{ src: especializa, alt: 'Especialización', caption: 'Especialización: profundiza en un tema para destacar y crear valor.' },
+	{ src: figma01, alt: 'Diseño en Figma paso 1', caption: 'Diseño con Figma: del boceto inicial a la interfaz.' },
+	{ src: figma02, alt: 'Diseño en Figma paso 2', caption: 'Diseño con Figma: componentes y sistemas reutilizables.' },
+	{ src: figma03, alt: 'Diseño en Figma paso 3', caption: 'Diseño con Figma: prototipos listos para validar.' },
+	{ src: procratisnacion, alt: 'Vence la procrastinación', caption: 'Vence la procrastinación: la acción pequeña y diaria lo cambia todo.' },
+	{ src: sed, alt: 'Comunicación y seducción', caption: 'Comunicación y conexión: el lenguaje que acerca a las personas.' },
+	{ src: sedu, alt: 'Inteligencia social', caption: 'Inteligencia social: lee, comprende e influye con respeto.' },
+	{ src: whole, alt: 'Visión integral', caption: 'Visión integral: une las piezas del conocimiento en un todo.' },
+	{ src: blogPlaceholder1, alt: 'Aprende visualmente', caption: 'Aprende visualmente: cada imagen es una puerta a un tema nuevo.' },
+	{ src: blogPlaceholder2, alt: 'Explora un tema', caption: 'Explora un tema a tu ritmo, sin presión de leer todo.' },
+	{ src: blogPlaceholder3, alt: 'Ideas en imágenes', caption: 'Ideas en imágenes: cuando no quieras leer, mira y aprende.' },
+	{ src: blogPlaceholder4, alt: 'Inspiración diaria', caption: 'Inspiración diaria: una imagen puede disparar una gran idea.' },
+	{ src: blogPlaceholder5, alt: 'Conocimiento en minutos', caption: 'Conocimiento en minutos: aprendizaje rápido y visual.' },
+	{ src: blogPlaceholderAbout, alt: 'Sobre el blog', caption: 'Sobre el blog: una biblioteca viva de temas para crecer.' },
+];
 ---
 
 <!doctype html>
@@ -113,6 +169,12 @@ const categories = uniqueCategories.slice(0, 8);
 					))}
 				</div>
 			</section>
+
+			<Gallery
+				title="Aprende visualmente"
+				subtitle="Cuando no quieras leer, mira y aprende de distintos temas."
+				images={galleryImages}
+			/>
 
 			<section id="categories" class="categories-section">
 				<div class="section-header">
