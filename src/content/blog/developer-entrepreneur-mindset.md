@@ -292,7 +292,7 @@ flowchart TD
 
 ---
 
-## PARTE 4: SOFT SKILLS — LAS HABILIDADES QUE ABREN PUERTAS
+## 💬 PARTE 4: SOFT SKILLS — LAS HABILIDADES QUE ABREN PUERTAS
 
 ### 4.1 Por qué los developers subestiman las soft skills
 
