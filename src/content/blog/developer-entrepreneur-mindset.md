@@ -294,7 +294,7 @@ flowchart TD
 
 ## 💬 PARTE 4: SOFT SKILLS — LAS HABILIDADES QUE ABREN PUERTAS
 
-### 4.1 Por qué los developers subestiman las soft skills
+### 🤝 4.1 Por qué los developers subestiman las soft skills
 
 El developer promedio cree que el código habla por sí mismo. En un equipo pequeño o en una carrera independiente, esto es falso. Las habilidades blandas determinan:
 
@@ -304,7 +304,7 @@ El developer promedio cree que el código habla por sí mismo. En un equipo pequ
 - Si puedes comunicar valor a clientes
 - Si puedes escalar más allá de tu propio tiempo
 
-### 4.2 Las 6 soft skills esenciales para developer-emprendedores
+### 🌟 4.2 Las 6 soft skills esenciales para developer-emprendedores
 
 ```mermaid
 flowchart TD
@@ -334,7 +334,7 @@ flowchart TD
     G --> G2[Priorización de esfuerzos]
 ```
 
-### 4.3 Desarrollo de comunicación: de código a narrativa
+### 🗣️ 4.3 Desarrollo de comunicación: de código a narrativa
 
 | Nivel | Característica | Ejemplo |
 |-------|---------------|---------|
@@ -343,7 +343,7 @@ flowchart TD
 | **Avanzado** | Explica outcomes de negocio | "Esto significa que el cliente retiene 15% más usuarios" |
 | **Experto** | Cuenta una historia | "El problema era X. Lo resolvimos con Y. Ahora Z pasa." |
 
-### 4.4 Libros recomendados y su aplicación
+### 📖 4.4 Libros recomendados y su aplicación
 
 | Libro | Autor | Habilidad que desarrolla | Ejercicio clave |
 |-------|-------|--------------------------|-----------------|
@@ -351,7 +351,7 @@ flowchart TD
 | **Win Every Argument** | Mehdi Hasan | Argumentación y persuasión | Debate un problema técnico desde perspectiva de negocio |
 | **Soft Skills: The Software Developer's Life Manual** | John Sonmez | Carrera como negocio | Trata tu carrera como una empresa: define misión, clientes, revenue |
 
-### 4.5 Ejercicio: Tu pitch de 30 segundos
+### 🎯 4.5 Ejercicio: Tu pitch de 30 segundos
 
 **Antes:**
 > "Soy desarrollador full-stack, trabajo con Node.js, React y PostgreSQL."
@@ -368,9 +368,9 @@ para que [RESULTADO MEDIBLE].
 
 ---
 
-## PARTE 5: FINANCIAL MINDSET — EL DINERO NO ES UN TABÚ
+## 💰 PARTE 5: FINANCIAL MINDSET — EL DINERO NO ES UN TABÚ
 
-### 5.1 La relación tóxica developer-dinero
+### ⚠️ 5.1 La relación tóxica developer-dinero
 
 Muchos developers tienen una relación conflictiva con el dinero: lo ven como un subproducto del código, no como el resultado de valor entregado. Esta mentalidad limita:
 
@@ -379,7 +379,7 @@ Muchos developers tienen una relación conflictiva con el dinero: lo ven como un
 - Comprensión de unit economics en productos propios
 - Visión de largo plazo en inversiones y ahorro
 
-### 5.2 Conceptos financieros básicos para developers
+### 💡 5.2 Conceptos financieros básicos para developers
 
 | Concepto | Definición simple | Por qué te importa |
 |-----------|------------------|-------------------|
@@ -389,7 +389,7 @@ Muchos developers tienen una relación conflictiva con el dinero: lo ven como un
 | **Burn Rate** | Cuánto gastas por mes sin ingresos | Define tu runway: meses que puedes sobrevivir |
 | **Runway** | Meses hasta que se acaba el dinero | Si gastas $5k/mes y tienes $50k, tu runway es 10 meses |
 
-### 5.3 Calculadora de viabilidad económica
+### 🧮 5.3 Calculadora de viabilidad económica
 
 ```python
 def calculate_unit_economics(
@@ -428,7 +428,7 @@ print(f"LTV/CAC: {result['ltv_cac_ratio']}")
 print(f"¿Viable? {'Sí' if result['viable'] else 'No'}")
 ```
 
-### 5.4 Tabla de precios para servicios tecnológicos
+### 💵 5.4 Tabla de precios para servicios tecnológicos
 
 | Tipo de servicio | Rango de precios | Factores que justifican el precio |
 |-----------------|------------------|----------------------------------|
@@ -441,9 +441,9 @@ print(f"¿Viable? {'Sí' if result['viable'] else 'No'}")
 
 ---
 
-## PARTE 6: CAREER AS A BUSINESS — TU CARRERA ES TU EMPRESA
+## 🏢 PARTE 6: CAREER AS A BUSINESS — TU CARRERA ES TU EMPRESA
 
-### 6.1 De empleado a CEO de tu propia carrera
+### 👔 6.1 De empleado a CEO de tu propia carrera
 
 *Soft Skills: The Software Developer's Life Manual* argumenta que debes tratar tu carrera como un negocio del que eres el CEO. Esto significa:
 
@@ -452,7 +452,7 @@ print(f"¿Viable? {'Sí' if result['viable'] else 'No'}")
 - Tienes costos (tiempo, energía, educación)
 - Tienes que generar ingresos (salario, ganancias, equity)
 
-### 6.2 Los 5 pilares de la carrera-empresa
+### 🏗️ 6.2 Los 5 pilares de la carrera-empresa
 
 ```mermaid
 flowchart TD
@@ -471,7 +471,7 @@ flowchart TD
     style A fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
 ```
 
-### 6.3 Tipos de ingresos para developers
+### 💎 6.3 Tipos de ingresos para developers
 
 | Fuente | Característica | Potencial | Estabilidad |
 |--------|---------------|-----------|-------------|
@@ -483,7 +483,7 @@ flowchart TD
 | **Contenido / Educación** | Escalable | Medio-Alto | Media |
 | **Inversiones** | Pasivo | Depende | Baja |
 
-### 6.4 Educación y credenciales: el valor real
+### 🎓 6.4 Educación y credenciales: el valor real
 
 El video argumenta que títulos, bootcamps y certificaciones sirven principalmente para legitimación y diferenciación en el mercado, no solo para aprender skills técnicos.
 
@@ -497,9 +497,9 @@ El video argumenta que títulos, bootcamps y certificaciones sirven principalmen
 
 ---
 
-## PARTE 7: PRODUCT-MARKET FIT — DE LA IDEA AL PRODUCTO REAL
+## 🎯 PARTE 7: PRODUCT-MARKET FIT — DE LA IDEA AL PRODUCTO REAL
 
-### 7.1 El ciclo Build-Measure-Learn en la práctica
+### 🔄 7.1 El ciclo Build-Measure-Learn en la práctica
 
 ```mermaid
 flowchart LR
@@ -515,7 +515,7 @@ flowchart LR
     style F fill:#C8E6C9,stroke:#388E3C
 ```
 
-### 7.2 Qué medir en cada etapa
+### 📊 7.2 Qué medir en cada etapa
 
 | Etapa | Métrica principal | Métrica secundaria |
 |-------|-------------------|-------------------|
@@ -524,7 +524,7 @@ flowchart LR
 | **Crecimiento** | Tasa de retención semanal | NPS (Net Promoter Score) |
 | **Escala** | LTV/CAC ratio | Churn rate |
 
-### 7.3 Errores comunes de developers emprendedores
+### 🚫 7.3 Errores comunes de developers emprendedores
 
 | Error | Síntoma | Solución |
 |-------|---------|----------|
@@ -536,9 +536,9 @@ flowchart LR
 
 ---
 
-## PARTE 8: SCALING STRATEGY — CRECER SIN PERDER EL CONTROL
+## 📈 PARTE 8: SCALING STRATEGY — CRECER SIN PERDER EL CONTROL
 
-### 8.1 El funnel del emprendedor developer
+### 🚀 8.1 El funnel del emprendedor developer
 
 ```mermaid
 flowchart TD
@@ -555,7 +555,7 @@ flowchart TD
     style H fill:#C8E6C9,stroke:#388E3C
 ```
 
-### 8.2 Cuándo delegar y qué delegar
+### 🤝 8.2 Cuándo delegar y qué delegar
 
 | Etapa | Qué hacer tú | Qué delegar |
 |-------|-------------|-------------|
@@ -564,7 +564,7 @@ flowchart TD
 | **50-200 clientes** | Estrategia y ventas | Operaciones, soporte, desarrollo junior |
 | **200+ clientes** | Visión y partnerships | Casi todo (con sistemas de control) |
 
-### 8.3 La mentalidad de portfolio
+### 🎨 8.3 La mentalidad de portfolio
 
 No dependas de un solo ingreso, producto o cliente. El developer-emprendedor exitoso construye un portafolio:
 
@@ -577,9 +577,9 @@ No dependas de un solo ingreso, producto o cliente. El developer-emprendedor exi
 
 ## APPEND1
 
-## PARTE 9: I DO / WE DO / YOU DO — EJERCICIOS PROGRESIVOS
+## 🏋️ PARTE 9: I DO / WE DO / YOU DO — EJERCICIOS PROGRESIVOS
 
-### 9.1 I Do — Tu pitch de 30 segundos
+### 🎯 9.1 I Do — Tu pitch de 30 segundos
 
 **Objetivo:** transformar tu descripción técnica en una propuesta de valor.
 
@@ -596,7 +596,7 @@ No dependas de un solo ingreso, producto o cliente. El developer-emprendedor exi
 > 
 > Después: "Ayudo a startups fintech a procesar pagos 10x más rápido mediante arquitecturas serverless, reduciendo su infraestructura en un 60%."
 
-### 9.2 We Do — Validación de una idea de producto
+### 🤝 9.2 We Do — Validación de una idea de producto
 
 **Escenario:** tienes una idea para un SaaS de gestión de proyectos para estudios de arquitectura.
 
@@ -609,7 +609,7 @@ No dependas de un solo ingreso, producto o cliente. El developer-emprendedor exi
 | 5 | Crear landing page con descripción del problema | Medir interés (CTR, emails) |
 | 6 | Si hay interés, construir MVP | Prototipo funcional |
 
-### 9.3 You Do — Construye tu matriz de recursos
+### 🛠️ 9.3 You Do — Construye tu matriz de recursos
 
 **Tarea:** completa la matriz de habilidades y recursos, y define tu plan de 90 días.
 
