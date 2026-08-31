@@ -271,7 +271,7 @@ El developer tiende a enamorarse de soluciones. El emprendedor exitoso se obsesi
 | **Intención de pago declarada** | > 10% | Validación de modelo económico |
 | **Pre-ventas** | Cualquier cantidad | Validación máxima: dinero real |
 
-### 3.5 El framework de las 10 entrevistas
+### 🎤 3.5 El framework de las 10 entrevistas
 
 ```mermaid
 flowchart TD
