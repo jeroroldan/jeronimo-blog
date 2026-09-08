@@ -383,3 +383,136 @@ flowchart LR
 > **Tip** 💡 — Santana sugiere: "Haz una auditoría de tokens. La mitad de tus llamadas a la API son para tareas que un modelo de 8B en lugar de 70B resolvería igual. Ese es el 90% de tu presupuesto de IA."
 
 ---
+
+## PARTE 8: I DO / WE DO / YOU DO — EJERCICIOS PROGRESIVOS
+
+### 8.1 I Do — Diagnosticar el nivel de IA de tu empresa 👨‍🏫
+
+**Objetivo:** evaluar dónde está tu organización en la escala de agentes.
+
+| Paso | Pregunta clave | Herramienta |
+|------|----------------|-------------|
+| 1 | ¿Usan IA con prompts básicos o con herramientas? | Nivel 1 vs 2 |
+| 2 | ¿Los agentes toman decisiones o ejecutan órdenes? | Nivel 2 vs 3 |
+| 3 | ¿Hay feedback loops o dependen del humano? | Nivel 3 vs 4 |
+| 4 | ¿Auto-planifican o necesitan instrucciones? | Nivel 4 vs 5 |
+
+> **Test rápido:** Si tu equipo necesita instrucciones paso a paso, están en nivel 2. Si puede recibir un objetivo general y ejecutarlo, están cerca del nivel 3.
+
+### 8.2 We Do — Diseñar un segundo cerebro 🤝
+
+**Escenario:** una consultora quiere documentar sus procesos para entrenar agentes de IA.
+
+| Paso | Acción | Output |
+|------|--------|--------|
+| 1 | Identificar knowledge sources | 5 fuentes clave (clientes, procesos, templates) |
+| 2 | Elegir herramienta | Notion o Confluence |
+| 3 | Estructurar por tema | Client onboarding, reportes, pitch decks |
+| 4 | Asignar dueños | Cada documento tiene un owner que lo actualiza |
+| 5 | Conectar con IA | "Usa este knowledge base para responder" |
+
+| Criterio | Pregunta |
+|----------|----------|
+| **Completo** | ¿Documenta el 80% de lo que preguntan los clientes? |
+| **Actualizado** | ¿Se revisa cada 30 días? |
+| **Accesible** | ¿Se puede buscar por tema y fecha? |
+| **Accionable** | ¿La IA puede usarlo sin ambigüedades? |
+
+### 8.3 You Do — Diseñar tu feedback loop 💪
+
+**Tarea:** diseñá un sistema de retroalimentación para un agente de IA que gestiona tu email.
+
+| Componente | Diseño |
+|------------|--------|
+| **Sensor** | ¿Cómo medirás si el agente responde correctamente? |
+| **Comparación** | ¿Qué baseline o KPI usarás? |
+| **Diagnóstico** | ¿Cómo identificarás errores? |
+| **Ajuste** | ¿Qué cambios aplicarás al agente? |
+| **Iteración** | ¿Con qué frecuencia revisarás? |
+
+| Criterio de evaluación | Peso |
+|------------------------|------|
+| Sensor claramente definido | 20% |
+| KPI medible y relevante | 20% |
+| Sistema de diagnóstico | 20% |
+| Plan de ajuste concreto | 20% |
+| Frecuencia de iteración establecida | 20% |
+
+---
+
+## CHECKLIST FINAL DE IA EMPRESARIAL ✅
+
+| Bloque | Check |
+|--------|-------|
+| **Mentalidad** | Pasaste de "sorpresa" a "aplicación estratégica" |
+| **Agentes** | Evaluaste tu nivel en la escala AGI |
+| **Modelos** | Usas modelos generales para simplificar flujos |
+| **Creatividad** | Encontraste usos inesperados de la IA |
+| **Knowledge base** | Documentaste procesos para nutrir agentes |
+| **Feedback** | Implementaste loops de retroalimentación |
+| **Economía** | Optimizaste tokens con modelos pequeños |
+| **Ejercicios** | I Do / We Do / You Do completados |
+
+---
+
+## PREGUNTAS DE VERIFICACIÓN 📝
+
+### Preguntas sobre mentalidad y fases
+1. **Aplica:** ¿Podés identificar un proyecto donde la "sorpresa" de la IA se convirtió en rutina? ¿Cómo lo harías ahora?
+2. **Analiza:** ¿De qué manera la insensibilización a la IA puede volverse una ventaja competitiva?
+
+### Preguntas sobre agentes y AGI
+3. **Diseña:** Mapear tu empresa en la escala de 5 niveles. ¿Estás en el nivel correcto?
+4. **Reflexiona:** ¿Qué capacidades faltan hoy para pasar del nivel 3 al 4?
+
+### Preguntas sobre las 5 ideas estratégicas
+5. **Calcula:** Auditá tus costos de IA. ¿En qué porcentaje usarías modelos más pequeños?
+6. **Evalúa:** ¿Qué knowledge base documentarías primero para nutrir a un agente?
+7. **Conecta:** Diseñá un feedback loop para un agente que gestiona tu calendario.
+8. **Propón:** Un "camino inesperado" para usar IA en tu trabajo actual.
+9. **Síntesis:** Combiná dos de las cinco ideas (ej: knowledge base + feedback loop) para un agente específico.
+10. **Reflexión final:** Si los agentes alcanzan nivel 4 en 2 años, ¿qué rol tendrás vos? ¿Qué habilidad protegerías?
+
+---
+
+## GLOSARIO RÁPIDO 📖
+
+| Término | Definición |
+|---------|------------|
+| **AGI** | Artificial General Intelligence — IA con razonamiento general |
+| **Agente autónomo** | Sistema que actúa sin intervención humana constante |
+| **Nivel AGI** | Escala del 0 al 5 de autonomía de IA |
+| **Multi-tarea** | Modelo que hace varias cosas en un solo interfaz |
+| **Knowledge base** | Repositorio documental que nutre a agentes de IA |
+| **Feedback loop** | Sistema donde el agente se autoevalúa y ajusta |
+| **Token economics** | Optimización de costos de uso de modelos de lenguaje |
+| **Modelo frontera** | El modelo más avanzado disponible (GPT-4, Claude 3.5) |
+| **Modelo pequeño** | Modelo open source o más barato (Llama, Qwen, 8B) |
+| **RAG** | Retrieval-Augmented Generation — combinar datos con generación |
+| **Chain-of-Thought** | Técnica para que la IA raccione paso a paso |
+| **Insensibilización** | Adaptación a la novedad, fin de la sorpresa |
+
+---
+
+## ANEXO A: FORMATO IDEAL PARA GUÍAS DE IA 🧠
+
+### Recomendaciones de legibilidad
+
+```css
+.article-content {
+  font-size: 18px;
+  line-height: 1.75;
+  max-width: 65ch;
+}
+```
+
+### Lo que hace agradable una guía al cerebro 🧠
+
+- **Ejemplos concretos** anclan conceptos abstractos en casos reales.
+- **Casos de uso inesperados** estimulan la creatividad aplicada.
+- **Tablas comparativas** facilitan el contraste rápido.
+- **Diagnósticos prácticos** permiten aplicar de inmediato.
+- **Ejercicios progresivos** (I Do / We Do / You Do) construyen confianza.
+- **Checklist y glosario** permiten repaso rápido.
+
+> **Frase del profe** 🌟 — *"La IA no cambió el mundo porque apareció. La cambió porque dejó de sorprender. Ahora es hora de trabajar."*
