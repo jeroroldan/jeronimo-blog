@@ -494,3 +494,58 @@ PISA evalúa si podés **interpretar tasas, tendencias, crecimiento y decrecimie
 | Enfriamiento | Temperatura baja |
 
 > **Tip** 💡 — En PISA, los gráficos de cambio a menudo tienen tramposidades: la escala del eje x no es uniforme, o la línea no empieza en 0. Mirá los números, no solo la forma.
+
+---
+
+## PARTE 7: PROBABILIDAD Y AZAR — ENTENDER LA INCERTIDUMBRE 🎲
+
+### 7.1 Lo que evalúa PISA en probabilidad
+
+PISA evalúa si podés **comparar probabilidades, entender experimentos aleatorios y evitar falacias**. No pide fórmulas complejas: pide sentido común probabilístico.
+
+| Tema | Ejemplo PISA | Competencia |
+|------|--------------|-------------|
+| **Frecuencia relativa** | "De 100 lanzamientos, 45 salieron cara" | Interpretar dato |
+| **Probabilidad simple** | "Probabilidad de sacar un 6 en un dado" | Regla de Laplace |
+| **Comparación** | "¿Qué es más probable: A o B?" | Ordenar chances |
+| **Falacias** | "Después de 5 cruces, surely sale cara" | Reconocer independencia |
+| **Muestreo** | "¿Es representativa esta encuesta?" | Sesgo |
+
+### 7.2 Regla de Laplace
+
+```text
+P(evento) = Casos favorables / Casos posibles
+```
+
+| Experimento | Casos favorables | Casos posibles | Probabilidad |
+|-------------|------------------|----------------|--------------|
+| Dado, que salga 3 | 1 | 6 | 1/6 |
+| Moneda, que salga cara | 1 | 2 | 1/2 |
+| Baraja, sacar un as | 4 | 52 | 1/13 |
+
+### 7.3 La falacia del apostador
+
+Después de 5 cruces seguidos, mucha gente cree que "ya debe salir cara". **Falso**. Cada lanzamiento es independiente: la probabilidad sigue siendo 1/2.
+
+> **La frase del profe** 🌟 — *"La probabilidad no tiene memoria. El dado no 'recuerda' que salió 6 la última vez."*
+
+### 7.4 I Do — Calcular probabilidad simple 👨‍🏫
+
+**Problema:** en una bolsa hay 8 bolas azules y 4 rojas. ¿Probabilidad de sacar una roja?
+
+| Paso | Acción | Resultado |
+|------|--------|-----------|
+| 1 | Casos favorables | 4 (rojas) |
+| 2 | Casos posibles | 8 + 4 = 12 |
+| 3 | Probabilidad | 4/12 = 1/3 |
+
+### 7.5 We Do — Comparar probabilidades 🤝
+
+**Problema:** tenés dos dados. ¿Es más probable sacar suma 7 o suma 8?
+
+| Suma | Combinaciones |
+|------|---------------|
+| 7 | (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) = 6 |
+| 8 | (2,6), (3,5), (4,4), (5,3), (6,2) = 5 |
+
+**Conclusión:** suma 7 es más probable (6/36 vs 5/36).
