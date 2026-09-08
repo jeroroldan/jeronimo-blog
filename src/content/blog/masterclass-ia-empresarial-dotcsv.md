@@ -33,7 +33,7 @@ flowchart LR
     D --> E[Segundo cerebro]
     E --> F[Feedback loops]
     F --> G[Token economics]
-    G --> H[Ejercicios]
+    G --> H[📝 Ejercicios]
 
     subgraph PILARES ['Pilares Clave']
         A1[Insensibilizacion]
@@ -63,7 +63,7 @@ flowchart LR
 | **Segundo cerebro** | ¿Cómo nutrir a los agentes? | Knowledge base documentado |
 | **Feedback loops** | ¿Cómo autoevalúan los agentes? | Sistemas de retroalimentación |
 | **Token economics** | ¿Cómo optimizar costos? | Modelos pequeños para tareas simples |
-| **Ejercicios** | ¿Lo aplico a mi contexto? | I Do / We Do / You Do |
+| **📝 Ejercicios** | ¿Lo aplico a mi contexto? | I Do / We Do / You Do |
 
 ```mermaid
 flowchart LR
@@ -99,7 +99,7 @@ flowchart LR
 
 Desde el lanzamiento de los transformers (2017) hasta el boom de ChatGPT (2022), la IA generativa causó **sorpresa colectiva**. Cada demostración nueva superaba expectativas. Pero Santana observa una transición: el **asombro inicial da paso a la insensibilización**.
 
-💡 > **La frase del profe** 🌟 — *"Ya no te emocionás cada vez que abrís ChatGPT. La sorpresa se convirtió en rutina. Y eso es bueno: porque el valor real no está en la sorpresa, sino en la aplicación."*
+💡 > **🎯 La frase del profe** 🌟 — *"Ya no te emocionás cada vez que abrís ChatGPT. La sorpresa se convirtió en rutina. Y eso es bueno: porque el valor real no está en la sorpresa, sino en la aplicación."*
 
 ```mermaid
 flowchart TD
@@ -384,7 +384,7 @@ flowchart LR
 
 ---
 
-## PARTE 8: I DO / WE DO / YOU DO — EJERCICIOS PROGRESIVOS 📈📚 / WE DO / YOU DO — EJERCICIOS PROGRESIVOS
+## PARTE 8: I DO / WE DO / YOU DO — 📝 EjercicioS PROGRESIVOS 📈📚 / WE DO / YOU DO — 📝 EjercicioS PROGRESIVOS
 
 ### 8.1 👨‍🏫 I Do — Diagnosticar el nivel de IA — Diagnosticar el nivel de IA de tu empresa 👨‍🏫
 
@@ -418,7 +418,7 @@ flowchart LR
 | **Accesible** | ¿Se puede buscar por tema y fecha? |
 | **Accionable** | ¿La IA puede usarlo sin ambigüedades? |
 
-### 8.3 💪 You Do — Diseñar tu feedback loop — Diseñar tu feedback loop 💪
+### 8.3 💪 You Do — Diseñar tu feedback loop 💪
 
 **Tarea:** diseñá un sistema de retroalimentación para un agente de IA que gestiona tu email.
 
@@ -440,7 +440,7 @@ flowchart LR
 
 ---
 
-## CHECKLIST FINAL DE IA EMPRESARIAL ✅📋 DE IA EMPRESARIAL ✅
+## ✅ CHECKLIST FINAL DE IA EMPRESARIAL 📋
 
 | Bloque | Check |
 |--------|-------|
@@ -451,11 +451,11 @@ flowchart LR
 | **Knowledge base** | Documentaste procesos para nutrir agentes |
 | **Feedback** | Implementaste loops de retroalimentación |
 | **Economía** | Optimizaste tokens con modelos pequeños |
-| **Ejercicios** | I Do / We Do / You Do completados |
+| **📝 Ejercicios** | I Do / We Do / You Do completados |
 
 ---
 
-## PREGUNTAS DE VERIFICACIÓN 📝❓ 📝
+## 📝 PREGUNTAS DE VERIFICACIÓN ❓
 
 ### Preguntas sobre mentalidad y fases
 1. **Aplica:** ¿Podés identificar un proyecto donde la "sorpresa" de la IA se convirtió en rutina? ¿Cómo lo harías ahora?
@@ -475,7 +475,7 @@ flowchart LR
 
 ---
 
-## GLOSARIO RÁPIDO 📖📚 📖
+## 📚 GLOSARIO RÁPIDO
 
 | Término | Definición |
 |---------|------------|
@@ -494,7 +494,7 @@ flowchart LR
 
 ---
 
-## ANEXO A: FORMATO IDEAL PARA GUÍAS DE IA 🧠📄 IDEAL PARA GUÍAS DE IA 🧠
+## 🧠 ANEXO A: FORMATO IDEAL PARA GUÍAS DE IA
 
 ### Recomendaciones de legibilidad
 
@@ -512,10 +512,13 @@ flowchart LR
 - **Casos de uso inesperados** estimulan la creatividad aplicada.
 - **Tablas comparativas** facilitan el contraste rápido.
 - **Diagnósticos prácticos** permiten aplicar de inmediato.
-- **Ejercicios progresivos** (I Do / We Do / You Do) construyen confianza.
+- **📝 Ejercicios progresivos** (I Do / We Do / You Do) construyen confianza.
 - **Checklist y glosario** permiten repaso rápido.
 
 💡 > **Frase del profe** 🌟 — *"La IA no cambió el mundo porque apareció. La cambió porque dejó de sorprender. Ahora es hora de trabajar."*
+
+
+
 
 
 
