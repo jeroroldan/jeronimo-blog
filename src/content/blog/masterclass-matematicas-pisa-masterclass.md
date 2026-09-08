@@ -549,3 +549,268 @@ Después de 5 cruces seguidos, mucha gente cree que "ya debe salir cara". **Fals
 | 8 | (2,6), (3,5), (4,4), (5,3), (6,2) = 5 |
 
 **Conclusión:** suma 7 es más probable (6/36 vs 5/36).
+
+---
+
+## PARTE 8: ESTRATEGIA PISA — CÓMO ATACAR CUALQUIER ÍTEM 🎯
+
+### 8.1 Los 7 pasos maestros
+
+| Paso | Acción | Tiempo |
+|------|--------|--------|
+| 1 | Leer el ENUNCIADO completo, no solo la pregunta | 30 seg |
+| 2 | Subrayar DATOS y PREGUNTA | 15 seg |
+| 3 | Identificar el CONCEPTO matemático | 15 seg |
+| 4 | Ignorar datos INNECESARIOS | 10 seg |
+| 5 | ELEGIR estrategia (fórmula, proporción, gráfico) | 30 seg |
+| 6 | RESOLVER con calma | 1-2 min |
+| 7 | VERIFICAR: ¿tiene sentido? | 20 seg |
+
+### 8.2 Trampas más frecuentes en PISA
+
+| Trampa | Por qué pica | Cómo desactivarla |
+|--------|--------------|-------------------|
+| Textos largos con datos innecesados | Te abrumás y elegís mal | Subrayar solo números y pregunta |
+| Gráficas con ejes truncados | Engañan la percepción | Mirar valores exactos |
+| Respuesta que "se siente" correcta | Sesgo de intuición | Verificar con cálculo |
+| Unidades mezcladas (km y m) | Error de conversión | Convertir TODO antes de operar |
+| Múltiples pasos | Te olvidás del primero | Anotar cada resultado intermedio |
+
+### 8.3 Cómo entrenar para PISA
+
+```mermaid
+flowchart TD
+    A[Entrenamiento PISA] --> B[Leer 1 item diario]
+    A --> C[Identificar concepto]
+    A --> D[Resolver SIN mirar respuesta]
+    A --> E[Verificar razonamiento]
+    A --> F[Repetir errores]
+    
+    B --> G[Fuente: items liberados PISA]
+    C --> H[Anotar: algebra, datos, geo...]
+    D --> I[Usar estrategia de 7 pasos]
+    E --> J[¿Tiene sentido?]
+    F --> K[Cuaderno de errores]
+```
+
+| Actividad | Frecuencia | Duración |
+|-----------|------------|----------|
+| Resolver 1 ítem PISA liberado | Diaria | 10-15 min |
+| Revisar errores del día | Diaria | 5 min |
+| Hacer simulación completa | Semanal | 2 h |
+| Repasar fórmulas clave | Semanal | 10 min |
+
+---
+
+## PARTE 9: I DO / WE DO / YOU DO — EJERCICIOS PROGRESIVOS 🏋️
+
+### 9.1 I Do — Razonamiento con porcentaje 👨‍🏫
+
+**Problema PISA:** una tienda ofrece "lleve 3, pague 2". ¿Qué descuento porcentual obtienes?
+
+| Paso | Acción | Resultado |
+|------|--------|-----------|
+| 1 | Entender la oferta | Pagás 2, llevás 3 |
+| 2 | Calcular ahorro | 1 unidad gratis de 3 |
+| 3 | Porcentaje de ahorro | 1/3 ≈ 33.3% |
+
+### 9.2 We Do — Modelar con álgebra 🤝
+
+**Problema:** un parque tiene bancos. En la fila 1 hay 2 bancos, en la fila 2 hay 4, en la fila 3 hay 6... ¿Cuántos bancos hay en la fila 12? ¿Y en la fila n?
+
+| Fila | Bancos | Regla |
+|------|--------|-------|
+| 1 | 2 | 2·1 |
+| 2 | 4 | 2·2 |
+| 3 | 6 | 2·3 |
+| 12 | ? | 2·12 = 24 |
+| n | ? | 2n |
+
+### 9.3 You Do — Problema integrador PISA 💪
+
+**Problema completo:** Una familia planea un viaje. El auto consume 8 litros cada 100 km. La gasolina cuesta $1.50 por litro. El viaje es de 350 km de ida y 350 km de vuelta. ¿Cuánto gastarán en gasolina? Si tienen un presupuesto de $100, ¿les alcanza?
+
+| Paso | Acción | Resultado |
+|------|--------|-----------|
+| 1 | Distancia total | 350 · 2 = 700 km |
+| 2 | Litros necesarios | (8/100) · 700 = 56 L |
+| 3 | Costo | 56 · 1.50 = $84 |
+| 4 | Comparar con presupuesto | $84 < $100 → Sí alcanza |
+
+### 9.4 I Do — Geometría en contexto 🔧
+
+**Problema:** una pared rectangular mide 5 m de ancho y 3 m de alto. ¿Cuánto papel pintado necesitás si el rollo cubre 8 m²?
+
+| Paso | Acción | Resultado |
+|------|--------|-----------|
+| 1 | Área de la pared | 5 · 3 = 15 m² |
+| 2 | Rollos necesarios | 15 / 8 = 1.875 |
+| 3 | Redondear hacia arriba | 2 rollos |
+
+### 9.5 We Do — Datos y gráficas 👀
+
+**Problema:** la gráfica muestra la población de tres ciudades entre 2000 y 2020.
+
+| Ciudad | 2000 | 2010 | 2020 |
+|--------|------|------|------|
+| A | 50,000 | 60,000 | 72,000 |
+| B | 30,000 | 35,000 | 38,000 |
+| C | 80,000 | 85,000 | 90,000 |
+
+**Pregunta:** ¿Qué ciudad creció más en términos porcentuales entre 2000 y 2020?
+
+| Paso | Acción | Resultado |
+|------|--------|-----------|
+| 1 | Ciudad A | (72000-50000)/50000 = 44% |
+| 2 | Ciudad B | (38000-30000)/30000 ≈ 26.7% |
+| 3 | Ciudad C | (90000-80000)/80000 = 12.5% |
+| 4 | Comparar | A > B > C |
+
+### 9.6 You Do — Probabilidad contextualizada 💪
+
+**Problema:** en una ruleta hay 8 sectores iguales: 3 rojos, 3 azules, 2 verdes. ¿Es más probable obtener rojo o verde? Si giras 40 veces, ¿aproximadamente cuántas veces saldrá rojo?
+
+| Pregunta | Respuesta |
+|----------|-----------|
+| ¿Rojo o verde? | Rojo (3/8 > 2/8) |
+| Veces esperadas | 40 · 3/8 = 15 |
+
+### 9.7 I Do — Cambio y relaciones 🔄
+
+**Problema:** el costo de una llamada telefónica es $2 fijos más $0.50 por minuto. ¿Cuánto cuesta una llamada de 15 minutos? Si tenés $10, ¿cuántos minutos podés hablar?
+
+| Paso | Acción | Resultado |
+|------|--------|-----------|
+| 1 | Función | C(m) = 2 + 0.5m |
+| 2 | 15 minutos | 2 + 0.5·15 = $9.50 |
+| 3 | Con $10 | 10 = 2 + 0.5m → m = 16 minutos |
+
+### 9.8 We Do — Trampas PISA 🔍
+
+**Caso:** un gráfico muestra el precio de la leche por litro durante 5 años. El eje y empieza en $0.80 y termina en $1.20. Un título dice: "¡El precio de la leche se disparó!"
+
+| Análisis | Resultado |
+|----------|-----------|
+| Rango real | $0.80 a $1.20 = $0.40 de diferencia |
+| Interpretación | No es un "disparo", es un aumento moderado |
+| Trampa | Título sensacionalista + eje truncado |
+
+### 9.9 You Do — Problema PISA completo 📝
+
+**Tarea:** un río tiene un caudal de 500 m³/s. Una represa reduce el caudal en un 15%. ¿Cuánto agua pasa por la represa? Si la capacidad máxima de la represa es 600 m³/s, ¿está operando dentro de límites seguros?
+
+| Paso | Acción | Resultado |
+|------|--------|-----------|
+| 1 | Caudal reducido | 500 · 0.15 = 75 m³/s |
+| 2 | Caudal final | 500 - 75 = 425 m³/s |
+| 3 | Comparar | 425 < 600 → Sí, seguro |
+
+### 9.10 Cierre práctico 🏁
+
+| Nivel | Debes poder hacer |
+|-------|-------------------|
+| **I Do** | Resolver ítems contextualizados paso a paso |
+| **We Do** | Identificar concepto PISA y elegir estrategia |
+| **You Do** | Atacar cualquier ítem con el método de 7 pasos |
+
+---
+
+## CHECKLIST FINAL DE MATEMÁTICAS PISA ✅
+
+| Bloque | Check |
+|--------|-------|
+| Razonamiento | Leer contexto, no solo números |
+| Modelado | Traducir palabras a matemática |
+| Números | Porcentajes, proporciones, estimación |
+| Álgebra | Patrones, ecuaciones lineales, funciones |
+| Geometría | Áreas, volúmenes, escalas, coordenadas |
+| Datos | Tablas, gráficas, media, mediana, probabilidad |
+| Cambio | Tasas, tendencias, crecimiento, decrecimiento |
+| Estrategia | 7 pasos aplicados en 3 ítems de práctica |
+| Trampas | 5 errores frecuentes identificados |
+| Ejercicios | I Do / We Do / You Do completados |
+
+---
+
+## Preguntas de Verificación 📝
+
+Responde cada pregunta basándote en los conceptos de esta master class.
+
+### Preguntas sobre razonamiento y modelado
+
+1. **Aplica**: Explica con tus palabras por qué PISA evalúa más razonamiento que memoria. Da un ejemplo de un problema que requiera pensamiento, no fórmulas.
+
+2. **Analiza**: En un problema PISA, te dan un texto largo sobre huellas de carbono y te piden calcular el porcentaje de reducción. ¿Por qué es importante leer el texto antes de buscar números?
+
+### Preguntas sobre números y álgebra
+
+3. **Diseña**: Crea un problema contextualizado de porcentaje para un examen PISA. Incluye datos innecesarios para entrenar la detección de información relevante.
+
+4. **Reflexiona**: ¿Por qué las proporciones aparecen más en PISA que las ecuaciones cuadráticas? ¿Qué refleja eso sobre el mundo real?
+
+### Preguntas sobre geometría y datos
+
+5. **Calcula**: Un mapa tiene escala 1:25000. La distancia entre dos pueblos en el mapa es 8 cm. ¿Cuál es la distancia real en kilómetros?
+
+6. **Evalúa**: Una gráfica de barras muestra las ventas de un año. El eje y empieza en $100 y termina en $140. Un título dice: "¡Ventas en aumento!" ¿Es esa interpretación correcta? Justifica.
+
+### Preguntas integradoras
+
+7. **Conecta**: Explica cómo la elección entre media y mediana depende de la forma de la distribución. ¿Qué sucede en una distribución con outliers extremos?
+
+8. **Propón**: Diseña un estudio simple para determinar si hay correlación entre horas de sueño y rendimiento académico. Define población, muestra, variables y medidas.
+
+9. **Síntesis**: Analiza la afirmación: "Las ventas aumentaron cuando lanzamos la campaña publicitaria, por lo tanto la campaña causó el aumento". ¿Es válida? ¿Qué información adicional necesitás?
+
+10. **Reflexión final**: De todos los conceptos vistos (razonamiento, números, álgebra, geometría, datos, cambio, probabilidad), ¿cuál crees que es el más poderoso para evitar errores en la vida cotidiana y por qué?
+
+---
+
+## GLOSARIO RÁPIDO 📖
+
+| Término | Definición |
+|---------|------------|
+| **PISA** | Evaluación internacional de competencias estudiantiles |
+| **Competencia matemática** | Capacidad de usar matemáticas para resolver problemas |
+| **Razonamiento** | Pensamiento lógico para entender un problema |
+| **Modelado** | Convertir un problema real en matemática |
+| **Porcentaje** | Parte de 100 de una cantidad |
+| **Proporción** | Igualdad entre dos razones |
+| **Patrón** | Secuencia con regla regular |
+| **Álgebra** | Uso de letras para representar números |
+| **Ecuación lineal** | Ecuación de primer grado |
+| **Perímetro** | Borde de una figura |
+| **Área** | Espacio que ocupa una figura |
+| **Volumen** | Espacio que ocupa un objeto 3D |
+| **Escala** | Relación entre dibujo y realidad |
+| **Gráfica** | Representación visual de datos |
+| **Probabilidad** | Chance de que ocurra un evento |
+| **Tasa de cambio** | Cómo varía una cantidad por unidad de otra |
+| **Ítem PISA** | Una pregunta del examen PISA |
+
+---
+
+## ANEXO: FORMATO IDEAL PARA APRENDER MATEMÁTICAS PISA 🧠
+
+### Recomendaciones de práctica
+
+El cerebro aprende matemáticas PISA por **aplicación**, no por memorización.
+
+```text
+Rutina de 10 minutos:
+1. Lee una noticia con datos o gráficas (ej: "El INE dice que la inflación subió 5%").
+2. Pregunta: ¿qué significa ese número? ¿Es una media? ¿Un porcentaje?
+3. Busca una gráfica en la noticia. ¿Qué muestra? ¿Tiene trampas?
+4. Escribe una frase explicando el dato en tus palabras.
+5. Repite al día siguiente con otra noticia.
+```
+
+### Lo que hace agradable una guía al cerebro 🧠
+
+- **Ejemplos reales** 📊 anclan el número en la vida cotidiana.
+- **Trampas señaladas** 💀 previenen errores costosos.
+- **Progresión I Do / We Do / You Do** 👨‍🏫🤝💪 construye confianza.
+- **Preguntas de verificación** 📝 autoevaluación inmediata.
+- **Checklist final** ✅ certifica lo aprendido.
+
+> **Frase del profe** 🌟 — *"PISA no premia el que más sabe, sino el que entiende. Si leés el problema y el número tiene sentido, ya estás en el camino correcto."*
