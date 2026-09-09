@@ -22,6 +22,7 @@ Obsidian no es solo una herramienta de tomar notas. Es un **sistema de conocimie
 ![Obsidian - Segundo Cerebro Digital](../../assets/obsidian.jpg)
 
 ![Obsidian - Segundo Cerebro Digital-mp](../../assets/obsidialp.jpg)
+![Obsidian - Segundo Cerebro Digital-idea](../../assets/obsidiaidea.jpg)
 
 ---
 
