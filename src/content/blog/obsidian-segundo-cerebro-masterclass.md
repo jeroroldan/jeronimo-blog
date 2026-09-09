@@ -181,6 +181,8 @@ El **Graph View** muestra todas tus notas como nodos conectados por enlaces.
 
 > **🎯 Insight** — Un graph sano tiene clusters densos (temas profundos) y algunos nodos periféricos (exploración). Si todo está aislado, estás tomando notas pero no conectando.
 
+![Graph View - Visualización de conexiones](../../assets/obsidia3.png)
+
 ### 2.4 Configuración esencial (Emowe)
 
 | Setting | Recomendación | Por qué |
@@ -367,6 +369,8 @@ Las **daily notes** son notas automáticas por día.
 
 > **🎯 Caso de uso** — Mapa mental de un proyecto, flujo de trabajo visual, brainstorming, planning de sprint.
 
+![Canvas - Lienzo visual infinito](../../assets/obsidian3.jpg)
+
 ### 5.5 Excalidraw: dibujo a mano alzada
 
 **Excalidraw** es un plugin para dibujar diagramas a mano alzada dentro de Obsidian.
@@ -521,6 +525,8 @@ Las **daily notes** son notas automáticas por día.
 ## 🗺️ MAPA MENTAL DE CONCEPTOS — Cómo navegar el ecosistema al trabajar
 
 > **🧠 Idea clave** — Obsidian no es una lista de features: es un ecosistema donde cada parte potencia a las demás. Este mapa mental te permite ubicar cada concepto y ver cómo se conectan cuando estás trabajando.
+
+![Mapa Mental - Ecosistema Obsidian](../../assets/obsidianmental.jpg)
 
 ### 🧩 El Mapa en una Mirada
 
