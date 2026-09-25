@@ -6,15 +6,15 @@ export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
 		params: { slug: post.id },
-		props: post,
+		props: { post, allPosts: posts.map((p) => ({ id: p.id, data: { title: p.data.title, description: p.data.description, tags: p.data.tags ?? [], track: (p.data as any).track, code: p.data.code, category: p.data.category } })) },
 	}));
 }
-type Props = CollectionEntry<'blog'>;
+type Props = { post: CollectionEntry<'blog'>; allPosts: { id: string; data: { title: string; description: string; tags?: string[]; track?: string; code?: string; category?: string } }[] };
 
-const post = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content, headings } = await render(post);
 ---
 
-<BlogPost {...post.data} headings={headings} slug={post.id}>
+<BlogPost {...post.data} headings={headings} slug={post.id} related={allPosts}>
 	<Content />
 </BlogPost>

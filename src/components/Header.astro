@@ -1,7 +1,7 @@
 ---
 import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
-import { themes, themeToSlug } from "../lib/themeMapping";
+import { TRACKS } from "../lib/tracks";
 ---
 
 <header id="site-header">
@@ -12,17 +12,18 @@ import { themes, themeToSlug } from "../lib/themeMapping";
 
     <div class="nav-links" id="nav-menu">
       <HeaderLink href="/">Inicio</HeaderLink>
+      <HeaderLink href="/guias">Guías</HeaderLink>
 
       <div class="dropdown">
         <button class="dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false">
-          Blog
+          Tracks
           <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="m6 9 6 6 6-6" />
           </svg>
         </button>
         <div class="dropdown-content">
-          {themes.map(theme => (
-            <HeaderLink href={`/blog/${themeToSlug[theme]}`}>{theme}</HeaderLink>
+          {TRACKS.map(t => (
+            <HeaderLink href={`/guias/${t.slug}`}>{t.icon} {t.title}</HeaderLink>
           ))}
           <div class="dropdown-sep" role="separator"></div>
           <HeaderLink href="/blog">Todas las publicaciones</HeaderLink>

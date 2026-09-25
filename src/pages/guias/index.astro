@@ -1,0 +1,109 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { SITE_TITLE } from '../../consts';
+import { TRACKS, resolveTrack, getSubtrackFromCode } from '../../lib/tracks';
+
+const allPosts = await getCollection('blog');
+const visible = allPosts.filter((p) => !(p.data as any).draft);
+
+// Conteo por track + subtracks top
+const byTrack = new Map<string, { total: number; subs: Map<string, number> }>();
+for (const t of TRACKS) byTrack.set(t.slug, { total: 0, subs: new Map() });
+for (const p of visible) {
+  const track = resolveTrack(p.data as any);
+  const entry = byTrack.get(track.slug)!;
+  entry.total++;
+  const sub = (p.data as any).subtrack ?? getSubtrackFromCode(p.data.code);
+  entry.subs.set(sub, (entry.subs.get(sub) ?? 0) + 1);
+}
+
+// 3 destacados: featured=true primero, si no los más nuevos
+const featured = [...visible]
+  .sort((a, b) => {
+    const fa = (a.data as any).featured ? 0 : 1;
+    const fb = (b.data as any).featured ? 0 : 1;
+    if (fa !== fb) return fa - fb;
+    return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+  })
+  .slice(0, 3);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <BaseHead title={`Guías | ${SITE_TITLE}`} description="Explora todas las guías por track: desarrollo, IA, trading, negocios, crecimiento, inglés y habilidades sociales." />
+    <style>
+      .wrap { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+      .hero { text-align: center; margin-bottom: 2.5rem; }
+      .hero h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 0.5rem; }
+      .hero p { color: var(--text-secondary); max-width: 720px; margin: 0 auto; }
+      .stats { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem; }
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0; }
+      .card {
+        display: block; padding: 1.75rem; border-radius: var(--border-radius-lg);
+        background: var(--bg-secondary); border: 1px solid var(--glass-border);
+        text-decoration: none; transition: all var(--transition-normal);
+        border-top: 4px solid var(--track-color);
+      }
+      .card:hover { transform: translateY(-6px); border-color: var(--track-color); box-shadow: var(--glass-shadow); }
+      .card .icon { font-size: 2rem; }
+      .card h2 { margin: 0.5rem 0; color: var(--text-primary); font-size: 1.25rem; }
+      .card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem; }
+      .card .meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-muted); }
+      .card .count { font-weight: 800; color: var(--track-color); }
+      .subs { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem; }
+      .subs span { font-size: 0.72rem; padding: 0.15rem 0.55rem; border-radius: 999px; background: var(--bg-primary); border: 1px solid var(--glass-border); color: var(--text-secondary); }
+      .feat { margin-top: 3rem; }
+      .feat h2 { margin-bottom: 1rem; }
+      .feat-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+      .feat-list a { padding: 1.25rem; border-radius: var(--border-radius-md); background: var(--glass-bg); border: 1px solid var(--glass-border); text-decoration: none; }
+      .feat-list a:hover { border-color: var(--accent); }
+      .feat-list strong { display: block; color: var(--text-primary); margin-bottom: 0.4rem; }
+      .feat-list span { font-size: 0.88rem; color: var(--text-secondary); }
+      @media (max-width: 1024px) { .grid, .feat-list { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 680px) { .grid, .feat-list { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main class="wrap">
+      <Breadcrumbs trail={[{ label: 'Inicio', href: '/' }, { label: 'Guías' }]} />
+      <div class="hero">
+        <h1>Guías</h1>
+        <p>Deja de buscar entre 592 posts sueltos. Elige un track, domina sus subtracks y sigue una serie ordenada.</p>
+        <div class="stats"><span>{visible.length} guías</span><span>•</span><span>{TRACKS.length} tracks</span></div>
+      </div>
+      <div class="grid">
+        {TRACKS.map((t) => {
+          const info = byTrack.get(t.slug)!;
+          const topSubs = [...info.subs.entries()].sort((a, b) => b[1] - a[1]).slice(0, 4);
+          return (
+            <a class="card" href={`/guias/${t.slug}/`} style={`--track-color:${t.color}`}>
+              <span class="icon">{t.icon}</span>
+              <h2>{t.title}</h2>
+              <p>{t.description}</p>
+              <div class="meta"><span class="count">{info.total} guías</span><span>Explorar →</span></div>
+              <div class="subs">{topSubs.map(([s, n]) => <span>{s} · {n}</span>)}</div>
+            </a>
+          );
+        })}
+      </div>
+      <section class="feat">
+        <h2>Destacadas</h2>
+        <div class="feat-list">
+          {featured.map((p) => (
+            <a href={`/blog/${p.id}/`}>
+              <strong>{p.data.title}</strong>
+              <span>{p.data.description?.slice(0, 120)}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

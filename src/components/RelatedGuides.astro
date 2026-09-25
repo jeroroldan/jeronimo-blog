@@ -1,0 +1,68 @@
+---
+import { resolveTrack } from '../lib/tracks';
+
+interface RelatedPost {
+  id: string;
+  data: {
+    title: string;
+    description: string;
+    tags?: string[];
+    track?: string;
+    code?: string;
+    category?: string;
+  };
+}
+
+interface Props {
+  currentId: string;
+  currentTags?: string[];
+  currentTrackSlug: string;
+  posts: RelatedPost[];
+  limit?: number;
+}
+
+const { currentId, currentTags = [], currentTrackSlug, posts, limit = 3 } = Astro.props;
+
+const scored = posts
+  .filter((p) => p.id !== currentId)
+  .map((p) => {
+    const track = resolveTrack(p.data as any).slug;
+    const tags = (p.data.tags ?? []).map((t: string) => t.toLowerCase());
+    const shared = tags.filter((t: string) => currentTags.map((x) => x.toLowerCase()).includes(t)).length;
+    const score = (track === currentTrackSlug ? 2 : 0) + shared;
+    return { p, score };
+  })
+  .filter((s) => s.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, limit);
+---
+
+{scored.length > 0 && (
+  <section class="related" aria-label="Guías relacionadas">
+    <h2>Seguir aprendiendo</h2>
+    <ul>
+      {scored.map(({ p }) => (
+        <li>
+          <a href={`/blog/${p.id}/`}>
+            <strong>{p.data.title}</strong>
+            <span>{p.data.description?.slice(0, 110)}{p.data.description && p.data.description.length > 110 ? '…' : ''}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .related { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); }
+  .related h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+  .related ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+  .related a {
+    display: block; padding: 1rem 1.25rem; border-radius: var(--border-radius-md);
+    background: var(--bg-secondary); border: 1px solid var(--glass-border);
+    text-decoration: none; transition: all var(--transition-fast);
+  }
+  .related a:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .related strong { display: block; color: var(--text-primary); margin-bottom: 0.25rem; }
+  .related span { font-size: 0.9rem; color: var(--text-secondary); }
+</style>

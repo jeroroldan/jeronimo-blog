@@ -10,6 +10,7 @@ import ReadIndicator from '../components/ReadIndicator.astro';
 import Gallery from '../components/Gallery.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import DefaultImage from '../assets/blog-placeholder-1.jpg';
+import { TRACKS, resolveTrack } from '../lib/tracks';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts
@@ -17,9 +18,7 @@ const posts = allPosts
 	.slice(0, 6);
 
 const totalPosts = allPosts.length;
-const uniqueCategories = [...new Set(allPosts.map(p => p.data.category).filter((c): c is string => Boolean(c)))];
-const totalCategories = uniqueCategories.length;
-const categories = uniqueCategories.slice(0, 8);
+const totalCategories = TRACKS.length;
 
 // Captions keyed by filename. Any new image added to src/assets/ is picked up
 // automatically by Gallery.astro via import.meta.glob; images not listed here
@@ -77,8 +76,8 @@ const galleryCaptions: Record<string, { alt?: string; caption: string }> = {
 					</div>
 				</div>
 				<div class="cta-group">
-					<a href="/blog" class="btn-primary">Explorar Blog</a>
-					<a href="#categories" class="btn-secondary">Ver Categorías</a>
+					<a href="/guias" class="btn-primary">Explorar Guías</a>
+					<a href="#categories" class="btn-secondary">Ver Tracks</a>
 				</div>
 			</section>
 
@@ -155,13 +154,14 @@ const galleryCaptions: Record<string, { alt?: string; caption: string }> = {
 
 			<section id="categories" class="categories-section">
 				<div class="section-header">
-					<h2>Explora por tema</h2>
+					<h2>Explora por track</h2>
+					<a href="/guias" class="view-all">Ver todas las guías →</a>
 				</div>
 				<div class="categories-grid">
-					{categories.map((cat) => (
-						<a href={`/blog?category=${encodeURIComponent(cat)}`} class="category-card">
-							<span class="category-icon">📂</span>
-							<span>{cat}</span>
+					{TRACKS.map((t) => (
+						<a href={`/guias/${t.slug}/`} class="category-card">
+							<span class="category-icon">{t.icon}</span>
+							<span>{t.title}</span>
 						</a>
 					))}
 				</div>

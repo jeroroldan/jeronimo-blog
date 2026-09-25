@@ -1,0 +1,37 @@
+---
+interface Props {
+  level?: string;
+  type?: string;
+  subtrack?: string;
+}
+const { level, type, subtrack } = Astro.props;
+
+const levelColors: Record<string, string> = {
+  fundamento: '#10b981',
+  intermedio: '#f59e0b',
+  avanzado: '#f43f5e',
+};
+---
+
+<div class="badges">
+  {subtrack && subtrack !== 'general' && <span class="badge badge-sub">{subtrack}</span>}
+  {type && <span class="badge badge-type">{type}</span>}
+  {level && (
+    <span class="badge badge-level" style={`--lvl:${levelColors[level] ?? 'var(--accent)'}`}>
+      {level}
+    </span>
+  )}
+</div>
+
+<style>
+  .badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0; }
+  .badge {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+    border: 1px solid var(--glass-border);
+  }
+  .badge-sub { background: var(--bg-primary); color: var(--text-secondary); }
+  .badge-type { background: transparent; border-style: dashed; }
+  .badge-level { background: color-mix(in srgb, var(--lvl) 12%, transparent); color: var(--lvl); border-color: var(--lvl); }
+</style>

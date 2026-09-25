@@ -1,0 +1,113 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import LevelBadge from '../../components/LevelBadge.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { SITE_TITLE } from '../../consts';
+import { TRACKS, resolveTrack, getSubtrackFromCode } from '../../lib/tracks';
+
+export const getStaticPaths = (async () => {
+  return TRACKS.map((t) => ({ params: { track: t.slug } }));
+}) satisfies GetStaticPaths;
+
+const { track: trackSlug } = Astro.params;
+const track = TRACKS.find((t) => t.slug === trackSlug)!;
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter((p) => !(p.data as any).draft)
+  .filter((p) => resolveTrack(p.data as any).slug === track.slug)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const subCounts = new Map<string, number>();
+for (const p of posts) {
+  const sub = (p.data as any).subtrack ?? getSubtrackFromCode(p.data.code);
+  subCounts.set(sub, (subCounts.get(sub) ?? 0) + 1);
+}
+const subs = [...subCounts.entries()].sort((a, b) => b[1] - a[1]);
+const activeSub = Astro.url.searchParams.get('subtrack') ?? 'all';
+const filtered = activeSub === 'all'
+  ? posts
+  : posts.filter((p) => ((p.data as any).subtrack ?? getSubtrackFromCode(p.data.code)) === activeSub);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <BaseHead title={`${track.title} | Guías | ${SITE_TITLE}`} description={track.description} />
+    <style>
+      .wrap { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+      .hero { padding: 2.5rem; border-radius: var(--border-radius-lg); background: var(--glass-bg); border: 1px solid var(--glass-border); border-top: 4px solid var(--track-color); margin-bottom: 2rem; }
+      .hero h1 { margin: 0.5rem 0; }
+      .hero p { color: var(--text-secondary); max-width: 760px; }
+      .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
+      .chip { padding: 0.45rem 1rem; border-radius: 999px; border: 1px solid var(--glass-border); background: var(--bg-secondary); color: var(--text-secondary); text-decoration: none; font-size: 0.88rem; }
+      .chip.active, .chip:hover { border-color: var(--track-color); color: var(--track-color); }
+      .list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; list-style: none; margin: 0; padding: 0; }
+      .list a { display: block; padding: 1.4rem; border-radius: var(--border-radius-md); background: var(--bg-secondary); border: 1px solid var(--glass-border); text-decoration: none; }
+      .list a:hover { border-color: var(--track-color); transform: translateY(-3px); }
+      .list h2 { font-size: 1.1rem; margin: 0 0 0.4rem; color: var(--text-primary); }
+      .list p { font-size: 0.92rem; color: var(--text-secondary); margin: 0 0 0.6rem; }
+      .meta { font-size: 0.8rem; color: var(--text-muted); }
+      @media (max-width: 800px) { .list { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main class="wrap" style={`--track-color:${track.color}`}>
+      <Breadcrumbs trail={[{ label: 'Inicio', href: '/' }, { label: 'Guías', href: '/guias/' }, { label: track.title }]} />
+      <div class="hero">
+        <span style="font-size:2rem">{track.icon}</span>
+        <h1>{track.title}</h1>
+        <p>{track.description}</p>
+        <p class="meta">{posts.length} guías · {subs.length} subtracks</p>
+      </div>
+      <div class="chips" role="navigation" aria-label="Filtrar por subtrack">
+        <button class="chip active" data-sub="all">Todos</button>
+        {subs.map(([s, n]) => (
+          <button class="chip" data-sub={s}>{s} · {n}</button>
+        ))}
+      </div>
+      <ul class="list" id="track-list">
+        {filtered.map((p) => (
+          <li data-subtrack={(p.data as any).subtrack ?? getSubtrackFromCode(p.data.code)}>
+            <a href={`/blog/${p.id}/`}>
+              <h2>{p.data.title}</h2>
+              <LevelBadge level={(p.data as any).level} type={(p.data as any).type} subtrack={(p.data as any).subtrack ?? getSubtrackFromCode(p.data.code)} />
+              <p>{p.data.description?.slice(0, 140)}</p>
+              <div class="meta"><FormattedDate date={p.data.pubDate} /></div>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <script is:inline>
+        (function () {
+          var chips = Array.prototype.slice.call(document.querySelectorAll('.chips .chip'));
+          var items = Array.prototype.slice.call(document.querySelectorAll('#track-list > li'));
+          var params = new URLSearchParams(window.location.search);
+          var initial = params.get('subtrack') || 'all';
+          function apply(sub) {
+            chips.forEach(function (c) { c.classList.toggle('active', c.getAttribute('data-sub') === sub); });
+            items.forEach(function (li) {
+              var s = li.getAttribute('data-subtrack');
+              li.style.display = sub === 'all' || s === sub ? '' : 'none';
+            });
+            var url = new URL(window.location.href);
+            if (sub === 'all') url.searchParams.delete('subtrack');
+            else url.searchParams.set('subtrack', sub);
+            window.history.replaceState({}, '', url);
+          }
+          chips.forEach(function (c) {
+            c.addEventListener('click', function () { apply(c.getAttribute('data-sub') || 'all'); });
+          });
+          if (initial !== 'all') apply(initial);
+        })();
+      </script>
+    </main>
+    <Footer />
+  </body>
+</html>

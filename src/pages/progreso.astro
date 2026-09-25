@@ -4,18 +4,22 @@ import { ClientRouter } from 'astro:transitions';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import { TRACKS, resolveTrack } from '../lib/tracks';
 
 const allPosts = await getCollection('blog');
 const totalPosts = allPosts.length;
 
-const catCounts = new Map<string, number>();
+// Progreso por TRACK canónico (no por category libre)
+const trackCounts = new Map<string, number>();
+for (const t of TRACKS) trackCounts.set(t.slug, 0);
+const trackOf = new Map<string, string>();
 for (const post of allPosts) {
-	const cat = post.data.category?.trim();
-	if (!cat) continue;
-	catCounts.set(cat, (catCounts.get(cat) ?? 0) + 1);
+  const track = resolveTrack(post.data as any);
+  trackCounts.set(track.slug, (trackCounts.get(track.slug) ?? 0) + 1);
+  trackOf.set(post.id, track.slug);
 }
-const categories = [...catCounts.entries()].sort((a, b) => b[1] - a[1]);
-const maxCatCount = Math.max(1, ...categories.map(([, count]) => count));
+const categories: [string, string, number][] = TRACKS.map((t) => [t.title, t.slug, trackCounts.get(t.slug) ?? 0]).sort((a, b) => b[2] - a[2]);
+const maxCatCount = Math.max(1, ...categories.map(([, , count]) => count));
 
 const now = new Date();
 const months: { key: string; label: string; count: number }[] = [];
@@ -38,7 +42,7 @@ const totalReadingMinutes = postsWithTime.reduce((acc, p) => acc + (p.data.readi
 
 const postsMeta = allPosts.map((post) => ({
 	id: post.id,
-	category: post.data.category?.trim() || '',
+	category: trackOf.get(post.id) ?? '',
 	readingTime: typeof post.data.readingTime === 'number' ? post.data.readingTime : 0,
 }));
 
@@ -147,17 +151,17 @@ const generatedAt = new Date().toLocaleDateString('es', {
 
 			<div class="dash-columns">
 				<section class="card section-card" data-max={maxCatCount}>
-					<h2>Progreso por categoría</h2>
-					<p class="section-sub">La parte sólida indica cuántos artículos leíste de cada tema.</p>
+					<h2>Progreso por track</h2>
+					<p class="section-sub">La parte sólida indica cuántos artículos leíste de cada track.</p>
 					{
-						categories.map(([cat, count]) => (
+						categories.map(([title, slug, count]) => (
 							<div class="cat-row" data-total={count}>
-								<a class="cat-name" href={`/blog?category=${encodeURIComponent(cat)}`}>
-									{cat}
+								<a class="cat-name" href={`/guias/${slug}/`}>
+									{title}
 								</a>
 								<div class="cat-bar">
 									<div class="cat-bar-total" style={`width:${(count / maxCatCount) * 100}%`} />
-									<div class="cat-bar-read" data-cat={cat} />
+									<div class="cat-bar-read" data-cat={slug} />
 								</div>
 								<span class="cat-count">{count}</span>
 							</div>

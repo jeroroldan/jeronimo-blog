@@ -314,7 +314,7 @@ const themeColors: Record<string, string> = {
     const postItems = postsList?.querySelectorAll(":scope > .post-item") ?? [];
     const noResultsMsg = document.getElementById("no-results-msg");
 
-    console.log(`[TopicFilter] Inicializado. Encontrados ${postItems.length} posts y ${filterButtons.length} etiquetas.`);
+    let activeCode: string = "all";
 
     function getActiveTheme() {
       return document.querySelector(".theme-tab.active")?.getAttribute("data-theme") || "all";
@@ -327,8 +327,7 @@ const themeColors: Record<string, string> = {
       chipsGroups.forEach(group => {
         const groupTheme = group.getAttribute("data-theme-group");
         const themeMatches = activeTheme === "all" || groupTheme === activeTheme;
-        
-        // Filter chips inside group based on search query
+
         let visibleInGroup = 0;
         group.querySelectorAll(".code-chip").forEach(chip => {
           const text = chip.textContent?.toLowerCase() || "";
@@ -349,85 +348,96 @@ const themeColors: Record<string, string> = {
       }
     }
 
-    // Category Switching Logic
-    themeTabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        themeTabs.forEach(t => t.classList.remove("active"));
-        tab.classList.add("active");
-        
-        // Reset current tag filter when switching themes for clarity
-        updatePostDisplay("all");
-        
-        // Sync tags visibility
-        syncChipGroups(tagSearch.value || "");
-      });
-    });
+    function syncURL() {
+      const url = new URL(window.location.href);
+      if (activeCode !== "all") url.searchParams.set("code", activeCode);
+      else url.searchParams.delete("code");
+      const q = tagSearch?.value?.trim() ?? "";
+      if (q) url.searchParams.set("q", q);
+      else url.searchParams.delete("q");
+      const theme = getActiveTheme();
+      if (theme !== "all") url.searchParams.set("theme", theme);
+      else url.searchParams.delete("theme");
+      window.history.replaceState({}, "", url);
+    }
 
-    // Tag Search Logic
-    tagSearch?.addEventListener("input", (e) => {
-      syncChipGroups((e.target as HTMLInputElement).value);
-    });
+    // Post Filtering Logic: combina code + theme + texto
+    function updatePostDisplay(selectedCode: string, query = "") {
+      activeCode = selectedCode;
+      const activeTheme = getActiveTheme();
+      const q = query.trim().toLowerCase();
 
-    // Post Filtering Logic
-    function updatePostDisplay(selectedCode: string) {
-      console.log(`[TopicFilter] Filtrando por código: "${selectedCode}"`);
-      
-      // Update chip active states
       filterButtons.forEach(btn => {
-        if (btn.getAttribute("data-filter-code") === selectedCode) {
-          btn.classList.add("active");
-        } else {
-          btn.classList.remove("active");
-        }
+        btn.classList.toggle("active", btn.getAttribute("data-filter-code") === selectedCode);
       });
 
-      let shownCount = 0;
-      let hiddenCount = 0;
-
-      // Filter post items
       postItems.forEach(item => {
-        const postCode = item.getAttribute("data-code");
-        const shouldShow = selectedCode === "all" || postCode === selectedCode;
-        
         const htmlItem = item as HTMLElement;
+        const postCode = item.getAttribute("data-code");
+        const postTheme = item.getAttribute("data-theme");
+        const text = (item.textContent ?? "").toLowerCase();
+        const matchCode = selectedCode === "all" || postCode === selectedCode;
+        const matchTheme = activeTheme === "all" || postTheme === activeTheme;
+        const matchQuery = !q || text.includes(q);
+        const shouldShow = matchCode && matchTheme && matchQuery;
+
         if (shouldShow) {
           htmlItem.style.setProperty("display", "block", "important");
           htmlItem.classList.remove("hidden");
           htmlItem.style.opacity = "1";
           htmlItem.style.transform = "scale(1)";
-          shownCount++;
         } else {
           htmlItem.style.setProperty("display", "none", "important");
           htmlItem.classList.add("hidden");
           htmlItem.style.opacity = "0";
           htmlItem.style.transform = "scale(0.95)";
-          hiddenCount++;
         }
       });
 
-      console.log(`[TopicFilter] Resultado: ${shownCount} visibles, ${hiddenCount} ocultos.`);
+      syncURL();
     }
+
+    themeTabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        themeTabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        updatePostDisplay("all", tagSearch.value || "");
+        syncChipGroups(tagSearch.value || "");
+      });
+    });
+
+    tagSearch?.addEventListener("input", (e) => {
+      const q = (e.target as HTMLInputElement).value;
+      syncChipGroups(q);
+      updatePostDisplay(activeCode, q);
+    });
 
     filterButtons.forEach(button => {
       button.addEventListener("click", () => {
         const code = button.getAttribute("data-filter-code") || "all";
         const isAlreadyActive = button.classList.contains("active");
-        
-        // If clicking active, clear. Otherwise set active.
-        updatePostDisplay(isAlreadyActive ? "all" : code);
+        updatePostDisplay(isAlreadyActive ? "all" : code, tagSearch.value || "");
       });
     });
 
     clearBtn?.addEventListener("click", () => {
       tagSearch.value = "";
-      updatePostDisplay("all");
-      
+      updatePostDisplay("all", "");
       themeTabs.forEach(t => t.classList.remove("active"));
       document.querySelector('[data-theme="all"]')?.classList.add("active");
       syncChipGroups("");
     });
 
-    // Initial sync
-    syncChipGroups("");
+    // Hidrata desde URL: /blog?code=react&q=hooks&theme=X , /blog?category=Y (legacy)
+    const params = new URLSearchParams(window.location.search);
+    const initialCode = params.get("code") ?? params.get("category") ?? "all";
+    const initialQuery = params.get("q") ?? "";
+    const initialTheme = params.get("theme");
+    if (initialTheme) {
+      themeTabs.forEach(t => t.classList.toggle("active", t.getAttribute("data-theme") === initialTheme));
+    }
+    if (initialQuery && tagSearch) tagSearch.value = initialQuery;
+    syncChipGroups(initialQuery);
+    updatePostDisplay(initialCode, initialQuery);
   });
 </script>

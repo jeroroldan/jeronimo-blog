@@ -1,87 +1,95 @@
-// Mapping from code to theme
-// Add more mappings as needed
+// LEGACY COMPAT: este archivo se mantiene para no romper imports existentes.
+// La fuente canónica es ahora `src/lib/tracks.ts` (7 tracks).
+// getThemeFromCode sigue funcionando pero normaliza case y delega a tracks.
+import { getTrackFromCode, TRACKS } from './tracks';
+
 export const codeToTheme: Record<string, string> = {
-  // Seducción
-  seduccion: 'Seducción',
-  atraccion: 'Seducción',
-  'relaciones-humanas': 'Seducción',
-  mindset: 'Seducción',
-  // Inglés
+  seduccion: 'Habilidades Sociales',
+  atraccion: 'Habilidades Sociales',
+  'relaciones-humanas': 'Habilidades Sociales',
+  mindset: 'Habilidades Sociales',
   Ingles: 'Inglés',
   ingles: 'Inglés',
   'brain-english': 'Inglés',
-  // Informática
-  IA: 'Informática',
-  programacion: 'Informática',
-  software: 'Informática',
-  desarrollo: 'Informática',
-  react: 'Informática',
-  laravel: 'Informática',
-  python: 'Informática',
-  javascript: 'Informática',
-  typescript: 'Informática',
-  html: 'Informática',
-  css: 'Informática',
-  n8n: 'Informática',
-  figma: 'Informática',
-  'ux/ui': 'Informática',
-  frontend: 'Informática',
-  backend: 'Informática',
-  devops: 'Informática',
-  // Trading
-  trading: 'Trading',
-  finanzas: 'Trading',
-  bolsa: 'Trading',
-  inversiones: 'Trading',
-  crypto: 'Trading',
-  // Negocios
-  negocios: 'Negocios',
-  empresa: 'Negocios',
-  emprendimiento: 'Negocios',
-  liderazgo: 'Negocios',
-  ventas: 'Negocios',
-  'Liderazgo y ventas': 'Negocios',
-  // Superación Personal
-  superacion: 'Superación Personal',
-  aprendizaje: 'Superación Personal',
-  crecimiento: 'Superación Personal',
-  productividad: 'Superación Personal',
-  gimnasio: 'Superación Personal',
-  gym: 'Superación Personal',
-  // Default theme for unmapped codes
-  // We'll assign a default theme, but ideally every code should be mapped
+  IA: 'Inteligencia Artificial',
+  programacion: 'Desarrollo & Ingeniería',
+  software: 'Desarrollo & Ingeniería',
+  desarrollo: 'Desarrollo & Ingeniería',
+  react: 'Desarrollo & Ingeniería',
+  laravel: 'Desarrollo & Ingeniería',
+  python: 'Desarrollo & Ingeniería',
+  javascript: 'Desarrollo & Ingeniería',
+  typescript: 'Desarrollo & Ingeniería',
+  html: 'Desarrollo & Ingeniería',
+  css: 'Desarrollo & Ingeniería',
+  n8n: 'Inteligencia Artificial',
+  figma: 'Desarrollo & Ingeniería',
+  'ux/ui': 'Desarrollo & Ingeniería',
+  frontend: 'Desarrollo & Ingeniería',
+  backend: 'Desarrollo & Ingeniería',
+  devops: 'Desarrollo & Ingeniería',
+  trading: 'Trading & Finanzas',
+  finanzas: 'Trading & Finanzas',
+  bolsa: 'Trading & Finanzas',
+  inversiones: 'Trading & Finanzas',
+  crypto: 'Trading & Finanzas',
+  negocios: 'Negocios & Empresa',
+  empresa: 'Negocios & Empresa',
+  emprendimiento: 'Negocios & Empresa',
+  liderazgo: 'Negocios & Empresa',
+  ventas: 'Negocios & Empresa',
+  'Liderazgo y ventas': 'Negocios & Empresa',
+  superacion: 'Crecimiento Personal',
+  aprendizaje: 'Crecimiento Personal',
+  crecimiento: 'Crecimiento Personal',
+  productividad: 'Crecimiento Personal',
+  gimnasio: 'Crecimiento Personal',
+  gym: 'Crecimiento Personal',
 };
 
-// Get theme for a given code, returns 'Informática' as default if not found
 export function getThemeFromCode(code: string | undefined): string {
-  if (!code) return 'Informática'; // Default theme
-  return codeToTheme[code] || 'Informática';
+  if (!code) return 'Desarrollo & Ingeniería';
+  // Normaliza case antes de buscar (fix Figma/figma, IA/ia, Devops/devops)
+  const clean = code.trim().toLowerCase();
+  const hit = Object.entries(codeToTheme).find(([k]) => k.toLowerCase() === clean);
+  if (hit) return hit[1];
+  return getTrackFromCode(code).title;
 }
 
-// Get all unique themes
-export const themes = [...new Set(Object.values(codeToTheme))].sort();
+// Temas canónicos (derivan de tracks para no duplicar)
+export const themes = TRACKS.map((t) => t.title).sort();
 
-// Mapping from theme name to URL slug
 export const themeToSlug: Record<string, string> = {
-  'Seducción': 'seduccion',
-  'Informática': 'informatica',
-  'Trading': 'trading',
+  'Habilidades Sociales': 'habilidades-sociales',
+  'Desarrollo & Ingeniería': 'desarrollo',
+  'Trading & Finanzas': 'trading-finanzas',
+  'Negocios & Empresa': 'negocios',
+  'Crecimiento Personal': 'crecimiento',
+  'Inglés': 'ingles',
+  'Inteligencia Artificial': 'ia',
+  // Aliases legacy
+  'Seducción': 'habilidades-sociales',
+  'Informática': 'desarrollo',
+  'Trading': 'trading-finanzas',
   'Negocios': 'negocios',
-  'Superación Personal': 'superacion',
-  'Inglés': 'ingles'
+  'Superación Personal': 'crecimiento',
 };
 
-// Map slug back to theme name
 export const slugToTheme: Record<string, string> = {
-  'seduccion': 'Seducción',
-  'informatica': 'Informática',
-  'trading': 'Trading',
-  'negocios': 'Negocios',
-  'superacion': 'Superación Personal',
-  'ingles': 'Inglés'
+  'habilidades-sociales': 'Habilidades Sociales',
+  'desarrollo': 'Desarrollo & Ingeniería',
+  'trading-finanzas': 'Trading & Finanzas',
+  'negocios': 'Negocios & Empresa',
+  'crecimiento': 'Crecimiento Personal',
+  'ingles': 'Inglés',
+  'ia': 'Inteligencia Artificial',
+  // Aliases legacy
+  'seduccion': 'Habilidades Sociales',
+  'informatica': 'Desarrollo & Ingeniería',
+  'trading': 'Trading & Finanzas',
+  'superacion': 'Crecimiento Personal',
 };
 
-// Get codes for a given theme
 export function getCodesForTheme(theme: string): string[] {
   return Object.entries(codeToTheme)
     .filter(([, t]) => t === theme)
