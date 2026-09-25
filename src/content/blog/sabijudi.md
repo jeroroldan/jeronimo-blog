@@ -23,7 +23,7 @@ Esta guía reúne esas enseñanzas organizadas en cuatro grandes áreas: **cará
 
 ---
 
-## Parte I — Sobre el carácter y la vida interior
+## Parte I — Sobre el carácter y la vida interior 🧠
 
 ### 1. Conócete y no te compares
 > *"Si yo no soy para mí, ¿quién será para mí? Y si solo soy para mí, ¿qué soy? Y si no ahora, ¿cuándo?"* — Hilel, Pirkei Avot 1:14
@@ -50,7 +50,7 @@ La tradición judía mide el tiempo desde la noche, no desde la mañana, record�
 
 ---
 
-## Parte II — Sobre el dinero y el trabajo
+## Parte II — Sobre el dinero y el trabajo 💼
 
 ### 6. El dinero no es el enemigo; el apego sin propósito, sí
 El judaísmo nunca glorificó la pobreza como virtud. Trabajar, prosperar y generar riqueza es visto como algo positivo **cuando se hace con integridad y se usa con propósito**.
@@ -91,7 +91,7 @@ La riqueza real no se mide comparándote con otros, sino en la relación entre l
 
 ---
 
-## Parte III — Sobre las relaciones y la sociedad
+## Parte III — Sobre las relaciones y la sociedad 🤝
 
 ### 12. Tikún Olam: reparar el mundo
 El concepto de *tikún olam* ("reparación del mundo") enseña que cada persona tiene la responsabilidad de dejar el mundo un poco mejor de lo que lo encontró. No se trata de gestos grandiosos, sino de acciones constantes y concretas.
@@ -128,7 +128,7 @@ Esta idea, además de un principio ético, es una forma de medir el valor de cad
 
 ---
 
-## Parte IV — Frases y lemas para recordar cada día
+## Parte IV — Frases y lemas para recordar cada día 📜
 
 | Frase | Fuente | Idea central |
 |---|---|---|
@@ -143,7 +143,36 @@ Esta idea, además de un principio ético, es una forma de medir el valor de cad
 
 ---
 
-## Parte V — Ejercicio práctico: tu "cheshbón hanéfesh" semanal
+## Parte V — Conceptos adicionales
+
+### 19. El Shabbat: descanso como resistencia 🕍
+El Shabbat no es solo "no trabajar": es un acto de desapego semanal que recuerda que el mundo no depende de ti. En una cultura de productividad obsesiva, el Shabbat es un espacio sagrado de desconexión para recuperar perspectiva, relaciones y dignidad.
+
+> *"Guardarás el día de Shabbat para santificarlo."* — Éxodo 20:8
+
+### 20. Hakarat hatov: la gratitud como disciplina 🙏
+El judaísmo no habla de "gratitud" como sentimiento espontáneo, sino como práctica deliberada. Bendecir antes de comer (*brajot*), reconocer lo bueno en lo pequeño, agradecer incluso en lo difícil. La gratitud no niega el dolor: amplía la percepción de lo que sí hay.
+
+### 21. Kavanah: la intención transforma el acto 🧘
+Muchas acciones judías —orar, dar, trabajar— no tienen valor sin *kavanah*, la intención consciente. Lo que haces importa, pero también por qué lo haces. La misma acción, realizada con intención correcta, se convierte en *mitzvah* (mandamiento sagrado).
+
+### 22. Shmita: el año sabático como reset económico 🌾
+Cada siete años, la tierra descansa, las deudas se perdonan y el sistema se regenera. El *shmita* es un mecanismo antiguo contra la acumulación infinita: recuerda que la riqueza no es eterna y que el sistema debe renovarse periódicamente.
+
+### 23. G'milut hasadim: actos de bondad genuinos 💝
+Los sabios enseñan que los *gemilut hasadim* (actos de bondad) son uno de los pilares sobre los que se sostiene el mundo, junto con el estudio de la Torá y el servicio a Dios. No requieren dinero: visitar a los enfermos, acompañar a un doliente, celebrar con quien se casa.
+
+### 24. No llevar rencor: la justicia personal sin venganza ❤️‍🩹
+> *"No te vengarás ni guardarás rencor a los hijos de tu pueblo."* — Levítico 19:18
+
+El judaísmo distingue entre justicia (pedir reparación) y venganza (dañar al otro porque te dañó). La sanación incluye soltar el rencor, no por debilidad, sino para no cargar con el veneno del otro.
+
+### 25. La pregunta es más importante que la respuesta ❓
+La tradición judía valora más el proceso de cuestionar que la certeza dogmática. Cuatro hijos en la Haggadah de Pésaj hacen cuatro tipos de preguntas. El Talmud está lleno de discusiones donde los sabios disputan por generaciones enteras. Saber preguntar es el inicio de todo aprendizaje real.
+
+---
+
+## Parte VI — Ejercicio práctico: tu "cheshbón hanéfesh" semanal
 
 El Mussar propone el *cheshbón hanéfesh* ("contabilidad del alma"): un examen periódico, honesto y sin autocastigo, sobre cómo estás viviendo. Cada semana, responde por escrito:
 
