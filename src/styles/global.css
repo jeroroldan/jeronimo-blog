@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
+  color-scheme: light;
   /* Core Colors */
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
@@ -33,6 +34,7 @@
 
 /* Dark Mode Variables */
 body.dark-mode {
+  color-scheme: dark;
   --bg-primary: #020617;
   --bg-secondary: #0f172a;
   --text-primary: #f8fafc;

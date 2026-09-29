@@ -75,22 +75,54 @@ import { TRACKS } from "../lib/tracks";
     var navMenu = document.getElementById("nav-menu");
     var dropdownBtns = Array.prototype.slice.call(document.querySelectorAll(".dropdown-btn"));
 
-    /* ---- Tema ---- */
-    function setTheme(dark) {
-      document.body.classList.toggle("dark-mode", dark);
-      localStorage.setItem("theme", dark ? "dark" : "light");
-      if (themeToggle) {
-        themeToggle.setAttribute("aria-label", dark ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+    /* ---- Tema ----
+       El script is:inline se ejecuta una sola vez (ClientRouter no lo
+       re-ejecuta al navegar), por eso el click se delega en document y el
+       tema guardado se reaplica en cada transición de vista. */
+    function getSavedTheme() {
+      try {
+        return localStorage.getItem("theme");
+      } catch (e) {
+        return null;
       }
     }
+    function saveTheme(dark) {
+      try {
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      } catch (e) {}
+    }
+    function isDark() {
+      return document.body.classList.contains("dark-mode");
+    }
+    function paintTheme(dark) {
+      document.body.classList.toggle("dark-mode", dark);
+      document.documentElement.style.colorScheme = dark ? "dark" : "light";
+      var btn = document.getElementById("darkModeToggle");
+      if (btn) {
+        btn.setAttribute("aria-label", dark ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+      }
+    }
+    function setTheme(dark) {
+      paintTheme(dark);
+      saveTheme(dark);
+    }
+    function initTheme() {
+      var saved = getSavedTheme();
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      paintTheme(saved ? saved === "dark" : prefersDark);
+    }
 
-    var saved = localStorage.getItem("theme");
-    var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setTheme(saved === "dark" || (!saved && prefersDark));
-
-    themeToggle?.addEventListener("click", function () {
-      setTheme(!document.body.classList.contains("dark-mode"));
-    });
+    if (!window.__themeInit) {
+      window.__themeInit = true;
+      document.addEventListener("click", function (e) {
+        var el = e.target instanceof Element ? e.target.closest("#darkModeToggle") : null;
+        if (!el) return;
+        setTheme(!isDark());
+      });
+      document.addEventListener("astro:after-swap", initTheme);
+      document.addEventListener("astro:page-load", initTheme);
+    }
+    initTheme();
 
     /* ---- Sombra al hacer scroll ---- */
     function onScroll() {
