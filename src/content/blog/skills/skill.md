@@ -1494,6 +1494,53 @@ Esto crea una experiencia similar a la de documentación de alta calidad como la
 
 ---
 
+#### 8. Diagramas Mermaid: reglas obligatorias
+
+Los diagramas son para orientar, no para impresionar. Un mapa confuso hace abandonar la guía.
+
+**PROHIBIDO:**
+
+- `flowchart LR` con más de 5 nodos en una sola fila. En móvil se vuelve ilegible.
+- Cerrar el flujo con `I --> A` (ciclo) en el mapa inicial. El principiante lo lee como "tengo que volver a empezar" y se pierde.
+- Subgrafos sueltos sin conexión visual (ej: `subgraph SKILLS` con flechas flotantes `A1 --> D`). Si las habilidades no están integradas al flujo, no se entienden.
+- Tres columnas LR paralelas para I Do / We Do / You Do. En pantallas chicas se aplastan y el texto largo se corta.
+
+**OBLIGATORIO:**
+
+1. Mapa principal en `flowchart TD` (vertical, se lee de arriba hacia abajo).
+2. Máximo 6 pasos, agrupados en 2-3 FASES con `subgraph`. Etiquetas cortas: número + 2-4 palabras (ej: `1 Fundamentos electricos`).
+3. Una línea debajo del diagrama que diga cómo leerlo: "Empiezas en FASE 1, bajas hasta FASE 3".
+4. Habilidades (medir, cablear, programar...) NO van en subgrafo flotante. Van en tabla `Fase | Qué logras | Habilidad`.
+5. I Do / We Do / You Do va en secuencia vertical `I --> W --> Y`, con 1 ejemplo corto por nivel. Nunca en 3 columnas LR.
+
+**Ejemplo correcto:**
+
+```mermaid
+flowchart TD
+    F1["FASE 1 · Base"]
+    F1 --> A["1 Fundamentos"]
+    A --> B["2 Blink"]
+    B --> F2["FASE 2 · Sentir y mover"]
+    F2 --> C["3 Sensores"]
+    C --> D["4 Actuadores"]
+```
+
+**Ejemplo incorrecto (no replicar):**
+
+```mermaid
+flowchart LR
+    A[Paso 1] --> B[Paso 2] --> C[Paso 3] --> D[Paso 4] --> E[Paso 5] --> F[Paso 6] --> G[Paso 7] --> H[Paso 8] --> I[Paso 9]
+    I --> A
+    subgraph SKILLS ['Skills']
+        A1[Habilidad 1]
+        A2[Habilidad 2]
+    end
+    A1 --> D
+    A2 --> F
+```
+
+---
+
 ### Evaluación de legibilidad
 
 Una guía educativa bien estructurada debería aspirar a:
