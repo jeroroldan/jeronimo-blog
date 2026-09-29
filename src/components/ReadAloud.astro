@@ -114,30 +114,30 @@
   }
 
   /* Dark mode adjustments */
-    /* Dark mode (toggle manual) */
-  body.dark-mode .read-aloud-container {
+  @media (prefers-color-scheme: dark) {
+    .read-aloud-container {
       background: rgba(255, 255, 255, 0.05);
       border-color: rgba(255, 255, 255, 0.1);
     }
-  body.dark-mode .control-btn {
+    .control-btn {
       background: #68d391;
       color: #1a202c;
     }
-  body.dark-mode .control-btn:hover {
+    .control-btn:hover {
       background: #48bb78;
     }
-  body.dark-mode .speed-selector {
+    .speed-selector {
       background: #2d3748;
       color: white;
       border-color: #4a5568;
     }
-  body.dark-mode .status-indicator {
+    .status-indicator {
       color: #68d391;
     }
-  body.dark-mode .pulse-ring {
+    .pulse-ring {
       background-color: #68d391;
     }
-
+  }
 
   @media (max-width: 480px) {
     .btn-text {

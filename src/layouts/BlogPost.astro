@@ -116,12 +116,12 @@ const tags = (Astro.props as any).tags as string[] | undefined;
 			.read-badge[hidden] {
 				display: none;
 			}
-						/* Dark mode (toggle manual) */
-			body.dark-mode .read-badge {
+			@media (prefers-color-scheme: dark) {
+				.read-badge {
 					background: #68d391;
 					color: #1a202c;
 				}
-
+			}
 		.prose {
 			max-width: 65ch;
 			width: calc(100% - 2em);
@@ -233,56 +233,58 @@ const tags = (Astro.props as any).tags as string[] | undefined;
 		}
 			
 			/* Dark mode */
-						/* Dark mode (toggle manual) */
-			body.dark-mode .prose {
+			@media (prefers-color-scheme: dark) {
+				.prose {
 					background-color: rgb(var(--gray-light));
 					color: rgb(var(--gray-dark));
 				}
-			body.dark-mode .title {
+				.title {
 					border-bottom-color: rgba(255, 255, 255, 0.1);
 				}
-			body.dark-mode .title h1 {
+				.title h1 {
 					color: rgb(var(--accent));
 				}
-			body.dark-mode .date {
+				.date {
 					color: rgb(var(--gray));
 				}
-			body.dark-mode .prose h1 {
+				.prose h1 {
 					color: rgb(var(--accent)) !important;
 					border-bottom-color: rgb(var(--accent)) !important;
 				}
-			body.dark-mode .prose h2 {
+				.prose h2 {
 					color: rgb(var(--accent)) !important;
 				}
-			body.dark-mode .prose h3 {
+				.prose h3 {
 					color: rgb(var(--gray-dark)) !important;
 				}
-			body.dark-mode .prose p {
+				.prose p {
 					color: rgb(var(--gray-dark)) !important;
 				}
-			body.dark-mode .prose strong {
+				.prose strong {
 					color: rgb(var(--accent)) !important;
 				}
-			body.dark-mode .prose em {
+				.prose em {
 					color: rgb(var(--accent)) !important;
 				}
-			body.dark-mode .prose code {
+				.prose code {
 					background: rgba(255,255,255,0.1) !important;
 					color: rgb(var(--gray-dark)) !important;
 				}
-			body.dark-mode .prose pre {
+				.prose pre {
 					background: rgba(255,255,255,0.05) !important;
 					color: rgb(var(--gray-dark)) !important;
 				}
-			body.dark-mode .prose blockquote {
+				.prose blockquote {
 					border-left-color: rgb(var(--accent)) !important;
 					background: rgba(255,255,255,0.05) !important;
 					color: rgb(var(--gray-dark)) !important;
 				}
-			body.dark-mode .prose ul, body.dark-mode .prose ol {
+.prose ul, .prose ol {
 				color: rgb(var(--gray-dark)) !important;
 			}
-			body.dark-mode .prose table {
+			
+			/* Table styles */
+			.prose table {
 				width: 100%;
 				border-collapse: collapse;
 				margin: 1.5em 0;
@@ -291,24 +293,24 @@ const tags = (Astro.props as any).tags as string[] | undefined;
 				overflow: hidden;
 				box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 			}
-			body.dark-mode .prose th {
+			.prose th {
 				background: var(--accent);
 				color: white;
 				font-weight: 600;
 				text-align: left;
 				padding: 0.75em 1em;
 			}
-			body.dark-mode .prose td {
+			.prose td {
 				padding: 0.65em 1em;
 				border-bottom: 1px solid var(--glass-border);
 			}
-			body.dark-mode .prose tr:nth-child(even) {
+			.prose tr:nth-child(even) {
 				background: var(--accent-soft);
 			}
-			body.dark-mode .prose tr:hover {
+			.prose tr:hover {
 				background: rgba(99, 102, 241, 0.15);
 			}
-
+			}
 			
 		@media (max-width: 720px) {
 			.title h1 {
@@ -370,17 +372,18 @@ const tags = (Astro.props as any).tags as string[] | undefined;
 			}
 			
 			/* Dark mode para el botón */
-						/* Dark mode (toggle manual) */
-			body.dark-mode .scroll-to-top {
+			@media (prefers-color-scheme: dark) {
+				.scroll-to-top {
 					background: #68D391;
 					color: #1A202C;
 					box-shadow: 0 4px 12px rgba(104, 211, 145, 0.3);
 				}
-			body.dark-mode .scroll-to-top:hover {
+				
+				.scroll-to-top:hover {
 					background: #48BB78;
 					box-shadow: 0 6px 16px rgba(104, 211, 145, 0.4);
 				}
-
+			}
 			
 			/* Responsive */
 			@media (max-width: 768px) {
