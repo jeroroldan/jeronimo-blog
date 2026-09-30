@@ -1275,20 +1275,28 @@ Responde cada pregunta basándote en los conceptos de esta master class. Escribe
 
 10. **Reflexión final**: De los 10 componentes del workflow, ¿cuál consideras el más crítico para evitar pérdidas en producción? Justifica tu respuesta.
 
-## GLOSARIO RÁPIDO
+## GLOSARIO — CONCEPTOS PRINCIPALES
 
-| Término | Definición |
-|---------|------------|
+| Término | Definición en 1 línea |
+|---------|-----------------------|
 | **Alpha** | Ventaja estadística esperada después de costos |
-| **Backtest** | Simulación histórica de una estrategia |
-| **Drawdown** | Caída desde el máximo anterior del equity |
-| **Fitness** | Función que evalúa la calidad de un candidato |
-| **Look-ahead bias** | Uso accidental de información futura |
+| **OHLCV** | Velas open/high/low/close + volumen, materia prima del análisis |
+| **Régimen** | Estado del mercado: tendencia, rango, volatilidad o caos |
+| **Sharpe** | Retorno ajustado a riesgo: exceso / volatilidad |
+| **CAGR** | Crecimiento anual compuesto de la estrategia |
+| **Backtest** | Simulación histórica de una estrategia con costos |
+| **Look-ahead bias** | Uso accidental de información futura que infla resultados |
 | **Overfitting** | Ajuste al ruido histórico en lugar del edge real |
-| **Regime** | Estado del mercado: tendencia, rango, volatilidad o caos |
-| **Slippage** | Diferencia entre precio esperado y precio ejecutado |
 | **Walk-forward** | Validación que avanza ventanas de entrenamiento y prueba |
-| **Kill-switch** | Mecanismo automático para detener la estrategia |
+| **Strategy Factory** | Línea que convierte hipótesis en señal + filtro + sizing |
+| **ATR** | Rango verdadero promedio, mide volatilidad para stops |
+| **Position sizing** | Tamaño de posición según riesgo por trade y volatilidad |
+| **Profit Factor** | Ganancias brutas / pérdidas brutas, calidad del payoff |
+| **Drawdown** | Caída desde el máximo anterior del equity |
+| **Slippage** | Diferencia entre precio esperado y ejecutado |
+| **MT5 Adapter** | Puente Python ↔ terminal MetaTrader 5 para órdenes |
+| **Paper trading** | Operativa simulada antes de capital real |
+| **Kill-switch** | Corte automático por drawdown, datos o fallo operativo |
 
 ---
 
@@ -1515,6 +1523,43 @@ Las mejoras más importantes a aplicar:
 - Añadir cajas de "Idea clave", diagramas y resúmenes cada pocas secciones
 
 Con esos ajustes, una guía técnica de **5.000–15.000 palabras** se sentiría mucho más cómoda y menos agotadora de leer.
+
+---
+
+#### 9. Glosario obligatorio con conceptos principales
+
+Toda masterclass cierra con glosario. Sin excepción.
+
+**OBLIGATORIO:**
+
+1. Tabla `Término | Definición en 1 línea`, 10-18 conceptos máximo.
+2. Incluir 1 término por cada PARTE de la guía (ej: régimen, backtest, sizing, MT5).
+3. Definición en lenguaje simple, sin jerga secundaria. Si necesita otra explicación, está mal.
+4. Ubicación fija: después de Preguntas de Verificación, antes de Anexos.
+5. Si un término aparece 3+ veces en el texto, va al glosario.
+
+---
+
+#### 10. Roles de instructor profesional + técnicas científicas
+
+Una guía no tiene un solo autor. Tiene 4 roles. Cada rol aplica 2-3 técnicas validadas.
+
+| Rol | Cuándo actúa | Técnica científica | Cómo se ve en la guía |
+|-----|---------------|--------------------|-----------------------|
+| **1. Modelador (I Do)** | Muestra el camino | Worked examples (Sweller) + Dual coding (Paivio) | 1 ejemplo resuelto paso a paso + tabla/diagrama al lado |
+| **2. Andamiador (We Do)** | Hace contigo | Scaffolding / ZPD (Vygotsky) + Elaboración (Chi) | Plantilla con huecos + pregunta "¿por qué funciona?" |
+| **3. Entrenador (You Do)** | Te suelta con red | Práctica deliberada (Ericsson) + Feedback formativo (Hattie) | Tarea corta + checklist + error típico vs corrección |
+| **4. Curador** | Consolida memoria | Recall activo (Karpicke) + Repetición espaciada (Ebbinghaus) + Dificultades deseables (Bjork) | Preguntas verificación + Idea clave + glosario |
+
+**Reglas de aplicación:**
+
+1. **Carga cognitiva (Sweller):** máximo 4 filas por tabla, 4 pasos por diagrama, 200-400 palabras por sección.
+2. **Recall antes que relectura:** cada PARTE termina con 1 pregunta que obliga a evocar, no a copiar.
+3. **Interleaving (Rohrer):** alterna Concepto → Ejemplo → Contra-ejemplo. Nunca 3 conceptos seguidos sin práctica.
+4. **Feedback en 30 segundos:** todo You Do incluye respuesta esperada o criterio de auto-corrección debajo.
+5. **Feynman como test final:** si no puedes explicarlo en 1 línea de Idea clave, la sección está mal diseñada.
+
+> **📌 Idea clave** — Modela 1 vez, andamia 1 vez, entrena siempre, cura al final. Enseñar es soltar progresivamente.
 
 ---
 
