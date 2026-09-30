@@ -28,69 +28,33 @@ La meta no es encontrar una estrategia mágica. La meta es construir un proceso 
 ## MAPA DEL WORKFLOW
 
 ```mermaid
-flowchart LR
-    A[Market Diagnostics] --> B[Data Engineering]
-    B --> C[Strategy Factory]
-    C --> D[Backtesting Engine]
-    D --> E[Risk Validation]
-    E --> F[Genetic Optimization]
-    F --> G[Automation Comparison]
-    G --> H[MT5 Integration]
-    H --> I[Monitoring]
-    I --> A
-
-    subgraph AI_AGENTS ['AI Agents']
-        A1[Research Agent]
-        A2[Code Agent]
-        A3[Backtest Agent]
-        A4[Risk Agent]
-        A5[Ops Agent]
-    end
-
-    A1 --> C
-    A2 --> C
-    A3 --> D
-    A4 --> E
-    A5 --> H
+flowchart TD
+    F1["FASE 1 · Entender"]
+    F1 --> A["1 Diagnostico"]
+    A --> B["2 Datos"]
+    B --> F2["FASE 2 · Probar"]
+    F2 --> C["3 Estrategia"]
+    C --> D["4 Backtest + Riesgo"]
+    D --> F3["FASE 3 · Operar"]
+    F3 --> E["5 Optimizar"]
+    E --> F["6 MT5 + Monitoreo"]
 ```
 
-| Fase | Pregunta que responde | Output principal |
-|------|-----------------------|------------------|
-| **Market Diagnostics** | ¿Qué tipo de mercado estoy investigando? | Regímenes, volatilidad, liquidez y sesgos |
-| **Data Engineering** | ¿Los datos son confiables? | Pipeline reproducible y validado |
-| **Strategy Factory** | ¿Qué ideas puedo convertir en señales? | Reglas, features y parámetros |
-| **Backtesting Engine** | ¿La estrategia sobrevive al pasado? | Métricas, equity curve y drawdown |
-| **Risk Validation** | ¿El riesgo es aceptable? | Límites, sizing y escenarios |
-| **Genetic Optimization** | ¿Qué combinación de parámetros es robusta? | Candidatos optimizados |
-| **Automation Comparison** | ¿Dónde debe operar la estrategia? | Arquitectura de ejecución |
-| **MT5 Integration** | ¿Cómo se ejecuta en mercado? | Orders, positions y monitoreo |
-| **Monitoring** | ¿La estrategia sigue viva? | Alertas, logs y kill-switch |
+*Cómo leerlo: Empiezas en FASE 1 arriba, bajas hasta FASE 3. No es un ciclo.*
+
+| Fase | Qué logras | Habilidad |
+|------|------------|-----------|
+| **FASE 1 · Entender** | Diagnosticar régimen y validar datos | Leer mercado sin autoengaño |
+| **FASE 2 · Probar** | Convertir hipótesis en backtest con riesgo | Diseñar y validar estrategias |
+| **FASE 3 · Operar** | Optimizar, ejecutar en MT5 y monitorear | Operar con control |
 
 ```mermaid
-flowchart LR
-    subgraph I_Do["I Do (Instructor)"]
-        direction TB
-        A1[Market Diagnostics: Calculate volatility, trend score, regime] --> A2[Strategy Factory: Walkthrough of mean reversion signal] --> A3[Backtesting: Run vectorized test with conservative costs] --> A4[MT5: Connect to terminal, read symbols, simulate orders]
-    end
-    
-    subgraph We_Do["We Do (Collaborative)"]
-        direction TB
-        B1[Team: Design EURUSD mean reversion strategy] --> B2[Collaborate: Refine strategy parameters together] --> B3[Interpret: Analyze metrics (Sharpe, trade count, drawdown)] --> B4[Review: Examine runbook for incident handling]
-    end
-    
-    subgraph You_Do["You Do (Independent)"]
-        direction TB
-        C1[Build: Create Strategy Factory for 3 families (trend, mean reversion, breakout)] --> C2[Define: Set bounds and fitness for genetic optimization] --> C3[Design: Create monitoring dashboard for production] --> C4[Apply: Use full framework on your own strategy]
-    end
-    
-    %% Styling with quant-appropriate colors
-    classDef I_DoStyle fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-    classDef We_DoStyle fill:#FFF8E1,stroke:#EF6C00,stroke-width:2px,color:#BF360C;
-    classDef You_DoStyle fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-    
-    class I_Do I_DoStyle;
-    class We_Do We_DoStyle;
-    class You_Do You_DoStyle;
+flowchart TD
+    I["I Do · Instructor muestra"] --> W["We Do · Haces con guia"]
+    W --> Y["You Do · Haces solo"]
+    I --> I1["Diagnostico + backtest con costos"]
+    W --> W1["Disenar mean-reversion juntos"]
+    Y --> Y1["Tu factory + monitoreo"]
 ```
 
 ---
@@ -1494,49 +1458,42 @@ Esto crea una experiencia similar a la de documentación de alta calidad como la
 
 ---
 
-#### 8. Diagramas Mermaid: reglas obligatorias
+#### 8. Diagramas y explicaciones: regla cerebro-friendly
 
-Los diagramas son para orientar, no para impresionar. Un mapa confuso hace abandonar la guía.
+Los diagramas técnicos con jerga no enseñan. El cerebro retiene historia + ejemplo, no cajas.
 
 **PROHIBIDO:**
 
+- Diagrama técnico de 4-5 nodos con jerga sin analogía previa. Ejemplo no replicar:
+```text
+Mensaje -> Secure VM -> Sentinel -> Navegador -> Log
+```
+El principiante no sabe qué es VM ni Sentinel y abandona.
 - `flowchart LR` con más de 5 nodos en una sola fila. En móvil se vuelve ilegible.
-- Cerrar el flujo con `I --> A` (ciclo) en el mapa inicial. El principiante lo lee como "tengo que volver a empezar" y se pierde.
-- Subgrafos sueltos sin conexión visual (ej: `subgraph SKILLS` con flechas flotantes `A1 --> D`). Si las habilidades no están integradas al flujo, no se entienden.
-- Tres columnas LR paralelas para I Do / We Do / You Do. En pantallas chicas se aplastan y el texto largo se corta.
+- Cerrar el flujo con `I --> A` (ciclo) en el mapa inicial. Se lee como "volver a empezar".
+- Subgrafos sueltos sin conexión visual. Si las habilidades no están integradas al flujo, no se entienden.
+- Tres columnas LR paralelas para I Do / We Do / You Do.
 
-**OBLIGATORIO:**
+**OBLIGATORIO — patrón Concepto -> Analogía -> Tabla -> Micro-diagrama -> Idea clave:**
 
-1. Mapa principal en `flowchart TD` (vertical, se lee de arriba hacia abajo).
-2. Máximo 6 pasos, agrupados en 2-3 FASES con `subgraph`. Etiquetas cortas: número + 2-4 palabras (ej: `1 Fundamentos electricos`).
-3. Una línea debajo del diagrama que diga cómo leerlo: "Empiezas en FASE 1, bajas hasta FASE 3".
-4. Habilidades (medir, cablear, programar...) NO van en subgrafo flotante. Van en tabla `Fase | Qué logras | Habilidad`.
-5. I Do / We Do / You Do va en secuencia vertical `I --> W --> Y`, con 1 ejemplo corto por nivel. Nunca en 3 columnas LR.
+1. Analogía en 1 línea (ej: "oficina privada + portero incorruptible").
+2. Tabla `Paso | Tú ves | Qué pasa dentro | Ejemplo` con máximo 4 filas.
+3. Micro-diagrama en `flowchart TD`, máximo 4 pasos, agrupado en FASES, etiquetas de 2-4 palabras.
+4. Una línea debajo que diga cómo leerlo.
+5. Habilidades van en tabla `Fase | Qué logras | Habilidad`, nunca en subgrafo flotante.
+6. I Do / We Do / You Do en secuencia vertical `I --> W --> Y`, 1 ejemplo corto por nivel.
 
 **Ejemplo correcto:**
 
 ```mermaid
 flowchart TD
-    F1["FASE 1 · Base"]
-    F1 --> A["1 Fundamentos"]
-    A --> B["2 Blink"]
-    B --> F2["FASE 2 · Sentir y mover"]
-    F2 --> C["3 Sensores"]
-    C --> D["4 Actuadores"]
-```
-
-**Ejemplo incorrecto (no replicar):**
-
-```mermaid
-flowchart LR
-    A[Paso 1] --> B[Paso 2] --> C[Paso 3] --> D[Paso 4] --> E[Paso 5] --> F[Paso 6] --> G[Paso 7] --> H[Paso 8] --> I[Paso 9]
-    I --> A
-    subgraph SKILLS ['Skills']
-        A1[Habilidad 1]
-        A2[Habilidad 2]
-    end
-    A1 --> D
-    A2 --> F
+    F1["FASE 1 · Pides"]
+    F1 --> A["1 Pides por chat"]
+    A --> F2["FASE 2 · Trabaja solo"]
+    F2 --> B["2 Prepara en privado"]
+    B --> C["3 Portero revisa"]
+    C --> F3["FASE 3 · Decides"]
+    F3 --> D["4 Tu apruebas"]
 ```
 
 ---
