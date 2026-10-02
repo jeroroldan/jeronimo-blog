@@ -11,6 +11,7 @@ import TableOfContents from '../components/TableOfContents.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import LevelBadge from '../components/LevelBadge.astro';
 import RelatedGuides from '../components/RelatedGuides.astro';
+import Mermaid from '../components/Mermaid.astro';
 import DefaultImage from '../assets/blog-placeholder-1.jpg';
 import { resolveTrack, getSubtrackFromCode } from '../lib/tracks';
 
@@ -200,8 +201,23 @@ const categoryLabel = (type ?? (Astro.props as any).category ?? track.short ?? '
 			.prose-content pre code { background: transparent; color: inherit; padding: 0; }
 
 			/* ============ Tablas y diagramas: scroll horizontal + estilos ============ */
-			.table-scroll { overflow-x: auto; margin: 1.75em 0; border-radius: 12px; border: 1px solid var(--glass-border); }
-			.table-scroll table { margin: 0; border: none; box-shadow: none; border-radius: 0; }
+			/* .table-scroll se crea vía JS: va en global para que aplique a nodos dinámicos */
+		</style>
+		<style is:global>
+			.post-article .table-scroll {
+				overflow-x: auto;
+				margin: 1.75em 0;
+				border-radius: 12px;
+				border: 1px solid var(--glass-border);
+			}
+			.post-article .table-scroll table {
+				margin: 0;
+				border: none;
+				box-shadow: none;
+				border-radius: 0;
+			}
+		</style>
+		<style>
 			.prose-content table {
 				display: block;
 				width: max-content;
@@ -365,6 +381,7 @@ const categoryLabel = (type ?? (Astro.props as any).category ?? track.short ?? '
 		<button id="scrollToTop" class="scroll-to-top" aria-label="Volver al inicio">↑</button>
 
 		<Footer />
+		<Mermaid />
 
 		<script>
 			// Envuelve tablas del markdown en .table-scroll para overflow-x-auto en móvil.
