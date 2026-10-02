@@ -1,4 +1,4 @@
----
+    ---
 title: "MASTERCLASS: Ingeniería IA para Revisores — Validar Sistemas de IA sin Mirar Prompts"
 description: "Guía para el nuevo rol tech: ya no construyes demos, los auditas. Contratos, datos, RAG, alucinaciones, evals, seguridad y costos para validar sistemas IA generados con IA."
 pubDate: "2026-10-03"

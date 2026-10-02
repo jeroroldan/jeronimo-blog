@@ -1,169 +1,140 @@
 ---
 interface Props {
-  headings: { depth: number; slug: string; text: string }[];
+  headings?: { depth: number; slug: string; text: string }[];
+  /** "sidebar" = lateral desktop slim | "mobile" = <details> colapsable */
+  variant?: 'sidebar' | 'mobile';
 }
 
-const { headings = [] } = Astro.props;
-const filteredHeadings = (headings || []).filter(h => h.depth === 2 || h.depth === 3);
+const { headings = [], variant = 'sidebar' } = Astro.props;
+const filtered = (headings || []).filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
-{filteredHeadings.length > 0 && (
-  <nav class="toc" aria-label="Tabla de contenidos">
-    <div class="toc-header">
-      <span class="toc-icon">📑</span>
-      <span>Tabla de Contenidos</span>
-    </div>
+{filtered.length > 0 && variant === 'sidebar' && (
+  <nav class="toc-sidebar" aria-label="Tabla de contenidos">
+    <p class="toc-kicker">En este artículo</p>
     <ul class="toc-list">
-      {filteredHeadings.map((heading) => (
-        <li class={`toc-item toc-depth-${heading.depth}`}>
-          <a href={`#${heading.slug}`} class="toc-link">
-            {heading.text}
-          </a>
+      {filtered.map((h) => (
+        <li class={h.depth === 3 ? 'toc-item toc-sub' : 'toc-item'}>
+          <a href={`#${h.slug}`} class="toc-link">{h.text}</a>
         </li>
       ))}
     </ul>
   </nav>
 )}
 
+{filtered.length > 0 && variant === 'mobile' && (
+  <details class="toc-mobile">
+    <summary>Tabla de contenidos</summary>
+    <nav aria-label="Tabla de contenidos">
+      <ul>
+        {filtered.map((h) => (
+          <li class={h.depth === 3 ? 'toc-item toc-sub' : 'toc-item'}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </details>
+)}
+
 <style>
-  .toc {
+  /* — Sidebar desktop: slim, w-64, sticky, border-l tenue — */
+  .toc-sidebar {
+    width: 16rem; /* w-64 */
     position: sticky;
-    top: 2rem;
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    top: 6rem; /* top-24 */
+    align-self: start;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+    border-left: 1px solid var(--glass-border);
+    padding-left: 1rem; /* pl-4 */
+    font-size: 0.8rem; /* entre text-xs y text-sm */
+    line-height: 1.5;
+  }
+  .toc-kicker {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin: 0 0 0.75rem 0;
+  }
+  .toc-sidebar .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .toc-sidebar .toc-item { margin: 0; }
+  .toc-sidebar .toc-sub { padding-left: 0.75rem; }
+  .toc-sidebar .toc-link {
+    display: block;
+    padding: 0.25rem 0;
+    color: var(--text-muted); /* equiv. text-slate-400 */
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    margin-left: -1.075rem;
+    padding-left: 1rem;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .toc-sidebar .toc-link:hover { color: var(--text-primary); /* hover:text-white */ }
+  .toc-sidebar .toc-link.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* — Mobile / tablet: <details> colapsable — */
+  .toc-mobile {
     border: 1px solid var(--glass-border);
     border-radius: var(--border-radius-md);
-    padding: 1.25rem;
+    background: var(--bg-secondary);
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
     margin-bottom: 2rem;
-    max-height: calc(100vh - 4rem);
-    overflow-y: auto;
-    box-shadow: var(--glass-shadow);
   }
-
-  .toc-header {
+  .toc-mobile summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    list-style: none;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--glass-border);
+    justify-content: space-between;
   }
+  .toc-mobile summary::-webkit-details-marker { display: none; }
+  .toc-mobile summary::after { content: '+'; color: var(--accent); font-weight: 700; }
+  .toc-mobile[open] summary::after { content: '−'; }
+  .toc-mobile ul { list-style: none; margin: 0.75rem 0 0.25rem; padding: 0; display: grid; gap: 0.4rem; }
+  .toc-mobile li { margin: 0; }
+  .toc-mobile .toc-sub { padding-left: 0.9rem; }
+  .toc-mobile a { color: var(--text-secondary); text-decoration: none; }
+  .toc-mobile a:hover { color: var(--accent); }
 
-  .toc-icon {
-    font-size: 1.1rem;
-  }
-
-  .toc-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .toc-item {
-    margin: 0;
-  }
-
-  .toc-depth-3 {
-    padding-left: 1rem;
-  }
-
-  .toc-link {
-    display: block;
-    padding: 0.4rem 0.6rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    border-left: 2px solid transparent;
-  }
-
-  .toc-link:hover {
-    color: var(--accent);
-    background: var(--accent-soft);
-    border-left-color: var(--accent);
-  }
-
-  .toc-link.active {
-    color: var(--accent);
-    background: var(--accent-soft);
-    border-left-color: var(--accent);
-    font-weight: 500;
-  }
-
-  @media (max-width: 1024px) {
-    .toc {
-      position: static;
-      max-height: none;
-      margin-bottom: 0;
-    }
-    .toc-header {
-      padding: 0.75rem;
-      display: flex;
-      justify-content: space-between;
-    }
-    .toc-list {
-      display: block;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .toc-header {
-      cursor: pointer;
-    }
-    .toc-header::after {
-      content: ' +';
-    }
-    .toc-header.open::after {
-      content: ' -';
-    }
-    .toc-list {
-      display: none;
-    }
-    .toc-list.open {
-      display: block;
-    }
-  }
+  body.dark-mode .toc-sidebar .toc-link:hover { color: #fff; }
 </style>
 
 <script>
-  function initTOC() {
-    const tocLinks = document.querySelectorAll('.toc-link');
-    const headings = document.querySelectorAll('article h2, article h3');
-
-    if (!tocLinks.length || !headings.length) return;
-
-    const observer = new IntersectionObserver(
+  function initTOCActive() {
+    const links = document.querySelectorAll('.toc-sidebar .toc-link');
+    const targets = document.querySelectorAll('article[data-post] h2[id], article[data-post] h3[id]');
+    if (!links.length || !targets.length || !('IntersectionObserver' in window)) return;
+    const obs = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            tocLinks.forEach((link) => link.classList.remove('active'));
-            const id = entry.target.getAttribute('id');
-            const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
-            if (activeLink) activeLink.classList.add('active');
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            links.forEach((l) => l.classList.remove('active'));
+            const a = document.querySelector(`.toc-sidebar .toc-link[href="#${e.target.id}"]`);
+            if (a) a.classList.add('active');
           }
         });
       },
-      { rootMargin: '-20% 0% -80% 0%' }
+      { rootMargin: '-20% 0% -75% 0%' }
     );
-
-    headings.forEach((heading) => observer.observe(heading));
+    targets.forEach((t) => obs.observe(t));
   }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const tocList = document.querySelector('.toc-list');
-    const tocHeader = document.querySelector('.toc-header');
-    if (!tocList || !tocHeader) return;
-
-    tocHeader.addEventListener('click', () => {
-      tocList.classList.toggle('open');
-      tocHeader.classList.toggle('open');
-    });
-
-    initTOC();
-  });
+  document.addEventListener('DOMContentLoaded', initTOCActive);
+  document.addEventListener('astro:page-load', initTOCActive);
 </script>
