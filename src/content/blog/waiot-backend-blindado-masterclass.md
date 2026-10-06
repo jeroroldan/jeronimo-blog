@@ -6,7 +6,7 @@ code: "waiot-backend-blindado"
 category: "backend"
 tags: ["laravel", "php", "mysql", "eloquent", "queues", "testing"]
 difficulty: "avanzado"
-readingTime: 45
+readingTime: 60
 ---
 
 # MASTERCLASS: Laravel 12 + PHP 8.2 + MySQL 8.4 — Backend Blindado 🛡️
@@ -33,9 +33,9 @@ La meta no es aprender sintaxis. La meta es construir el reflejo de mutación + 
 flowchart TD
     F1["FASE 1 · Base"] --> A["1 PHP estricto"]
     A --> B["2 MySQL transaccional"]
-    B --> F2["FASE 2 · Núcleo"]
-    F2 --> C["3 Eloquent + Estado"]
-    C --> D["4 Transacción + Auditoría"]
+    B --> F2["FASE 2 · Laravel"]
+    F2 --> C["3 Conceptos Laravel"]
+    C --> D["4 Eloquent + Estado"]
     D --> F3["FASE 3 · Operar"]
     F3 --> E["5 Jobs + Auth + Tests"]
 ```
@@ -45,7 +45,7 @@ flowchart TD
 | 🧩 Fase | ❓ Pregunta que responde | 📤 Resultado principal |
 |---------|------------------------|------------------------|
 | **FASE 1 · Base** | ¿Cómo evito bugs tontos en PHP y MySQL? | Código predecible |
-| **FASE 2 · Núcleo** | ¿Cómo hago mutación atómica con auditoría? | Transacciones seguras |
+| **FASE 2 · Laravel** | ¿Cómo funcionan Container, Facades y Eloquent? | Framework productivo |
 | **FASE 3 · Operar** | ¿Cómo hago que jobs, auth y tests sostengan? | Sistema productivo |
 
 ```mermaid
@@ -657,6 +657,219 @@ Checklist anti-deadlock WAIOT:
 
 ---
 
+## 🧩 PARTE 2.5: CONCEPTOS FUNDAMENTALES DE LARAVEL
+
+### 2.5.1 Principio Central
+
+Analogía en 1 línea: Laravel es como una ciudad con reglas fijas — el Service Container es el plano de quién construye qué, las Facades son los nombres de las calles que todo el mundo conoce, y el Request es el formulario de entrada que debe llenarse antes de entrar.
+
+| Paso | Tú ves | Qué pasa dentro | Ejemplo |
+|------|--------|-----------------|---------|
+| 1 Pides | `DeliveryService` | Container lo construye | `app(DeliveryService::class)` |
+| 2 Llamas | `Cache::get()` | Facade consulta container | `Cache` es alias |
+| 3 Consultas | `Delivery::find()` | Eloquent consulta MySQL | Modelo tipado |
+
+```mermaid
+flowchart TD
+    F1["FASE 1 · Request"] --> A["1 Router decide"]
+    A --> F2["FASE 2 · Resuelve"]
+    F2 --> B["2 Container crea"]
+    B --> C["3 Controlador responde"]
+```
+
+### 2.5.2 Service Container (IoC Container)
+
+```php
+// Registro manual (raro en Laravel moderno)
+$this->app->singleton(DeliveryService::class, fn ($app) => new DeliveryService(
+    $app->make(DeliveryRepository::class),
+));
+
+// Resolución automática (constructor promotion)
+public function __construct(
+    private readonly DeliveryService $service,
+) {}
+
+// Laravel lo resuelve solo, sin configurar nada
+$service = app(DeliveryService::class);
+```
+
+Analogía: el Container es un restaurant con carta fija. Pides "DeliveryService" y el maître (Container) sabe quién lo cocina, sin que vos lo preguntes.
+
+Error típico: `new DeliveryService()` en vez de inyectar. Rompe el testeo porque no podés reemplazar el repo por un fake.
+
+Consejo WAIOT: registra interfaces en el provider. `DeliveryServiceInterface -> DeliveryService`. En tests haces `$this->app->instance(DeliveryServiceInterface::class, $fake)`. Un cambio, tests verdes.
+
+> **📌 Idea clave** — El Container resuelve dependencias automáticamente. Inyecta por constructor, nunca `new` dentro de servicios.
+
+### 2.5.3 Facades — acceso expresivo sin acoplamiento
+
+```php
+// Facade: acceso estático al container
+Cache::remember("delivery:{$id}", 300, fn () => Delivery::find($id));
+DB::transaction(fn () => $delivery->update([...]));
+Storage::disk('s3')->put($path, $file);
+
+// Equivalente sin facade (inyectado)
+$this->cache->remember(...);
+$this->db->transaction(...);
+$this->storage->disk('s3')->put(...);
+```
+
+Analogía: las Facades son como ventanillas públicas. Pedís sin saber quién te atiende, pero te atienden igual.
+
+Error típico: usar `Storage::put()` dentro de transacción. Ahí sí necesitás el objeto real para mockear. Si la clase tiene tests sin fakes, la facade te complica.
+
+> **📌 Idea clave** — Facade = atajo legible. Testeable si el servicio está en el Container. Si mockeás, inyecta el servicio real.
+
+### 2.5.4 Eloquent ORM — modelos como tablas vivas
+
+```php
+// Query builder fluido
+$delivery = Delivery::where('client_id', $clientId)
+    ->where('status_cd', '!=', 'cancelled')
+    ->orderByDesc('created_at')
+    ->paginate(20);
+
+// Relaciones
+$client = Client::find($id);
+$deliveries = $client->deliveries()->where('status_cd', 'pending')->get();
+
+// Creación atómica
+$delivery = $client->deliveries()->create([
+    'total' => '10.00',
+    'status_cd' => 'pending',
+]);
+```
+
+Analogía: Eloquent es como un gerente de oficina. No escribís SQL, le pedís "las deliveries pendientes de este cliente" y él las busca, ordena y te entrega en bandeja.
+
+Error típico: `N+1`. Recorres 100 deliveries y dentro llamás a `$d->client->name` sin `with('client')`. 100 consultas extra. Solución: `Delivery::with('client')->get()`.
+
+Regla: si el loop tiene `->client` o `->changes` dentro, siempre `with()` antes.
+
+> **📌 Idea clave** — Eloquent convierte tablas en objetos. `with()` evita N+1. `create()` usa relación, no `new + save()`.
+
+### 2.5.5 Routing y Middleware — el portero de la puerta
+
+```php
+// web.php / api.php
+Route::middleware(['auth:sanctum', 'can:delivery-store'])
+    ->prefix('api')
+    ->group(function () {
+        Route::post('/deliveries', DeliveryController::class);
+        Route::get('/deliveries/{id}', [DeliveryController::class, 'show']);
+    });
+
+// Route model binding (inyecta el modelo)
+public function show(Delivery $delivery): JsonResponse
+{
+    return response()->json($delivery);
+}
+```
+
+Analogía: el Router es el portero del edificio. El Middleware es el checklist de entrada: credenciales, autorización, formato de DNI. Si no pasás, ni llegás al controlador.
+
+Error típico: validar `$request->client_id` dentro del controlador. Mejor `Route::get('/clients/{client}/deliveries', ...)` con implicit binding y `where('client_id', ...)` en la query.
+
+> **📌 Idea clave** — Router decide, Middleware filtra, Model Binding resuelve. Controlador delgado, reglas en el medio.
+
+### 2.5.6 Collections — arrays con superpoderes
+
+```php
+$deliveries = Delivery::all(); // Collection
+
+// Mapeo, filtrado, agrupación
+$ids = $deliveries->pluck('id')->toArray();
+$byClient = $deliveries->groupBy('client_id');
+$pending = $deliveries->filter(fn ($d) => $d->status_cd === 'pending');
+
+// Transformación en memoria
+$summary = $deliveries->map(fn ($d) => [
+    'id' => $d->id,
+    'total' => number_format((float) $d->total, 2, '.', ''),
+])->toArray();
+```
+
+Analogía: Collection es como un Excel en memoria. Filtrado, ordenado, agrupado, sin tocar MySQL hasta que lo necesitás.
+
+Error típico: `foreach` con `array_push`. Collection tiene `map`, `filter`, `groupBy`. Más legible, testeable, encadenable.
+
+> **📌 Idea clave** — Collection reemplaza `foreach` + arrays. `pluck` extrae columnas. `groupBy` organiza. Todo en memoria, sin SQL.
+
+### 2.5.7 Configuración y entorno — .env como fuente de verdad
+
+```php
+// config/database.php
+'mysql' => [
+    'driver' => env('DB_CONNECTION', 'mysql'),
+    'host' => env('DB_HOST', '127.0.0.1'),
+],
+
+// Uso
+$host = config('database.connections.mysql.host');
+
+// En .env.testing sobrescribís sin tocar código
+DB_CONNECTION=sqlite
+DB_DATABASE=:memory:
+```
+
+Analogía: `.env` es el tablero de control del auto. Cambias el modo de manejo (testing/prod) sin abrir el capó.
+
+Error típico: `config('app.debug')` en producción. Si olvidás el `.env`, `APP_DEBUG=true` expone stack traces. CI debe tener `APP_DEBUG=false` incluso en staging.
+
+Regla: `config()` lee de cache en producción. Si cambiás `.env`, corré `php artisan config:clear` o `optimize`.
+
+> **📌 Idea clave** — `.env` separa código de entorno. `config()` lee valores. Cache en prod, clear al cambiar.
+
+### 2.5.8 Práctica guiada
+
+**Escenario:** Necesitás listar deliveries pendientes de un cliente, cachear 5 minutos, y paginar.
+
+| Paso | Tú ves | Qué pasa dentro | Ejemplo |
+|------|--------|-----------------|---------|
+| 1 Relación | `$client->deliveries()` | JOIN implícito | `hasMany` |
+| 2 Filtro | `->where('status_cd', 'pending')` | WHERE en SQL | Sin traer todo |
+| 3 Cache | `Cache::remember()` | key + TTL | 5 minutos |
+| 4 Página | `->paginate(20)` | LIMIT + OFFSET | Paginador de Laravel |
+
+```php
+public function pending(int $clientId): LengthAwarePaginator
+{
+    return Cache::remember("client:{$clientId}:pending_deliveries", 300, function () use ($clientId) {
+        return Delivery::where('client_id', $clientId)
+            ->where('status_cd', 'pending')
+            ->orderByDesc('created_at')
+            ->paginate(20);
+    });
+}
+```
+
+### 2.5.9 ❓ RECALL — Nivel Bloom: Aplicar
+
+1. ¿Por qué `new DeliveryService()` rompe el testeo, pero `app(DeliveryService::class)` o inyección lo habilita?
+2. ¿Qué hace `Cache::remember()` si la key existe vs si no existe?
+3. ¿Por qué `$client->deliveries()->where(...)->get()` es mejor que `Delivery::where('client_id', $id)->get()`?
+4. ¿Cuándo usas `pluck('id')` vs `map(fn ($d) => $d->id)`?
+
+### 2.5.10 📌 IDEA CLAVE
+
+Service Container resuelve dependencias, Facades dan acceso legible, Eloquent convierte tablas en objetos, Collections reemplazan `foreach`, y `.env` separa código de entorno. Si dominás estos 5 conceptos, todo lo demás en Laravel es solo aprender métodos nuevos.
+
+### 2.5.11 ✅ AUTO-CHEQUEO + SIGUIENTE
+
+- [ ] Entiendo por qué inyectar por constructor y no usar `new`
+- [ ] Sé la diferencia entre Facade y servicio inyectado
+- [ ] Uso Eloquent con `with()` para evitar N+1
+- [ ] Agrupo con Collections en vez de `foreach`
+- [ ] Configuro `.env` sin hardcodear valores
+
+Siguiente: Eloquent lifecycle y state machines.
+
+> Esta parte es el puente entre PHP/MySQL y Laravel. Si solo te llevas una idea: **todo en Laravel pasa por el Container, todo lo mutable va con Eloquent**.
+
+---
+
 ## PARTE 3: ELOQUENT LIFECYCLE — EL SNAPSHOT MANUAL
 
 ### 3.1 Principio Central
@@ -986,6 +1199,7 @@ Respuesta esperada: sin orden fijo hay deadlock; con orden + reintento, ambas pa
 |--------|-------|
 | PHP | Enums casteados, readonly, `use` explícito, `!==` normalizado |
 | MySQL | Transacción corta, FK con índice, tipos iguales, JSON solo auditoría |
+| Laravel | Container, Facades, Eloquent, Collections, .env |
 | Eloquent | Snapshot manual, `getChanges` tras save, `afterCommit` para jobs |
 | Estado | Mutator valida, `status_cd` es verdad, transición ilegal explota |
 | Ops | `Queue::fake` en tests, `Storage::fake`, `can:` en rutas, Scribe al cambiar controller |
@@ -1004,6 +1218,8 @@ Respuesta esperada: sin orden fijo hay deadlock; con orden + reintento, ambas pa
 8. **Propón**: Diseña validación de `delivery_id` scopeada por `client_id` para evitar IDOR. ¿Qué Rule usas?
 9. **Síntesis**: Un job recibe `$delivery` entero en vez de `$id`. El delivery se borra (soft) antes de procesar. ¿Qué lee el job y por qué el recorder lo filtra?
 10. **Reflexión final**: De PHP, MySQL y Laravel, ¿cuál es el más crítico para evitar auditoría huérfana? Justifica con transacción + afterCommit.
+11. **Conecta**: ¿Por qué inyectar por constructor es más testeable que `new` dentro de un servicio? Menciona Container y fakes.
+12. **Evalúa**: ¿Qué es N+1 y cómo lo evitas con Eloquent? Da un ejemplo con `$client->deliveries`.
 
 ## GLOSARIO — CONCEPTOS PRINCIPALES
 
@@ -1027,3 +1243,10 @@ Respuesta esperada: sin orden fijo hay deadlock; con orden + reintento, ambas pa
 | **Rule::exists where** | Valida que el ID exista y pertenezca al cliente |
 | **Storage::fake** | Disco falso para tests sin tocar archivos reales |
 | **Pint / PHPStan / Scribe** | Formato, análisis estático y docs API del repo |
+| **Service Container** | Registro y resolución automática de dependencias |
+| **Facade** | Acceso estático a un servicio del Container |
+| **Eloquent ORM** | Mapper que convierte filas de DB en objetos PHP |
+| **Route Model Binding** | Laravel resuelve el modelo desde el parámetro de ruta |
+| **Collection** | Array en memoria con métodos funcionales (map, filter, groupBy) |
+| **N+1** | Problema de rendimiento por consultas repetidas en un loop |
+| **.env** | Archivo de configuración por entorno |
