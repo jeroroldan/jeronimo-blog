@@ -1,15 +1,23 @@
 ---
 title: "MASTERCLASS: Alpha Quant Research Workflow - Fábrica de Estrategias Algorítmicas"
-description: "Workflow end-to-end usando Python y AI agents para construir, backtest y optimizar estrategias de trading cuantitativas en fracción del tiempo tradicional."
+description: "Workflow end-to-end sin código para construir, validar y optimizar estrategias de trading cuantitativas en fracción del tiempo tradicional."
 pubDate: "2026-06-14"
 code: "alpha-quant-workflow"
 category: "quant-trading"
-tags: ["quant", "trading", "python", "ai-agents", "mt5", "backtesting"]
-difficulty: "avanzado"
+tags: ["quant", "trading", "ai-agents", "mt5", "backtesting", "no-code"]
+difficulty: "progresiva"
 readingTime: 40
 ---
 
 # MASTERCLASS: Alpha Quant Research Workflow - Fábrica de Estrategias Algorítmicas
+
+> **DIRECTIVA INSTRUCCIONAL OBLIGATORIA — Cómo crear guías derivadas de este archivo**
+>
+> 1. **PROHIBIDO código Python.** Cero bloques `python`. Cero clases, funciones, imports, pandas, numpy, MT5 API en código. Si necesitas mostrar lógica, usa lenguaje natural + tabla de pasos + ejemplo numérico concreto + micro-diagrama `mermaid TD` de máx. 4 pasos. La ejecución técnica va en anexos operativos o herramientas externas, nunca como código en el cuerpo.
+> 2. **Carga cognitiva primero (Sweller).** Orden estricto fácil → difícil. Una idea nueva por sección. Secciones de 200–400 palabras. Tablas de máx. 4 filas. Diagramas de máx. 4 nodos. Nada de jerga sin analogía previa de 1 línea.
+> 3. **Motivación sostenida (SDT + ARCS de Keller).** Cada PARTE abre con: victoria rápida en <5 min + "por qué importa" en 1 línea + "qué lograrás" concreto. Cada PARTE cierra con: `> **📌 Idea clave** — ...` + checklist de auto-chequeo + próxima recompensa visible.
+> 4. **Técnicas de aprendizaje validadas (obligatorias).** I Do → We Do → You Do con fading. Recall activo al final de cada PARTE (1 pregunta sin mirar). Interleaving: Concepto → Ejemplo → Contra-ejemplo. Elaboración: "¿por qué funciona / cuándo falla?". Dual coding: cada concepto lleva tabla O diagrama. Feynman: si no cabe en 1 línea, reescribe. Dificultades deseables (Bjork) + feedback en <30 seg (respuesta esperada bajo cada ejercicio).
+> 5. **Progresión visible.** Mapa de 3 FASES al inicio. Barra de progreso por PARTE (Nivel 1→5). Nunca 3 conceptos seguidos sin práctica. Nunca un ejercicio sin criterio de auto-corrección.
 
 ## INTRODUCCIÓN: POR QUÉ ESTE MASTERCLASS ES DIFERENTE
 
@@ -90,72 +98,19 @@ flowchart TD
 | **Correlaciones** | Dependencia entre activos | Reduce riesgo concentrado |
 | **Sesgos temporales** | Horarios, sesiones y eventos | Evita falsos edge por calendario |
 
-### 1.3 Código base de Market Diagnostics
+### 1.3 Lógica sin código de Market Diagnostics
 
-```python
-import numpy as np
-import pandas as pd
-from dataclasses import dataclass
-
-
-@dataclass
-class MarketDiagnostics:
-    data: pd.DataFrame
-    risk_free_rate: float = 0.0
-
-    def prepare(self) -> pd.DataFrame:
-        df = self.data.copy()
-        df = df.dropna(subset=['open', 'high', 'low', 'close'])
-        df['return'] = np.log(df['close']).diff()
-        df['range'] = (df['high'] - df['low']) / df['close']
-        return df
-
-    def volatility(self, window: int = 20) -> pd.Series:
-        df = self.prepare()
-        return df['return'].rolling(window).std() * np.sqrt(252)
-
-    def sharpe(self, window: int = 252) -> float:
-        df = self.prepare()
-        excess = df['return'] - self.risk_free_rate / 252
-        if excess.std() == 0:
-            return 0.0
-        return np.sqrt(252) * excess.mean() / excess.std()
-
-    def max_drawdown(self) -> float:
-        df = self.prepare()
-        equity = (1 + df['return'].fillna(0)).cumprod()
-        running_max = equity.cummax()
-        drawdown = equity / running_max - 1
-        return drawdown.min()
-
-    def trend_score(self, short_window: int = 20, long_window: int = 100) -> float:
-        df = self.prepare()
-        short_ma = df['close'].rolling(short_window).mean()
-        long_ma = df['close'].rolling(long_window).mean()
-        score = (short_ma - long_ma) / long_ma
-        return score.dropna().iloc[-1]
-
-    def regime(self, window: int = 60) -> str:
-        vol = self.volatility(window)
-        trend = self.trend_score()
-        last_vol = vol.dropna().iloc[-1]
-        median_vol = vol.dropna().median()
-
-        if last_vol > median_vol * 1.5 and abs(trend) < 0.01:
-            return 'volatile_range'
-        if abs(trend) > 0.03 and last_vol < median_vol * 1.3:
-            return 'smooth_trend'
-        if abs(trend) > 0.03 and last_vol >= median_vol * 1.3:
-            return 'volatile_trend'
-        return 'mean_reversion_range'
-
-    def summary(self) -> dict:
-        return {
-            'sharpe': self.sharpe(),
-            'max_drawdown': self.max_drawdown(),
-            'trend_score': self.trend_score(),
-            'regime': self.regime(),
-```
+> **🔧 Sin código — Diagnóstico en 5 pasos (Nivel 1: victoria rápida)**
+>
+> 1. Limpia: quita velas con precio vacío o cero.
+> 2. Mide retorno: compara cierre de hoy vs ayer en %.
+> 3. Mide volatilidad: ¿los movimientos son grandes o calmados? (últimas 20 velas).
+> 4. Mide tendencia: ¿media corta por encima de media larga? → sesgo alcista.
+> 5. Clasifica régimen: tendencia suave / rango / tendencia volátil / rango volátil.
+>
+> *Ejemplo: EURUSD H1, media 20 > media 100 + volatilidad normal → `smooth_trend` → prioriza momentum, no reversión.*
+>
+> > **📌 Idea clave** — Primero diagnostica el clima, después eliges la ropa (estrategia).
 
 ## APPEND
 
@@ -200,61 +155,18 @@ alpha-quant-workflow/
 
 ### 2.3 Data loader con validaciones
 
-```python
-import pandas as pd
-from pathlib import Path
-
-
-class DataValidator:
-    def __init__(self, df: pd.DataFrame):
-        self.df = df.copy()
-
-    def required_columns(self) -> bool:
-        required = {'timestamp', 'open', 'high', 'low', 'close', 'volume'}
-        return required.issubset(self.df.columns)
-
-    def no_duplicate_index(self) -> bool:
-        return not self.df.index.has_duplicates
-
-    def positive_prices(self) -> bool:
-        price_cols = ['open', 'high', 'low', 'close']
-        return (self.df[price_cols] > 0).all().all()
-
-    def high_low_logic(self) -> bool:
-        return ((self.df['high'] >= self.df['low']) &
-                (self.df['high'] >= self.df['open']) &
-                (self.df['high'] >= self.df['close']) &
-                (self.df['low'] <= self.df['open']) &
-                (self.df['low'] <= self.df['close'])).all()
-
-    def returns_are_finite(self) -> bool:
-        returns = self.df['close'].pct_change()
-        return returns.replace([float('inf'), float('-inf')], float('nan')).notna().all()
-
-    def run(self) -> dict:
-        checks = {
-            'required_columns': self.required_columns(),
-            'no_duplicate_index': self.no_duplicate_index(),
-            'positive_prices': self.positive_prices(),
-            'high_low_logic': self.high_low_logic(),
-            'returns_are_finite': self.returns_are_finite(),
-        }
-        return {
-            'valid': all(checks.values()),
-            'checks': checks,
-        }
-
-
-def load_ohlcv(path: str | Path) -> pd.DataFrame:
-    df = pd.read_csv(path, parse_dates=['timestamp'])
-    df = df.set_index('timestamp').sort_index()
-    validator = DataValidator(df)
-    report = validator.run()
-    if not report['valid']:
-        failed = [name for name, ok in report['checks'].items() if not ok]
-        raise ValueError(f'Data validation failed: {failed}')
-    return df
-```
+> **🔧 Sin código — Checklist de datos que no mienten (Nivel 1)**
+>
+> | Chequeo en 30 seg | Pregunta | Si falla → |
+> |------------------|----------|------------|
+> | Columnas | ¿Tengo fecha, open, high, low, close, volumen? | No avances |
+> | Duplicados | ¿Hay dos velas con misma hora? | Limpia |
+> | Lógica | ¿High es siempre el mayor? ¿Precios > 0? | Descarta fuente |
+> | Orden | ¿Están ordenadas por fecha? | Reordena |
+>
+> *Recompensa: si pasa los 4, tu backtest ya es más honesto que el 80% de internet.*
+>
+> > **📌 Idea clave** — Dato roto = backtest mentiroso. 5 minutos aquí ahorran meses allá.
 
 ### 2.4 Tabla de validaciones críticas
 
@@ -301,92 +213,20 @@ La factory debe permitir probar muchas variaciones sin reescribir el sistema. Po
 | **Execution** | Define cómo se opera | Market, limit, trailing |
 | **Risk** | Controla pérdidas y exposición | Max DD, daily loss, kill-switch |
 
-### 3.3 Código de Strategy Factory
+### 3.3 Lógica sin código de Strategy Factory
 
-```python
-import numpy as np
-import pandas as pd
-from dataclasses import dataclass
-from enum import Enum
-
-
-class Signal(Enum):
-    FLAT = 0
-    LONG = 1
-    SHORT = -1
-
-
-@dataclass
-class StrategyConfig:
-    short_window: int = 10
-    long_window: int = 50
-    atr_window: int = 14
-    volatility_threshold: float = 1.5
-    stop_atr_multiple: float = 2.0
-    take_profit_atr_multiple: float = 3.0
-    risk_per_trade: float = 0.01
-
-
-class StrategyFactory:
-    def __init__(self, config: StrategyConfig):
-        self.config = config
-
-    def features(self, df: pd.DataFrame) -> pd.DataFrame:
-        out = df.copy()
-        out['sma_short'] = out['close'].rolling(self.config.short_window).mean()
-        out['sma_long'] = out['close'].rolling(self.config.long_window).mean()
-        delta = out['close'].diff()
-        up = delta.clip(lower=0)
-        down = -delta.clip(upper=0)
-        roll_up = up.rolling(self.config.atr_window).mean()
-        roll_down = down.rolling(self.config.atr_window).mean()
-        out['rsi'] = 100 - (100 / (1 + roll_up / roll_down.replace(0, np.nan)))
-        true_range = pd.concat([
-            out['high'] - out['low'],
-            (out['high'] - out['close'].shift()).abs(),
-            (out['low'] - out['close'].shift()).abs(),
-        ], axis=1).max(axis=1)
-        out['atr'] = true_range.rolling(self.config.atr_window).mean()
-        out['volatility_regime'] = out['atr'] / out['atr'].rolling(100).mean()
-        return out
-
-    def signal(self, features: pd.DataFrame) -> pd.Series:
-        raw = np.select(
-            [
-                features['sma_short'] > features['sma_long'],
-                features['sma_short'] < features['sma_long'],
-            ],
-            [Signal.LONG.value, Signal.SHORT.value],
-            default=Signal.FLAT.value,
-        )
-        signal = pd.Series(raw, index=features.index)
-        filter_mask = features['volatility_regime'] > self.config.volatility_threshold
-        signal[filter_mask] = Signal.FLAT.value
-        return signal.astype(int)
-
-    def levels(self, features: pd.DataFrame, signal: pd.Series) -> pd.DataFrame:
-        out = features.copy()
-        out['signal'] = signal
-        out['stop_loss'] = np.where(
-            signal == Signal.LONG.value,
-            out['close'] - self.config.stop_atr_multiple * out['atr'],
-            np.where(
-                signal == Signal.SHORT.value,
-                out['close'] + self.config.stop_atr_multiple * out['atr'],
-                np.nan,
-            ),
-        )
-        out['take_profit'] = np.where(
-            signal == Signal.LONG.value,
-            out['close'] + self.config.take_profit_atr_multiple * out['atr'],
-            np.where(
-                signal == Signal.SHORT.value,
-                out['close'] - self.config.take_profit_atr_multiple * out['atr'],
-                np.nan,
-            ),
-        )
-        return out
-```
+> **🔧 Sin código — Tu fábrica en 1 frase por pieza (Nivel 2)**
+>
+> | Pieza | Tú decides | Ejemplo EURUSD H1 |
+> |-------|------------|-------------------|
+> | Features | ¿Qué mido? | Media 10 vs 50 + RSI + ATR |
+> | Señal | ¿Cuándo entro? | Cruce alcista = long |
+> | Filtro | ¿Cuándo NO entro? | Si volatilidad > 1.5x → flat |
+> | Riesgo | ¿Cuánto pierdo máx? | Stop a 2x ATR, 1% cuenta |
+>
+> *Progresión: cambia solo 1 pieza por vez. Así sabes qué funcionó.*
+>
+> > **📌 Idea clave** — Hipótesis → Señal → Filtro → Tamaño. Sin reescribir nada.
 
 ### 3.4 Tabla de familias de estrategias
 
@@ -457,56 +297,16 @@ Los errores más comunes son:
 
 ### 4.3 Backtester vectorizado simple
 
-```python
-import numpy as np
-import pandas as pd
-
-
-class VectorBacktester:
-    def __init__(self, initial_capital=100000.0, commission=0.0005, slippage=0.0002):
-        self.initial_capital = initial_capital
-        self.commission = commission
-        self.slippage = slippage
-
-    def run(self, prices: pd.DataFrame, signals: pd.Series) -> pd.DataFrame:
-        df = prices.copy()
-        df['signal'] = signals.reindex(df.index).fillna(0)
-        df['position'] = df['signal'].shift(1).fillna(0)
-        df['ret'] = np.log(df['close']).diff().fillna(0)
-        df['strategy_ret'] = df['position'] * df['ret']
-
-        turnover = df['position'].diff().abs().fillna(0)
-        costs = turnover * (self.commission + self.slippage)
-        df['strategy_ret'] = df['strategy_ret'] - costs
-
-        df['equity'] = self.initial_capital * np.exp(df['strategy_ret'].cumsum())
-        df['benchmark'] = self.initial_capital * np.exp(df['ret'].cumsum())
-        return df
-
-    def metrics(self, result: pd.DataFrame) -> dict:
-        returns = result['strategy_ret']
-        equity = result['equity']
-        trades = result['position'].diff().abs().fillna(0)
-        trade_count = int(trades.sum())
-
-        gross_profit = returns[returns > 0].sum()
-        gross_loss = abs(returns[returns < 0].sum())
-        profit_factor = gross_profit / gross_loss if gross_loss else np.inf
-
-        dd = equity / equity.cummax() - 1
-        max_dd = dd.min()
-        cagr = (equity.iloc[-1] / self.initial_capital) ** (252 / len(result)) - 1
-        sharpe = np.sqrt(252) * returns.mean() / returns.std() if returns.std() else 0
-
-        return {
-            'cagr': cagr,
-            'sharpe': sharpe,
-            'max_drawdown': max_dd,
-            'profit_factor': profit_factor,
-            'trade_count': trade_count,
-            'final_equity': equity.iloc[-1],
-        }
-```
+> **🔧 Sin código — Backtest honesto en 4 pasos (Nivel 2)**
+>
+> 1. Desplaza la señal 1 vela (prohibido usar el futuro).
+> 2. Resta costos SIEMPRE: comisión + slippage por cada cambio de posición.
+> 3. Dibuja 2 curvas: estrategia vs comprar-y-mantener.
+> 4. Mide: ¿Sharpe? ¿peor caída? ¿cuántos trades?
+>
+> *Contra-ejemplo motivador: sin costos la curva sube; con costos realistas cae 30%. Ese dolor te hace profesional.*
+>
+> > **📌 Idea clave** — Un backtest conservador que sobrevive es mejor que uno perfecto que miente.
 
 ### 4.4 Walk-forward validation
 
@@ -561,22 +361,16 @@ La optimización sin riesgo produce estrategias peligrosas. Un parámetro puede 
 
 ### 5.3 Position sizing por volatilidad
 
-```python
-import numpy as np
-
-
-def position_size_from_atr(account_equity, risk_per_trade, entry_price, stop_price, atr, contract_value=1.0):
-    technical_risk = abs(entry_price - stop_price)
-    if technical_risk <= 0 or atr <= 0:
-        return 0.0
-
-    risk_amount = account_equity * risk_per_trade
-    units_by_risk = risk_amount / technical_risk
-    units_by_volatility = account_equity * risk_per_trade / (atr * contract_value)
-    units = min(units_by_risk, units_by_volatility)
-
-    return max(units, 0.0)
-```
+> **🔧 Sin código — Tamaño por volatilidad (Nivel 3, 2 min)**
+>
+> 1. Define riesgo: 1% de 10.000 = 100 por trade.
+> 2. Mide distancia al stop: entrada 1.1000 – stop 1.0950 = 50 pips.
+> 3. Tamaño = 100 / 50 pips = el que arriesga justo 100 si toca stop.
+> 4. Freno extra: si ATR está alto, reduce a la mitad.
+>
+> *Si el stop no está claro, no hay trade. Sin excepción.*
+>
+> > **📌 Idea clave** — Tú no controlas el mercado, controlas cuánto pierdes.
 
 ### 5.4 Stress test conceptual
 
@@ -620,61 +414,19 @@ flowchart TD
 | Stability | 10% | Penaliza picos aislados |
 | Cost sensitivity | 10% | Mide fragilidad ante costos |
 
-### 6.3 Código base
+### 6.3 Lógica sin código (evolución paso a paso)
 
-```python
-import random
-import numpy as np
-
-
-class GeneticOptimizer:
-    def __init__(self, bounds, population_size=40, generations=25):
-        self.bounds = bounds
-        self.population_size = population_size
-        self.generations = generations
-
-    def random_gene(self):
-        return {
-            'short_window': random.randint(*self.bounds['short_window']),
-            'long_window': random.randint(*self.bounds['long_window']),
-            'atr_window': random.randint(*self.bounds['atr_window']),
-            'stop_atr_multiple': random.uniform(*self.bounds['stop_atr_multiple']),
-            'take_profit_atr_multiple': random.uniform(*self.bounds['take_profit_atr_multiple']),
-        }
-
-    def initialize(self):
-        return [self.random_gene() for _ in range(self.population_size)]
-
-    def mutate(self, gene):
-        mutated = gene.copy()
-        for key in mutated:
-            if random.random() < 0.15:
-                low, high = self.bounds[key]
-                mutated[key] = random.randint(low, high) if isinstance(low, int) else random.uniform(low, high)
-        return mutated
-
-    def crossover(self, a, b):
-        keys = list(a.keys())
-        point = random.randint(1, len(keys) - 1)
-        child = {**{k: a[k] for k in keys[:point]}, **{k: b[k] for k in keys[point:]}}
-        return child
-
-    def optimize(self, evaluator):
-        population = self.initialize()
-        history = []
-        for _ in range(self.generations):
-            scored = [(evaluator(gene), gene) for gene in population]
-            scored.sort(reverse=True, key=lambda x: x[0])
-            history.append(scored[0])
-            elites = [gene for _, gene in scored[:5]]
-            next_population = elites.copy()
-            while len(next_population) < self.population_size:
-                p1, p2 = random.sample(scored[:20], 2)
-                child = self.crossover(p1[1], p2[1])
-                next_population.append(self.mutate(child))
-            population = next_population
-        return history
-```
+> **🔧 Sin código — Optimización genética sin humo (Nivel 4)**
+>
+> 1. Define límites sanos: ej. media corta 5–30, larga 30–200.
+> 2. Crea 40 combinaciones al azar (población).
+> 3. Quédate con las 5 mejores por Sharpe fuera-de-muestra + menor caída.
+> 4. Mezcla y muta un poco (15%) → repite 10–25 rondas.
+> 5. Elige MESETAS estables en el heatmap, nunca islas perfectas.
+>
+> *Dificultad deseable: si un parámetro cambia 10% y todo se rompe, descártalo.*
+>
+> > **📌 Idea clave** — Buscamos zonas robustas, no la curva perfecta.
 
 ### 6.4 Errores comunes
 
@@ -756,18 +508,16 @@ flowchart TD
 
 ### 7.3 Matriz de automatización
 
-```python
-def choose_automation(latency_sensitive, needs_24_7, team_devops, risk_controls):
-    if latency_sensitive and team_devops:
-        return 'broker_api_cloud'
-    if needs_24_7 and risk_controls:
-        return 'cloud_hybrid'
-    if team_devops:
-        return 'local_automated_vps'
-    if risk_controls:
-        return 'semi_automated'
-    return 'manual_assisted'
-```
+> **🔧 Sin código — Elige tu automatización en 30 seg (Nivel 3)**
+>
+> 1. ¿Necesitas milisegundos? Sí → API broker + cloud.
+> 2. ¿Debe correr 24/7 solo? Sí → cloud + kill-switch.
+> 3. ¿Equipo sin DevOps? → semi-automático con confirmación humana.
+> 4. ¿Empezando? → manual asistido + paper trading.
+>
+> *Regla: empieza por lo más simple que te dé control de riesgo. Escala solo si el edge lo paga.*
+>
+> > **📌 Idea clave** — Automatiza el control, no solo la entrada.
 
 ### 7.4 Checklist de producción
 
@@ -819,90 +569,18 @@ flowchart LR
 
 ### 8.3 Adapter básico
 
-```python
-import MetaTrader5 as mt5
-import pandas as pd
-from datetime import datetime, timezone
-
-
-class MT5Adapter:
-    def __init__(self, login, password, server, path=None):
-        self.login = login
-        self.password = password
-        self.server = server
-        self.path = path
-
-    def connect(self):
-        if not mt5.initialize(path=self.path):
-            raise ConnectionError(mt5.last_error())
-        authorized = mt5.login(self.login, password=self.password, server=self.server)
-        if not authorized:
-            raise PermissionError(mt5.last_error())
-        return True
-
-    def rates(self, symbol, timeframe, bars=1000):
-        rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, bars)
-        if rates is None:
-            raise RuntimeError(mt5.last_error())
-        df = pd.DataFrame(rates)
-        df['time'] = pd.to_datetime(df['time'], unit='s', utc=True)
-        return df.set_index('time')
-
-    def symbol_info(self, symbol):
-        info = mt5.symbol_info(symbol)
-        if info is None:
-            raise RuntimeError(mt5.last_error())
-        return info
-
-    def position_exists(self, symbol):
-        positions = mt5.positions_get(symbol=symbol)
-        return positions is not None and len(positions) > 0
-
-    def close_position(self, symbol):
-        positions = mt5.positions_get(symbol=symbol)
-        if not positions:
-            return None
-        position = positions[0]
-        volume = abs(position.volume)
-        order_type = mt5.ORDER_TYPE_SELL if position.type == mt5.POSITION_TYPE_BUY else mt5.ORDER_TYPE_BUY
-        price = mt5.symbol_info_tick(symbol).ask if order_type == mt5.ORDER_TYPE_SELL else mt5.symbol_info_tick(symbol).bid
-        request = {
-            'action': mt5.TRADE_ACTION_DEAL,
-            'symbol': symbol,
-            'volume': volume,
-            'type': order_type,
-            'position': position.ticket,
-            'price': price,
-            'deviation': 20,
-            'magic': 234000,
-            'comment': 'close_position',
-            'type_time': mt5.ORDER_TIME_GTC,
-            'type_filling': mt5.ORDER_FILLING_IOC,
-        }
-        return mt5.order_send(request)
-
-    def send_order(self, symbol, order_type, volume, sl=0.0, tp=0.0):
-        tick = mt5.symbol_info_tick(symbol)
-        price = tick.ask if order_type == mt5.ORDER_TYPE_BUY else tick.bid
-        request = {
-            'action': mt5.TRADE_ACTION_DEAL,
-            'symbol': symbol,
-            'volume': volume,
-            'type': order_type,
-            'price': price,
-            'sl': sl,
-            'tp': tp,
-            'deviation': 20,
-            'magic': 234000,
-            'comment': 'python_strategy',
-            'type_time': mt5.ORDER_TIME_GTC,
-            'type_filling': mt5.ORDER_FILLING_IOC,
-        }
-        result = mt5.order_send(request)
-        if result.retcode != mt5.TRADE_RETCODE_DONE:
-            raise RuntimeError(result._asdict())
-        return result._asdict()
-```
+> **🔧 Sin código — Conexión MT5 sin programar (Nivel 3)**
+>
+> | Paso | Dónde clicas | ✅ Listo cuando |
+> |------|--------------|----------------|
+> | 1 Instalar | Terminal MT5 + cuenta demo | Ves precios en vivo |
+> | 2 Activar | Permitir trading algorítmico | Botón verde |
+> | 3 Verificar | Símbolo visible en Market Watch | EURUSD aparece |
+> | 4 Probar | Leer 500 velas + generar 1 señal | Señal reproducible 2 veces |
+>
+> *Prohibido enviar órdenes reales hasta pasar paper trading 2–4 semanas.*
+>
+> > **📌 Idea clave** — MT5 es tu ejecutor, no tu cerebro. El cerebro es tu fábrica validada.
 
 ### 8.4 Reconciliación de posiciones
 
@@ -916,31 +594,15 @@ class MT5Adapter:
 
 ### 8.5 Loop operacional seguro
 
-```python
-def trading_loop(adapter, strategy, symbol, timeframe, cycle_seconds=60):
-    import time
-
-    while True:
-        try:
-            bars = adapter.rates(symbol, timeframe, bars=500)
-            features = strategy.features(bars)
-            signal = strategy.signal(features).iloc[-1]
-            target = strategy.target_from_signal(signal)
-
-            if target == 0:
-                adapter.close_position(symbol)
-            else:
-                info = adapter.symbol_info(symbol)
-                volume = strategy.size(symbol, info, features.iloc[-1])
-                order_type = mt5.ORDER_TYPE_BUY if target > 0 else mt5.ORDER_TYPE_SELL
-                levels = strategy.levels(features.iloc[-1], target)
-                adapter.send_order(symbol, order_type, volume, levels['sl'], levels['tp'])
-
-            time.sleep(cycle_seconds)
-        except Exception as exc:
-            print(f'error: {exc}')
-            time.sleep(cycle_seconds)
-```
+> **🔧 Sin código — Loop operativo seguro (Nivel 4)**
+>
+> 1. Cada 60 seg: lee velas → genera señal → pasa por filtro de riesgo.
+> 2. Si señal = 0 → cierra o no abras.
+> 3. Si señal ≠ 0 → calcula tamaño + stop/take → envía con límite de desviación.
+> 4. Registra todo con hora. Si algo falla → log + espera, nunca reintentes a ciegas.
+> 5. Kill-switch: si caída diaria > 3% o sin datos > 5 min → apaga.
+>
+> > **📌 Idea clave** — Un loop aburrido y predecible te mantiene vivo.
 
 ### 8.6 Riesgos específicos de MT5
 
@@ -1059,11 +721,11 @@ Entrega:
 | 5 | Clasificar régimen | smooth_trend, range o volatile |
 | 6 | Recomendar familia | Trend, mean reversion o breakout |
 
-```python
-diagnostics = MarketDiagnostics(df)
-summary = diagnostics.summary()
-print(summary)
-```
+> **✅ Auto-chequeo (30 seg, recall activo — tapa lo de arriba y responde)**
+>
+> ¿Qué régimen tienes y qué familia toca? Si no lo dices en 1 frase, repasa el diagnóstico antes de seguir.
+>
+> *Respuesta esperada: "trend_score alto + vol normal = smooth_trend → momentum; score ~0 + vol moderada = rango → mean-reversion; vol extrema = reducir o pausar."*
 
 **Interpretación guiada:**
 
@@ -1087,18 +749,16 @@ print(summary)
 | Stop | ATR múltiplo | Riesgo basado en volatilidad |
 | Validación | Walk-forward | Evita sobreajuste |
 
-```python
-def mean_reversion_signal(df, window=100, z_entry=-2.0, z_exit=0.0):
-    mean = df['close'].rolling(window).mean()
-    std = df['close'].rolling(window).std()
-    z = (df['close'] - mean) / std
-    signal = 0
-    if z.iloc[-1] < z_entry:
-        signal = 1
-    elif z.iloc[-1] > z_exit and df['signal'].iloc[-2] == 1:
-        signal = 0
-    return signal
-```
+> **🔧 Sin código — Reversión a la media en equipo (We Do, Nivel 2)**
+>
+> | Decisión | Regla simple | Por qué |
+> |----------|--------------|---------|
+> | Entrada long | Precio 2 desviaciones bajo su media 100 | Estirado |
+> | Salida | Precio vuelve a la media | Reversión completa |
+> | Filtro | Solo si ATR normal | Evita cuchillos cayendo |
+> | Stop | 2x ATR | Respira sin arruinarte |
+>
+> *Pregunta de elaboración: ¿cuándo falla esto? → En ruptura violenta. Por eso el filtro es obligatorio.*
 
 ### 10.3 You Do — Construir tu propia Strategy Factory
 
@@ -1135,12 +795,10 @@ Debes incluir:
 | Realista | 0.0005 | 0.0002 | Curva ajustada |
 | Conservador | 0.0010 | 0.0005 | Curva estresada |
 
-```python
-bt = VectorBacktester(commission=0.0005, slippage=0.0002)
-result = bt.run(prices, signals)
-metrics = bt.metrics(result)
-print(metrics)
-```
+> **✅ Práctica deliberada (You Do, 5 min)**
+>
+> Compara 3 escenarios con la misma señal: ingenuo (sin costos) / realista / estresado (costos 2x).
+> Criterio de auto-corrección: si el edge desaparece en realista, no es edge. Descarta y celebra — acabas de ahorrar dinero real.
 
 ### 10.5 We Do — Interpretar métricas
 
@@ -1182,12 +840,10 @@ print(metrics)
 | 6 | Simular orden | order_send no llamado |
 | 7 | Registrar decisión | Log con timestamp |
 
-```python
-adapter = MT5Adapter(login=123456, password='password', server='Broker-Demo')
-adapter.connect()
-bars = adapter.rates('EURUSD', mt5.TIMEFRAME_H1, bars=1000)
-print(bars.tail())
-```
+> **✅ Victoria rápida MT5 en demo (I Do, 5 min)**
+>
+> 1. Conecta demo → 2. Lee 1 símbolo → 3. Genera 1 señal → 4. Registra decisión SIN enviar orden.
+> Listo cuando: repites la misma señal 2 veces con mismos datos. Eso es reproducibilidad, Nivel 1 de producción.
 
 ### 10.8 We Do — Revisar runbook de incidente
 
@@ -1300,7 +956,20 @@ Responde cada pregunta basándote en los conceptos de esta master class. Escribe
 
 ---
 
-## ANEXO: FORMATO IDEAL PARA ARTÍCULOS EDUCAТIVOS
+## ANEXO: FORMATO IDEAL PARA ARTÍCULOS EDUCATIVOS
+
+### 0. Reglas no negociables al crear guías (leer primero)
+
+**PROHIBIDO:**
+- Bloques `python` o cualquier código ejecutable en el cuerpo. La lógica se explica con tabla `Paso | Qué haces | Ejemplo` + ejemplo numérico + micro-diagrama `TD` de máx. 4 pasos.
+- Más de 1 concepto nuevo por sección. Más de 4 filas por tabla. Más de 4 nodos por diagrama. Secciones de más de 400 palabras sin práctica.
+- Ejercicio sin respuesta esperada o criterio de auto-corrección debajo (feedback <30 seg).
+- Jerga sin analogía de 1 línea antes.
+
+**OBLIGATORIO (motivación + carga cognitiva + ciencia del aprendizaje):**
+1. Progresión fácil → difícil: Nivel 1 victoria en <5 min → Nivel 5 autonomía. Mapa de 3 FASES al inicio, `📌 Idea clave` al cierre de cada PARTE.
+2. Motivación ARCS/SDT: cada PARTE abre con por-qué + qué lograrás; cierra con checklist + siguiente recompensa visible.
+3. Ciencia aplicada: recall activo (1 pregunta evocadora por PARTE), spacing (verificación + glosario al final), interleaving (Concepto → Ejemplo → Contra-ejemplo), elaboración ("¿por qué / cuándo falla?"), dual coding (texto + tabla/diagrama), fading I Do → We Do → You Do, Feynman (idea clave en 1 línea).
 
 ### Recomendaciones de ancho para lectura larga
 
