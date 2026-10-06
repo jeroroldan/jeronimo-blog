@@ -23,7 +23,7 @@ readingTime: 40
 
 La investigación cuantitativa tradicional suele avanzar demasiado lento para los mercados actuales. Un equipo tarda semanas en recolectar datos, limpiar velas, probar hipótesis, backtestear estrategias y optimizar parámetros. Cuando finalmente llega una idea a producción, el régimen del mercado ya cambió.
 
-Este masterclass propone otro camino: una **fábrica de estrategias algorítmicas** donde Python, datos financieros, backtesting riguroso, optimización genética, automatización y AI agents trabajan como un sistema integrado.
+Este masterclass propone otro camino: una **fábrica de estrategias algorítmicas** donde datos financieros, backtesting riguroso, optimización genética, automatización y AI agents trabajan como un sistema integrado (sin código en el cuerpo: la lógica se muestra en lenguaje natural).
 
 La meta no es encontrar una estrategia mágica. La meta es construir un proceso repetible para descubrir, validar, descartar y mejorar ideas de trading con disciplina estadística.
 
@@ -112,7 +112,7 @@ flowchart TD
 >
 > > **📌 Idea clave** — Primero diagnostica el clima, después eliges la ropa (estrategia).
 
-## APPEND
+---
 
 ## PARTE 2: DATA ENGINEERING — EL PIPELINE QUE NO MIENTE
 
@@ -384,7 +384,7 @@ La optimización sin riesgo produce estrategias peligrosas. Un parámetro puede 
 | **Data outage** | Feed interrumpido | Kill-switch |
 | **Broker issue** | Rechazo de órdenes | Reconciliación |
 
-## APPEND2
+---
 
 ## PARTE 6: GENETIC OPTIMIZATION
 
@@ -407,7 +407,7 @@ flowchart TD
 
 | Componente | Peso | Motivo |
 |------------|------|--------|
-| Sharpe out-of-sample | 30% | Rentabilidad ajustada a riesgo |
+| Sharpe in-sample para rankear (prohibido decidir con OOS) | 30% | Rentabilidad ajustada a riesgo en entrenamiento |
 | Max drawdown | 25% | Penaliza caídas severas |
 | Profit factor | 15% | Calidad del payoff |
 | Trade count | 10% | Evita muestras vacías |
@@ -420,7 +420,7 @@ flowchart TD
 >
 > 1. Define límites sanos: ej. media corta 5–30, larga 30–200.
 > 2. Crea 40 combinaciones al azar (población).
-> 3. Quédate con las 5 mejores por Sharpe fuera-de-muestra + menor caída.
+> 3. Quédate con las 5 mejores por Sharpe **in-sample** + menor caída. El out-of-sample y el walk-forward se usan SOLO para validar al final, nunca para elegir candidatos (si elegís con OOS, lo contaminás).
 > 4. Mezcla y muta un poco (15%) → repite 10–25 rondas.
 > 5. Elige MESETAS estables en el heatmap, nunca islas perfectas.
 >
@@ -532,17 +532,17 @@ flowchart TD
 | Paper trading | Validación antes de capital real |
 | Runbook | Procedimiento ante incidentes |
 
-## APPEND4
+---
 
 ## PARTE 8: MT5 INTEGRATION — EJECUCIÓN CON METATRADER 5
 
-MetaTrader 5 puede funcionar como terminal de ejecución, fuente de datos y capa de órdenes para estrategias Python. La integración típica usa el paquete MetaTrader5 para consultar precios, enviar órdenes y leer posiciones.
+MetaTrader 5 funciona como terminal de ejecución, fuente de datos y capa de órdenes. La integración típica conecta tu generador de señales con el terminal para consultar precios, enviar órdenes y leer posiciones (el detalle técnico va en un anexo operativo, no como código en la guía).
 
 ### 8.1 Arquitectura de integración
 
 ```mermaid
 flowchart LR
-    A[Python Strategy] --> B[Signal Generator]
+    A[Generador de señal] --> B[Motor de señal]
     B --> C[Risk Engine]
     C --> D[MT5 Adapter]
     D --> E[MetaTrader5 Terminal]
@@ -559,7 +559,7 @@ flowchart LR
 
 | Requisito | Motivo |
 |-----------|--------|
-| Terminal MT5 instalado | El paquete Python se conecta al terminal |
+| Terminal MT5 instalado | La herramienta externa se conecta al terminal |
 | Cuenta habilitada para trading automático | Permite órdenes programáticas |
 | Símbolos visibles en Market Watch | Evita errores de símbolo no encontrado |
 | Permisos de trading API | Necesarios para enviar órdenes |
@@ -616,7 +616,7 @@ flowchart LR
 | Cuenta en hedge | Múltiples posiciones | Política de neteo o tickets |
 | Broker cambia contrato | Volumen inválido | Leer volume_min y volume_step |
 
-## APPEND5
+---
 
 ## PARTE 9: FUTURE ROADMAP — DE PROTOTIPO A PRODUCCIÓN
 
@@ -828,7 +828,7 @@ Debes incluir:
 
 ### 10.7 I Do — Integración MT5 en paper trading
 
-**Objetivo:** conectar Python con MT5 sin enviar órdenes reales.
+**Objetivo:** conectar tu señal con MT5 en demo sin enviar órdenes reales.
 
 | Paso | Acción | Validación |
 |------|--------|------------|
@@ -917,7 +917,9 @@ Responde cada pregunta basándote en los conceptos de esta master class. Escribe
 
 ### Preguntas sobre Backtesting
 
-5. **Calcula**: Una estrategia genera 100 trades con un profit factor de 1.5 y un win rate del 45%. ¿Cuál sería el profit factor esperado si el win rate baja al 40%?
+5. **Calcula**: Una estrategia genera 100 trades con win rate 45%, ganancia media 150 y pérdida media 100. Calculá el profit factor. Si el win rate baja a 40% (mismo payoff), ¿cuál es el nuevo profit factor?
+
+> *Respuesta esperada: PF = (0.45×150)/(0.55×100) = 67.5/55 ≈ 1.23. Con 40%: (0.40×150)/(0.60×100) = 60/60 = 1.0. Moraleja: sin el ratio ganancia/pérdida no se puede responder; win rate solo no alcanza.*
 
 6. **Evalúa**: ¿Por qué es crucial separar datos de entrenamiento y validación en un backtest? Qué sucede si no lo haces?
 
@@ -950,7 +952,7 @@ Responde cada pregunta basándote en los conceptos de esta master class. Escribe
 | **Profit Factor** | Ganancias brutas / pérdidas brutas, calidad del payoff |
 | **Drawdown** | Caída desde el máximo anterior del equity |
 | **Slippage** | Diferencia entre precio esperado y ejecutado |
-| **MT5 Adapter** | Puente Python ↔ terminal MetaTrader 5 para órdenes |
+| **MT5 Adapter** | Puente señal ↔ terminal MetaTrader 5 para órdenes |
 | **Paper trading** | Operativa simulada antes de capital real |
 | **Kill-switch** | Corte automático por drawdown, datos o fallo operativo |
 
