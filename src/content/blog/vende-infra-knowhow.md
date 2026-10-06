@@ -1,7 +1,7 @@
 ---
 title: "MASTERCLASS: No vendas software, vende infra y know-how — Guía de carrera y modelo de negocio"
 description: "Por qué el código se está comoditizando, cómo pasar de vender horas a vender valor, y cómo construir un modelo de negocio sostenible en la era de la IA."
-pubDate: "2026-10-05"
+pubDate: "2026-10-06"
 code: "vende-infra-knowhow"
 category: "emprendimiento"
 tags: ["emprendimiento", "negocios", "consultoria", "saas", "ia", "carrera"]
