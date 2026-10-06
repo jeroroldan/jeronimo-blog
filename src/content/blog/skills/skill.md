@@ -20,6 +20,7 @@ readingTime: 15
 > 3. **Motivación sostenida.** Cada PARTE abre con victoria rápida en <5 min + "por qué importa" en 1 línea + "qué lograrás" concreto. Cada PARTE cierra con idea clave + checklist + próxima recompensa visible.
 > 4. **Técnicas validadas (obligatorias).** I Do → We Do → You Do con fading. Recall activo al final de cada PARTE. Interleaving: Concepto → Ejemplo → Contra-ejemplo. Elaboración: "¿por qué funciona / cuándo falla?". Dual coding real: texto + visual que se complementen. Feynman: si no cabe en 1 línea, se reescribe.
 > 5. **Progresión visible.** Mapa de 3 FASES al inicio. Niveles 1→5. Nunca 3 conceptos seguidos sin práctica. Nunca un ejercicio sin respuesta esperada debajo.
+> 6. **Iconos abundantes (obligatorio).** Toda guía usa muchos iconos/emoji como señalización visual: cada PARTE y cada sección llevan icono, cada idea clave lleva 📌, cada checklist/práctica/recall/diagrama lleva su icono. Mínimo 3 iconos distintos por PARTE y 1 icono cada ≤150 palabras aprox. Solo emoji Unicode, nunca imágenes externas.
 
 ---
 
@@ -63,7 +64,14 @@ Leyenda: **Alta** = efecto replicado en múltiples estudios. **Media** = apoyo s
 | Dificultad deseable sin sobrecarga: variar contexto, exigir evocación | Bjork y Bjork | Media | Hay variación + recall sin saturar sí/no |
 | Atribuir solo lo demostrado; lo demás se marca Heurística | Norma editorial del spec | Heurística | Cero citas inventadas o infladas sí/no |
 
-> **📌 Idea clave** — La evidencia manda en el qué; el diseño manda en el cómo. Nunca mezcles ambos.
+### E. Iconos y señal visual abundante
+
+| Regla | Fuente | Evidencia | Cómo se verifica |
+|-------|--------|-----------|------------------|
+| Muchos iconos: ≥3 iconos distintos por PARTE, 1 cada ≤150 palabras aprox. | Señalización (Mayer) + coherencia visual | Heurística | Contar iconos por PARTE; densidad sí/no |
+| Iconos fijos por función: 📌 idea clave, ✅ checklist, 🧪 práctica, 🔁 recall, ⚠️ error, 🎯 logro, 🗺️ mapa, 👀 cómo leerlo | Norma editorial del spec | Heurística | Cada función usa su icono sí/no |
+
+> **👀 Idea clave** — 📌 La evidencia manda en el qué; el diseño manda en el cómo. Nunca mezcles ambos.
 
 ### Aclaraciones de atribución (no negociables)
 
@@ -79,35 +87,35 @@ Leyenda: **Alta** = efecto replicado en múltiples estudios. **Media** = apoyo s
 ## 2. PLANTILLA DE PARTE (orden fijo, copiable)
 
 ```
-## PARTE N: [Título] (Nivel X/5)
+## 🧩 PARTE N: [Título] (Nivel X/5)
 
-1. PRETEST — [1 pregunta, antes de enseñar] (Activa previas | Media)
+1. ❓ PRETEST — [1 pregunta, antes de enseñar] (Activa previas | Media)
    > Respuesta esperada: [...]
    > Si acertás: camino rápido → andá al punto 7.
 
-2. POR QUÉ + LOGRO — Importa porque [1 línea]. Vas a lograr [1 línea]. (Motivación | Media)
+2. 🎯 POR QUÉ + LOGRO — Importa porque [1 línea]. Vas a lograr [1 línea]. (Motivación | Media)
 
-3. VICTORIA RÁPIDA (<5 min) — [micro-tarea con éxito garantizado] (Motivación | Heurística)
+3. ⚡ VICTORIA RÁPIDA (<5 min) — [micro-tarea con éxito garantizado] (Motivación | Heurística)
 
-4. CONCEPTO — Analogía: [1 línea]. Definición: [1–2 líneas]. (Pre-training + señalización | Media)
+4. 💡 CONCEPTO — Analogía: [1 línea]. Definición: [1–2 líneas]. (Pre-training + señalización | Media)
 
-5. EJEMPLO RESUELTO — Pasos 1→3 con caso concreto + visual ≤4 pasos. (Worked example | Alta)
+5. 👀 EJEMPLO RESUELTO — Pasos 1→3 con caso concreto + visual ≤4 pasos. (Worked example | Alta)
 
-6. CONTRA-EJEMPLO / ERROR TÍPICO — [qué sale mal] → Corrección: [...] (Autoexplicación | Media-Alta)
+6. ⚠️ CONTRA-EJEMPLO / ERROR TÍPICO — [qué sale mal] → Corrección: [...] (Autoexplicación | Media-Alta)
 
-7. PRÁCTICA — [tarea corta, contexto distinto al ejemplo]
+7. 🧪 PRÁCTICA — [tarea corta, contexto distinto al ejemplo]
    > Respuesta esperada / criterio: [...] (Práctica + feedback | Media)
 
-8. RECALL — [1 pregunta sin mirar] (Nivel Bloom: [...]) (Recuperación | Alta)
+8. 🔁 RECALL — [1 pregunta sin mirar] (Nivel Bloom: [...]) (Recuperación | Alta)
 
-9. IDEA CLAVE — [1 línea; si no entra, se reescribe] (Heurística Feynman | Heurística)
+9. 📌 IDEA CLAVE — [1 línea; si no entra, se reescribe] (Heurística Feynman | Heurística)
 
-10. AUTO-CHEQUEO + SIGUIENTE — [ ] checklist de 3 ítems. Siguiente: [puntero]. (Metacognición | Media)
+10. ✅ AUTO-CHEQUEO + SIGUIENTE — [ ] checklist de 3 ítems. Siguiente: [puntero]. (Metacognición | Media)
 ```
 
 ---
 
-## 3. RÚBRICA DE AUTO-REVISIÓN (sí/no, 1 punto c/u, aprueba con ≥11/13)
+## 3. RÚBRICA DE AUTO-REVISIÓN (sí/no, 1 punto c/u, aprueba con ≥12/14)
 
 1. ¿Cero bloques de código en el cuerpo?
 2. ¿Cero tablas con >4 filas de datos (glosario exceptuado y declarado)?
@@ -122,6 +130,7 @@ Leyenda: **Alta** = efecto replicado en múltiples estudios. **Media** = apoyo s
 11. ¿Hay práctica mixta (no solo bloques por tema)?
 12. ¿Cero restos (marcadores, secciones vacías, duplicados, typos)?
 13. ¿Cero citas científicas inventadas o mal atribuidas?
+14. ¿Iconos abundantes: cada PARTE tiene ≥3 iconos distintos, cada sección su icono de función (📌✅🧪🔁⚠️🎯), y densidad ≈1 icono cada ≤150 palabras?
 
 ---
 
@@ -131,6 +140,11 @@ Leyenda: **Alta** = efecto replicado en múltiples estudios. **Media** = apoyo s
 - Párrafos cortos: un bloque largo se percibe como trabajo; tres cortos como avance.
 - Alternar cada pocas pantallas: lista → tabla → diagrama → ejemplo → resumen.
 - Resumen frecuente: cada tema cierra con idea clave; el cerebro retiene cierres, no densidad.
+- 🎨 Iconos abundantes y consistentes (obligatorio, Heurística): solo emoji Unicode, nunca imágenes externas ni emoticonos ASCII.
+  - Cada PARTE abre con emoji temático en el título (p. ej. 🧩🗺️🚀) + 🗺️ mapa de FASES al inicio de la guía.
+  - Cada función siempre con el mismo icono: ❓ pretest, 🎯 por-qué/logro, ⚡ victoria, 💡 concepto, 👀 ejemplo/diagrama, ⚠️ error, 🧪 práctica, 🔁 recall, 📌 idea clave, ✅ checklist/siguiente.
+  - Mínimo 3 iconos distintos por PARTE y densidad ≈1 icono cada ≤150 palabras; ningún subtítulo sin icono.
+  - Los iconos señalizan, no decoran: van pegados al concepto que anuncian y no se repiten dos iguales seguidos salvo checklist.
 
 ## 5. REGLA DE DIAGRAMAS (cerebro-friendly)
 
