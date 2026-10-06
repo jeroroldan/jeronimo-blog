@@ -10,7 +10,7 @@ readingTime: 40
 heroImage: "../../assets/blog-placeholder-4.jpg"
 ---
 
-# MASTERCLASS: No vendas software, vende infra y know-how
+# 💎 MASTERCLASS: No vendas software, vende infra y know-how
 
 ## 🎯 Introducción: el cambio de paradigma
 
@@ -20,16 +20,16 @@ Hay una frase que se repite en consultorios de empresas y en comunidades de devs
 
 No es un eslogan. Es la descripción de un movimiento estructural:
 
-- El **código se abarató**.
-- Las **herramientas de IA generan boilerplate** a velocidad humana.
-- Los **clientes no quieren un .zip ni un repo**; quieren un problema resuelto, medido y con soporte.
-- Los **modelos de precios por hora** se volvieron contraproducentes: premian la lentitud y ocultan el valor real.
+- ⚙️ El **código se abarató**.
+- 🤖 Las **herramientas de IA generan boilerplate** a velocidad humana.
+- 📦 Los **clientes no quieren un .zip ni un repo**; quieren un problema resuelto, medido y con soporte.
+- 💸 Los **modelos de precios por hora** se volvieron contraproducentes: premian la lentitud y ocultan el valor real.
 
 Esta guía recorre **qué está pasando en el mercado**, por qué el software puro se está comoditizando, y cómo armar **un plan de carrera y un modelo de negocio** alrededor de la infraestructura, el conocimiento y el valor entregado.
 
-> **Objetivo de Aprendizaje** — Al finalizar, podrás explicar por qué el modelo "vendo horas de desarrollo" es riesgoso en 2026, diferenciar infra/comodity de know-how/valor, y armar un plan de 90 días para migrar tu propuesta de valor y tu pricing.
+> **🎓 Objetivo de Aprendizaje** — Al finalizar, podrás explicar por qué el modelo "vendo horas de desarrollo" es riesgoso en 2026, diferenciar infra/comodity de know-how/valor, y armar un plan de 90 días para migrar tu propuesta de valor y tu pricing.
 
-> **Advertencia** — Algunos datos de mercado son de conocimiento general del rubro y no pudieron verificarse con fuentes primarias en el momento de escribir esta guía. Marcá con **[Verificar]** lo que necesites confirmar antes de usarlo en una presentación o propuesta comercial.
+> **⚠️ Advertencia** — Algunos datos de mercado son de conocimiento general del rubro y no pudieron verificarse con fuentes primarias en el momento de escribir esta guía. Marcá con **[Verificar]** lo que necesites confirmar antes de usarlo en una presentación o propuesta comercial.
 
 ---
 
@@ -48,15 +48,15 @@ flowchart TD
 
 | Capa | Qué es | Ejemplo |
 |------|--------|---------|
-| **Software puro** | Código, librerías, plantillas | Un template, un módulo, un bot |
-| **Infra** | Servicio gestionado, hosting, operación 24/7 | Un servicio monitoreado, un pipeline de CI/CD gestionado |
-| **Know-how** | Conocimiento aplicado, arquitectura, gobernanza, mitigación de riesgo | Un modelo de riesgo, una migración, un plan de compliance |
+| **💻 Software puro** | Código, librerías, plantillas | Un template, un módulo, un bot |
+| **☁️ Infra** | Servicio gestionado, hosting, operación 24/7 | Un servicio monitoreado, un pipeline de CI/CD gestionado |
+| **🧠 Know-how** | Conocimiento aplicado, arquitectura, gobernanza, mitigación de riesgo | Un modelo de riesgo, una migración, un plan de compliance |
 
 ---
 
 ## 📉 PARTE 1: Por qué el software puro se está comoditizando
 
-### 1.1 La ley de la oferta digital
+### 🤖 1.1 La ley de la oferta digital
 
 El código tiene un costo marginal de reproducción cercano a cero. En 2026, sumale tres factores:
 
@@ -68,7 +68,7 @@ El código tiene un costo marginal de reproducción cercano a cero. En 2026, sum
 
 **Resultado:** lo que antes se vendía como "desarrollo a medida" hoy es commodity en 48 horas. El cliente lo sabe; los proveedores que siguen facturando por horas de código están en una carrera hacia el fondo.
 
-### 1.2 El mercado no paga por código; paga por resultados
+### 💎 1.2 El mercado no paga por código; paga por resultados
 
 Un cliente no contrata un desarrollo porque sí. Contrata porque:
 
@@ -80,7 +80,7 @@ El **código es el medio**, no el fin. El fin es el resultado medible.
 
 > **📌 Idea clave** — Si tu propuesta comercial empieza por "hacemos un sistema con React y Node", estás vendiendo commodity. Si empieza por "reducimos tu costo operativo un 30% en 6 meses con un servicio gestionado", estás vendiendo know-how.
 
-### 1.3 Señales de que estás vendiendo commodity
+### 🚨 1.3 Señales de que estás vendiendo commodity
 
 | Señal | Por qué es un problema |
 |-------|------------------------|
