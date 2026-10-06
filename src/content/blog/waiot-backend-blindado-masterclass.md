@@ -9,9 +9,9 @@ difficulty: "avanzado"
 readingTime: 45
 ---
 
-# MASTERCLASS: Laravel 12 + PHP 8.2 + MySQL 8.4 — Backend Blindado
+# MASTERCLASS: Laravel 12 + PHP 8.2 + MySQL 8.4 — Backend Blindado 🛡️
 
-## INTRODUCCIÓN: POR QUÉ ESTE MASTERCLASS ES DIFERENTE
+## INTRODUCCIÓN: POR QUÉ ESTE MASTERCLASS ES DIFERENTE 🎯
 
 El 80% de los bugs que vi en este proyecto no están en la lógica de negocio. Están en PHP, MySQL y Eloquent mal entendidos.
 
@@ -21,18 +21,17 @@ Este masterclass propone otro camino: un **backend blindado** donde PHP estricto
 
 La meta no es aprender sintaxis. La meta es construir el reflejo de mutación + auditoría atómica + job diferido que sostiene Delivery y SR en WAIOT.
 
-> **Objetivo de Aprendizaje** — Al final podrás usar enums casteados, closures con `use`, transacciones con `afterCommit`, state machines con mutators, queues serializables, validación con scoping, Storage fakes, Sanctum + Gates, y tests con `RefreshDatabase`.
+> **🎯 Objetivo de Aprendizaje** — Al final podrás usar enums casteados, closures con `use`, transacciones con `afterCommit`, state machines con mutators, queues serializables, validación con scoping, Storage fakes, Sanctum + Gates, y tests con `RefreshDatabase`.
 
-> **Advertencia operativa** — Todo lo que muta filas va en transacción. Todo lo que toca archivos, S3 o jobs va después del commit. Lo que no es rollbackeable no va dentro.
+> **⚠️ Advertencia operativa** — Todo lo que muta filas va en transacción. Todo lo que toca archivos, S3 o jobs va después del commit. Lo que no es rollbackeable no va dentro.
 
 ---
 
-## MAPA DEL WORKFLOW
+## 🗺️ MAPA DE LA MASTERCLASS 🧭
 
 ```mermaid
 flowchart TD
-    F1["FASE 1 · Base"]
-    F1 --> A["1 PHP estricto"]
+    F1["FASE 1 · Base"] --> A["1 PHP estricto"]
     A --> B["2 MySQL transaccional"]
     B --> F2["FASE 2 · Núcleo"]
     F2 --> C["3 Eloquent + Estado"]
@@ -41,25 +40,82 @@ flowchart TD
     F3 --> E["5 Jobs + Auth + Tests"]
 ```
 
-*Cómo leerlo: Empiezas en FASE 1 arriba, bajas hasta FASE 3. No es un ciclo.*
+*Se lee de arriba hacia abajo. Empiezas en FASE 1, bajas hasta FASE 3. No es un ciclo.*
 
-| Fase | Qué logras | Habilidad |
-|------|------------|-----------|
-| **FASE 1 · Base** | PHP y MySQL sin bugs tontos | Escribir código predecible |
-| **FASE 2 · Núcleo** | Mutación atómica con auditoría | Diseñar transiciones seguras |
-| **FASE 3 · Operar** | Jobs, auth y tests que sostienen | Operar con confianza |
+| 🧩 Fase | ❓ Pregunta que responde | 📤 Resultado principal |
+|---------|------------------------|------------------------|
+| **FASE 1 · Base** | ¿Cómo evito bugs tontos en PHP y MySQL? | Código predecible |
+| **FASE 2 · Núcleo** | ¿Cómo hago mutación atómica con auditoría? | Transacciones seguras |
+| **FASE 3 · Operar** | ¿Cómo hago que jobs, auth y tests sostengan? | Sistema productivo |
 
 ```mermaid
-flowchart TD
-    I["I Do · Instructor muestra"] --> W["We Do · Haces con guia"]
+flowchart LR
+    I["I Do · Instructor muestra"] --> W["We Do · Haces con guía"]
     W --> Y["You Do · Haces solo"]
 ```
 
-*Cómo leerlo: I muestra 1 caso, W lo haces acompañado, Y lo haces solo con checklist.*
+*Se lee de izquierda a derecha. I muestra 1 caso, W lo haces acompañado, Y lo haces solo con checklist.*
 
 ---
 
-## PARTE 1: PHP ESTRICTO — EL 80% DE LOS BUGS
+## 🧩 PARTE 1: PHP ESTRICTO — EL 80% DE LOS BUGS 🧩
+
+### 1.1 ❓ PRETEST
+
+¿Qué problema causa comparar `!=` en vez de `!==` con decimales desde MySQL?
+
+> Respuesta esperada: `'10.00' != 10.0` puede ser false o true según coerción, generando falsos positivos en diffs.
+> Si acertás: camino rápido → andá al punto 7.
+
+### 1.2 🎯 POR QUÉ + LOGRO
+
+Importa porque **PHP no es tipado por defecto, y eso es una trampa en auditoría**. Un string `'10.00'` y un float `10.0` parecen iguales, pero no lo son. Vas a lograr **escribir código predecible** donde los tipos sean explícitos y las comparaciones, estrictas.
+
+### 1.3 ⚡ VICTORIA RÁPIDA (<5 min)
+
+Escribí esta línea en un test: `assert('10.00' != 10.0);` — ¿qué devuelve? Ahora probá con `!==`. Esa es la diferencia que puede romper tu auditoría.
+
+### 1.4 💡 CONCEPTO
+
+Analogía: PHP es como **un depósito con etiquetas a mano** — si no exiges tipos, alguien guarda `"10.00"` donde esperabas `10`. El tipo estricto es el código de barras que evita errores.
+
+Definición: PHP estricto significa declarar tipos en propiedades, parámetros y retornos. Usar enums backed para valores de dominio, readonly para inmutabilidad, y comparaciones estrictas `!==` para evitar coerción. Esto elimina una clase entera de bugs silenciosos en diffs, validaciones y asignaciones.
+
+### 1.5 👀 EJEMPLO RESUELTO
+
+| Paso | Tú ves | Qué pasa dentro | Ejemplo |
+|------|--------|-----------------|---------|
+| 1 Pides enum | `DeliveryActionEnum::DELIVER` | Objeto tipado, no string suelto | `status_cd` validado |
+| 2 Inyectas | `private readonly X $y` | Propiedad creada + congelada | Service sin setters |
+| 3 Iteras | `fn () use (...)` | Closure captura contexto | `DB::transaction(fn () use ($id))` |
+
+### 1.6 ⚠️ CONTRA-EJEMPLO / Error Típico
+
+Error: Guardar `$request->action` directo sin casteo a enum. MySQL guarda `'Deliver'` con mayúscula y el `===` falla en silencio.
+
+Corrección: Usa `Rule::enum(DeliveryActionEnum::class)` en validación y casteo automático en el modelo. El enum es tu LoV con esteroides.
+
+### 1.7 🧪 PRÁCTICA
+
+Creá un enum backed `DeliveryActionEnum` con 3 casos: `DELIVER`, `CANCEL`, `RETURN`. Agregá el casteo en el modelo y validá con `Rule::enum()` en un request.
+
+> Respuesta esperada / criterio: El enum debe tener `: string`, el modelo debe tener `casts()`, y la validación debe usar `Rule::enum()`.
+
+### 1.8 🔁 RECALL — Nivel Bloom: Aplicar
+
+¿Por qué `number_format()` + `!==` es más seguro que `!=` para diffs de auditoría?
+
+### 1.9 📌 IDEA CLAVE
+
+Enum backed convierte un string peligroso en un tipo que el IDE y PHPStan pueden verificar.
+
+### 1.10 ✅ AUTO-CHEQUEO + SIGUIENTE
+
+- [ ] Creé 1 enum backed con casos testeados
+- [ ] Usé `Rule::enum()` en validación
+- [ ] Entiendo por qué `!==` con normalización > `!=`
+
+Siguiente: MySQL transaccional y ACID.
 
 ### 1.1 Principio Central
 
@@ -203,7 +259,82 @@ Consejo que te mordió: MySQL devuelve decimals como string `"10.00"`, PHP los t
 
 ---
 
-## PARTE 2: MYSQL TRANSACCIONAL — LO QUE SÍ SE DESHACE
+## 🗄️ PARTE 2: MYSQL TRANSACCIONAL — LO QUE SÍ SE DESHACE 🗄️
+
+### 2.1 ❓ PRETEST
+
+¿Qué significa ACID en una transacción?
+
+> Respuesta esperada: Atomicidad, Consistencia, Aislamiento, Durabilidad.
+> Si acertás: camino rápido → andá al punto 7.
+
+### 2.2 🎯 POR QUÉ + LOGRO
+
+Importa porque **las transacciones son la única garantía de que auditoría + mutación sean atómicos**. Si el update funciona pero el insert de auditoría falla, tenés un delivery sin historia. Vas a lograr **diseñar mutaciones que no dejan huérfanos**.
+
+### 2.3 ⚡ VICTORIA RÁPIDA (<5 min)
+
+Escribí esta query mental: `START TRANSACTION; UPDATE deliveries SET ...; INSERT INTO delivery_changes ...; COMMIT;` — si el INSERT falla, el UPDATE se deshace. Esa es la garantía.
+
+### 2.4 💡 CONCEPTO
+
+Analogía: Una transacción es como **una mudanza con camión único** — o llega todo, o no sale nada, pero lo que ya tiraste al río no vuelve.
+
+Definición: ACID significa: Atomicidad (todo o nada), Consistencia (FK válida a FK válida), Aislamiento (cada transacción ve su snapshot), Durabilidad (COMMIT persiste). En WAIOT, todo lo que muta filas va dentro de `DB::transaction()`. Archivos, S3 y jobs van en `afterCommit`.
+
+### 2.5 👀 EJEMPLO RESUELTO
+
+| Paso | Tú ves | Qué pasa dentro | Ejemplo |
+|------|--------|-----------------|---------|
+| 1 Abres | `START TRANSACTION` | InnoDB toma snapshot | `DB::transaction(...)` |
+| 2 Mutas | `UPDATE deliveries` | Locks de fila | `where id = ? for update` |
+| 3 Cierras | `COMMIT / ROLLBACK` | Libera o deshace filas | Archivos no se deshacen |
+
+```mermaid
+flowchart TD
+    F1["FASE 1 · Abres"] --> A["1 Begin + locks"]
+    A --> F2["FASE 2 · Mutas"]
+    F2 --> B["2 Update + insert"]
+    B --> C["3 Commit o Rollback"]
+```
+
+*Se lee de arriba hacia abajo. Abres transacción, mutas filas, decides commit o rollback.*
+
+### 2.6 ⚠️ CONTRA-EJEMPLO / Error Típico
+
+Error: `Storage::put()` antes de `DB::transaction()`. Si el update falla, el archivo queda huérfano en S3.
+
+Corrección: Archivos/S3/emails/jobs van después del commit. Patrón WAIOT:
+
+```php
+DB::transaction(function () use ($sr, $data) {
+    $sr->update($data);
+    $sr->audits()->create([...]);
+    DB::afterCommit(fn () => SrProcessJob::dispatch($sr->id));
+});
+```
+
+### 2.7 🧪 PRÁCTICA
+
+Convertí este código inseguro en transaccional: `Storage::put($path, $file); DB::transaction(fn () => $delivery->update([...]));` — mové el Storage a `afterCommit`.
+
+> Respuesta esperada / criterio: El Storage debe estar fuera de la transacción, idealmente en `afterCommit`. Si el update falla, no se sube el archivo.
+
+### 2.8 🔁 RECALL — Nivel Bloom: Aplicar
+
+¿Por qué `afterCommit` es el único lugar seguro para disparar jobs después de una mutación?
+
+### 2.9 📌 IDEA CLAVE
+
+Filas sí se deshacen. Archivos, S3 y jobs ya lanzados no. Transacción para filas, `afterCommit` para el resto.
+
+### 2.10 ✅ AUTO-CHEQUEO + SIGUIENTE
+
+- [ ] Entiendo ACID en una línea cada uno
+- [ ] Sé mover Storage/jobs a `afterCommit`
+- [ ] Entiendo por qué la auditoría va dentro de la transacción
+
+Siguiente: Aislamiento y niveles de transacción.
 
 > Esta parte es el corazón operativo de WAIOT. Si solo te llevas una idea: **filas sí se deshacen, archivos no**.
 

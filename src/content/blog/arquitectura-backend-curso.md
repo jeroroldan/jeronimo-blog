@@ -27,22 +27,13 @@ El objetivo no es aprender un framework, sino **entender los principios que apli
 
 ```mermaid
 flowchart LR
-    A[Fundamentos] --> B[Diseño y Planeación]
-    B --> C[Desarrollo e Implementación]
-    C --> D[Escalabilidad y Retos]
-    D --> A
-
-    subgraph SISTEMA["4 Módulos del Curso"]
-        P1[🏗️ Fundamentos]
-        P2[📋 Diseño]
-        P3[🧪 Desarrollo]
-        P4[🚀 Escalabilidad]
-    end
-
-    style A fill:#FFE0B2
-    style B fill:#E1BEE7
-    style C fill:#C8E6C9
-    style D fill:#B3E5FC
+    P1[Fundamentos] --> P2[Diseño y Planeación]
+    P2 --> P3[Desarrollo e Implementación]
+    P3 --> P4[Escalabilidad y Retos]
+    style P1 fill:#FFE0B2
+    style P2 fill:#E1BEE7
+    style P3 fill:#C8E6C9
+    style P4 fill:#B3E5FC
 ```
 
 | 🧩 Fase | ❓ Pregunta que responde | 📤 Resultado principal |
