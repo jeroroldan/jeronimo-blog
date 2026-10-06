@@ -72,9 +72,9 @@ El código tiene un costo marginal de reproducción cercano a cero. En 2026, sum
 
 Un cliente no contrata un desarrollo porque sí. Contrata porque:
 
-- Tiene un problema que le duele.
-- No tiene el expertise, el tiempo o la estructura para resolverlo solo.
-- Necesita que alguien asuma el riesgo operativo, legal o técnico.
+- 🤕 Tiene un problema que le duele.
+- ⏳ No tiene el expertise, el tiempo o la estructura para resolverlo solo.
+- 🛡️ Necesita que alguien asuma el riesgo operativo, legal o técnico.
 
 El **código es el medio**, no el fin. El fin es el resultado medible.
 
@@ -94,14 +94,14 @@ El **código es el medio**, no el fin. El fin es el resultado medible.
 
 ## 🏗️ PARTE 2: La trinidad — infra, know-how y resultado
 
-### 2.1 Infra: lo que se puede gestionar y escalar
+### 🛠️ 2.1 Infra: lo que se puede gestionar y escalar
 
 La **infraestructura** en sentido amplio incluye:
 
-- Servicios gestionados (hosting, monitoreo, backups, actualizaciones).
-- Procesos operativos (CI/CD, rollback, alertas, runbooks).
-- Seguridad y compliance (parches, accesos, auditoría).
-- Acuerdos de nivel de servicio (SLAs, time-to-repair, uptime).
+- ☁️ Servicios gestionados (hosting, monitoreo, backups, actualizaciones).
+- 🔄 Procesos operativos (CI/CD, rollback, alertas, runbooks).
+- 🔒 Seguridad y compliance (parches, accesos, auditoría).
+- 📜 Acuerdos de nivel de servicio (SLAs, time-to-repair, uptime).
 
 El cliente paga por esto porque **no quiere operarlo**. Quiere dormir tranquilo.
 
@@ -117,28 +117,28 @@ flowchart LR
 
 **Modelo de negocio:** suscripción mensual o anual. Puede ser por activo, por usuario o por volumen. El margen mejora con la escala y la estandarización.
 
-### 2.2 Know-how: lo que no se descarga de GitHub
+### 🧠 2.2 Know-how: lo que no se descarga de GitHub
 
 El **know-how** es el conocimiento acumulado que solo vos (o tu equipo) tiene:
 
 | Tipo | Ejemplo | Cómo se cobra |
 |------|---------|---------------|
-| **Arquitectura** | Diseño de un sistema escalable, migración de legacy | Proyecto fijo o retainer |
-| **Gobernanza** | Modelo de riesgo, compliance, políticas de datos | Consultoría por valor |
-| **Mitigación** | Red teaming, auditoría de seguridad, optimización de performance | Por resultado o por día |
-| **Estrategia** | Roadmap de IA, selección de modelos, ruteo de agentes | Retainer mensual |
-| **Entrenamiento** | Capacitación de equipos, adopción de herramientas | Por programa o por hora |
+| **🏗️ Arquitectura** | Diseño de un sistema escalable, migración de legacy | Proyecto fijo o retainer |
+| **📐 Gobernanza** | Modelo de riesgo, compliance, políticas de datos | Consultoría por valor |
+| **🛡️ Mitigación** | Red teaming, auditoría de seguridad, optimización de performance | Por resultado o por día |
+| **🧭 Estrategia** | Roadmap de IA, selección de modelos, ruteo de agentes | Retainer mensual |
+| **🎓 Entrenamiento** | Capacitación de equipos, adopción de herramientas | Por programa o por hora |
 
 **Modelo de negocio:** proyectos fijos, retainers mensuales, o pricing por valor (cuando podés atar el cobro al beneficio medible del cliente).
 
-### 2.3 Resultado: el único lenguaje que el cliente entiende
+### 🎯 2.3 Resultado: el único lenguaje que el cliente entiende
 
 El resultado es la métrica que el cliente usa para justificar tu pago a su jefe:
 
-- Reducción de costos operativos.
-- Tiempo de procesamiento disminuido.
-- Tasa de error bajada.
-- Ingresos generados por un funnel que antes no existía.
+- 💸 Reducción de costos operativos.
+- ⚡ Tiempo de procesamiento disminuido.
+- 📉 Tasa de error bajada.
+- 💰 Ingresos generados por un funnel que antes no existía.
 
 Si no podés medirlo, no podés venderlo a precio de valor.
 
@@ -146,7 +146,7 @@ Si no podés medirlo, no podés venderlo a precio de valor.
 
 ## 💼 PARTE 3: Los tres modelos de negocio
 
-### 3.1 Servicios gestionados (Infra)
+### ☁️ 3.1 Servicios gestionados (Infra)
 
 | Aspecto | Detalle |
 |---------|---------|
@@ -156,7 +156,7 @@ Si no podés medirlo, no podés venderlo a precio de valor.
 | **Margen** | Mejora con la escala y la estandarización |
 | **Riesgo** | La calidad del servicio se vuelve la métrica principal; un incidente puede costar el cliente |
 
-### 3.2 Consultoría por valor (Know-how)
+### 🤝 3.2 Consultoría por valor (Know-how)
 
 | Aspecto | Detalle |
 |---------|---------|
@@ -166,7 +166,7 @@ Si no podés medirlo, no podés venderlo a precio de valor.
 | **Margen** | Alto, porque el costo es tiempo + experiencia, no infra |
 | **Riesgo** | Necesitás credibilidad y referencias; el "por valor" requiere confianza |
 
-### 3.3 Producto/Platform (Infra + Know-how empaquetado)
+### 📦 3.3 Producto/Platform (Infra + Know-how empaquetado)
 
 | Aspecto | Detalle |
 |---------|---------|
@@ -180,7 +180,7 @@ Si no podés medirlo, no podés venderlo a precio de valor.
 
 ## 🗺️ PARTE 4: Cómo migrar de "vendedor de horas" a "vendedor de valor"
 
-### 4.1 El diagnóstico: ¿dónde estás hoy?
+### 🔍 4.1 El diagnóstico: ¿dónde estás hoy?
 
 | Pregunta | Si tu respuesta es sí... | Estás... |
 |----------|--------------------------|----------|
@@ -190,7 +190,7 @@ Si no podés medirlo, no podés venderlo a precio de valor.
 | ¿Te desconectás después de entregar? | Sí | Sin recurrencia |
 | ¿Tu portfolio es una lista de tecnologías? | Sí | Sin historia de resultados |
 
-### 4.2 El plan de migración: 90 días
+### 🚀 4.2 El plan de migración: 90 días
 
 ```mermaid
 flowchart TD
@@ -224,10 +224,10 @@ Ejemplos:
 
 **Semana 5-8: Empaquetar know-how**
 
-1. **Documentá tu proceso:** escribí un playbook de cómo resolvés el problema.
-2. **Creá un producto mínimo viable (PMV) de know-how:** no es código; es una propuesta, una plantilla, un diagnóstico.
-3. **Definí métricas de éxito:** qué medís, cómo, cada cuánto.
-4. **Armá casos de estudio:** antes/después, con números.
+1. **📝 Documentá tu proceso:** escribí un playbook de cómo resolvés el problema.
+2. **📦 Creá un producto mínimo viable (PMV) de know-how:** no es código; es una propuesta, una plantilla, un diagnóstico.
+3. **📊 Definí métricas de éxito:** qué medís, cómo, cada cuánto.
+4. **📚 Armá casos de estudio:** antes/después, con números.
 
 **Semana 9-12: Cambiar pricing y conversaciones**
 
@@ -240,15 +240,15 @@ Ejemplos:
 
 **Mes 4-6: Iterar y escalar**
 
-- Automatizá lo repetitivo (tu know-how empaquetado en scripts, plantillas, servicios).
-- Sumá clientes en la misma vertical: cada nuevo cliente te da datos para mejorar el producto.
-- Subí el precio a medida que tenés referencias y métricas.
+- 🤖 Automatizá lo repetitivo (tu know-how empaquetado en scripts, plantillas, servicios).
+- 👥 Sumá clientes en la misma vertical: cada nuevo cliente te da datos para mejorar el producto.
+- 💹 Subí el precio a medida que tenés referencias y métricas.
 
 ---
 
 ## 💵 PARTE 5: Pricing — cómo cobrar lo que vales
 
-### 5.1 Los modelos que existen (y cuándo usarlos)
+### 💳 5.1 Los modelos que existen (y cuándo usarlos)
 
 | Modelo | Cuándo usarlo | Riesgo |
 |--------|---------------|--------|
@@ -258,13 +258,13 @@ Ejemplos:
 | **Por valor (outcome-based)** | Podés medir el impacto económico | Necesitás credibilidad y un mecanismo de medición independiente |
 | **Híbrido** | Fijo + bonus por resultado | Balance entre seguridad y motivación |
 
-### 5.2 La regla de oro
+### 🏆 5.2 La regla de oro
 
 > **Tu precio no es tu costo × markup. Tu precio es el valor que el cliente percibe × la confianza que generás.**
 
 Si un cliente gana $100.000/mes con tu solución y tu costo es $5.000, el rango de precio razonable no es $6.000; es $15.000 a $40.000, dependiendo de cuánto confíe en que lo vas a sostener en el tiempo.
 
-### 5.3 Ejemplo práctico: de horas a retainer
+### 🔄 5.3 Ejemplo práctico: de horas a retainer
 
 **Situación:** un dev freelance hace mantenimiento de un e-commerce.
 
@@ -281,7 +281,7 @@ Si un cliente gana $100.000/mes con tu solución y tu costo es $5.000, el rango 
 
 ## 📈 PARTE 6: Plan de carrera — de dev a profesional de valor
 
-### 6.1 Los tres niveles
+### 🪜 6.1 Los tres niveles
 
 | Nivel | Enfoque | Pricing | Ejemplo |
 |-------|---------|---------|---------|
@@ -289,7 +289,7 @@ Si un cliente gana $100.000/mes con tu solución y tu costo es $5.000, el rango 
 | **2. Solucionador** | Resuelve problemas específicos | Por proyecto | "Automatizo tu proceso por un fijo" |
 | **3. Asesor de valor** | Define qué hay que resolver y por qué | Por valor / retainer | "Diseño tu estrategia de datos y la implemento por un fijo + bonus" |
 
-### 6.2 Habilidades que hay que desarrollar
+### 🧰 6.2 Habilidades que hay que desarrollar
 
 | Habilidad | Por qué importa | Cómo se adquiere |
 |-----------|----------------|------------------|
@@ -299,7 +299,7 @@ Si un cliente gana $100.000/mes con tu solución y tu costo es $5.000, el rango 
 | **Domain knowledge** | El know-how específico de la industria | Trabajar en verticales, no ser generalista para todos |
 | **Automatización** | Empaquetar know-how en servicios escalables | Crear scripts, pipelines, productos mínimos |
 
-### 6.3 Hoja de ruta de 12 meses
+### 🗓️ 6.3 Hoja de ruta de 12 meses
 
 ```mermaid
 flowchart TD
@@ -323,7 +323,7 @@ flowchart TD
 
 ## 📊 PARTE 7: Casos de estudio (ejemplos para adaptar)
 
-### 7.1 De dev freelance a servicio gestionado
+### 💻 7.1 De dev freelance a servicio gestionado
 
 **Antes:** un desarrollador mantenía 3 sitios WordPress para clientes, cobrando $50/hora por incidentes y cambios.
 
@@ -331,7 +331,7 @@ flowchart TD
 
 **Resultado:** pasó de ingresos variables de $1.500/mes a $3.600/mes estables, con menos horas porque automatizó las tareas repetitivas.
 
-### 7.2 De estudio de software a consultoría de valor
+### 🏦 7.2 De estudio de software a consultoría de valor
 
 **Antes:** un equipo hacía desarrollos a medida para fintechs, compitiendo por precio contra offshore.
 
@@ -339,7 +339,7 @@ flowchart TD
 
 **Resultado:** cerraron 4 clientes en 8 meses, con márgenes del 60% porque el know-how es el producto.
 
-### 7.3 De SaaS commodity a plataforma con servicio
+### 🧾 7.3 De SaaS commodity a plataforma con servicio
 
 **Antes:** un SaaS de gestión de gastos para PYMEs competía contra decenas de alternativas por $10/usuario/mes.
 
@@ -366,31 +366,31 @@ flowchart TD
 
 | Área | Check |
 |------|-------|
-| **Propuesta de valor** | Empieza por el dolor del cliente, no por la tecnología |
-| **Pricing** | Hay al menos un servicio con pricing por valor o retainer |
-| **Know-how** | Tenés documentado un playbook o metodología propia |
-| **Métricas** | Medís el impacto en el cliente, no solo tu esfuerzo |
-| **Vertical** | Estás posicionado en una industria específica |
-| **Infra** | Ofrecés servicio gestionado, no solo entrega de código |
-| **Recurrencia** | Más del 50% de los ingresos viene de clientes recurrentes |
-| **Automatización** | Hay procesos que se ejecutan sin tu intervención directa |
-| **Referencias** | Tenés 3+ casos de estudio con números |
-| **Precio** | No competís por precio; competís por resultados |
+| **🎯 Propuesta de valor** | Empieza por el dolor del cliente, no por la tecnología |
+| **💳 Pricing** | Hay al menos un servicio con pricing por valor o retainer |
+| **🧠 Know-how** | Tenés documentado un playbook o metodología propia |
+| **📊 Métricas** | Medís el impacto en el cliente, no solo tu esfuerzo |
+| **🏭 Vertical** | Estás posicionado en una industria específica |
+| **☁️ Infra** | Ofrecés servicio gestionado, no solo entrega de código |
+| **🔁 Recurrencia** | Más del 50% de los ingresos viene de clientes recurrentes |
+| **🤖 Automatización** | Hay procesos que se ejecutan sin tu intervención directa |
+| **🌟 Referencias** | Tenés 3+ casos de estudio con números |
+| **💎 Precio** | No competís por precio; competís por resultados |
 
 ---
 
 ## ❓ PARTE 10: PREGUNTAS DE VERIFICACIÓN
 
-1. **Diagnóstico:** ¿tu propuesta comercial actual empieza por la tecnología o por el problema del cliente?
-2. **Pricing:** ¿cuál es el porcentaje de tus ingresos recurrentes vs. proyectos one-shot?
-3. **Know-how:** ¿podrías escribir un playbook de cómo resolvés el problema que resolvés mejor?
-4. **Infra:** ¿el cliente depende de vos para operar, o solo para desarrollar?
-5. **Resultado:** ¿medís el impacto de tu trabajo en el negocio del cliente?
-6. **Vertical:** ¿en qué industria tenés más experiencia o contactos?
-7. **Escala:** si conseguís 10 clientes nuevos mañana, ¿podrías atenderlos sin trabajar más horas?
-8. **Precio:** si un cliente gana $200.000/mes con tu solución, ¿cuánto le cobrás?
-9. **Competencia:** ¿cuál es tu diferenciador más allá del precio?
-10. **Visión:** ¿en 3 años querés ser un estudio de 50 personas o una consultora boutique de 5?
+1. **🔍 Diagnóstico:** ¿tu propuesta comercial actual empieza por la tecnología o por el problema del cliente?
+2. **💳 Pricing:** ¿cuál es el porcentaje de tus ingresos recurrentes vs. proyectos one-shot?
+3. **🧠 Know-how:** ¿podrías escribir un playbook de cómo resolvés el problema que resolvés mejor?
+4. **☁️ Infra:** ¿el cliente depende de vos para operar, o solo para desarrollar?
+5. **📊 Resultado:** ¿medís el impacto de tu trabajo en el negocio del cliente?
+6. **🏭 Vertical:** ¿en qué industria tenés más experiencia o contactos?
+7. **📈 Escala:** si conseguís 10 clientes nuevos mañana, ¿podrías atenderlos sin trabajar más horas?
+8. **💰 Precio:** si un cliente gana $200.000/mes con tu solución, ¿cuánto le cobrás?
+9. **⚔️ Competencia:** ¿cuál es tu diferenciador más allá del precio?
+10. **🔭 Visión:** ¿en 3 años querés ser un estudio de 50 personas o una consultora boutique de 5?
 
 ---
 
@@ -398,16 +398,16 @@ flowchart TD
 
 | Término | Definición en 1 línea |
 |---------|-----------------------|
-| **Comoditización** | Cuando un producto o servicio se vuelve intercambiable y el precio deja de ser diferenciador |
-| **Infraestructura (en el contexto de servicios)** | Servicio gestionado que el cliente consume sin preocuparse por la operación interna |
-| **Know-how** | Conocimiento aplicado, experiencia y procesos que no se descargan de internet |
-| **Retainer** | Pago recurrente (mensual/anual) por acceso continuo a un servicio o expertise |
-| **SLA (Service Level Agreement)** | Acuerdo que define el nivel de servicio esperado (uptime, tiempo de respuesta, etc.) |
-| **Pricing por valor** | Modelo de precios basado en el impacto económico del servicio, no en el costo de producción |
-| **Vertical** | Industria o nicho específico donde aplicás tu know-how |
-| **PMV (Producto Mínimo Viable)** | Versión mínima de un producto o servicio que resuelve un problema concreto |
-| **Churn rate** | Porcentaje de clientes que cancelan un servicio en un período |
-| **Margen** | Diferencia entre el precio de venta y el costo de prestar el servicio |
+| **📦 Comoditización** | Cuando un producto o servicio se vuelve intercambiable y el precio deja de ser diferenciador |
+| **☁️ Infraestructura (en el contexto de servicios)** | Servicio gestionado que el cliente consume sin preocuparse por la operación interna |
+| **🧠 Know-how** | Conocimiento aplicado, experiencia y procesos que no se descargan de internet |
+| **🔁 Retainer** | Pago recurrente (mensual/anual) por acceso continuo a un servicio o expertise |
+| **📜 SLA (Service Level Agreement)** | Acuerdo que define el nivel de servicio esperado (uptime, tiempo de respuesta, etc.) |
+| **💎 Pricing por valor** | Modelo de precios basado en el impacto económico del servicio, no en el costo de producción |
+| **🏭 Vertical** | Industria o nicho específico donde aplicás tu know-how |
+| **🚀 PMV (Producto Mínimo Viable)** | Versión mínima de un producto o servicio que resuelve un problema concreto |
+| **📉 Churn rate** | Porcentaje de clientes que cancelan un servicio en un período |
+| **💰 Margen** | Diferencia entre el precio de venta y el costo de prestar el servicio |
 
 ---
 
@@ -432,17 +432,17 @@ Dado que no pudimos acceder a datos primarios en tiempo real, esta sección te s
 
 | Día | Acción |
 |-----|--------|
-| Lunes | Listá tus últimos 5 proyectos. Escribí 1 oración por cada uno: qué problema resolviste, cómo lo mediste, qué valor generó. |
-| Martes | Elegí 1 vertical donde tengas experiencia o contactos. Escribí 3 dolores específicos de esa industria. |
-| Miércoles | Armá un playbook de 1 página de cómo resolvés uno de esos dolores. |
-| Jueves | Definí un retainer o proyecto fijo para un cliente actual o potencial. Escribí la propuesta en términos de valor, no de horas. |
-| Viernes | Hacé 1 llamada o reunión para validar la propuesta. No vendas; escuchá primero. |
+| 🗓️ Lunes | Listá tus últimos 5 proyectos. Escribí 1 oración por cada uno: qué problema resolviste, cómo lo mediste, qué valor generó. |
+| 🎯 Martes | Elegí 1 vertical donde tengas experiencia o contactos. Escribí 3 dolores específicos de esa industria. |
+| 📝 Miércoles | Armá un playbook de 1 página de cómo resolvés uno de esos dolores. |
+| 💼 Jueves | Definí un retainer o proyecto fijo para un cliente actual o potencial. Escribí la propuesta en términos de valor, no de horas. |
+| 📞 Viernes | Hacé 1 llamada o reunión para validar la propuesta. No vendas; escuchá primero. |
 
 ---
 
 ## 🏁 Cierre
 
-El mercado no paga por código. Paga por **problemas resueltos, riesgo mitigado y resultados medibles**.
+El mercado no paga por código. Paga por **🎯 problemas resueltos, 🛡️ riesgo mitigado y 📊 resultados medibles**.
 
 El código es el medio. La infra es el servicio que permite dormir tranquilo. El know-how es lo que hace que un problema no se repita.
 
