@@ -64,7 +64,7 @@ flowchart TD
     H --> I
 ```
 
-| � layers | 📦 Qué vendés | 🧲 Por qué te pagan |
+| 🧱 Capa | 📦 Qué vendés | 🧲 Por qué te pagan |
 |-----------|---------------|---------------------|
 | **💻 Software puro** | App, features, horas | Te comparan con un clon más barato |
 | **☁️ Infra** | Rieles: pagos, cómputo, datos, identidad, integraciones | Sin vos no opera |
@@ -256,18 +256,16 @@ El cliente paga porque **no quiere operarlo**. Quiere dormir tranquilo. 😴✅
 ```
 
 ```mermaid
-quadrantChart
-    title Cuatro modelos: artesanal vs escalable
-    x-axis Artesanal --> Escalable
-    y-axis Know-how --> Infra
-    quadrant-1 Plataforma vertical
-    quadrant-2 Infra pura
-    quadrant-3 Know-how puro
-    quadrant-4 Servicios como software
-    Infra picks and shovels: [0.85, 0.85]
-    Plataforma vertical: [0.8, 0.25]
-    Know-how puro: [0.15, 0.2]
-    Servicios como software: [0.75, 0.35]
+flowchart TD
+    subgraph MAPA["🗺️ Cuatro modelos"]
+        direction TB
+        A[🚀 Escalable arriba] --- B[🧵 Artesanal abajo]
+        C[☁️ Infra izquierda] --- D[🧠 Know-how derecha]
+    end
+    E[⛏️ A Infra] --> F[📈 Muy escalable + infra]
+    G[🎓 B Know-how puro] --> H[🧵 Artesanal]
+    I[🤖 C Servicios como software] --> J[🚀 Escalable con IA]
+    K[🏭 D Plataforma vertical] --> J
 ```
 
 | 🧭 Modelo | 🎯 Qué vendés | 💰 Cómo se cobra | 🛡️ Moat |
