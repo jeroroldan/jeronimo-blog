@@ -180,13 +180,13 @@ Hay un segundo error, más sutil: desconectar el enlace nativo dentro de la rama
 | Una operación a la vez                     | El nativo es singleton                             |
 | Liberar el turno en éxito y en error       | La cola no queda trabada                           |
 | Las funciones internas no vuelven a entrar | Evita esperarse a sí misma                         |
-| Timeout como red de seguridad              | Evita esperar para siempre; no libera el singleton |
+| Timeout del llamador                       | Evita esperar para siempre; no libera el singleton |
 
 👀 Cómo leer la tabla: las dos primeras filas son el contrato; las dos últimas, los seguros: una evita el abrazo mortal y la otra, esperar para siempre. El timeout no libera el singleton; sólo evita que la interfaz espere sin fin. Por qué funciona: convierte una carrera impredecible en un orden predecible. Cuándo falla: si una operación encolada llama a otra operación encolada, se produce un abrazo mortal.
 
 **5. 👀 EJEMPLO RESUELTO** — Caso: a los 0 s hay una conexión en curso, a los 2 s el usuario busca dispositivos y a los 3 s el health-check quiere consultar estado. I Do: identifico las tres llamadas. We Do: las pongo en una sola fila. You Do: punto 7. Visual: conexión (20 s) → escaneo → consulta de estado.
 
-Sin cola, las tres tocan el mismo objeto y el aviso de conexión del SDK —que tiene un solo lugar— se pisa. Con cola, el escaneo espera a la conexión y la consulta de estado espera al escaneo. El orden es más lento, pero es el único orden que el hardware entiende.
+Sin cola, las tres tocan el mismo objeto y el aviso de conexión del SDK —que tiene un solo lugar— se pisa. Con cola, el escaneo espera a la conexión y la consulta de estado espera al escaneo. Si dos intentos piden la misma lectora, además se reutiliza la promesa en vuelo: no se encolan dos connects para el mismo MAC. El orden es más lento, pero es el único orden que el hardware entiende.
 
 **6. ⚠️ CONTRA-EJEMPLO / ERROR TÍPICO** — La conexión pide el nivel de batería usando el método público, que también está encolado. → **Corrección:** separar funciones internas sin cola (las que no piden turno) de métodos públicos encolados. Ninguna operación encolada llama a otra operación encolada. (Autoexplicación | Media-Alta)
 
