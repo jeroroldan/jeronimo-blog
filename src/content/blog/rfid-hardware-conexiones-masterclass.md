@@ -1,6 +1,6 @@
 ---
 title: "MASTERCLASS: La app que se cerraba sola — conexiones a hardware que no mienten"
-description: "Del crash de RFID a un modelo mental de concurrencia, turnos, colas y timeouts: cómo evitar conexiones zombis, operaciones superpuestas y pantallas que muestran un estado falso."
+description: "Del cierre inesperado de la app de RFID a un modelo mental de concurrencia, turnos, colas y timeouts: cómo evitar conexiones zombis, operaciones superpuestas y pantallas que muestran un estado falso."
 pubDate: "2026-10-20"
 code: "rfid-hardware-conexiones"
 category: "arquitectura"
@@ -27,7 +27,7 @@ Una app no se cierra "porque sí". Se cierra porque varias decisiones razonables
 
 > 🎯 **Objetivo** — Al terminar vas a poder leer el informe técnico de RFID y explicar, sin código, por qué se cerraba la app, qué defensas lo evitaron y cómo se prueba un arreglo cuando no hay logs.
 
-👀 **Cómo leer esta masterclass** — Cada PARTE enseña una sola idea. Los ejemplos usan la misma historia y los conceptos se repiten a propósito. Si ya entendés una PARTE, el pretest te deja saltar directo a la práctica.
+👀 **Cómo leer esta masterclass** — Cada PARTE enseña una sola idea. Los ejemplos usan la misma historia y los conceptos se repiten a propósito. Si ya entendés una PARTE, el pretest te deja saltar directo a la práctica. Si una palabra no te cierra, al final hay un glosario detallado.
 
 ## 🗺️ Mapa de 3 FASES
 
@@ -74,11 +74,11 @@ _Continúa la tabla (2/2) — partida en bloques de ≤4 para no saturar._
 
 **2. 🎯 POR QUÉ + LOGRO** — Importa porque el mismo patrón aparece en cualquier app que habla con hardware: impresoras, balanzas, sensores. Vas a lograr separar síntoma, causa y coincidencia. (Motivación | Media)
 
-**3. ⚡ VICTORIA RÁPIDA (<5 min)** — Dibujá una línea de tiempo con tres marcas: segundo 1, "cancela"; segundo 4, "busca"; segundo 6, "se conecta sola". Ya tenés la película del crash. (Motivación | Heurística)
+**3. ⚡ VICTORIA RÁPIDA (<5 min)** — Dibujá una línea de tiempo con tres marcas: segundo 1, "cancela"; segundo 4, "busca"; segundo 6, "se conecta sola". Ya tenés la película del cierre. (Motivación | Heurística)
 
 **4. 💡 CONCEPTO** — Analogía: un choque en una esquina sin semáforo; ningún auto tuvo la culpa solo. Definición: un cierre es la suma de una **falla latente** (algo que ya estaba mal) y un **disparador** (la acción que la vuelve visible). (Pre-training + señalización | Media)
 
-Un zombi, acá, es un intento que cancelaste pero que sigue caminando por detrás: la pantalla ya lo dio por muerto, pero el código nativo todavía puede terminarlo.
+Un zombi, acá, es un intento que cancelaste pero que sigue caminando por detrás: la pantalla ya lo dio por muerto, pero el código nativo todavía puede terminarlo. La concurrencia es como dos personas que quieren usar la misma puerta al mismo tiempo: si entra una, la otra espera; si entran las dos, se traban.
 
 | Falla latente    | En palabras simples                    | Qué permitió                       |
 | ---------------- | -------------------------------------- | ---------------------------------- |
@@ -109,7 +109,7 @@ Un zombi, acá, es un intento que cancelaste pero que sigue caminando por detrá
 
 **9. 📌 IDEA CLAVE** — El cierre no fue una causa: fue el encuentro de tres causas en el mismo segundo.
 
-**10. ✅ AUTO-CHEQUEO + SIGinterfazENTE** — [ ] Puedo nombrar las tres fallas [ ] Distingo síntoma de causa [ ] Entiendo por qué la versión publicada no mostró error. Siguiente: quitarle permiso al pasado para escribir el presente. (Metacognición | Media)
+**10. ✅ AUTO-CHEQUEO + SIGUIENTE** — [ ] Puedo nombrar las tres fallas [ ] Distingo síntoma de causa [ ] Entiendo por qué la versión publicada no mostró error. Siguiente: quitarle permiso al pasado para escribir el presente. (Metacognición | Media)
 
 ---
 
@@ -158,7 +158,7 @@ Hay un segundo error, más sutil: desconectar el enlace nativo dentro de la rama
 
 **9. 📌 IDEA CLAVE** — Cancelar no es borrar el pasado: es quitarle permiso para escribir el futuro.
 
-**10. ✅ AUTO-CHEQUEO + SIGinterfazENTE** — [ ] Numeré los intentos [ ] Comparo antes de guardar [ ] Sé por qué no desconecto en la rama vieja. Siguiente: poner una sola puerta al hardware. (Metacognición | Media)
+**10. ✅ AUTO-CHEQUEO + SIGUIENTE** — [ ] Numeré los intentos [ ] Comparo antes de guardar [ ] Sé por qué no desconecto en la rama vieja. Siguiente: poner una sola puerta al hardware. (Metacognición | Media)
 
 ---
 
@@ -169,7 +169,7 @@ Hay un segundo error, más sutil: desconectar el enlace nativo dentro de la rama
 > **Respuesta esperada:** una cola. El segundo espera a que el primero termine; dos auriculares no duplican la línea.
 > **Si acertás:** camino rápido → andá al punto 7.
 
-**2. 🎯 POR QUÉ + LOGRO** — El SDK de la lectora expone un único objeto nativo. Ahí la concurrencia no es velocidad: es un choque. Vas a lograr serializar todas las llamadas y evitar dos trampas clásicas: el bloqueo mutuo y el timeout que no libera nada. (Motivación | Media)
+**2. 🎯 POR QUÉ + LOGRO** — El SDK de la lectora expone un único objeto nativo: un singleton, como una sola cabina telefónica para toda la app. Ahí la concurrencia no es velocidad: es un choque. Vas a lograr serializar todas las llamadas y evitar dos trampas clásicas: el bloqueo mutuo y el timeout (límite de paciencia) que no libera nada. (Motivación | Media)
 
 **3. ⚡ VICTORIA RÁPIDA (<5 min)** — Listá las operaciones que tocan la lectora: conectar, desconectar, escanear, consultar estado, leer batería, inventario, gatillo. Dibujá una sola puerta y hacé que todas hagan fila. (Motivación | Heurística)
 
@@ -184,21 +184,21 @@ Hay un segundo error, más sutil: desconectar el enlace nativo dentro de la rama
 
 👀 Cómo leer la tabla: las dos primeras filas son el contrato; las dos últimas, los seguros contra bloqueos. Por qué funciona: convierte una carrera impredecible en un orden predecible. Cuándo falla: si una operación encolada llama a otra operación encolada, se produce un abrazo mortal.
 
-**5. 👀 EJEMPLO RESUELTO** — Caso: a los 0 s hay un connect en curso, a los 2 s el usuario busca dispositivos y a los 3 s el health-check quiere consultar estado. I Do: identifico las tres llamadas. We Do: las pongo en una sola fila. You Do: punto 7. Visual: connect (20 s) → scan → status.
+**5. 👀 EJEMPLO RESUELTO** — Caso: a los 0 s hay una conexión en curso, a los 2 s el usuario busca dispositivos y a los 3 s el health-check quiere consultar estado. I Do: identifico las tres llamadas. We Do: las pongo en una sola fila. You Do: punto 7. Visual: conexión (20 s) → escaneo → consulta de estado.
 
-Sin cola, las tres tocan el mismo objeto y el aviso de conexión del SDK —que tiene un solo lugar— se pisa. Con cola, el scan espera al connect y el status espera al scan. El orden es más lento, pero es el único orden que el hardware entiende.
+Sin cola, las tres tocan el mismo objeto y el aviso de conexión del SDK —que tiene un solo lugar— se pisa. Con cola, el escaneo espera a la conexión y la consulta de estado espera al escaneo. El orden es más lento, pero es el único orden que el hardware entiende.
 
-**6. ⚠️ CONTRA-EJEMPLO / ERROR TÍPICO** — El connect pide la batería usando el método público de batería, que también está encolado. → **Corrección:** separar funciones internas sin cola (`raw`) de métodos públicos encolados. Ninguna operación encolada llama a otra operación encolada. (Autoexplicación | Media-Alta)
+**6. ⚠️ CONTRA-EJEMPLO / ERROR TÍPICO** — La conexión pide el nivel de batería usando el método público, que también está encolado. → **Corrección:** separar funciones internas sin cola (las que no piden turno) de métodos públicos encolados. Ninguna operación encolada llama a otra operación encolada. (Autoexplicación | Media-Alta)
 
-**7. 🧪 PRÁCTICA** — El usuario cancela y busca enseguida. El connect puede tardar hasta 20 s y el scan tiene su propio límite de 15 s. ¿Cuánto puede esperar el scan antes de arrancar y qué trade-off aceptás?
+**7. 🧪 PRÁCTICA** — El usuario cancela y busca enseguida. La conexión puede tardar hasta 20 s y el escaneo tiene su propio límite de 15 s. ¿Cuánto puede esperar el escaneo antes de arrancar y qué trade-off aceptás?
 
-> **Respuesta esperada:** puede esperar hasta que termine el connect, con un máximo cercano a los 20 s. Se acepta la espera porque prioriza no solapar llamadas y no crashear; la alternativa es más rápida y más frágil. (Práctica + feedback | Media)
+> **Respuesta esperada:** puede esperar hasta que termine la conexión, con un máximo cercano a los 20 s. Se acepta la espera porque prioriza no solapar llamadas y no cerrar la app; la alternativa es más rápida y más frágil. (Práctica + feedback | Media)
 
 **8. 🔁 RECALL** — Sin mirar: ¿qué serializa la cola y qué **no** serializa? (Nivel Bloom: analizar) (Recuperación | Alta)
 
 **9. 📌 IDEA CLAVE** — Con un hardware único, la virtud no es paralelismo: es turno.
 
-**10. ✅ AUTO-CHEQUEO + SIGinterfazENTE** — [ ] Todas las llamadas pasan por la cola [ ] Sé cómo se libera el turno [ ] Evité que una operación encolada llame a otra. Siguiente: qué hacer cuando el turno no termina nunca. (Metacognición | Media)
+**10. ✅ AUTO-CHEQUEO + SIGUIENTE** — [ ] Todas las llamadas pasan por la cola [ ] Sé cómo se libera el turno [ ] Evité que una operación encolada llame a otra. Siguiente: qué hacer cuando el turno no termina nunca. (Metacognición | Media)
 
 ---
 
@@ -221,28 +221,28 @@ Sin cola, las tres tocan el mismo objeto y el aviso de conexión del SDK —que 
 | Conectando | Hay una promesa nativa en curso       | Esperar o timeout              |
 | Abandonado | La interfaz se cansó; el nativo sigue | Nada cruza al hardware; avisar |
 
-👀 Cómo leer la tabla: la tercera fila es la nueva. No es "desconectado" ni "conectado": es "no sé, y no voy a empeorarlo". Por qué funciona: evita la segunda llamada sobre un singleton posiblemente ocupado. Cuándo falla: si liberás el turno por timeout, volvés exactamente al crash original.
+👀 Cómo leer la tabla: la tercera fila es la nueva. No es "desconectado" ni "conectado": es "no sé, y no voy a empeorarlo". Por qué funciona: evita la segunda llamada sobre un singleton posiblemente ocupado. Cuándo falla: si liberás el turno por timeout, volvés exactamente al cierre original.
 
-**5. 👀 EJEMPLO RESUELTO** — Caso: una reconexión no responde. I Do: a los 12 s la interfaz se cansa. We Do: marco el enlace como abandonado. You Do: punto 7. Visual: connect → timeout → abandonado → el nativo termina.
+**5. 👀 EJEMPLO RESUELTO** — Caso: una reconexión no responde. I Do: a los 12 s la interfaz se cansa. We Do: marco el enlace como abandonado. You Do: punto 7. Visual: conexión → timeout → abandonado → el nativo termina.
 
-1. El connect cruza al nativo y queda pendiente.
+1. La conexión cruza al módulo nativo y queda pendiente.
 2. A los 12 s vence la paciencia de la interfaz; el enlace pasa a abandonado.
-3. Otro connect, un scan o un ping ya no cruzan el puente hacia el código nativo (el bridge): reciben un error de "lectora ocupada" sin tocar el hardware.
+3. Otra conexión, un escaneo o un latido ya no cruzan el puente hacia el código nativo (el bridge): reciben un error de "lectora ocupada" sin tocar el hardware.
 4. Cuando el nativo finalmente termina, se libera el turno. Si terminó bien, se encola una desconexión —ahora sí legal— para cerrar el vínculo que quedó abierto.
 
 👀 Cómo leerlo: el paso 4 es la salida. Mientras no llegue, la app prefiere bloquear y explicar antes que disparar otra operación a ciegas.
 
-**6. ⚠️ CONTRA-EJEMPLO / ERROR TÍPICO** — "Si falló por timeout, hago un reset con desconectar y limpiar caché". → **Corrección:** eso es una segunda llamada nativa mientras la primera puede seguir viva, justo la carrera que la cola evita. Además, limpiar caché sólo borra los códigos de los tags ya escaneados; no toca el vínculo físico con la lectora. El reset se eliminó del flujo. (Autoexplicación | Media-Alta)
+**6. ⚠️ CONTRA-EJEMPLO / ERROR TÍPICO** — "Si falló por timeout, reinicio el enlace desconectando y limpiando caché". → **Corrección:** eso es una segunda llamada nativa mientras la primera puede seguir viva, justo la carrera que la cola evita. Además, limpiar caché sólo borra los códigos de las etiquetas ya escaneadas; no toca el vínculo físico con la lectora. Ese reinicio se eliminó del flujo. (Autoexplicación | Media-Alta)
 
-**7. 🧪 PRÁCTICA** — Un connect quedó abandonado y el usuario toca Conectar otra vez. ¿Qué debe pasar y por qué?
+**7. 🧪 PRÁCTICA** — Una conexión quedó abandonada y el usuario toca Conectar otra vez. ¿Qué debe pasar y por qué?
 
-> **Respuesta esperada:** no debe cruzar ninguna llamada al hardware; se muestra el aviso de lectora ocupada y se espera a que el nativo termine. Si se liberara el turno, dos connects se superpondrían y el aviso único de conexión del SDK podría no invocarse nunca, dejando la promesa muerta por timeout. (Práctica + feedback | Media)
+> **Respuesta esperada:** no debe cruzar ninguna llamada al hardware; se muestra el aviso de lectora ocupada y se espera a que el nativo termine. Si se liberara el turno, dos conexiones se superpondrían y el aviso único de conexión del SDK podría no invocarse nunca, dejando la promesa muerta por timeout. (Práctica + feedback | Media)
 
 **8. 🔁 RECALL** — Sin mirar: ¿por qué el turno no se libera cuando vence el timeout de la interfaz? (Nivel Bloom: evaluar) (Recuperación | Alta)
 
 **9. 📌 IDEA CLAVE** — Un timeout es impaciencia de la interfaz, no cancelación del hardware.
 
-**10. ✅ AUTO-CHEQUEO + SIGinterfazENTE** — [ ] Distingo los tres relojes [ ] Sé qué significa abandonado [ ] Entiendo el trade-off de bloquear. Siguiente: mantener el enlace vivo y probarlo sin logs. (Metacognición | Media)
+**10. ✅ AUTO-CHEQUEO + SIGUIENTE** — [ ] Distingo los tres relojes [ ] Sé qué significa abandonado [ ] Entiendo el trade-off de bloquear. Siguiente: mantener el enlace vivo y probarlo sin logs. (Metacognición | Media)
 
 ---
 
@@ -255,7 +255,7 @@ Sin cola, las tres tocan el mismo objeto y el aviso de conexión del SDK —que 
 
 **2. 🎯 POR QUÉ + LOGRO** — Un enlace que se cae por inactividad parece un bug del estado, pero es un problema de tráfico. Vas a lograr mantener el vínculo, distinguir un parpadeo de una caída y validar el arreglo por comportamiento observable. (Motivación | Media)
 
-**3. ⚡ VICTORIA RÁPIDA (<5 min)** — Dibujá la cadena: ping cada 2 s → primera lectura falsa → segunda lectura falsa → reconexión silenciosa. Cuatro pasos y ya tenés el sistema completo. (Motivación | Heurística)
+**3. ⚡ VICTORIA RÁPIDA (<5 min)** — Dibujá la cadena: latido cada 2 s → primera lectura falsa → segunda lectura falsa → reconexión silenciosa. Cuatro pasos y ya tenés el sistema completo. (Motivación | Heurística)
 
 **4. 💡 CONCEPTO** — Analogía: una luz que parpadea no significa que la planta eléctrica se cayó; confirmá antes de resetear la casa. Definición: el **keep-alive** es tráfico real para que el enlace no se enfríe; el **health-check** es el diagnóstico con confirmación; la **reconexión silenciosa** es un intento rápido de reparar antes de molestar al usuario. (Pre-training + señalización | Media)
 
@@ -266,9 +266,9 @@ Sin cola, las tres tocan el mismo objeto y el aviso de conexión del SDK —que 
 | Reconexión silenciosa | 1 intento de 12 s              | Recuperar sin navegar        |
 | Mostrar pérdida       | Tras 2 recuperaciones seguidas | Pedir acción al usuario      |
 
-👀 Cómo leer la tabla: los dos primeros mantienen y diagnostican; los dos últimos deciden cuándo hablar. Por qué funciona: separa "hay tráfico" de "hay conexión" y de "hay que avisar". Cuándo falla: si el ping se saltea por un guard redundante, el enlace se enfría igual.
+👀 Cómo leer la tabla: los dos primeros mantienen y diagnostican; los dos últimos deciden cuándo hablar. Por qué funciona: separa "hay tráfico" de "hay conexión" y de "hay que avisar". Cuándo falla: si el latido se saltea por una guarda redundante, el enlace se enfría igual.
 
-**5. 👀 EJEMPLO RESUELTO** — Caso: la lectora lleva 10 s conectada y el primer chequeo da "desconectado". I Do: no declaro la pérdida con una sola lectura. We Do: espero la segunda; en el chequeo siguiente, unos segundos después, vuelve a dar falso. You Do: punto 7. Visual: ping → falso → falso → reconexión.
+**5. 👀 EJEMPLO RESUELTO** — Caso: la lectora ya lleva varios segundos conectada y, a los 10 s, un chequeo da "desconectado". I Do: no declaro la pérdida con una sola lectura. We Do: espero la segunda; en el chequeo siguiente, unos segundos después, vuelve a dar falso. You Do: punto 7. Visual: latido → falso → falso → reconexión.
 
 La reconexión silenciosa intenta una vez, con 12 s de presupuesto. Si recupera, el usuario no ve nada y el contador de lecturas falsas vuelve a cero. Si falla, aparece "Pérdida de conexión". Si se recupera dos veces seguidas sin 30 s de estabilidad, también se muestra: tapar una caída crónica sería mentir.
 
@@ -282,7 +282,7 @@ La reconexión silenciosa intenta una vez, con 12 s de presupuesto. Si recupera,
 
 **9. 📌 IDEA CLAVE** — Si no podés ver los logs, hacé que la verdad sea visible en la pantalla.
 
-**10. ✅ AUTO-CHEQUEO + SIGinterfazENTE** — [ ] Entiendo keep-alive y health-check [ ] Sé por qué se confirma dos veces [ ] Tengo una prueba observable. Siguiente: mezclar las cinco defensas en un caso nuevo. (Metacognición | Media)
+**10. ✅ AUTO-CHEQUEO + SIGUIENTE** — [ ] Entiendo keep-alive y health-check [ ] Sé por qué se confirma dos veces [ ] Tengo una prueba observable. Siguiente: mezclar las cinco defensas en un caso nuevo. (Metacognición | Media)
 
 ---
 
@@ -320,6 +320,15 @@ El caso se entiende en una sola frase: **la app trataba un hardware único como 
 
 👀 Cómo leerla: no hace falta memorizar rutas; sirve para volver del modelo mental al informe técnico sin perderte.
 
+### ⏳ Lo que queda pendiente (honestidad)
+
+- Probar en hardware con el protocolo observable: reposo, lectura continua, gatillo, apagar la lectora, cancelar y buscar.
+- Subir `runtimeVersion` de `1.1.0-1` a `1.1.0-2` y `version` de `1.4.1` a `1.4.2` antes de publicar.
+- Implementar los siete casos de prueba de la máquina de estados (libre, conectando, conectado y abandonado), hoy deuda explícita.
+- Asumir la consecuencia de haber quitado los logs: en campo sólo se ve la pantalla; para un cierre nativo queda `logcat`.
+
+> 📌 **La idea que te llevás** — Un hardware único no se domina con más llamadas: se domina con turnos, una sola puerta y la honestidad de decir "no sé" cuando el hardware no contesta.
+
 ---
 
 ## 📖 GLOSARIO DETALLADO (referencia)
@@ -328,19 +337,20 @@ El caso se entiende en una sola frase: **la app trataba un hardware único como 
 
 ### 🧨 Síntomas y problemas
 
-- 🧟 **Conexión zombi** — Intento de conexión que el usuario canceló en la pantalla pero que sigue vivo en el código nativo. Aunque la interfaz ya lo dio por muerto, el hardware puede terminar de conectar y devolver un éxito; si la app lo acepta, guarda la lectora, la persiste y navega sola. Se neutraliza con la generación: el resultado se compara antes de escribir.
+- 🧟 **Conexión zombi** — Intento de conexión que el usuario canceló en la pantalla pero que sigue vivo en el código nativo. Aunque la interfaz ya lo dio por muerto, el hardware puede terminar de conectar y devolver un éxito; si la app lo acepta, guarda la lectora, la anota en disco y navega sola. Se neutraliza con la generación: el resultado se compara antes de escribir.
 - ⏳ **Resultado obsoleto** — Respuesta que llega cuando la pregunta ya no importa: cancelaste, cambiaste de pantalla o conectaste otra lectora. No es un fallo del hardware; es una respuesta correcta a un pedido viejo. Se descarta comparando el turno y no se usa para navegar.
 - 🪟 **Modal huérfano** — Ventana emergente que queda visible cuando la pantalla que la abrió ya cambió o perdió foco. En el video, el modal de búsqueda quedó encima de "Gestión RFID" a los 6 s. Se evita invalidando la búsqueda y cerrando los modales al salir.
-- 💥 **Carrera (race condition)** — Dos o más operaciones compiten y el resultado depende de cuál termina primero. Acá competían el connect viejo, el scan nuevo y el health-check. La cola elimina la carrera porque impone un orden fijo.
+- 💥 **Carrera (race condition)** — Dos o más operaciones compiten y el resultado depende de cuál termina primero. Acá competían la conexión vieja, el escaneo nuevo y el health-check. La cola elimina la carrera porque impone un orden fijo.
 - 🎭 **Estado mentiroso** — La app muestra "conectada" cuando el enlace ya no responde, o "desconectada" cuando el hardware sigue trabajando. Es peor que un error visible porque el usuario decide sobre información falsa. El estado abandonado y la histéresis existen para no mentir.
 - 🧲 **Auto-conexión** — La app se conecta sin que el usuario toque "Conectar". En este caso fue la firma de la conexión zombi: el intento viejo ganó la carrera y navegó solo. No es magia ni un fallo del botón; es un resultado tardío que se aceptó.
+- 🛑 **Crash / cierre** — La app termina abruptamente y vuelve al inicio del teléfono, sin diálogo de error. En una versión publicada no hay pantalla roja de desarrollo, así que el usuario sólo ve que la app desaparece. Acá fue la consecuencia de tres fallas alineadas, no una causa única.
 
 ### 🎫 Defensas de estado
 
 - 🎫 **Intento de conexión** — Cada pedido de conexión, manual o automático. Tiene número, estado y resultado; no es lo mismo que la conexión física. Un intento puede fallar, cancelarse o descartarse sin que el hardware deje de estar vinculado.
 - 🔢 **Generación / turno** — Contador que sólo sube. Cada intento recibe el número actual y cancelar pide el siguiente. Un resultado sólo puede escribir el estado si su número coincide con el vigente. Es un permiso de escritura, no un temporizador.
 - ✂️ **Cancelar vs descartar** — Cancelar es dejar de esperar o de programar reintentos; descartar es negarse a usar el resultado que llegue. Lo nativo no se puede cancelar desde JavaScript, así que la app hace las dos cosas. Confundirlas fue el bug original.
-- 💾 **Commit** — El momento en que la app acepta un resultado y lo escribe: guarda la lectora, limpia la pérdida y persiste. Antes del commit se compara el turno; si no coincide, no hay commit ni navegación.
+- 💾 **Commit** — El momento en que la app acepta un resultado y lo escribe: guarda la lectora, limpia la pérdida y la anota en disco. Antes del commit se compara el turno; si no coincide, no hay commit ni navegación.
 - 🗄️ **Persistencia** — Guardar la lectora vinculada en el almacenamiento del teléfono para recordarla al abrir la app. Es independiente de la conexión física: puede conectar bien y fallar el disco. Por eso la conexión se publica antes de persistir y un fallo de disco no se reporta como fallo de conexión.
 - 🔌 **Cerrar el vínculo nativo** — Encolar una desconexión real cuando el usuario abandona un intento que pudo dejar el enlace abierto. Se hace en el punto explícito de cancelación (botón Cancelar, Buscar dispositivo), no al recibir el resultado viejo, para no matar una conexión nueva ya encolada.
 - 🎯 **Búsqueda con foco** — La búsqueda también tiene número. Un listado sólo se muestra si es el actual, la pantalla sigue enfocada y no hay lectora conectada. Perder foco invalida la búsqueda y cierra modales; no cancela una conexión, porque el foco se pierde justamente cuando el éxito navega.
@@ -351,43 +361,34 @@ El caso se entiende en una sola frase: **la app trataba un hardware único como 
 - 🧍 **Singleton** — Objeto único en toda la app. El SDK de Chainway expone un solo objeto nativo de la lectora; todas las llamadas hablan con ese mismo objeto. Por eso dos llamadas simultáneas no son más rápidas: se pisan. La cola respeta esa unicidad.
 - 📚 **SDK** — Librería que traduce las llamadas de JavaScript al módulo nativo y al hardware. No es la lectora: es el intermediario. Sus límites (un objeto, un aviso de conexión, métodos que no se cancelan) son los que la app debe respetar.
 - 🌉 **Bridge** — Puente entre JavaScript y el código nativo. Cruzarlo cuesta y, si el nativo está ocupado, puede fallar. En estado abandonado no se cruza: se rechaza localmente. Evitar el puente es lo que hace seguro el bloqueo.
-- 📞 **Callback único** — El aviso de conexión del SDK tiene un solo lugar. Si dos connects se superponen, el segundo puede quedar sin aviso y su promesa muere por timeout. La cola y la cuarentena evitan esa superposición.
+- 📞 **Callback único** — El aviso de conexión del SDK tiene un solo lugar. Si dos conexiones se superponen, la segunda puede quedar sin aviso y su promesa muere por timeout. La cola y la cuarentena evitan esa superposición.
 
 ### ⏱️ Concurrencia y tiempo
 
-- 🚶 **Cola / serialización** — Fila donde cada operación espera a la anterior. Serializar es convertir llamadas concurrentes en una secuencia. No hace el hardware más rápido; hace el orden predecible. Evita que connect, scan y health-check se solapen.
+- 🚶 **Cola / serialización** — Fila donde cada operación espera a la anterior. Serializar es convertir llamadas concurrentes en una secuencia. No hace el hardware más rápido; hace el orden predecible. Evita que la conexión, el escaneo y el health-check se solapen.
 - 🔒 **Mutex / deadlock** — Mutex es el candado de un solo dueño; la cola es una forma de mutex. Deadlock (abrazo mortal) es cuando dos operaciones se esperan y ninguna avanza. Pasa si una operación encolada llama a otra encolada; se evita separando funciones internas de métodos públicos.
 - 🏃 **Operación en vuelo** — Operación que ya arrancó y todavía no terminó. Mientras existe, el singleton está ocupado. El health-check la consulta para no competir; el keep-alive ya no, porque la cola lo garantiza.
 - ⏱️ **Timeout** — Límite de paciencia del llamador. No cancela el trabajo nativo: sólo hace que la app deje de esperar. Distinguir "venció mi paciencia" de "el hardware terminó" es la clave del estado abandonado.
 - 🤝 **Promesa nativa** — La operación real que el módulo nativo ejecuta y que resolverá o rechazará cuando el hardware responda. Es la única fuente de verdad sobre si el singleton está libre. El timeout de JavaScript no la destruye.
-- 🏁 **Settle** — El momento en que la promesa nativa finalmente se resuelve o se rechaza. Sólo ahí se libera el turno. Un settle tardío puede traer un éxito que ya no interesa; si fue un connect, se encola una desconexión para cerrar el vínculo.
+- 🏁 **Settle** — El momento en que la promesa nativa finalmente se resuelve o se rechaza. Sólo ahí se libera el turno. Un settle tardío puede traer un éxito que ya no interesa; si fue una conexión, se encola una desconexión para cerrar el vínculo.
 - 🚧 **Estado abandonado / cuarentena** — La interfaz se cansó, pero la promesa nativa sigue viva. El enlace queda en cuarentena: ninguna operación nueva cruza al hardware y se muestra "Lectora ocupada". Se sale cuando el nativo termina (a veces apagando y encendiendo la lectora) o reiniciando la app.
 - 🚫 **ReaderBusyError** — Error tipado que se devuelve sin cruzar el puente cuando el enlace está abandonado. No es una desconexión ni un fallo de conexión: es un "todavía no puedo operar". Permite mostrar un aviso claro en vez de un error genérico.
 
 ### 💓 Enlace, lectura y validación
 
 - 📶 **BLE** — Bluetooth de baja energía, el protocolo que usa la lectora. Un enlace BLE puede caerse por inactividad si no hay tráfico. No es lo mismo que "conectado" en la app: el estado de la app puede estar desactualizado.
-- 💓 **Keep-alive** — Tráfico real y periódico para mantener el enlace despierto. Acá se lee la batería cada 2 s: es una ida y vuelta real. No decide si hay conexión; sólo evita que se enfríe. Debe ceder durante la lectura continua.
-- 🩺 **Health-check** — Chequeo cada 3 s que pregunta si la lectora sigue conectada. Usa un estado cacheado, así que no genera tráfico. No corre si hay una operación nativa en curso y no declara pérdida con una sola lectura.
+- 💓 **Keep-alive** — Tráfico real y periódico para mantener el enlace despierto. Acá el latido (ping) lee la batería cada 2 s: es una ida y vuelta real. No decide si hay conexión; sólo evita que se enfríe. Debe ceder durante la lectura continua.
+- 🩺 **Health-check** — Chequeo cada 3 s que pregunta si la lectora sigue conectada. Usa un estado guardado en memoria (cacheado), así que no genera tráfico. No corre si hay una operación nativa en curso y no declara pérdida con una sola lectura.
 - 🌡️ **Histéresis** — Confirmación antes de cambiar de estado. Acá se exigen dos lecturas falsas seguidas (~6 s) antes de declarar pérdida. Evita falsos positivos por una lectura transitoria. Es como tomarse dos veces la temperatura antes de decir que hay fiebre.
 - 🔁 **Reconexión silenciosa** — Intento automático de recuperar el enlace sin navegar ni mostrar la pantalla de pérdida. Se hace una vez, con 12 s de presupuesto. Si funciona, el usuario no ve nada; si falla, se muestra la pérdida. Tapa parpadeos, no caídas crónicas.
 - ⛓️ **Caída encadenada** — Dos o más recuperaciones silenciosas seguidas sin 30 s de estabilidad. Al superar el tope de 2, la app deja de tapar la caída y muestra "Pérdida de conexión". Es una decisión de honestidad: un enlace que se cae siempre no está sano.
-- 📊 **Inventario continuo** — Modo en el que la lectora lee tags sin parar y la app acumula EPC. Mientras está activo, el keep-alive no manda comandos para no interrumpirlo. El flag `isReadingActive` coordina eso y se resetea al salir de la pantalla.
+- 📊 **Inventario continuo** — Modo en el que la lectora lee etiquetas (tags) sin parar y la app acumula EPC. Mientras está activo, el keep-alive no manda comandos para no interrumpirlo. La marca `isReadingActive` coordina eso y se resetea al salir de la pantalla.
 - 🏷️ **Tag / EPC** — El tag es la etiqueta RFID; el EPC es su código único. La app los acumula durante la lectura y los exporta. "Limpiar caché" en el SDK sólo borra los EPC escaneados; no toca el enlace físico.
 - 🔫 **Gatillo** — El botón físico de la lectora que dispara una lectura. Se procesa por la cola, igual que el resto, pero el inventario nativo sigue corriendo en el fondo.
 
-### 🧾 Operación, release y diagnóstico
+### 🧾 Operación, publicación y diagnóstico
 
-- 🪵 **Logs / observabilidad** — Registros que la app emite para explicar qué hizo. El proyecto los eliminó por completo: no hay `console.*` ni breadcrumbs de diagnóstico. La consecuencia es que en campo sólo se ve la pantalla; para un crash nativo queda `logcat`. Es un trade-off entre limpieza y diagnóstico.
-- 🖥️ **Logcat** — Herramienta de Android que muestra mensajes del sistema y de las apps. Aunque la app no emita logs, sigue mostrando crashes nativos (`AndroidRuntime`, `libc`, `DEBUG`) y lo que imprima el AAR de Chainway.
-- 📦 **Release / APK / OTA** — Release es la versión publicada; APK es el paquete instalable; OTA es la actualización que llega sin pasar por la tienda. En release no hay red-box de desarrollo, por eso el crash del video fue silencioso. Antes de publicar hay que subir la versión.
+- 🪵 **Logs / observabilidad** — Registros que la app emite para explicar qué hizo. El proyecto los eliminó por completo: no hay `console.*` ni migas de pan (breadcrumbs) de diagnóstico. La consecuencia es que en campo sólo se ve la pantalla; para un cierre nativo queda `logcat`. Es un trade-off entre limpieza y diagnóstico.
+- 🖥️ **Logcat** — Herramienta de Android que muestra mensajes del sistema y de las apps. Aunque la app no emita logs, sigue mostrando cierres nativos (`AndroidRuntime`, `libc`, `DEBUG`) y lo que imprima el módulo nativo (el AAR) de Chainway.
+- 📦 **Release / APK / OTA** — Release es la versión publicada; APK es el paquete instalable; OTA es la actualización que llega sin pasar por la tienda. En release no hay pantalla roja de errores de desarrollo, por eso el cierre del video fue silencioso. Antes de publicar hay que subir la versión.
 - 🧬 **Runtime version** — Identificador de compatibilidad entre el binario nativo y la actualización OTA. Si cambia el código nativo, hay que subirlo para que la OTA no se aplique sobre un binario incompatible. En este caso, de `1.1.0-1` a `1.1.0-2`.
-
-### ⏳ Lo que queda pendiente (honestidad)
-
-- Probar en hardware con el protocolo observable: reposo, lectura continua, gatillo, apagar la lectora, cancelar y buscar.
-- Subir `runtimeVersion` de `1.1.0-1` a `1.1.0-2` y `version` de `1.4.1` a `1.4.2` antes de publicar.
-- Implementar los siete casos de prueba de la máquina de estados, hoy deuda explícita.
-- Asumir la consecuencia de haber quitado los logs: en campo sólo se ve la pantalla; para un crash nativo queda `logcat`.
-
-> 📌 **La idea que te llevás** — Un hardware único no se domina con más llamadas: se domina con turnos, una sola puerta y la honestidad de decir "no sé" cuando el hardware no contesta.
