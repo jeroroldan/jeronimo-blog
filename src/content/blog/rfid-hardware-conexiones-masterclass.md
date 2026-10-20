@@ -18,7 +18,7 @@ tags:
 type: "masterclass"
 level: "intermedio"
 difficulty: "intermedio"
-readingTime: 26
+readingTime: 38
 ---
 
 # 🧠 MASTERCLASS: La app que se cerraba sola
@@ -80,11 +80,11 @@ _Continúa la tabla (2/2) — partida en bloques de ≤4 para no saturar._
 
 Un zombi, acá, es un intento que cancelaste pero que sigue caminando por detrás: la pantalla ya lo dio por muerto, pero el código nativo todavía puede terminarlo.
 
-| Falla latente    | En palabras simples                  | Qué permitió          |
-| ---------------- | ------------------------------------ | --------------------- |
-| Conexión zombi   | El intento cancelado siguió vivo     | Conectarse solo       |
-| Concurrencia     | Tres llamadas al mismo objeto nativo | Choque en el hardware |
-| Resultado tardío | La búsqueda pintó la interfaz sin foco     | Ventana emergente (modal) huérfana |
+| Falla latente    | En palabras simples                    | Qué permitió                       |
+| ---------------- | -------------------------------------- | ---------------------------------- |
+| Conexión zombi   | El intento cancelado siguió vivo       | Conectarse solo                    |
+| Concurrencia     | Tres llamadas al mismo objeto nativo   | Choque en el hardware              |
+| Resultado tardío | La búsqueda pintó la interfaz sin foco | Ventana emergente (modal) huérfana |
 
 👀 Cómo leer la tabla: cada fila es una condición que ya existía; la última columna dice qué desastre habilitó. Por qué funciona: separar condiciones evita buscar "la causa" única. Cuándo falla: si te quedás con una sola fila, arreglás un síntoma y volvés a caer.
 
@@ -126,11 +126,11 @@ Un zombi, acá, es un intento que cancelaste pero que sigue caminando por detrá
 
 **4. 💡 CONCEPTO** — Analogía: el ticket numerado de la fiambrería. Si pediste el 7 y ya estás esperando el 8, cuando llamen al 7 no te levantás. Definición: una **generación** es un contador que sólo sube; un resultado es válido únicamente si su número coincide con el actual. (Pre-training + señalización | Media)
 
-| Regla                              | Efecto                            |
-| ---------------------------------- | --------------------------------- |
-| Todo intento recibe un número      | Cada conexión es identificable    |
-| Cancelar pide el número siguiente  | El intento anterior queda viejo   |
-| Antes de guardar, se compara       | El resultado viejo se descarta    |
+| Regla                              | Efecto                                  |
+| ---------------------------------- | --------------------------------------- |
+| Todo intento recibe un número      | Cada conexión es identificable          |
+| Cancelar pide el número siguiente  | El intento anterior queda viejo         |
+| Antes de guardar, se compara       | El resultado viejo se descarta          |
 | La búsqueda tiene su propio número | Un listado viejo no repinta la interfaz |
 
 👀 Cómo leer la tabla: las tres primeras filas son el turno; la última aplica la misma idea a la búsqueda. Por qué funciona: no necesitás detener el hardware, sólo negarle permiso de escritura. Cuándo falla: si comparás el número después de guardar, ya llegaste tarde.
@@ -215,10 +215,10 @@ Sin cola, las tres tocan el mismo objeto y el aviso de conexión del SDK —que 
 
 **4. 💡 CONCEPTO** — Analogía: una cocina con un solo cocinero. Si el pedido se trabó, no le mandás otro pedido al mismo cocinero: marcás la cocina como ocupada y le avisás al cliente. Definición: **abandonado** es el estado donde la interfaz se cansó, pero la promesa nativa sigue viva; el enlace queda en cuarentena. (Pre-training + señalización | Media)
 
-| Estado     | Qué significa                   | Qué se puede hacer             |
-| ---------- | ------------------------------- | ------------------------------ |
-| Libre      | No hay promesa nativa pendiente | Cualquier operación            |
-| Conectando | Hay una promesa nativa en curso | Esperar o timeout              |
+| Estado     | Qué significa                         | Qué se puede hacer             |
+| ---------- | ------------------------------------- | ------------------------------ |
+| Libre      | No hay promesa nativa pendiente       | Cualquier operación            |
+| Conectando | Hay una promesa nativa en curso       | Esperar o timeout              |
 | Abandonado | La interfaz se cansó; el nativo sigue | Nada cruza al hardware; avisar |
 
 👀 Cómo leer la tabla: la tercera fila es la nueva. No es "desconectado" ni "conectado": es "no sé, y no voy a empeorarlo". Por qué funciona: evita la segunda llamada sobre un singleton posiblemente ocupado. Cuándo falla: si liberás el turno por timeout, volvés exactamente al crash original.
