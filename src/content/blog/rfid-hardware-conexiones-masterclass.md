@@ -18,7 +18,7 @@ tags:
 type: "masterclass"
 level: "intermedio"
 difficulty: "intermedio"
-readingTime: 38
+readingTime: 39
 ---
 
 # 🧠 MASTERCLASS: La app que se cerraba sola
@@ -169,20 +169,20 @@ Hay un segundo error, más sutil: desconectar el enlace nativo dentro de la rama
 > **Respuesta esperada:** una cola. El segundo espera a que el primero termine; dos auriculares no duplican la línea.
 > **Si acertás:** camino rápido → andá al punto 7.
 
-**2. 🎯 POR QUÉ + LOGRO** — El SDK de la lectora expone un único objeto nativo: un singleton, como una sola cabina telefónica para toda la app. Ahí la concurrencia no es velocidad: es un choque. Vas a lograr serializar todas las llamadas y evitar dos trampas clásicas: el bloqueo mutuo y el timeout (límite de paciencia) que no libera nada. (Motivación | Media)
+**2. 🎯 POR QUÉ + LOGRO** — El SDK de la lectora expone un único objeto nativo: un singleton, como una sola cabina telefónica para toda la app. Ahí la concurrencia no es velocidad: es un choque. Vas a lograr serializar todas las llamadas y evitar dos trampas clásicas: el bloqueo mutuo y el timeout (límite de paciencia) que no libera el singleton. (Motivación | Media)
 
 **3. ⚡ VICTORIA RÁPIDA (<5 min)** — Listá las operaciones que tocan la lectora: conectar, desconectar, escanear, consultar estado, leer batería, inventario, gatillo. Dibujá una sola puerta y hacé que todas hagan fila. (Motivación | Heurística)
 
 **4. 💡 CONCEPTO** — Analogía: un puente de un solo carril. Los autos pueden ser rápidos, pero si entran dos a la vez, ninguno pasa. Definición: una **cola** (o mutex) es una estructura donde cada operación espera a que la anterior termine, haya salido bien o mal. (Pre-training + señalización | Media)
 
-| Regla de la cola                           | Por qué                              |
-| ------------------------------------------ | ------------------------------------ |
-| Una operación a la vez                     | El nativo es singleton               |
-| Liberar el turno en éxito y en error       | La cola no queda trabada             |
-| Las funciones internas no vuelven a entrar | Evita esperarse a sí misma           |
-| Timeout como red de seguridad              | Una promesa puede no responder nunca |
+| Regla de la cola                           | Por qué                                            |
+| ------------------------------------------ | -------------------------------------------------- |
+| Una operación a la vez                     | El nativo es singleton                             |
+| Liberar el turno en éxito y en error       | La cola no queda trabada                           |
+| Las funciones internas no vuelven a entrar | Evita esperarse a sí misma                         |
+| Timeout como red de seguridad              | Evita esperar para siempre; no libera el singleton |
 
-👀 Cómo leer la tabla: las dos primeras filas son el contrato; las dos últimas, los seguros contra bloqueos. Por qué funciona: convierte una carrera impredecible en un orden predecible. Cuándo falla: si una operación encolada llama a otra operación encolada, se produce un abrazo mortal.
+👀 Cómo leer la tabla: las dos primeras filas son el contrato; las dos últimas, los seguros: una evita el abrazo mortal y la otra, esperar para siempre. El timeout no libera el singleton; sólo evita que la interfaz espere sin fin. Por qué funciona: convierte una carrera impredecible en un orden predecible. Cuándo falla: si una operación encolada llama a otra operación encolada, se produce un abrazo mortal.
 
 **5. 👀 EJEMPLO RESUELTO** — Caso: a los 0 s hay una conexión en curso, a los 2 s el usuario busca dispositivos y a los 3 s el health-check quiere consultar estado. I Do: identifico las tres llamadas. We Do: las pongo en una sola fila. You Do: punto 7. Visual: conexión (20 s) → escaneo → consulta de estado.
 
@@ -192,7 +192,7 @@ Sin cola, las tres tocan el mismo objeto y el aviso de conexión del SDK —que 
 
 **7. 🧪 PRÁCTICA** — El usuario cancela y busca enseguida. La conexión puede tardar hasta 20 s y el escaneo tiene su propio límite de 15 s. ¿Cuánto puede esperar el escaneo antes de arrancar y qué trade-off aceptás?
 
-> **Respuesta esperada:** puede esperar hasta que termine la conexión, con un máximo cercano a los 20 s. Se acepta la espera porque prioriza no solapar llamadas y no cerrar la app; la alternativa es más rápida y más frágil. (Práctica + feedback | Media)
+> **Respuesta esperada:** puede esperar hasta que termine la conexión: hasta 20 s en una conexión manual o 12 s en una reconexión automática. Se acepta la espera porque prioriza no solapar llamadas y no cerrar la app; la alternativa es más rápida y más frágil. (Práctica + feedback | Media)
 
 **8. 🔁 RECALL** — Sin mirar: ¿qué serializa la cola y qué **no** serializa? (Nivel Bloom: analizar) (Recuperación | Alta)
 
@@ -219,9 +219,10 @@ Sin cola, las tres tocan el mismo objeto y el aviso de conexión del SDK —que 
 | ---------- | ------------------------------------- | ------------------------------ |
 | Libre      | No hay promesa nativa pendiente       | Cualquier operación            |
 | Conectando | Hay una promesa nativa en curso       | Esperar o timeout              |
+| Conectado  | La promesa nativa terminó bien        | Operar; el health-check vigila |
 | Abandonado | La interfaz se cansó; el nativo sigue | Nada cruza al hardware; avisar |
 
-👀 Cómo leer la tabla: la tercera fila es la nueva. No es "desconectado" ni "conectado": es "no sé, y no voy a empeorarlo". Por qué funciona: evita la segunda llamada sobre un singleton posiblemente ocupado. Cuándo falla: si liberás el turno por timeout, volvés exactamente al cierre original.
+👀 Cómo leer la tabla: la última fila es la nueva. No es "desconectado" ni "conectado": es "no sé, y no voy a empeorarlo". Por qué funciona: evita la segunda llamada sobre un singleton posiblemente ocupado. Cuándo falla: si liberás el turno por timeout, volvés exactamente al cierre original.
 
 **5. 👀 EJEMPLO RESUELTO** — Caso: una reconexión no responde. I Do: a los 12 s la interfaz se cansa. We Do: marco el enlace como abandonado. You Do: punto 7. Visual: conexión → timeout → abandonado → el nativo termina.
 
@@ -266,7 +267,7 @@ Sin cola, las tres tocan el mismo objeto y el aviso de conexión del SDK —que 
 | Reconexión silenciosa | 1 intento de 12 s              | Recuperar sin navegar        |
 | Mostrar pérdida       | Tras 2 recuperaciones seguidas | Pedir acción al usuario      |
 
-👀 Cómo leer la tabla: los dos primeros mantienen y diagnostican; los dos últimos deciden cuándo hablar. Por qué funciona: separa "hay tráfico" de "hay conexión" y de "hay que avisar". Cuándo falla: si el latido se saltea por una guarda redundante, el enlace se enfría igual.
+👀 Cómo leer la tabla: los dos primeros mantienen y diagnostican; los dos últimos deciden cuándo hablar. Por qué funciona: separa "hay tráfico" de "hay conexión" y de "hay que avisar". Cuándo falla: ese fue el bug de la cuarta prueba con hardware; una guarda redundante salteaba el latido y el enlace se enfriaba igual. Se eliminó: la cola ya serializa y el ping no se frena.
 
 **5. 👀 EJEMPLO RESUELTO** — Caso: la lectora ya lleva varios segundos conectada y, a los 10 s, un chequeo da "desconectado". I Do: no declaro la pérdida con una sola lectura. We Do: espero la segunda; en el chequeo siguiente, unos segundos después, vuelve a dar falso. You Do: punto 7. Visual: latido → falso → falso → reconexión.
 
@@ -311,21 +312,23 @@ El caso se entiende en una sola frase: **la app trataba un hardware único como 
 
 ### 🗂️ Dónde vive cada idea en el código
 
-| Idea              | Archivo principal                     | Qué mirar                                             |
-| ----------------- | ------------------------------------- | ----------------------------------------------------- |
-| Turno y descarte  | `context/RfidTagsContext.tsx`         | Generación de intentos y comparación antes de guardar |
-| Cola y timeouts   | `reader-sdk/nativeRfidReaderSdk.ts`   | Una operación a la vez y liberación del turno         |
-| Cuarentena        | `reader-sdk/readerBusyError.ts`       | Error de lectora ocupada sin cruzar el bridge         |
-| Búsqueda con foco | `reader-connection/useScreenHooks.ts` | Número de búsqueda y descarte al perder foco          |
+| Idea               | Archivo principal                                            | Qué mirar                                                               |
+| ------------------ | ------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| Turno y descarte   | `context/RfidTagsContext.tsx`                                | Generación de intentos y comparación antes de guardar                   |
+| Cola y timeouts    | `reader-sdk/nativeRfidReaderSdk.ts`                          | Una operación a la vez; el turno se libera sólo con el settle nativo    |
+| Cuarentena y aviso | `reader-sdk/readerBusyError.ts` + `shared/ui/RfidLayout.tsx` | `ReaderBusyError` sin cruzar el bridge y modal único de lectora ocupada |
+| Búsqueda con foco  | `reader-connection/useScreenHooks.ts`                        | Número de búsqueda y descarte al perder foco                            |
 
 👀 Cómo leerla: no hace falta memorizar rutas; sirve para volver del modelo mental al informe técnico sin perderte.
 
 ### ⏳ Lo que queda pendiente (honestidad)
 
 - Probar en hardware con el protocolo observable: reposo, lectura continua, gatillo, apagar la lectora, cancelar y buscar.
-- Subir `runtimeVersion` de `1.1.0-1` a `1.1.0-2` y `version` de `1.4.1` a `1.4.2` antes de publicar.
-- Implementar los siete casos de prueba de la máquina de estados (libre, conectando, conectado y abandonado), hoy deuda explícita.
-- Asumir la consecuencia de haber quitado los logs: en campo sólo se ve la pantalla; para un cierre nativo queda `logcat`.
+- **Release:** el fix es 100 % JavaScript. Si querés entregarlo ya, dejá `runtimeVersion` en `1.1.0-1` y publicá sólo la OTA; si compilás un binario nuevo, subí `runtimeVersion` a `1.1.0-2` y `version` a `1.4.2`. Subir `runtimeVersion` obliga a un binario nuevo en tienda y la OTA no llega a las instalaciones actuales.
+- Implementar los siete casos de prueba de la máquina de estados (connect colgado, segundo connect, ping abandonado, desconexión sin bridge, settle tardío con éxito y con rechazo, y connect normal), hoy deuda explícita.
+- **A2:** el keep-alive puede dejar el enlace abandonado si su timeout vence con la promesa nativa pendiente. Mitigación propuesta: latir sólo cuando no haya tráfico BLE reciente (medido por operación real, no por `getConnectStatus`, que es cacheado) y subir el presupuesto a 8 s.
+- **B2:** el botón "Reintentar" del modal de lectora ocupada todavía no da feedback. Propuesta: esperar hasta 5 s con un indicador de "Verificando…" y avisar si sigue ocupada, sin forzar nada: el slot lo libera únicamente el settle nativo.
+- Asumir la consecuencia de haber quitado los logs: en campo sólo se ve la pantalla; para un cierre nativo queda `logcat`. Si hace falta el detalle interno, instrumentación temporal en una rama, no en el build que se entrega.
 
 > 📌 **La idea que te llevás** — Un hardware único no se domina con más llamadas: se domina con turnos, una sola puerta y la honestidad de decir "no sé" cuando el hardware no contesta.
 
@@ -354,7 +357,7 @@ El caso se entiende en una sola frase: **la app trataba un hardware único como 
 - 🗄️ **Persistencia** — Guardar la lectora vinculada en el almacenamiento del teléfono para recordarla al abrir la app. Es independiente de la conexión física: puede conectar bien y fallar el disco. Por eso la conexión se publica antes de persistir y un fallo de disco no se reporta como fallo de conexión.
 - 🔌 **Cerrar el vínculo nativo** — Encolar una desconexión real cuando el usuario abandona un intento que pudo dejar el enlace abierto. Se hace en el punto explícito de cancelación (botón Cancelar, Buscar dispositivo), no al recibir el resultado viejo, para no matar una conexión nueva ya encolada.
 - 🎯 **Búsqueda con foco** — La búsqueda también tiene número. Un listado sólo se muestra si es el actual, la pantalla sigue enfocada y no hay lectora conectada. Perder foco invalida la búsqueda y cierra modales; no cancela una conexión, porque el foco se pierde justamente cuando el éxito navega.
-- 🚦 **Máquina de estados** — Modelo con estados y transiciones permitidas: libre, conectando, conectado y abandonado. Permite saber qué se puede hacer sin preguntar a ciegas. El estado abandonado es el que bloquea el puente y muestra el aviso.
+- 🚦 **Máquina de estados** — Modelo con estados y transiciones permitidas: libre, conectando, conectado y abandonado. El timeout del llamador lleva de conectando a abandonado; el settle nativo cierra la transición: a conectado si el intento seguía vigente y resolvió bien, o a libre si falló o ya estaba abandonado. Permite saber qué se puede hacer sin preguntar a ciegas. El estado abandonado es el que bloquea el puente y muestra el aviso.
 
 ### 🚦 Hardware y puente
 
@@ -388,7 +391,7 @@ El caso se entiende en una sola frase: **la app trataba un hardware único como 
 
 ### 🧾 Operación, publicación y diagnóstico
 
-- 🪵 **Logs / observabilidad** — Registros que la app emite para explicar qué hizo. El proyecto los eliminó por completo: no hay `console.*` ni migas de pan (breadcrumbs) de diagnóstico. La consecuencia es que en campo sólo se ve la pantalla; para un cierre nativo queda `logcat`. Es un trade-off entre limpieza y diagnóstico.
+- 🪵 **Logs / observabilidad** — Registros que la app emite para explicar qué hizo. El proyecto los eliminó por completo: se quitaron 70 llamadas, la carpeta `shared/debug/` y los manejadores globales de `App.js`; no queda ningún `console.*` en el módulo RFID y sólo sobrevive `Sentry.init({ debug: false })`. La consecuencia es que en campo sólo se ve la pantalla; para un cierre nativo queda `logcat`. Si hace falta el detalle interno, se agrega instrumentación temporal en una rama, no en el build que se entrega. Es un trade-off entre limpieza y diagnóstico.
 - 🖥️ **Logcat** — Herramienta de Android que muestra mensajes del sistema y de las apps. Aunque la app no emita logs, sigue mostrando cierres nativos (`AndroidRuntime`, `libc`, `DEBUG`) y lo que imprima el módulo nativo (el AAR) de Chainway.
-- 📦 **Release / APK / OTA** — Release es la versión publicada; APK es el paquete instalable; OTA es la actualización que llega sin pasar por la tienda. En release no hay pantalla roja de errores de desarrollo, por eso el cierre del video fue silencioso. Antes de publicar hay que subir la versión.
-- 🧬 **Runtime version** — Identificador de compatibilidad entre el binario nativo y la actualización OTA. Si cambia el código nativo, hay que subirlo para que la OTA no se aplique sobre un binario incompatible. En este caso, de `1.1.0-1` a `1.1.0-2`.
+- 📦 **Release / APK / OTA** — Release es la versión publicada; APK es el paquete instalable; OTA es la actualización que llega sin pasar por la tienda. En release no hay pantalla roja de errores de desarrollo, por eso el cierre del video fue silencioso. Antes de publicar, decidí: si compilás un binario nuevo, subí `runtimeVersion`; si el fix es sólo JavaScript, podés publicar la OTA sin subirlo.
+- 🧬 **Runtime version** — Identificador de compatibilidad entre el binario nativo y la actualización OTA. Si cambia el código nativo, hay que subirlo para que la OTA no se aplique sobre un binario incompatible. En este caso el fix es 100 % JavaScript: subirlo de `1.1.0-1` a `1.1.0-2` obliga a un binario nuevo en tienda y la OTA no llega a las instalaciones actuales. Si querés entregar ya, dejalo y publicá sólo la OTA.
