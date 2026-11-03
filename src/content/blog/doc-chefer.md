@@ -8,13 +8,12 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 
 
 
-
 # Registro GPS en segundo plano — diagnóstico, diseño y plan de implementación
 
 **Proyecto:** `als_wm_app_mobile` (Waste-Management / WAIOT Driver)
 **Stack relevante:** Expo SDK 51, React Native 0.74.2, `expo-location@17.0.1`, `expo-task-manager@11.8.2`
 **Fecha:** 2026-11-03
-**Estado:** propuesta de diseño. Los fragmentos de código son ejemplos de implementación, no cambios aplicados.
+**Estado:** solución app-side implementada; validación final en dispositivos nativos pendiente. Las secciones de diseño y los fragmentos de código explican la solución y pueden no coincidir textualmente con el código final.
 
 ---
 
@@ -416,6 +415,7 @@ export type TrackingContext = {
   employeeId: number;
   routePlanTypeCode?: string;
   deviceId: string;
+  startedAt: number;
 };
 
 export type BufferedSample = {
@@ -528,8 +528,8 @@ async function doFlush(): Promise<void> {
 
     try {
       await locationReport(
-        // metadata: confirmar contrato con backend. No usar IMEI real.
-        { device_id: batch.context.deviceId },
+        // Conserva la clave legacy para compatibilidad; el valor ya no es un IMEI.
+        { imei: batch.context.deviceId },
         String(batch.context.vehicleId),
         new Date().toISOString(),
         batch.samples.map(({ timestamp, latitude, longitude, speed }) => ({
@@ -618,8 +618,8 @@ Notas de implementación:
 
 - `data.locations` es la forma que entrega `expo-location` en la task; cada elemento es un `LocationObject`.
 - El `id` del sample permite borrar solo lo enviado y sirve como dedupe local.
-- `startedAt` no está en el tipo de arriba; si se quiere filtrar fixes viejos, agregarlo al `TrackingContext` o a un objeto `ActiveTracking` separado.
-- El lock es a nivel de módulo. Alcanza para el runtime normal; si se quiere ser más estricto, se puede usar una librería de mutex o una cola de operaciones.
+- `startedAt` se persiste en `TrackingContext` para descartar fixes anteriores al inicio de la ruta activa.
+- El lock es a nivel de módulo y protege los accesos al buffer dentro del runtime JS.
 - No loguear latitud/longitud en producción.
 
 ### 7.5 Controlador de start/stop
@@ -913,7 +913,9 @@ Corrección:
 ```ts
 // loginAction.ts
 setHttpToken(token);
-await Keychain.setGenericPassword('token', token); // siempre
+await Keychain.setGenericPassword('token', token, {
+  accessible: Keychain.ACCESSIBLE.AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY,
+}); // siempre y accesible por la task cuando el dispositivo vuelve a bloquearse
 if (rememberMe) {
   await AsyncStorage.setItem('userData', JSON.stringify(userData));
 }
@@ -922,7 +924,9 @@ if (rememberMe) {
 ```ts
 // loginQRAction.ts
 setHttpToken(token);
-await Keychain.setGenericPassword('token', token);
+await Keychain.setGenericPassword('token', token, {
+  accessible: Keychain.ACCESSIBLE.AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY,
+});
 ```
 
 Y en logout, `clearHttpToken()` ya hace `Keychain.resetGenericPassword()`.
@@ -1001,24 +1005,34 @@ Solución: **deduplicación en el backend** por `(route_id, timestamp, latitude,
 
 ## 9. Cambios por archivo
 
-| Archivo | Acción |
-|---|---|
-| `source/app.config.ts` | Agregar plugin `expo-location`; `FOREGROUND_SERVICE_LOCATION` y `POST_NOTIFICATIONS`; revisar `runtimeVersion` |
-| `source/index.ts` | Importar `./src/tasks/locationTask` antes de `registerRootComponent` |
-| `source/src/tasks/types.ts` | Nuevo: tipos de contexto, muestra y lote |
-| `source/src/tasks/locationTask.ts` | Nuevo: `defineTask`, buffer, flush, lock |
-| `source/src/tasks/trackingController.ts` | Nuevo: `startTracking`, `stopTracking`, `clearTrackingBuffer` |
-| `source/src/tasks/deviceId.ts` | Nuevo: id estable de instalación |
-| `source/src/screens/RouteNavigation.tsx` | Quitar watcher A y `Report()`; iniciar tracking al cargar `dataRoute`; stop en suspend/abort; watcher B solo UI |
-| `source/src/components/MapViewerNavigation.tsx` | `endRoute` llama `stopTracking()`; quitar `report()` |
-| `source/App.tsx` | Flush en `AppState active`, en `NetInfo` restaurado y al arrancar |
-| `source/src/redux/actions/loginAction.ts` | Persistir token en Keychain siempre |
-| `source/src/redux/actions/loginQRAction.ts` | Persistir token en Keychain |
-| `source/src/redux/actions/logoutAction.ts` | `stopTracking()` + limpiar buffer |
-| `source/src/redux/slices/positionSamplesSlice.ts` | Opcional: `addDrawnSample` o cap de `positionSamples` |
-| `source/src/redux/middleware/middleware.ts` | Evitar doble path de envío; revisar `dequeueAction` |
-| `source/src/test/...` | Mocks de `expo-task-manager`, tests de buffer/flush/start/stop |
-| `source/src/services/Service.ts` | Sin cambios de firma; confirmar contrato de `metadata` |
+La tabla explica no solo **qué** se modificó, sino también **por qué** y **para qué**. “Para qué” describe el efecto esperado en la app.
+
+| Archivo | Qué se cambió | Por qué | Para qué |
+|---|---|---|---|
+| `source/app.config.ts` | Se agregó el plugin `expo-location`, los permisos de background/foreground service y se subió `runtimeVersion` a `1.0.1`. | La configuración anterior no declaraba background location en iOS y Android 14 requiere el permiso específico del foreground service. Además, el binario nativo cambia. | Generar builds que puedan mantener el GPS activo con la app en segundo plano y evitar distribuir este JS por OTA a binarios incompatibles. |
+| `source/index.ts` | Se importa `locationTask` antes de registrar la app. | Expo exige definir la tarea en el ámbito global antes de que el sistema intente ejecutarla. | Permitir que el sistema operativo invoque la tarea incluso sin una pantalla montada. |
+| `source/src/tasks/types.ts` | Se agregaron tipos para contexto de tracking, muestras y lotes por ruta; el contexto guarda `startedAt`. | Un array global no identifica de forma segura a qué ruta pertenece cada punto, y un fix tardío puede llegar después de cambiar de ruta. | Mantener separados ruta, vehículo y empleado, y rechazar posiciones anteriores al inicio de la ruta activa. |
+| `source/src/tasks/storage.ts` | Se centralizaron las claves de AsyncStorage, lectura tolerante de JSON y un lock cooperativo. | El buffer es compartido entre callbacks de la tarea, los flush y el controlador; una lectura/escritura simultánea podría sobrescribir muestras. | Persistir datos entre procesos y serializar las operaciones locales sobre el buffer. |
+| `source/src/tasks/deviceId.ts` | Se obtiene un ID de Android/iOS y se persiste; si no está disponible, se crea uno de instalación. | El IMEI literal existente no identifica correctamente el equipo, no es accesible para apps normales y pierde precisión como número de JavaScript. | Enviar un identificador estable como string, sin fingir que es un IMEI real. |
+| `source/src/tasks/locationTask.ts` | Se definió `ROUTE_LOCATION_TASK`; valida y agrega fixes al lote de su ruta; limita el buffer, divide envíos en chunks de 500 y borra solo muestras confirmadas. El flush omite la red si NetInfo indica desconexión. | `watchPositionAsync` vive en el runtime de la pantalla; Redux no sobrevive a la muerte del proceso. Borrar antes de confirmar el POST podía perder puntos. | Capturar ubicaciones en background, conservarlas offline y reintentarlas al recuperar conexión, con envíos de tamaño acotado y semántica at-least-once. |
+| `source/src/tasks/trackingController.ts` | Se agregaron `startTracking`, `stopTracking` y `clearTrackingBuffer`; solicita permisos, configura location updates y cancela inicios que queden obsoletos. | El inicio/parada debe ser uniforme y un permiso pendiente no debe permitir que una ruta ya suspendida arranque después. | Controlar el ciclo de vida de la task y detenerla en acciones de negocio sin detenerla por desmontar una pantalla. |
+| `source/src/screens/RouteNavigation.tsx` | Se eliminó el watcher de muestreo y `Report()`; al cargar los datos se inicia el controlador. Se conservó el watcher visual y se usa solo para `drawnSamples`. Se detiene al suspender/abortar. | El watcher anterior dependía del ciclo de vida de JS y además enviaba/borraba las muestras. El mapa, sin embargo, necesita seguir dibujando posiciones mientras la pantalla está visible. | Separar el origen de reportes (task persistente) del origen visual (watcher foreground), sin perder el trazo normal del mapa ni enviar puntos dos veces. |
+| `source/src/components/MapViewerNavigation.tsx` | Al finalizar la ruta se llama `stopTracking()` y se quitó la prop/callback `report`. | El reporte manual duplicaría el envío que ahora hace el buffer; finalizar también debe apagar el servicio GPS. | Cerrar el ciclo de tracking desde la acción de negocio de finalización. |
+| `source/App.tsx` | Se intenta hacer flush al arrancar, al volver a `active` y cuando NetInfo informa conexión. | Una task puede dejar lotes pendientes si el proceso se cerró o no había red. | Reanudar los envíos sin depender de que llegue otra posición GPS. |
+| `source/src/redux/actions/loginAction.ts` | Se persiste siempre el token en Keychain con `AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY`; `rememberMe` sigue controlando la persistencia de `userData`. | El runtime headless necesita autenticar el POST aunque el teléfono esté bloqueado; el Keychain debe permitir acceso después del primer desbloqueo y no migrar el secreto a otro dispositivo. | Autorizar los envíos de background durante una sesión activa sin guardar el token en AsyncStorage. |
+| `source/src/redux/actions/loginQRAction.ts` | Se guarda también el token del login QR con la misma política de Keychain. | Antes el login QR dejaba el token solo en memoria, que desaparece cuando muere el proceso JS. | Permitir que una ruta iniciada por QR pueda enviar puntos desde la task. |
+| `source/src/redux/actions/logoutAction.ts` | Antes de limpiar credenciales, se detiene el GPS, se intenta flush y se elimina el buffer; luego se borra el token en memoria/Keychain. | No debe quedar una tarea de tracking activa después de cerrar sesión ni muestras del usuario anterior en el almacenamiento local. | Cerrar sesión sin dejar GPS encendido o datos de ruta asociados al siguiente usuario. |
+| `source/src/redux/slices/positionSamplesSlice.ts` | Se agregó `addDrawnSample`, que solo cambia los puntos del mapa y limita el array a 5.000 elementos. | La nueva fuente de reportes ya no debe poblar ni depender de `positionSamples`; el watcher visual puede seguir recibiendo posiciones durante rutas largas. | Conservar el trazo visible sin convertir Redux en el buffer de envío ni dejar que crezca indefinidamente. |
+| `source/src/test/screens/RouteNavigation.test.tsx` y `source/src/test/components/MapViewerRouteNavigation.test.tsx` | Se mockearon el ID/controlador de tracking, se adaptó el watcher a una promesa y se quitó la prop `report`. | Los tests de pantallas no deben iniciar permisos/servicios nativos reales y las interfaces cambiaron al eliminar el reporte manual. | Mantener los tests de UI aislados de Expo Location/Task Manager. |
+| `source/src/test/screens/RouteDetail.test.tsx` y `source/src/test/components/Header.test.tsx` | Se agregó un mock de `expo-task-manager`. | `App` ahora importa el módulo que define la task y los tests no disponen del servicio nativo. | Poder importar `App` en Jest sin requerir el runtime nativo. |
+| `source/src/services/Service.ts` y `source/src/redux/middleware/middleware.ts` | No se modificaron. | El fix debía permanecer en la app y conservar el endpoint/firma existente; el camino viejo dejó de despachar `actionLocationReport`. | Evitar cambios de contrato con el backend y no introducir un segundo canal de envío. |
+
+### Lectura rápida de los efectos
+
+- **Antes:** pantalla → watcher JavaScript → Redux en memoria → `Report()` → API.
+- **Ahora:** sistema operativo → task background → AsyncStorage por ruta → flush → misma API.
+- **El mapa:** watcher de foreground → `drawnSamples` limitado; ya no es la fuente de envío.
+- **Entrega:** se conserva el lote hasta confirmar el POST. Si el servidor recibió el lote y la app murió antes de borrarlo, puede haber reenvío; el backend aún debe deduplicar.
 
 ---
 
@@ -1161,20 +1175,20 @@ No loguear coordenadas en producción; usar `routeId`, conteos y códigos de err
 
 ## 15. Checklist de implementación
 
-- [ ] Agregar plugin `expo-location` en `app.config.ts`.
-- [ ] Agregar `FOREGROUND_SERVICE_LOCATION` y `POST_NOTIFICATIONS`.
-- [ ] Bumpear `runtimeVersion`.
-- [ ] Crear `locationTask.ts` y `trackingController.ts`.
-- [ ] Importar la task en `index.ts`.
-- [ ] Implementar buffer por `routeId` con lock.
-- [ ] Implementar flush con `flushInFlight`.
-- [ ] Integrar start en `RouteNavigation` al cargar `dataRoute`.
-- [ ] Integrar stop + flush en suspend, abort, end y logout.
-- [ ] Quitar watcher A y `Report()` de `RouteNavigation`.
-- [ ] Mantener watcher B solo para UI / trazo.
-- [ ] Flush en `AppState active`, `NetInfo` y arranque.
-- [ ] Persistir token en Keychain en login normal y QR.
-- [ ] Reemplazar IMEI hardcodeado por `deviceId`.
+- [x] Agregar plugin `expo-location` en `app.config.ts`.
+- [x] Agregar `FOREGROUND_SERVICE_LOCATION` y `POST_NOTIFICATIONS`.
+- [x] Bumpear `runtimeVersion`.
+- [x] Crear `locationTask.ts`, `trackingController.ts`, storage y device ID.
+- [x] Importar la task en `index.ts`.
+- [x] Implementar buffer por `routeId` con lock.
+- [x] Implementar flush con `flushInFlight`.
+- [x] Integrar start en `RouteNavigation` al cargar `dataRoute`.
+- [x] Integrar stop + flush en suspend, abort, end y logout.
+- [x] Quitar watcher A y `Report()` de `RouteNavigation`.
+- [x] Mantener watcher B solo para UI / trazo.
+- [x] Flush en `AppState active`, `NetInfo` y arranque.
+- [x] Persistir token en Keychain en login normal y QR.
+- [x] Reemplazar IMEI hardcodeado por `deviceId`.
 - [ ] Tests unitarios e integración.
 - [ ] Matriz manual en dispositivos reales.
 - [ ] Dedupe y `ORDER BY reported_at` en backend.
