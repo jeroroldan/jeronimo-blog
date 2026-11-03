@@ -17,8 +17,270 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 
 ---
 
+## 🧭 Antes de empezar: explicación sencilla
+
+Este documento explica por qué una app de reparto puede dejar de registrar el recorrido del vehículo cuando el conductor bloquea el teléfono, cambia a otra aplicación, pierde señal o cierra la app. La causa no es que el GPS desaparezca: es que el sistema operativo puede “dormir” o cerrar la parte de la app que estaba escuchando sus lecturas.
+
+La solución propuesta separa dos tareas. Una parte sigue mostrando el recorrido en el mapa cuando la app está abierta; otra, independiente, continúa tomando ubicaciones en segundo plano. Cada punto se guarda primero en el teléfono y recién después se intenta enviar. Así, si no hay internet, el teléfono se queda con los datos y los envía cuando vuelve la conexión.
+
+En términos cotidianos: el mapa es la pantalla que vemos, pero el registro es una libreta que sigue tomando nota aunque la pantalla esté apagada. Al suspender, cancelar o terminar una ruta, esa libreta se cierra correctamente y se intenta entregar lo anotado. Si algo falla, quedan pendientes los datos necesarios para reintentarlo.
+
+**Qué se busca lograr:** que el recorrido no dependa de tener la pantalla encendida, que no se mezclen dos rutas y que el equipo pueda detectar qué datos se enviaron, cuáles quedaron pendientes y qué límites todavía existen.
+
+---
+
+## Glosario técnico ampliado
+
+Los términos están agrupados por tema. Entre paréntesis se indica la sección del documento donde se aplican, cuando ayuda a ubicarlos.
+
+### Ubicación, GPS y muestreo
+
+- **GPS (Global Positioning System):** sistema de posicionamiento por satélite. El teléfono combina GPS, Wi-Fi y torres celulares para estimar la posición.
+- **GNSS (Global Navigation Satellite System):** término general que incluye GPS, GLONASS, Galileo y BeiDou. Cuando se habla de “GPS” en la app, en realidad se usa GNSS.
+- **A-GPS (Assisted GPS):** asistencia de la red celular para que el GPS encuentre satélites más rápido. Explica por qué el primer fix puede tardar más en interiores o en frío.
+- **Fix / posición:** una lectura concreta de latitud, longitud, precisión y timestamp. En este documento, “fix” y “muestra GPS” se usan como sinónimos.
+- **Timestamp del fix:** momento en que el dispositivo obtuvo la posición (`loc.timestamp`), no el momento en que se envía al backend. Es el dato correcto para reconstruir el recorrido.
+- **Latitud / longitud:** coordenadas geográficas en grados decimales. En el código se validan contra `MIN_LATITUDE`, `MAX_LATITUDE`, `MIN_LONGITUDE` y `MAX_LONGITUDE`.
+- **Precisión (`accuracy`):** radio de incertidumbre en metros. Un `accuracy` de 10 m significa que la posición real está, con alta probabilidad, dentro de un círculo de 10 m. Cuanto más alto el número, peor la lectura.
+- **Velocidad (`speed`):** velocidad instantánea en m/s que reporta el sistema. Puede venir `null` o negativa si no es válida; el código la normaliza con `Math.max(speed ?? 0, 0)`.
+- **Rumbo / heading:** dirección de movimiento en grados. No se usa para el informe actual, pero está disponible en `LocationObject`.
+- **Altitud / altitudAccuracy:** altura sobre el nivel del mar y su margen de error. No es relevante para este caso, pero viene en el objeto de ubicación.
+- **Track / traza / recorrido:** conjunto ordenado de posiciones que forma el camino dibujado en el mapa y el que se reconstruye en el informe.
+- **Sample / muestra:** un punto individual del track, con timestamp, coordenadas, velocidad y precisión. En el buffer se guarda como `BufferedSample`.
+- **Polyline:** representación codificada de una secuencia de coordenadas. El proyecto la usa para rutas FIXED_PATH (`decodePolyline`).
+- **Bounding box:** rectángulo geográfico mínimo/máximo de latitud y longitud. Sirve para descartar coordenadas imposibles o de otro país.
+- **Geofence / geocerca:** área virtual; el sistema avisa cuando el dispositivo entra o sale. No se usa en este fix, pero explica por qué expo-location tiene consumidores de geofencing.
+- **Drift / salto de posición:** error del GPS que ubica el punto a decenas o cientos de metros. El filtro de `accuracy` y el bounding box ayudan a mitigarlo.
+- **Cold start / TTFF (Time To First Fix):** tiempo que tarda el GPS en obtener la primera posición tras encenderse o tras mucho tiempo sin señal. Puede ser de varios minutos.
+- **Distance interval (`distanceInterval`):** distancia mínima en metros entre entregas de ubicación. En iOS es el filtro principal; con 10 m, el vehículo detenido no genera fixes.
+- **Time interval (`timeInterval`):** intervalo mínimo en milisegundos entre entregas. Es **Android-only** en expo-location; en iOS se ignora.
+- **Precisión deseada (`accuracy` / `desiredAccuracy`):** configuración de cuánta precisión pedirle al GPS. `High` en iOS equivale a “nearest 10 m”; `Highest` es la máxima precisión y consume más batería.
+- **Activity type (`AutomotiveNavigation`):** pista que se le da a iOS sobre el tipo de actividad para ajustar el comportamiento del GPS. En este caso, navegación vehicular.
+- **Pausas automáticas (`pausesUpdatesAutomatically`):** iOS puede pausar las actualizaciones si cree que el usuario se detuvo. Para una ruta de recolección se configura en `false`.
+- **Indicador de background (`showsBackgroundLocationIndicator`):** muestra el indicador del sistema cuando la app usa ubicación en segundo plano. Es obligatorio para transparencia en iOS.
+- **Significant location changes:** mecanismo de iOS de bajo consumo que despierta la app ante cambios importantes de celda. La task de expo-location lo combina con `startUpdatingLocation`.
+- **Deferred updates:** en iOS, la task nativa puede acumular ubicaciones y entregarlas en lote (`deferredUpdatesInterval`, `deferredUpdatesDistance`) para ahorrar batería.
+- **Watcher:** suscripción de ubicación en JavaScript (`watchPositionAsync`). Vive en el runtime de JS y muere cuando el sistema lo suspende o el proceso se cierra.
+- **Suscripción / subscription:** objeto que devuelve `watchPositionAsync` y que se debe liberar con `.remove()` para no dejar el GPS encendido.
+- **Heartbeat / latido:** muestra o señal periódica que demuestra que el registro sigue activo aunque el vehículo esté detenido. Sin heartbeat, un hueco en el informe puede significar “sin movimiento” o “GPS apagado”, y no se distingue.
+
+### iOS
+
+- **Core Location:** framework de Apple para ubicación. `CLLocationManager` es su clase principal.
+- **`CLLocationManager`:** objeto nativo que pide y recibe ubicaciones. expo-location crea uno para `watchPositionAsync` y otro para la task de background.
+- **`allowsBackgroundLocationUpdates`:** propiedad de `CLLocationManager` que habilita recibir ubicaciones con la app en segundo plano. En `watchPositionAsync` está en `NO`; en la task de background está en `YES`.
+- **`UIBackgroundModes`:** arreglo del `Info.plist` que declara los modos de background que usa la app. Para ubicación se agrega `location`.
+- **`Info.plist`:** archivo de configuración de la app iOS. El config plugin de expo-location lo modifica durante el prebuild.
+- **`NSLocationWhenInUseUsageDescription`:** texto que iOS muestra al pedir permiso “mientras uso la app”. Es obligatorio para ubicación en foreground.
+- **`NSLocationAlwaysAndWhenInUseUsageDescription`:** texto para el permiso “siempre”. Sin este permiso, la task no puede registrar en background.
+- **Permiso “Always” / “Permitir todo el tiempo”:** autorización de iOS para usar ubicación incluso con la app cerrada o en background. Se puede degradar si el usuario elige “while using”.
+- **Low Power Mode:** modo de ahorro de energía de iOS. Reduce la frecuencia de actualizaciones y puede posponer tareas; el buffer persistente evita perder lo ya capturado.
+- **Suspensión de la app:** estado en el que iOS congela el runtime de JS. Los timers y callbacks de JS no corren; solo las APIs nativas con background modes siguen despertando la app.
+- **Background fetch:** mecanismo de iOS para despertar la app periódicamente y hacer trabajo corto. No es confiable para tracking continuo; por eso se usa location updates.
+- **App Store review:** revisión de Apple. Usar ubicación en background exige justificación clara y textos de permiso; si no, puede rechazar la app.
+
+### Android
+
+- **Foreground Service (FGS):** servicio de Android que corre con una notificación persistente y tiene prioridad para no ser matado. Es lo que mantiene el tracking vivo en background.
+- **`foregroundServiceType`:** atributo del service que declara qué tipo de trabajo hace. Para ubicación debe ser `location`.
+- **`FOREGROUND_SERVICE`:** permiso base para iniciar un foreground service.
+- **`FOREGROUND_SERVICE_LOCATION`:** permiso específico de Android 14 para un FGS de tipo ubicación. Sin él, el servicio puede lanzar `SecurityException`.
+- **`POST_NOTIFICATIONS`:** permiso de Android 13+ para mostrar notificaciones. Sin él, la notificación del FGS puede no verse; el servicio igual puede correr, pero el conductor pierde la señal visual.
+- **`ACCESS_FINE_LOCATION`:** permiso de ubicación precisa.
+- **`ACCESS_COARSE_LOCATION`:** permiso de ubicación aproximada.
+- **`ACCESS_BACKGROUND_LOCATION`:** permiso de ubicación en background (Android 10+). En Android 11+ se concede desde ajustes, no con un simple diálogo.
+- **“Allow all the time” / “Permitir todo el tiempo”:** opción de Android para ubicación en background. Si el usuario elige “solo mientras uso la app”, la task no recibe fixes en background.
+- **Doze:** modo de bajo consumo de Android que pospone trabajo en background cuando el dispositivo está quieto. Un FGS está exento en general, pero la red y otros recursos pueden limitarse.
+- **App Standby:** clasificación de apps por uso que limita el trabajo en background de las menos usadas.
+- **Cached app freezer:** mecanismo de Android 11+ que congela procesos en caché. Un FGS evita que la app entre en ese estado.
+- **Optimización de batería del OEM:** capa adicional de fabricantes (Xiaomi, Samsung, Huawei, Oppo, Vivo) que puede matar la app aunque tenga FGS. Requiere instrucciones manuales al conductor.
+- **Wake lock:** bloqueo que impide que la CPU duerma. El proyecto ya declara `WAKE_LOCK`; no alcanza por sí solo para el tracking.
+- **`targetSdkVersion`:** versión de Android contra la que se compila y que activa comportamientos nuevos. Hoy es 34 (Android 14), por eso importa `FOREGROUND_SERVICE_LOCATION`.
+- **Manifest (`AndroidManifest.xml`):** archivo donde se declaran permisos, services, activities y metadatos. El manifest local se genera con prebuild.
+- **Process death:** muerte del proceso de la app por el sistema, el usuario o un crash. Es el escenario que el buffer persistente debe sobrevivir.
+- **Headless JS:** mecanismo de React Native/Android para ejecutar JavaScript sin interfaz, usado por las tareas de background.
+
+### Ejecución en background y tareas
+
+- **Runtime de JS:** instancia de JavaScript (Hermes o JSC) donde corre React Native. En iOS se suspende con la app en background; en Android puede congelarse o morir con el proceso.
+- **Task de background:** tarea registrada con `TaskManager.defineTask` que el sistema despierta para entregar datos, aunque la app no esté en primer plano.
+- **`TaskManager.defineTask`:** API de `expo-task-manager` que asocia un nombre de tarea con una función. Debe ejecutarse en el ámbito global del entry point, no dentro de un componente.
+- **Task consumer:** implementación nativa que sabe ejecutar un tipo de tarea. expo-location tiene un consumidor para `location`.
+- **Registro de task:** alta de la tarea en el sistema. Si no se registra antes de `startLocationUpdatesAsync`, el arranque falla.
+- **`AppState`:** API de React Native que informa `active`, `background` e `inactive`. Se usa para hacer flush al volver a foreground y para saber si la app está visible.
+- **Ciclo de vida (lifecycle):** secuencia montar → focus → background → foreground → desmontar. En este diseño, el desmontaje no debe detener el tracking.
+- **Throttling:** limitación de frecuencia con la que el sistema entrega eventos o permite trabajo. Explica por qué no conviene pedir updates cada segundo.
+- **Watchdog:** mecanismo que vigila si una tarea dejó de reportar y dispara una alerta o un reinicio. No está implementado; es una mejora posible.
+- **Task manager (SO):** componente del sistema operativo que decide cuándo despertar una app para una tarea registrada.
+
+### Persistencia, estado y buffer
+
+- **AsyncStorage:** almacenamiento clave-valor asíncrono de React Native. Persiste entre sesiones y procesos, pero no está cifrado; no sirve para tokens.
+- **Buffer:** colección temporal de muestras pendientes de envío. En este diseño vive en AsyncStorage, no en memoria.
+- **Batch / lote:** grupo de muestras que se envían juntas en un request. Se agrupa por `routeId` para no mezclar rutas.
+- **Contexto (`TrackingContext`):** datos que identifican a qué ruta pertenece un lote: `routeId`, `vehicleId`, `employeeId`, `routePlanTypeCode` y `deviceId`.
+- **Snapshot:** copia de los datos en un instante. El flush toma un snapshot para enviar sin bloquear la escritura de nuevas muestras.
+- **Redux store:** estado global en memoria de la app. Se pierde cuando el proceso muere; por eso no puede ser la única fuente de las muestras.
+- **Reducer:** función pura que recibe el estado anterior y una acción, y devuelve el estado nuevo. `positionSamplesSlice` y `offlineSlice` son reducers.
+- **Acción (`action`):** objeto con `type` y `payload` que describe un cambio. `actionLocationReport` es una acción.
+- **Dispatch:** envío de una acción al store. `dispatch(clearPositionSamples())` borra las muestras del estado.
+- **Middleware:** capa que intercepta acciones antes o después del reducer. `locationReportMiddleware` hace el POST y decide si encolar.
+- **Selector:** función que lee una parte del estado. `useSelector((state) => state.positionSamples.drawnSamples)` es un selector.
+- **Hidratación / hydration:** reconstruir el estado de la app a partir de datos persistidos. Hoy no existe para Redux.
+- **Persistencia:** guardar datos para que sobrevivan al cierre del proceso. AsyncStorage y Keychain son mecanismos de persistencia; Redux no.
+- **Serialización:** convertir objetos a texto/JSON para guardarlos. El buffer se serializa con `JSON.stringify`.
+- **`JSON.parse` / `JSON.stringify`:** funciones para convertir entre texto y objetos. Un JSON corrupto puede romper el buffer; por eso `readJson` atrapa errores y devuelve un fallback.
+- **Cuota de almacenamiento:** límite de datos que puede guardar la app. AsyncStorage en Android tiene límites prácticos de unos pocos MB.
+- **TTL (Time To Live):** tiempo de vida de un dato antes de descartarse. Se puede aplicar a lotes viejos del buffer.
+- **Dead code:** código que ya no se ejecuta o no tiene efecto. `AsyncStorage.removeItem('positionSamplesState')` es un ejemplo.
+
+### Red, APIs y sistemas distribuidos
+
+- **API:** interfaz de programación que expone el backend. La app consume endpoints HTTP.
+- **Endpoint:** URL concreta de la API. `POST /driver/route-executions/inform-position` es el endpoint de muestras.
+- **Request / response:** petición del cliente y respuesta del servidor.
+- **Payload / body:** datos que viajan en el request. Incluye `metadata`, `samples`, `vehicle_id`, `route_id`, etc.
+- **HTTP:** protocolo de comunicación. Los códigos de estado indican el resultado.
+- **HTTP 200:** éxito. El lote se puede borrar del buffer.
+- **HTTP 401:** no autorizado. Token ausente, vencido o inválido; reintentar sin renovar sesión no sirve.
+- **HTTP 4xx:** error del cliente (payload inválido, permisos, ruta inexistente). No se arregla reintentando igual.
+- **HTTP 5xx:** error del servidor. Tiene sentido reintentar más tarde.
+- **Timeout:** el servidor no respondió a tiempo. Es ambiguo: puede haber procesado el request o no. Por eso se necesita idempotencia.
+- **Retry / reintento:** volver a intentar un request que falló.
+- **Backoff:** espera creciente entre reintentos para no saturar al servidor. También ahorra batería.
+- **Backoff exponencial:** cada reintento espera el doble que el anterior, con un máximo.
+- **Idempotencia:** propiedad de un endpoint de producir el mismo efecto si se llama una o varias veces con el mismo payload.
+- **Idempotency key / `client_sample_id`:** identificador único que viaja en el request para que el backend detecte duplicados.
+- **Deduplicación / dedupe:** eliminar o ignorar registros repetidos. Sin dedupe, un reintento puede duplicar puntos en el informe.
+- **At-least-once:** garantía de que cada muestra se intenta enviar al menos una vez; puede haber duplicados.
+- **At-most-once:** garantía de que se envía como máximo una vez; puede haber pérdidas.
+- **Exactly-once:** garantía de que se envía exactamente una vez. Es muy costosa de implementar de punta a punta; en la práctica se logra con at-least-once + idempotencia.
+- **Cola / queue:** estructura FIFO de elementos pendientes. La cola offline actual es un array en memoria.
+- **Dead letter queue (DLQ):** cola separada para requests que fallaron definitivamente, para no bloquear los demás.
+- **Rate limiting:** límite de requests por unidad de tiempo que impone el servidor. Los lotes grandes al recuperar señal pueden chocar con este límite.
+- **Batching:** agrupar varias muestras en un solo request para reducir tráfico.
+- **Heartbeat:** señal periódica de vida. En este contexto, muestra o evento que indica que el GPS sigue activo aunque el vehículo no se mueva.
+- **`reported_at`:** timestamp del servidor cuando recibe la muestra. Sirve para ordenar el informe aunque los lotes lleguen tarde o desordenados.
+- **`ORDER BY`:** cláusula SQL para ordenar resultados. El informe debería ordenar por `reported_at` (o por el timestamp del fix, según el contrato).
+- **UTC:** tiempo universal coordinado. Evita ambigüedades de zona horaria.
+- **ISO 8601:** formato estándar de fecha/hora (`2026-11-03T12:34:56.000Z`). El código usa `toISOString()`.
+- **Clock skew:** diferencia entre el reloj del dispositivo y el del servidor. Puede generar timestamps futuros o pasados.
+- **Consistencia eventual:** los datos pueden tardar en estar completos, pero convergen. Un informe puede consultarse antes de que lleguen todos los lotes.
+- **Offline-first:** diseño que asume que la red puede faltar y prioriza guardar localmente para enviar después.
+- **Race condition:** dos operaciones que se intercalan y producen un resultado incorrecto. Ejemplo: el flush borra muestras mientras la task agrega una nueva.
+- **Mutex / lock:** mecanismo para que solo una operación acceda a un recurso a la vez. `withBufferLock` es un lock cooperativo.
+- **In-flight:** request o tarea que ya comenzó y todavía no terminó. `flushInFlight` evita dos flush simultáneos.
+- **Concurrencia:** ejecución de varias tareas que comparten recursos. Task, AppState y stop pueden llamar a flush a la vez.
+- **Transacción:** operación atómica que se completa o se revierte entera. AsyncStorage no ofrece transacciones; por eso el diseño tolera duplicados.
+- **Throughput:** cantidad de datos procesados por unidad de tiempo. Relevante para el backend cuando muchos vehículos sincronizan a la vez.
+
+### Expo, build y despliegue
+
+- **Expo SDK:** conjunto de paquetes y APIs de Expo. El proyecto usa SDK 51.
+- **Expo Go:** app de desarrollo que incluye un conjunto fijo de módulos nativos. No sirve para este fix porque no tiene la config nativa de background.
+- **Dev client / development build:** build propio de la app que incluye los módulos y la config nativa del proyecto. Es lo que hay que usar para probar background.
+- **Prebuild:** proceso que genera las carpetas `android/` e `ios/` a partir de `app.config.ts`. Se ejecuta con `npx expo prebuild`.
+- **Config plugin:** módulo que modifica la configuración nativa durante el prebuild (permisos, Info.plist, manifest, services). El plugin de `expo-location` es el que agrega `UIBackgroundModes` y `FOREGROUND_SERVICE_LOCATION`.
+- **EAS (Expo Application Services):** servicios en la nube de Expo para builds, updates y distribución.
+- **EAS Build:** build nativo en la nube. Es el camino recomendado para este cambio.
+- **EAS Update / OTA:** actualización de JavaScript sin volver a publicar en las tiendas. Solo funciona si el binario es compatible.
+- **`runtimeVersion`:** clave que determina qué binarios pueden recibir un OTA. Si cambia la config nativa, hay que bumpearla para no enviar código nuevo a binarios viejos.
+- **Channel:** canal de distribución de updates (development, preview, production).
+- **`versionCode` / `versionName`:** versión numérica y visible de la app en Android. Se incrementan en cada release.
+- **Manifest / `Info.plist`:** archivos nativos de configuración de Android e iOS. El prebuild los regenera.
+- **Gradle:** sistema de build de Android. `android/build.gradle` define `targetSdkVersion`, `compileSdkVersion`, etc.
+- **CocoaPods:** gestor de dependencias nativas de iOS. Se usa en el prebuild de iOS.
+- **Autolinking:** mecanismo que enlaza automáticamente los módulos nativos instalados. `expo-task-manager` ya está enlazado.
+- **Native module:** código nativo expuesto a JavaScript. `expo-location` y `expo-task-manager` son módulos nativos.
+- **Sentry:** plataforma de monitoreo de errores. El proyecto ya la integra.
+- **Feature flag:** interruptor para activar o desactivar una funcionalidad sin publicar de nuevo. Útil para un rollout gradual del nuevo tracking.
+- **Piloto / canary:** liberar el cambio a un grupo reducido antes de todos los usuarios.
+
+### Seguridad, identidad y privacidad
+
+- **Token:** credencial que autentica al usuario ante la API. En este proyecto es un JWT o similar enviado como `Bearer`.
+- **Bearer token:** esquema de autenticación donde el token se envía en el header `Authorization: Bearer <token>`.
+- **Keychain:** almacenamiento seguro de iOS. `react-native-keychain` también lo abstrae en Android usando Keystore.
+- **`setGenericPassword` / `getGenericPassword`:** API de `react-native-keychain` para guardar y recuperar credenciales. En el proyecto se guarda `username: 'token'`.
+- **Secure storage:** almacenamiento cifrado para secretos. AsyncStorage no lo es.
+- **IMEI (International Mobile Equipment Identity):** identificador físico del teléfono. No es accesible para apps normales en Android 10+ ni en iOS, y no debe usarse como identidad.
+- **Device ID / installation ID:** identificador estable de la instalación de la app, generado por la app o provisto por el sistema. Es la alternativa correcta al IMEI.
+- **UUID:** identificador único universal. Se puede generar una vez y guardar en AsyncStorage para identificar la instalación.
+- **PII (Personally Identifiable Information):** datos que permiten identificar a una persona. Las coordenadas y los recorridos son datos sensibles; no deben loguearse en producción.
+- **Anonimización / minimización:** guardar solo lo necesario y evitar datos personales en logs. Aplica a coordenadas, rutas y empleados.
+- **Permiso en runtime:** autorización que el usuario concede mientras usa la app (ubicación, notificaciones, cámara). Puede revocarse en cualquier momento.
+- **Consentimiento:** aceptación explícita del usuario para usar ubicación en background. La app debe explicar para qué y permitir revocarlo.
+
+### Términos propios de este proyecto
+
+- **Ruta / route execution:** entidad del backend que representa una ruta asignada a un vehículo y un empleado. Tiene `routeId`, estado y sitios.
+- **`RouteNavigation`:** pantalla de navegación activa. Hoy contiene los dos watchers y `Report()`.
+- **`RouteDetail`:** pantalla de detalle/inicio/reanudación de una ruta.
+- **`RouteCollect`:** pantalla de listado de rutas del día.
+- **`RouteEnd` / `RouteEndScreen`:** pantalla de confirmación posterior a suspender, abortar o finalizar. Redirige a `RouteCollect` a los 5 segundos.
+- **Suspender:** acción de negocio que pausa la ruta. Debe detener el tracking y hacer flush.
+- **Reanudar / resume:** volver a poner la ruta en progreso. Debe iniciar tracking de nuevo.
+- **Abortar:** cancelar la ruta. Debe detener el tracking y hacer flush.
+- **Finalizar / end:** completar la ruta. Debe detener el tracking y hacer flush.
+- **Omitir / ignore / skip:** acciones sobre un sitio de la ruta. No afectan al tracking directamente.
+- **Collect / visit:** marcar un sitio como recolectado o visitado.
+- **`route_plan_type_code`:** tipo de plan de ruta. `FIXED_PATH` usa polyline y markers de puntos GPS; otros planes usan la navegación dinámica.
+- **`positionSamples`:** array de muestras pendientes en Redux. Hoy es la fuente de `Report()`.
+- **`drawnSamples`:** array de muestras que se dibujan en el mapa. No se limpia con `clearPositionSamples()`; se limpia con `clearDrawnSamples()`.
+- **`Report()`:** función actual que toma las muestras de Redux, las envía y las borra. Debe desaparecer del camino de envío.
+- **`inform-position`:** endpoint del backend que recibe las muestras (`locationReport`).
+- **`locationReport()`:** función de `Service.ts` que hace el POST. Firma posicional: `(metadata, vehicle_id, timestamp, samples, routeId, employee_id, route_plan_type_code)`.
+- **`flush`:** enviar al backend las muestras acumuladas en el buffer.
+- **`flushBuffer()`:** función propuesta que lee el buffer, agrupa por ruta, envía y borra solo lo confirmado.
+- **`startTracking()` / `stopTracking()`:** funciones propuestas para iniciar y detener la task, con permisos y flush.
+- **`LOCATION_TASK`:** nombre constante de la task (`ROUTE_LOCATION_TASK`).
+- **`activeContext`:** contexto de la ruta que está registrando en este momento. Si es `null`, la task ignora los fixes.
+- **`PendingBatch`:** lote pendiente de una ruta, con su contexto y sus muestras.
+- **`startedAt`:** timestamp de inicio de la ruta activa. Sirve para descartar fixes viejos que llegaron tarde.
+- **Choke point:** único lugar por donde pasan todos los flujos de inicio de ruta. En este diseño, el mount de `RouteNavigation`.
+- **`withBufferLock`:** lock cooperativo propuesto para serializar lecturas/escrituras del buffer.
+- **`flushInFlight`:** promesa que evita lanzar dos flush simultáneos.
+- **`clearTrackingBuffer()`:** función propuesta para borrar todos los lotes al cerrar sesión.
+- **`getDeviceId()`:** función propuesta para obtener un id estable de instalación.
+
+### Acrónimos y siglas
+
+| Sigla | Significado | Contexto |
+|---|---|---|
+| GPS | Global Positioning System | Ubicación por satélite |
+| GNSS | Global Navigation Satellite System | Familia de sistemas (GPS, Galileo, etc.) |
+| A-GPS | Assisted GPS | Asistencia de red para el primer fix |
+| FGS | Foreground Service | Servicio Android con notificación persistente |
+| OEM | Original Equipment Manufacturer | Fabricante del teléfono (Xiaomi, Samsung, etc.) |
+| OTA | Over-The-Air | Actualización de JS sin tienda |
+| EAS | Expo Application Services | Builds y updates en la nube |
+| SDK | Software Development Kit | Conjunto de herramientas/paquetes |
+| API | Application Programming Interface | Interfaz del backend |
+| RN | React Native | Framework de la app |
+| JS | JavaScript | Lenguaje del runtime |
+| TS | TypeScript | Lenguaje tipado del proyecto |
+| UI | User Interface | Interfaz visual |
+| UX | User Experience | Experiencia de usuario |
+| QA | Quality Assurance | Pruebas de calidad |
+| PII | Personally Identifiable Information | Datos personales/sensibles |
+| UTC | Coordinated Universal Time | Zona horaria de referencia |
+| ISO | International Organization for Standardization | Organismo que define formatos como ISO 8601 |
+| HTTP | Hypertext Transfer Protocol | Protocolo de red |
+| JSON | JavaScript Object Notation | Formato de serialización |
+| UUID | Universally Unique Identifier | Identificador único |
+| TTL | Time To Live | Tiempo de vida de un dato |
+| DLQ | Dead Letter Queue | Cola de mensajes fallidos |
+| JWT | JSON Web Token | Formato común de token de autenticación |
+| DB | Database | Base de datos |
+| CI/CD | Continuous Integration / Continuous Delivery | Automatización de builds y despliegues |
+| TTFF | Time To First Fix | Tiempo hasta la primera posición GPS |
+
+---
+
 ## Índice
 
+- [Explicación sencilla](#-antes-de-empezar-explicación-sencilla)
+- [Glosario técnico ampliado](#glosario-técnico-ampliado)
 - [1. Resumen ejecutivo](#1-resumen-ejecutivo)
 - [2. Alcance y fuentes revisadas](#2-alcance-y-fuentes-revisadas)
 - [3. Cómo funciona hoy](#3-cómo-funciona-hoy)
@@ -71,24 +333,13 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 - [14. Decisiones abiertas](#14-decisiones-abiertas)
 - [15. Checklist de implementación](#15-checklist-de-implementación)
 - [16. Anexo: cómo verificar rápido que el fix funciona](#16-anexo-cómo-verificar-rápido-que-el-fix-funciona)
-- [17. Glosario técnico ampliado](#17-glosario-técnico-ampliado)
-  - [17.1 Ubicación, GPS y muestreo](#171-ubicación-gps-y-muestreo)
-  - [17.2 iOS](#172-ios)
-  - [17.3 Android](#173-android)
-  - [17.4 Ejecución en background y tareas](#174-ejecución-en-background-y-tareas)
-  - [17.5 Persistencia, estado y buffer](#175-persistencia-estado-y-buffer)
-  - [17.6 Red, APIs y sistemas distribuidos](#176-red-apis-y-sistemas-distribuidos)
-  - [17.7 Expo, build y despliegue](#177-expo-build-y-despliegue)
-  - [17.8 Seguridad, identidad y privacidad](#178-seguridad-identidad-y-privacidad)
-  - [17.9 Términos propios de este proyecto](#179-términos-propios-de-este-proyecto)
-  - [17.10 Acrónimos y siglas](#1710-acrónimos-y-siglas)
 
 ### Ruta de lectura recomendada
 
 - **Solo quiero entender el problema:** §3, §4 y §5.
 - **Voy a implementar el fix:** §7, §9 y §15.
 - **Necesito decidir alcance o prioridades:** §6, §10 y §14.
-- **Busco vocabulario o contexto técnico:** §17.
+- **Busco vocabulario o contexto técnico:** el glosario técnico.
 - **Voy a probar o desplegar:** §11 y §12.
 
 ---
@@ -1214,248 +1465,3 @@ Si los pasos 3–7 funcionan en dispositivos reales, el núcleo del problema est
 
 ---
 
-## 17. Glosario técnico ampliado
-
-Los términos están agrupados por tema. Entre paréntesis se indica la sección del documento donde se aplican, cuando ayuda a ubicarlos.
-
-### 17.1 Ubicación, GPS y muestreo
-
-- **GPS (Global Positioning System):** sistema de posicionamiento por satélite. El teléfono combina GPS, Wi-Fi y torres celulares para estimar la posición.
-- **GNSS (Global Navigation Satellite System):** término general que incluye GPS, GLONASS, Galileo y BeiDou. Cuando se habla de “GPS” en la app, en realidad se usa GNSS.
-- **A-GPS (Assisted GPS):** asistencia de la red celular para que el GPS encuentre satélites más rápido. Explica por qué el primer fix puede tardar más en interiores o en frío.
-- **Fix / posición:** una lectura concreta de latitud, longitud, precisión y timestamp. En este documento, “fix” y “muestra GPS” se usan como sinónimos.
-- **Timestamp del fix:** momento en que el dispositivo obtuvo la posición (`loc.timestamp`), no el momento en que se envía al backend. Es el dato correcto para reconstruir el recorrido.
-- **Latitud / longitud:** coordenadas geográficas en grados decimales. En el código se validan contra `MIN_LATITUDE`, `MAX_LATITUDE`, `MIN_LONGITUDE` y `MAX_LONGITUDE`.
-- **Precisión (`accuracy`):** radio de incertidumbre en metros. Un `accuracy` de 10 m significa que la posición real está, con alta probabilidad, dentro de un círculo de 10 m. Cuanto más alto el número, peor la lectura.
-- **Velocidad (`speed`):** velocidad instantánea en m/s que reporta el sistema. Puede venir `null` o negativa si no es válida; el código la normaliza con `Math.max(speed ?? 0, 0)`.
-- **Rumbo / heading:** dirección de movimiento en grados. No se usa para el informe actual, pero está disponible en `LocationObject`.
-- **Altitud / altitudAccuracy:** altura sobre el nivel del mar y su margen de error. No es relevante para este caso, pero viene en el objeto de ubicación.
-- **Track / traza / recorrido:** conjunto ordenado de posiciones que forma el camino dibujado en el mapa y el que se reconstruye en el informe.
-- **Sample / muestra:** un punto individual del track, con timestamp, coordenadas, velocidad y precisión. En el buffer se guarda como `BufferedSample`.
-- **Polyline:** representación codificada de una secuencia de coordenadas. El proyecto la usa para rutas FIXED_PATH (`decodePolyline`).
-- **Bounding box:** rectángulo geográfico mínimo/máximo de latitud y longitud. Sirve para descartar coordenadas imposibles o de otro país.
-- **Geofence / geocerca:** área virtual; el sistema avisa cuando el dispositivo entra o sale. No se usa en este fix, pero explica por qué expo-location tiene consumidores de geofencing.
-- **Drift / salto de posición:** error del GPS que ubica el punto a decenas o cientos de metros. El filtro de `accuracy` y el bounding box ayudan a mitigarlo.
-- **Cold start / TTFF (Time To First Fix):** tiempo que tarda el GPS en obtener la primera posición tras encenderse o tras mucho tiempo sin señal. Puede ser de varios minutos.
-- **Distance interval (`distanceInterval`):** distancia mínima en metros entre entregas de ubicación. En iOS es el filtro principal; con 10 m, el vehículo detenido no genera fixes.
-- **Time interval (`timeInterval`):** intervalo mínimo en milisegundos entre entregas. Es **Android-only** en expo-location; en iOS se ignora.
-- **Precisión deseada (`accuracy` / `desiredAccuracy`):** configuración de cuánta precisión pedirle al GPS. `High` en iOS equivale a “nearest 10 m”; `Highest` es la máxima precisión y consume más batería.
-- **Activity type (`AutomotiveNavigation`):** pista que se le da a iOS sobre el tipo de actividad para ajustar el comportamiento del GPS. En este caso, navegación vehicular.
-- **Pausas automáticas (`pausesUpdatesAutomatically`):** iOS puede pausar las actualizaciones si cree que el usuario se detuvo. Para una ruta de recolección se configura en `false`.
-- **Indicador de background (`showsBackgroundLocationIndicator`):** muestra el indicador del sistema cuando la app usa ubicación en segundo plano. Es obligatorio para transparencia en iOS.
-- **Significant location changes:** mecanismo de iOS de bajo consumo que despierta la app ante cambios importantes de celda. La task de expo-location lo combina con `startUpdatingLocation`.
-- **Deferred updates:** en iOS, la task nativa puede acumular ubicaciones y entregarlas en lote (`deferredUpdatesInterval`, `deferredUpdatesDistance`) para ahorrar batería.
-- **Watcher:** suscripción de ubicación en JavaScript (`watchPositionAsync`). Vive en el runtime de JS y muere cuando el sistema lo suspende o el proceso se cierra.
-- **Suscripción / subscription:** objeto que devuelve `watchPositionAsync` y que se debe liberar con `.remove()` para no dejar el GPS encendido.
-- **Heartbeat / latido:** muestra o señal periódica que demuestra que el registro sigue activo aunque el vehículo esté detenido. Sin heartbeat, un hueco en el informe puede significar “sin movimiento” o “GPS apagado”, y no se distingue.
-
-### 17.2 iOS
-
-- **Core Location:** framework de Apple para ubicación. `CLLocationManager` es su clase principal.
-- **`CLLocationManager`:** objeto nativo que pide y recibe ubicaciones. expo-location crea uno para `watchPositionAsync` y otro para la task de background.
-- **`allowsBackgroundLocationUpdates`:** propiedad de `CLLocationManager` que habilita recibir ubicaciones con la app en segundo plano. En `watchPositionAsync` está en `NO`; en la task de background está en `YES`.
-- **`UIBackgroundModes`:** arreglo del `Info.plist` que declara los modos de background que usa la app. Para ubicación se agrega `location`.
-- **`Info.plist`:** archivo de configuración de la app iOS. El config plugin de expo-location lo modifica durante el prebuild.
-- **`NSLocationWhenInUseUsageDescription`:** texto que iOS muestra al pedir permiso “mientras uso la app”. Es obligatorio para ubicación en foreground.
-- **`NSLocationAlwaysAndWhenInUseUsageDescription`:** texto para el permiso “siempre”. Sin este permiso, la task no puede registrar en background.
-- **Permiso “Always” / “Permitir todo el tiempo”:** autorización de iOS para usar ubicación incluso con la app cerrada o en background. Se puede degradar si el usuario elige “while using”.
-- **Low Power Mode:** modo de ahorro de energía de iOS. Reduce la frecuencia de actualizaciones y puede posponer tareas; el buffer persistente evita perder lo ya capturado.
-- **Suspensión de la app:** estado en el que iOS congela el runtime de JS. Los timers y callbacks de JS no corren; solo las APIs nativas con background modes siguen despertando la app.
-- **Background fetch:** mecanismo de iOS para despertar la app periódicamente y hacer trabajo corto. No es confiable para tracking continuo; por eso se usa location updates.
-- **App Store review:** revisión de Apple. Usar ubicación en background exige justificación clara y textos de permiso; si no, puede rechazar la app.
-
-### 17.3 Android
-
-- **Foreground Service (FGS):** servicio de Android que corre con una notificación persistente y tiene prioridad para no ser matado. Es lo que mantiene el tracking vivo en background.
-- **`foregroundServiceType`:** atributo del service que declara qué tipo de trabajo hace. Para ubicación debe ser `location`.
-- **`FOREGROUND_SERVICE`:** permiso base para iniciar un foreground service.
-- **`FOREGROUND_SERVICE_LOCATION`:** permiso específico de Android 14 para un FGS de tipo ubicación. Sin él, el servicio puede lanzar `SecurityException`.
-- **`POST_NOTIFICATIONS`:** permiso de Android 13+ para mostrar notificaciones. Sin él, la notificación del FGS puede no verse; el servicio igual puede correr, pero el conductor pierde la señal visual.
-- **`ACCESS_FINE_LOCATION`:** permiso de ubicación precisa.
-- **`ACCESS_COARSE_LOCATION`:** permiso de ubicación aproximada.
-- **`ACCESS_BACKGROUND_LOCATION`:** permiso de ubicación en background (Android 10+). En Android 11+ se concede desde ajustes, no con un simple diálogo.
-- **“Allow all the time” / “Permitir todo el tiempo”:** opción de Android para ubicación en background. Si el usuario elige “solo mientras uso la app”, la task no recibe fixes en background.
-- **Doze:** modo de bajo consumo de Android que pospone trabajo en background cuando el dispositivo está quieto. Un FGS está exento en general, pero la red y otros recursos pueden limitarse.
-- **App Standby:** clasificación de apps por uso que limita el trabajo en background de las menos usadas.
-- **Cached app freezer:** mecanismo de Android 11+ que congela procesos en caché. Un FGS evita que la app entre en ese estado.
-- **Optimización de batería del OEM:** capa adicional de fabricantes (Xiaomi, Samsung, Huawei, Oppo, Vivo) que puede matar la app aunque tenga FGS. Requiere instrucciones manuales al conductor.
-- **Wake lock:** bloqueo que impide que la CPU duerma. El proyecto ya declara `WAKE_LOCK`; no alcanza por sí solo para el tracking.
-- **`targetSdkVersion`:** versión de Android contra la que se compila y que activa comportamientos nuevos. Hoy es 34 (Android 14), por eso importa `FOREGROUND_SERVICE_LOCATION`.
-- **Manifest (`AndroidManifest.xml`):** archivo donde se declaran permisos, services, activities y metadatos. El manifest local se genera con prebuild.
-- **Process death:** muerte del proceso de la app por el sistema, el usuario o un crash. Es el escenario que el buffer persistente debe sobrevivir.
-- **Headless JS:** mecanismo de React Native/Android para ejecutar JavaScript sin interfaz, usado por las tareas de background.
-
-### 17.4 Ejecución en background y tareas
-
-- **Runtime de JS:** instancia de JavaScript (Hermes o JSC) donde corre React Native. En iOS se suspende con la app en background; en Android puede congelarse o morir con el proceso.
-- **Task de background:** tarea registrada con `TaskManager.defineTask` que el sistema despierta para entregar datos, aunque la app no esté en primer plano.
-- **`TaskManager.defineTask`:** API de `expo-task-manager` que asocia un nombre de tarea con una función. Debe ejecutarse en el ámbito global del entry point, no dentro de un componente.
-- **Task consumer:** implementación nativa que sabe ejecutar un tipo de tarea. expo-location tiene un consumidor para `location`.
-- **Registro de task:** alta de la tarea en el sistema. Si no se registra antes de `startLocationUpdatesAsync`, el arranque falla.
-- **`AppState`:** API de React Native que informa `active`, `background` e `inactive`. Se usa para hacer flush al volver a foreground y para saber si la app está visible.
-- **Ciclo de vida (lifecycle):** secuencia montar → focus → background → foreground → desmontar. En este diseño, el desmontaje no debe detener el tracking.
-- **Throttling:** limitación de frecuencia con la que el sistema entrega eventos o permite trabajo. Explica por qué no conviene pedir updates cada segundo.
-- **Watchdog:** mecanismo que vigila si una tarea dejó de reportar y dispara una alerta o un reinicio. No está implementado; es una mejora posible.
-- **Task manager (SO):** componente del sistema operativo que decide cuándo despertar una app para una tarea registrada.
-
-### 17.5 Persistencia, estado y buffer
-
-- **AsyncStorage:** almacenamiento clave-valor asíncrono de React Native. Persiste entre sesiones y procesos, pero no está cifrado; no sirve para tokens.
-- **Buffer:** colección temporal de muestras pendientes de envío. En este diseño vive en AsyncStorage, no en memoria.
-- **Batch / lote:** grupo de muestras que se envían juntas en un request. Se agrupa por `routeId` para no mezclar rutas.
-- **Contexto (`TrackingContext`):** datos que identifican a qué ruta pertenece un lote: `routeId`, `vehicleId`, `employeeId`, `routePlanTypeCode` y `deviceId`.
-- **Snapshot:** copia de los datos en un instante. El flush toma un snapshot para enviar sin bloquear la escritura de nuevas muestras.
-- **Redux store:** estado global en memoria de la app. Se pierde cuando el proceso muere; por eso no puede ser la única fuente de las muestras.
-- **Reducer:** función pura que recibe el estado anterior y una acción, y devuelve el estado nuevo. `positionSamplesSlice` y `offlineSlice` son reducers.
-- **Acción (`action`):** objeto con `type` y `payload` que describe un cambio. `actionLocationReport` es una acción.
-- **Dispatch:** envío de una acción al store. `dispatch(clearPositionSamples())` borra las muestras del estado.
-- **Middleware:** capa que intercepta acciones antes o después del reducer. `locationReportMiddleware` hace el POST y decide si encolar.
-- **Selector:** función que lee una parte del estado. `useSelector((state) => state.positionSamples.drawnSamples)` es un selector.
-- **Hidratación / hydration:** reconstruir el estado de la app a partir de datos persistidos. Hoy no existe para Redux.
-- **Persistencia:** guardar datos para que sobrevivan al cierre del proceso. AsyncStorage y Keychain son mecanismos de persistencia; Redux no.
-- **Serialización:** convertir objetos a texto/JSON para guardarlos. El buffer se serializa con `JSON.stringify`.
-- **`JSON.parse` / `JSON.stringify`:** funciones para convertir entre texto y objetos. Un JSON corrupto puede romper el buffer; por eso `readJson` atrapa errores y devuelve un fallback.
-- **Cuota de almacenamiento:** límite de datos que puede guardar la app. AsyncStorage en Android tiene límites prácticos de unos pocos MB.
-- **TTL (Time To Live):** tiempo de vida de un dato antes de descartarse. Se puede aplicar a lotes viejos del buffer.
-- **Dead code:** código que ya no se ejecuta o no tiene efecto. `AsyncStorage.removeItem('positionSamplesState')` es un ejemplo.
-
-### 17.6 Red, APIs y sistemas distribuidos
-
-- **API:** interfaz de programación que expone el backend. La app consume endpoints HTTP.
-- **Endpoint:** URL concreta de la API. `POST /driver/route-executions/inform-position` es el endpoint de muestras.
-- **Request / response:** petición del cliente y respuesta del servidor.
-- **Payload / body:** datos que viajan en el request. Incluye `metadata`, `samples`, `vehicle_id`, `route_id`, etc.
-- **HTTP:** protocolo de comunicación. Los códigos de estado indican el resultado.
-- **HTTP 200:** éxito. El lote se puede borrar del buffer.
-- **HTTP 401:** no autorizado. Token ausente, vencido o inválido; reintentar sin renovar sesión no sirve.
-- **HTTP 4xx:** error del cliente (payload inválido, permisos, ruta inexistente). No se arregla reintentando igual.
-- **HTTP 5xx:** error del servidor. Tiene sentido reintentar más tarde.
-- **Timeout:** el servidor no respondió a tiempo. Es ambiguo: puede haber procesado el request o no. Por eso se necesita idempotencia.
-- **Retry / reintento:** volver a intentar un request que falló.
-- **Backoff:** espera creciente entre reintentos para no saturar al servidor. También ahorra batería.
-- **Backoff exponencial:** cada reintento espera el doble que el anterior, con un máximo.
-- **Idempotencia:** propiedad de un endpoint de producir el mismo efecto si se llama una o varias veces con el mismo payload.
-- **Idempotency key / `client_sample_id`:** identificador único que viaja en el request para que el backend detecte duplicados.
-- **Deduplicación / dedupe:** eliminar o ignorar registros repetidos. Sin dedupe, un reintento puede duplicar puntos en el informe.
-- **At-least-once:** garantía de que cada muestra se intenta enviar al menos una vez; puede haber duplicados.
-- **At-most-once:** garantía de que se envía como máximo una vez; puede haber pérdidas.
-- **Exactly-once:** garantía de que se envía exactamente una vez. Es muy costosa de implementar de punta a punta; en la práctica se logra con at-least-once + idempotencia.
-- **Cola / queue:** estructura FIFO de elementos pendientes. La cola offline actual es un array en memoria.
-- **Dead letter queue (DLQ):** cola separada para requests que fallaron definitivamente, para no bloquear los demás.
-- **Rate limiting:** límite de requests por unidad de tiempo que impone el servidor. Los lotes grandes al recuperar señal pueden chocar con este límite.
-- **Batching:** agrupar varias muestras en un solo request para reducir tráfico.
-- **Heartbeat:** señal periódica de vida. En este contexto, muestra o evento que indica que el GPS sigue activo aunque el vehículo no se mueva.
-- **`reported_at`:** timestamp del servidor cuando recibe la muestra. Sirve para ordenar el informe aunque los lotes lleguen tarde o desordenados.
-- **`ORDER BY`:** cláusula SQL para ordenar resultados. El informe debería ordenar por `reported_at` (o por el timestamp del fix, según el contrato).
-- **UTC:** tiempo universal coordinado. Evita ambigüedades de zona horaria.
-- **ISO 8601:** formato estándar de fecha/hora (`2026-11-03T12:34:56.000Z`). El código usa `toISOString()`.
-- **Clock skew:** diferencia entre el reloj del dispositivo y el del servidor. Puede generar timestamps futuros o pasados.
-- **Consistencia eventual:** los datos pueden tardar en estar completos, pero convergen. Un informe puede consultarse antes de que lleguen todos los lotes.
-- **Offline-first:** diseño que asume que la red puede faltar y prioriza guardar localmente para enviar después.
-- **Race condition:** dos operaciones que se intercalan y producen un resultado incorrecto. Ejemplo: el flush borra muestras mientras la task agrega una nueva.
-- **Mutex / lock:** mecanismo para que solo una operación acceda a un recurso a la vez. `withBufferLock` es un lock cooperativo.
-- **In-flight:** request o tarea que ya comenzó y todavía no terminó. `flushInFlight` evita dos flush simultáneos.
-- **Concurrencia:** ejecución de varias tareas que comparten recursos. Task, AppState y stop pueden llamar a flush a la vez.
-- **Transacción:** operación atómica que se completa o se revierte entera. AsyncStorage no ofrece transacciones; por eso el diseño tolera duplicados.
-- **Throughput:** cantidad de datos procesados por unidad de tiempo. Relevante para el backend cuando muchos vehículos sincronizan a la vez.
-
-### 17.7 Expo, build y despliegue
-
-- **Expo SDK:** conjunto de paquetes y APIs de Expo. El proyecto usa SDK 51.
-- **Expo Go:** app de desarrollo que incluye un conjunto fijo de módulos nativos. No sirve para este fix porque no tiene la config nativa de background.
-- **Dev client / development build:** build propio de la app que incluye los módulos y la config nativa del proyecto. Es lo que hay que usar para probar background.
-- **Prebuild:** proceso que genera las carpetas `android/` e `ios/` a partir de `app.config.ts`. Se ejecuta con `npx expo prebuild`.
-- **Config plugin:** módulo que modifica la configuración nativa durante el prebuild (permisos, Info.plist, manifest, services). El plugin de `expo-location` es el que agrega `UIBackgroundModes` y `FOREGROUND_SERVICE_LOCATION`.
-- **EAS (Expo Application Services):** servicios en la nube de Expo para builds, updates y distribución.
-- **EAS Build:** build nativo en la nube. Es el camino recomendado para este cambio.
-- **EAS Update / OTA:** actualización de JavaScript sin volver a publicar en las tiendas. Solo funciona si el binario es compatible.
-- **`runtimeVersion`:** clave que determina qué binarios pueden recibir un OTA. Si cambia la config nativa, hay que bumpearla para no enviar código nuevo a binarios viejos.
-- **Channel:** canal de distribución de updates (development, preview, production).
-- **`versionCode` / `versionName`:** versión numérica y visible de la app en Android. Se incrementan en cada release.
-- **Manifest / `Info.plist`:** archivos nativos de configuración de Android e iOS. El prebuild los regenera.
-- **Gradle:** sistema de build de Android. `android/build.gradle` define `targetSdkVersion`, `compileSdkVersion`, etc.
-- **CocoaPods:** gestor de dependencias nativas de iOS. Se usa en el prebuild de iOS.
-- **Autolinking:** mecanismo que enlaza automáticamente los módulos nativos instalados. `expo-task-manager` ya está enlazado.
-- **Native module:** código nativo expuesto a JavaScript. `expo-location` y `expo-task-manager` son módulos nativos.
-- **Sentry:** plataforma de monitoreo de errores. El proyecto ya la integra.
-- **Feature flag:** interruptor para activar o desactivar una funcionalidad sin publicar de nuevo. Útil para un rollout gradual del nuevo tracking.
-- **Piloto / canary:** liberar el cambio a un grupo reducido antes de todos los usuarios.
-
-### 17.8 Seguridad, identidad y privacidad
-
-- **Token:** credencial que autentica al usuario ante la API. En este proyecto es un JWT o similar enviado como `Bearer`.
-- **Bearer token:** esquema de autenticación donde el token se envía en el header `Authorization: Bearer <token>`.
-- **Keychain:** almacenamiento seguro de iOS. `react-native-keychain` también lo abstrae en Android usando Keystore.
-- **`setGenericPassword` / `getGenericPassword`:** API de `react-native-keychain` para guardar y recuperar credenciales. En el proyecto se guarda `username: 'token'`.
-- **Secure storage:** almacenamiento cifrado para secretos. AsyncStorage no lo es.
-- **IMEI (International Mobile Equipment Identity):** identificador físico del teléfono. No es accesible para apps normales en Android 10+ ni en iOS, y no debe usarse como identidad.
-- **Device ID / installation ID:** identificador estable de la instalación de la app, generado por la app o provisto por el sistema. Es la alternativa correcta al IMEI.
-- **UUID:** identificador único universal. Se puede generar una vez y guardar en AsyncStorage para identificar la instalación.
-- **PII (Personally Identifiable Information):** datos que permiten identificar a una persona. Las coordenadas y los recorridos son datos sensibles; no deben loguearse en producción.
-- **Anonimización / minimización:** guardar solo lo necesario y evitar datos personales en logs. Aplica a coordenadas, rutas y empleados.
-- **Permiso en runtime:** autorización que el usuario concede mientras usa la app (ubicación, notificaciones, cámara). Puede revocarse en cualquier momento.
-- **Consentimiento:** aceptación explícita del usuario para usar ubicación en background. La app debe explicar para qué y permitir revocarlo.
-
-### 17.9 Términos propios de este proyecto
-
-- **Ruta / route execution:** entidad del backend que representa una ruta asignada a un vehículo y un empleado. Tiene `routeId`, estado y sitios.
-- **`RouteNavigation`:** pantalla de navegación activa. Hoy contiene los dos watchers y `Report()`.
-- **`RouteDetail`:** pantalla de detalle/inicio/reanudación de una ruta.
-- **`RouteCollect`:** pantalla de listado de rutas del día.
-- **`RouteEnd` / `RouteEndScreen`:** pantalla de confirmación posterior a suspender, abortar o finalizar. Redirige a `RouteCollect` a los 5 segundos.
-- **Suspender:** acción de negocio que pausa la ruta. Debe detener el tracking y hacer flush.
-- **Reanudar / resume:** volver a poner la ruta en progreso. Debe iniciar tracking de nuevo.
-- **Abortar:** cancelar la ruta. Debe detener el tracking y hacer flush.
-- **Finalizar / end:** completar la ruta. Debe detener el tracking y hacer flush.
-- **Omitir / ignore / skip:** acciones sobre un sitio de la ruta. No afectan al tracking directamente.
-- **Collect / visit:** marcar un sitio como recolectado o visitado.
-- **`route_plan_type_code`:** tipo de plan de ruta. `FIXED_PATH` usa polyline y markers de puntos GPS; otros planes usan la navegación dinámica.
-- **`positionSamples`:** array de muestras pendientes en Redux. Hoy es la fuente de `Report()`.
-- **`drawnSamples`:** array de muestras que se dibujan en el mapa. No se limpia con `clearPositionSamples()`; se limpia con `clearDrawnSamples()`.
-- **`Report()`:** función actual que toma las muestras de Redux, las envía y las borra. Debe desaparecer del camino de envío.
-- **`inform-position`:** endpoint del backend que recibe las muestras (`locationReport`).
-- **`locationReport()`:** función de `Service.ts` que hace el POST. Firma posicional: `(metadata, vehicle_id, timestamp, samples, routeId, employee_id, route_plan_type_code)`.
-- **`flush`:** enviar al backend las muestras acumuladas en el buffer.
-- **`flushBuffer()`:** función propuesta que lee el buffer, agrupa por ruta, envía y borra solo lo confirmado.
-- **`startTracking()` / `stopTracking()`:** funciones propuestas para iniciar y detener la task, con permisos y flush.
-- **`LOCATION_TASK`:** nombre constante de la task (`ROUTE_LOCATION_TASK`).
-- **`activeContext`:** contexto de la ruta que está registrando en este momento. Si es `null`, la task ignora los fixes.
-- **`PendingBatch`:** lote pendiente de una ruta, con su contexto y sus muestras.
-- **`startedAt`:** timestamp de inicio de la ruta activa. Sirve para descartar fixes viejos que llegaron tarde.
-- **Choke point:** único lugar por donde pasan todos los flujos de inicio de ruta. En este diseño, el mount de `RouteNavigation`.
-- **`withBufferLock`:** lock cooperativo propuesto para serializar lecturas/escrituras del buffer.
-- **`flushInFlight`:** promesa que evita lanzar dos flush simultáneos.
-- **`clearTrackingBuffer()`:** función propuesta para borrar todos los lotes al cerrar sesión.
-- **`getDeviceId()`:** función propuesta para obtener un id estable de instalación.
-
-### 17.10 Acrónimos y siglas
-
-| Sigla | Significado | Contexto |
-|---|---|---|
-| GPS | Global Positioning System | Ubicación por satélite |
-| GNSS | Global Navigation Satellite System | Familia de sistemas (GPS, Galileo, etc.) |
-| A-GPS | Assisted GPS | Asistencia de red para el primer fix |
-| FGS | Foreground Service | Servicio Android con notificación persistente |
-| OEM | Original Equipment Manufacturer | Fabricante del teléfono (Xiaomi, Samsung, etc.) |
-| OTA | Over-The-Air | Actualización de JS sin tienda |
-| EAS | Expo Application Services | Builds y updates en la nube |
-| SDK | Software Development Kit | Conjunto de herramientas/paquetes |
-| API | Application Programming Interface | Interfaz del backend |
-| RN | React Native | Framework de la app |
-| JS | JavaScript | Lenguaje del runtime |
-| TS | TypeScript | Lenguaje tipado del proyecto |
-| UI | User Interface | Interfaz visual |
-| UX | User Experience | Experiencia de usuario |
-| QA | Quality Assurance | Pruebas de calidad |
-| PII | Personally Identifiable Information | Datos personales/sensibles |
-| UTC | Coordinated Universal Time | Zona horaria de referencia |
-| ISO | International Organization for Standardization | Organismo que define formatos como ISO 8601 |
-| HTTP | Hypertext Transfer Protocol | Protocolo de red |
-| JSON | JavaScript Object Notation | Formato de serialización |
-| UUID | Universally Unique Identifier | Identificador único |
-| TTL | Time To Live | Tiempo de vida de un dato |
-| DLQ | Dead Letter Queue | Cola de mensajes fallidos |
-| JWT | JSON Web Token | Formato común de token de autenticación |
-| DB | Database | Base de datos |
-| CI/CD | Continuous Integration / Continuous Delivery | Automatización de builds y despliegues |
-| TTFF | Time To First Fix | Tiempo hasta la primera posición GPS |
