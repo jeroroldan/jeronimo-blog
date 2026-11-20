@@ -76,7 +76,14 @@
       if (!pre) continue;
       // expressive-code envuelve el <pre> en .expressive-code: se reemplaza el contenedor completo
       const container = pre.closest('.expressive-code') ?? pre;
-      const source = (pre.textContent ?? '').trim();
+      // expressive-code renderiza cada línea en un .ec-line, sin conservar
+      // saltos de línea en textContent. Mermaid sí necesita esos separadores.
+      const codeLines = pre.querySelectorAll('.ec-line');
+      const source = (
+        codeLines.length
+          ? Array.from(codeLines, (line) => line.textContent ?? '').join('\n')
+          : (pre.querySelector('code')?.textContent ?? pre.textContent ?? '')
+      ).trim();
       if (!source) continue;
 
       const wrap = document.createElement('div');
