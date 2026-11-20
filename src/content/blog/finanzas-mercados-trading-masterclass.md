@@ -99,7 +99,7 @@ readingTime: 18
 
 3. ⚡ **VICTORIA RÁPIDA (<5 min)** — Abre una cotización pública o simulada y localiza precio, hora, volumen y diferencia entre compra y venta. No envíes una orden.
 
-4. 💡 **CONCEPTO** — Analogía: en una subasta, compradores y vendedores aceptan condiciones y así cambia el precio. El libro de órdenes reúne ofertas; la liquidez indica cuán fácil es ejecutar una operación. Una orden de mercado prioriza ejecución al mejor precio disponible, pero el resultado puede variar. Una orden limitada fija el máximo de compra o mínimo de venta, aunque quizá no se ejecute. Comisiones, spread e impuestos afectan el resultado.
+4. 💡 **CONCEPTO** — Analogía: en una subasta, compradores y vendedores aceptan condiciones y así cambia el precio. El libro de órdenes reúne ofertas; la liquidez indica cuán fácil es operar. Una orden de mercado prioriza ejecución al mejor precio disponible, pero este puede variar. Una limitada fija el máximo de compra o mínimo de venta, aunque quizá no se ejecute. Comisiones, spread e impuestos afectan.
 
 5. 👀 **EJEMPLO RESUELTO** — Caso: una cotización ofrece compra a 99 y venta a 101 unidades. I Do: identifico spread de 2 unidades antes de costos adicionales. We Do: si envío una orden limitada de compra a 100, ¿se ejecuta seguro? → no; solo si hay contraparte y condiciones para cruzarla. You Do: compara qué control ofrece una orden limitada y qué incertidumbre conserva una orden de mercado.  
    **Visual:** Cotización → tipo de orden → posible ejecución → registro. Se lee de izquierda a derecha.
@@ -127,9 +127,9 @@ readingTime: 18
 
 3. ⚡ **VICTORIA RÁPIDA (<5 min)** — Define en una frase la pérdida máxima que aceptarías en una operación simulada. Mantén el ejercicio en papel.
 
-4. 💡 **CONCEPTO** — Analogía: el riesgo es el agujero posible en tu presupuesto. Tamaño de posición: unidades que operas. Un stop activa una salida bajo ciertas reglas, pero no garantiza el precio final. El apalancamiento permite una exposición mayor que el capital aportado; puede amplificar pérdidas, forzar liquidaciones o generar obligaciones según producto y jurisdicción.
+4. 💡 **CONCEPTO** — Analogía: el riesgo es el agujero posible en tu presupuesto. Tamaño de posición: unidades que operas. Un stop activa una salida, pero no garantiza el precio final. El apalancamiento crea una exposición mayor que el capital aportado; puede amplificar pérdidas, forzar liquidaciones o generar obligaciones según producto y jurisdicción.
 
-5. 👀 **EJEMPLO RESUELTO** — Solo para practicar: cuenta ficticia de 10.000 unidades; pérdida planificada de 50; entrada a 100 y salida prevista a 95. I Do: cada unidad arriesga 5 antes de costos. We Do: 50 ÷ 5 = 10 unidades teóricas. You Do: añade comisiones y posible deslizamiento; el tamaño final puede ser menor.  
+5. 👀 **EJEMPLO RESUELTO** — Simulación: cuenta de 10.000 unidades; pérdida prevista 50; entrada 100, salida 95. I Do: riesgo unitario 5. We Do: 50 ÷ 5 = 10 unidades antes de costos. You Do: añade comisiones y deslizamiento; el tamaño puede ser menor.
    **Visual:** pérdida planeada ÷ riesgo por unidad → tamaño teórico → ajuste por costos. Se lee de izquierda a derecha. El ejemplo no es una recomendación ni una tasa universal.
 
 6. ⚠️ **CONTRA-EJEMPLO / ERROR TÍPICO** — Duplicar una operación para recuperar una pérdida. Corrección: define reglas antes de operar y no aumentes riesgo por emoción. Un stop puede ejecutarse peor que su nivel si hay saltos de precio o poca liquidez.
